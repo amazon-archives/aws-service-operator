@@ -23,3 +23,5 @@ type CloudFormationTemplateExpansion interface{}
 type DynamoDBExpansion interface{}
 
 type S3BucketExpansion interface{}
+
+type SQSQueueExpansion interface{}
