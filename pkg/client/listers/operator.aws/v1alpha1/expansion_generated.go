@@ -25,3 +25,11 @@ type CloudFormationTemplateListerExpansion interface{}
 // CloudFormationTemplateNamespaceListerExpansion allows custom methods to be added to
 // CloudFormationTemplateNamespaceLister.
 type CloudFormationTemplateNamespaceListerExpansion interface{}
+
+// S3BucketListerExpansion allows custom methods to be added to
+// S3BucketLister.
+type S3BucketListerExpansion interface{}
+
+// S3BucketNamespaceListerExpansion allows custom methods to be added to
+// S3BucketNamespaceLister.
+type S3BucketNamespaceListerExpansion interface{}

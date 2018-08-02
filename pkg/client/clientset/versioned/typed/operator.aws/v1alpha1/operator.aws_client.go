@@ -28,6 +28,7 @@ import (
 type OperatorV1alpha1Interface interface {
 	RESTClient() rest.Interface
 	CloudFormationTemplatesGetter
+	S3BucketsGetter
 }
 
 // OperatorV1alpha1Client is used to interact with features provided by the operator.aws group.
@@ -37,6 +38,10 @@ type OperatorV1alpha1Client struct {
 
 func (c *OperatorV1alpha1Client) CloudFormationTemplates(namespace string) CloudFormationTemplateInterface {
 	return newCloudFormationTemplates(c, namespace)
+}
+
+func (c *OperatorV1alpha1Client) S3Buckets(namespace string) S3BucketInterface {
+	return newS3Buckets(c, namespace)
 }
 
 // NewForConfig creates a new OperatorV1alpha1Client for the given config.

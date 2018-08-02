@@ -19,3 +19,5 @@ limitations under the License.
 package v1alpha1
 
 type CloudFormationTemplateExpansion interface{}
+
+type S3BucketExpansion interface{}
