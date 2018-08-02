@@ -41,3 +41,11 @@ type S3BucketListerExpansion interface{}
 // S3BucketNamespaceListerExpansion allows custom methods to be added to
 // S3BucketNamespaceLister.
 type S3BucketNamespaceListerExpansion interface{}
+
+// SQSQueueListerExpansion allows custom methods to be added to
+// SQSQueueLister.
+type SQSQueueListerExpansion interface{}
+
+// SQSQueueNamespaceListerExpansion allows custom methods to be added to
+// SQSQueueNamespaceLister.
+type SQSQueueNamespaceListerExpansion interface{}

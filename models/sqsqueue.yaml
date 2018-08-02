@@ -1,0 +1,109 @@
+apiVersion: operator.aws/v1alpha1
+kind: ModelDefinition
+metadata:
+  name: SQSResource
+spec:
+  kind: SQSQueue
+  type: Spec # can be Spec or Data
+  queue: true
+  useCloudFormation: true
+  resource:
+    name: sqsqueue
+    plural: sqsqueues
+    shortNames:
+    - name: sqs
+    - name: queue
+    - name: queues
+  body:
+    schema:
+      type: object
+      properties:
+      - key: contentBasedDeduplication
+        type: bool
+        description: |
+          ContentBasedDeduplication enables content deduping on the queue
+        structKey: ContentBasedDeduplication
+        templateKey: ContentBasedDeduplication
+      - key: delaySeconds
+        type: int
+        description: |
+          DelaySeconds is how long the message should delay on recieving.
+        structKey: DelaySeconds
+        templateKey: DelaySeconds
+      - key: maximumMessageSize
+        type: int
+        description: |
+          MaximumMessageSize the maximum size a message should be and int
+        structKey: MaximumMessageSize
+        templateKey: MaximumMessageSize
+      - key: messageRetentionPeriod
+        type: int
+        description: |
+          MaximumMessageSize the maximum size a message should be
+          MessageRetentionPeriod determines how long to keep a message
+        structKey: MessageRetentionPeriod
+        templateKey: MessageRetentionPeriod
+      - key: receiveMessageWaitTimeSeconds
+        type: int
+        description: |
+          Time it will wait until it tries to find another message to process.
+        structKey: ReceiveMessageWaitTimeSeconds
+        templateKey: ReceiveMessageWaitTimeSeconds
+      - key: usedeadletterQueue
+        type: bool
+        description: |
+          Queue specifically made for messages that cannot be processed
+        structKey: UsedeadletterQueue
+        templateKey: UsedeadletterQueue
+      - key: visibilityTimeout
+        type: int
+        description: |
+          Timeout for processing a message.
+        structKey: VisibilityTimeout
+        templateKey: VisibilityTimeout
+      - key: fifoQueue
+        type: bool
+        description: |
+          Should this queue process messages in a first in first out manner
+        structKey: FifoQueue
+        templateKey: FifoQueue
+  output:
+    schema:
+      type: object
+      properties:
+      - key: queueURL
+        type: string
+        description: |
+          URL of newly created SQS Queue
+        structKey: QueueURL
+        templateKey: QueueURL
+      - key: queueARN
+        type: string
+        description: |
+          ARN of newly created SQS Queue
+        structKey: QueueARN
+        templateKey: QueueARN
+      - key: queueName
+        type: string
+        description: |
+          Name newly created SQS Queue
+        structKey: QueueName
+        templateKey: QueueName
+      - key: deadLetterQueueURL
+        type: string
+        description: |
+          URL of newly created SQS Queue
+        structKey: DeadLetterQueueURL
+        templateKey: DeadLetterQueueURL
+      - key: deadLetterQueueARN
+        type: string
+        description: |
+          ARN of newly created SQS Queue
+        structKey: DeadLetterQueueARN
+        templateKey: DeadLetterQueueARN
+      - key: deadLetterQueueName
+        type: string
+        description: |
+          Name newly created SQS Queue
+        structKey: DeadLetterQueueName
+        templateKey: DeadLetterQueueName

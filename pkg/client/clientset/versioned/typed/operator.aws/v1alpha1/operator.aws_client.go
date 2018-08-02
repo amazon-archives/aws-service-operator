@@ -30,6 +30,7 @@ type OperatorV1alpha1Interface interface {
 	CloudFormationTemplatesGetter
 	DynamoDBsGetter
 	S3BucketsGetter
+	SQSQueuesGetter
 }
 
 // OperatorV1alpha1Client is used to interact with features provided by the operator.aws group.
@@ -47,6 +48,10 @@ func (c *OperatorV1alpha1Client) DynamoDBs(namespace string) DynamoDBInterface {
 
 func (c *OperatorV1alpha1Client) S3Buckets(namespace string) S3BucketInterface {
 	return newS3Buckets(c, namespace)
+}
+
+func (c *OperatorV1alpha1Client) SQSQueues(namespace string) SQSQueueInterface {
+	return newSQSQueues(c, namespace)
 }
 
 // NewForConfig creates a new OperatorV1alpha1Client for the given config.

@@ -30,6 +30,8 @@ type Interface interface {
 	DynamoDBs() DynamoDBInformer
 	// S3Buckets returns a S3BucketInformer.
 	S3Buckets() S3BucketInformer
+	// SQSQueues returns a SQSQueueInformer.
+	SQSQueues() SQSQueueInformer
 }
 
 type version struct {
@@ -56,4 +58,9 @@ func (v *version) DynamoDBs() DynamoDBInformer {
 // S3Buckets returns a S3BucketInformer.
 func (v *version) S3Buckets() S3BucketInformer {
 	return &s3BucketInformer{factory: v.factory, namespace: v.namespace, tweakListOptions: v.tweakListOptions}
+}
+
+// SQSQueues returns a SQSQueueInformer.
+func (v *version) SQSQueues() SQSQueueInformer {
+	return &sQSQueueInformer{factory: v.factory, namespace: v.namespace, tweakListOptions: v.tweakListOptions}
 }
