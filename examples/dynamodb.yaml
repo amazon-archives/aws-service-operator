@@ -1,0 +1,14 @@
+apiVersion: operator.aws/v1alpha1
+kind: DynamoDB
+metadata:
+  name: dynamodb-table
+spec:
+  tableName: dynamodb-table
+  hashAttribute:
+    name: user_id
+    type: S
+  rangeAttribute:
+    name: created_at
+    type: S
+  readCapacityUnits: 5
+  writeCapacityUnits: 5

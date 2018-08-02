@@ -1,0 +1,95 @@
+apiVersion: operator.aws/v1alpha1
+kind: ModelDefinition
+metadata:
+  name: DynamoDBResource
+spec:
+  kind: DynamoDB
+  type: Spec # can be Spec or Data
+  queue: true
+  useCloudFormation: true
+  resource:
+    name: dynamodb
+    plural: dynamodbs
+    shortNames:
+    - name: ddb
+    - name: ddbs
+    - name: dynamo
+    - name: dynamotable
+    - name: dynamotables
+  body:
+    schema:
+      title: DynamoDB
+      type: object
+      properties:
+      - key: tableName
+        type: string
+        description: |
+          TableName is the name of the DynamoDB Table to be created.
+        structKey: TableName
+        templateKey: TableName
+      - key: rangeAttribute
+        type: object
+        description: |
+          RangeAttribute is the configuration for the range attribute.
+        structKey: RangeAttribute
+        templateKey: RangeAttribute
+        properties:
+        - key: Name
+          type: string
+          description: |
+            Name is the name of the range attribute on the table.
+          structKey: Name
+          templateKey: RangeAttributeName
+        - key: Type
+          type: string
+          description: |
+            Type is the kind of range attribute that should be used.
+          structKey: Type
+          templateKey: RangeAttributeType
+      - key: readCapacityUnits
+        type: int
+        description: |
+          ReadCapacityUnits specifies the read capacity of the table.
+        structKey: ReadCapacityUnits
+        templateKey: ReadCapacityUnits
+      - key: writeCapacityUnits
+        type: int
+        description: |
+          WriteCapacityUnits specifies the write capacity of the table.
+        structKey: WriteCapacityUnits
+        templateKey: WriteCapacityUnits
+      - key: hashAttribute
+        type: object
+        description: |
+          HashAttribute is the configuration for the hash attribute on the table.
+        structKey: HashAttribute
+        templateKey: HashAttribute
+        properties:
+        - key: Name
+          type: string
+          description: |
+            Name is the name of the hashing attribute on the table.
+          structKey: Name
+          templateKey: HashAttributeName
+        - key: Type
+          type: string
+          description: |
+            Type is the kind of hash attribute that should be used.
+          structKey: Type
+          templateKey: HashAttributeType
+  output:
+    schema:
+      type: object
+      properties:
+      - key: tableName
+        type: string
+        description: |
+          TableName is the output tablename incase it changed
+        structKey: TableName
+        templateKey: TableName
+      - key: tableARN
+        type: string
+        description: |
+          TableARN is the full Amazon ARN for the table created
+        structKey: TableARN
+        templateKey: TableArn

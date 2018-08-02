@@ -28,6 +28,7 @@ import (
 type OperatorV1alpha1Interface interface {
 	RESTClient() rest.Interface
 	CloudFormationTemplatesGetter
+	DynamoDBsGetter
 	S3BucketsGetter
 }
 
@@ -38,6 +39,10 @@ type OperatorV1alpha1Client struct {
 
 func (c *OperatorV1alpha1Client) CloudFormationTemplates(namespace string) CloudFormationTemplateInterface {
 	return newCloudFormationTemplates(c, namespace)
+}
+
+func (c *OperatorV1alpha1Client) DynamoDBs(namespace string) DynamoDBInterface {
+	return newDynamoDBs(c, namespace)
 }
 
 func (c *OperatorV1alpha1Client) S3Buckets(namespace string) S3BucketInterface {

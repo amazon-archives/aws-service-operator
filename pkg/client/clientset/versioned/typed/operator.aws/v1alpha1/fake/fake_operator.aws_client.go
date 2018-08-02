@@ -32,6 +32,10 @@ func (c *FakeOperatorV1alpha1) CloudFormationTemplates(namespace string) v1alpha
 	return &FakeCloudFormationTemplates{c, namespace}
 }
 
+func (c *FakeOperatorV1alpha1) DynamoDBs(namespace string) v1alpha1.DynamoDBInterface {
+	return &FakeDynamoDBs{c, namespace}
+}
+
 func (c *FakeOperatorV1alpha1) S3Buckets(namespace string) v1alpha1.S3BucketInterface {
 	return &FakeS3Buckets{c, namespace}
 }
