@@ -1,0 +1,93 @@
+package cloudformationtemplate
+
+import (
+	"bytes"
+	"github.com/aws/aws-sdk-go/aws"
+	"github.com/aws/aws-sdk-go/aws/session"
+	"github.com/aws/aws-sdk-go/service/s3"
+	awsV1alpha1 "github.com/christopherhein/aws-operator/pkg/apis/operator.aws/v1alpha1"
+	awsclient "github.com/christopherhein/aws-operator/pkg/client/clientset/versioned/typed/operator.aws/v1alpha1"
+	"github.com/christopherhein/aws-operator/pkg/config"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"reflect"
+)
+
+// OnAdd will be fired when you add a new CFT
+func OnAdd(config *config.Config, cft *awsV1alpha1.CloudFormationTemplate) {
+	logger := config.Logger
+
+	updateOutput(config, cft, "UPLOAD_IN_PROGRESS", "")
+	err := addFileToS3(config.AWSSession, config.Bucket, cft.Data.Key, cft.Data.Template)
+	if err != nil {
+		logger.WithError(err).Error("error uploading cloudformation")
+		updateOutput(config, cft, "UPLOAD_FAILED", err.Error())
+	}
+	logger.Infof("added cloudformationtemplate '%s'", cft.Name)
+	updateOutput(config, cft, "UPLOAD_COMPLETE", "")
+}
+
+// OnUpdate will be fired when you update a CFT
+func OnUpdate(config *config.Config, oldcft *awsV1alpha1.CloudFormationTemplate, newcft *awsV1alpha1.CloudFormationTemplate) {
+	if !reflect.DeepEqual(oldcft.Data, newcft.Data) {
+		logger := config.Logger
+
+		updateOutput(config, newcft, "UPLOAD_IN_PROGRESS", "")
+		err := addFileToS3(config.AWSSession, config.Bucket, oldcft.Data.Key, newcft.Data.Template)
+		if err != nil {
+			logger.WithError(err).Error("error uploading cloudformation")
+			updateOutput(config, newcft, "UPLOAD_FAILED", err.Error())
+		}
+		logger.Infof("updated cloudformationtemplate '%s'", oldcft.Name)
+		updateOutput(config, newcft, "UPDATE_COMPLETE", "")
+	}
+}
+
+// OnDelete will be fired when you delete a CFT
+func OnDelete(config *config.Config, cft *awsV1alpha1.CloudFormationTemplate) {
+	logger := config.Logger
+
+	_, err := s3.New(config.AWSSession).DeleteObject(&s3.DeleteObjectInput{
+		Bucket: aws.String(config.Bucket),
+		Key:    aws.String(cft.Data.Key),
+	})
+	if err != nil {
+		logger.WithError(err).Error("error uploading cloudformation")
+	}
+	logger.Infof("deleted cloudformationtemplate '%s'", cft.Name)
+}
+
+func addFileToS3(s *session.Session, bucket string, filename string, template string) error {
+	buffer := []byte(template)
+
+	svc := s3.New(s)
+
+	_, err := svc.PutObject(&s3.PutObjectInput{
+		Bucket: aws.String(bucket),
+		Key:    aws.String(filename),
+		ACL:    aws.String("public-read"),
+		Body:   bytes.NewReader(buffer),
+	})
+	return err
+}
+
+func updateOutput(config *config.Config, cft *awsV1alpha1.CloudFormationTemplate, status string, reason string) error {
+	logger := config.Logger
+	clientSet, _ := awsclient.NewForConfig(config.RESTConfig)
+	resource, err := clientSet.CloudFormationTemplates(cft.Namespace).Get(cft.Name, metav1.GetOptions{})
+	if err != nil {
+		logger.WithError(err).Error("error getting cloudformation template")
+		return err
+	}
+
+	resourceCopy := resource.DeepCopy()
+	resourceCopy.Status.ResourceStatus = status
+	resourceCopy.Status.ResourceStatusReason = reason
+	resourceCopy.Output.URL = "https://" + config.Bucket + ".s3-" + config.Region + ".amazonaws.com/" + cft.Data.Key
+
+	_, err = clientSet.CloudFormationTemplates(cft.Namespace).Update(resourceCopy)
+	if err != nil {
+		logger.WithError(err).Error("error updating resource")
+		return err
+	}
+	return nil
+}
