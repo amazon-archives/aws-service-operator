@@ -1,0 +1,148 @@
+apiVersion: operator.aws/v1alpha1
+kind: CloudFormationTemplate
+metadata:
+  name: s3bucket
+data:
+  key: s3bucket.yaml
+  template: |
+    AWSTemplateFormatVersion: 2010-09-09
+    Description: 'AWS Operator - Amazon S3 Bucket'
+    Parameters:
+      Namespace:
+        Description: >-
+          This is the namespace for the Kubernetes object.
+        Type: String
+      ResourceVersion:
+        Type: String
+        Description: >-
+          This is the resource version for the Kubernetes object.
+      ResourceName:
+        Description: >-
+          This is the resource name for the Kubernetes object
+        Type: String
+      ClusterName:
+        Description: >-
+          This is the cluster name for the operator
+        Type: String
+      BucketName:
+        Description: >-
+          Must contain only lowercase letters, numbers, periods (.), and hyphens
+          (-),Cannot end in numbers
+        Type: String
+        Default: apps3bucket
+      LoggingPrefix:
+        Description: >-
+          Must contain only lowercase letters, numbers, periods (.), and hyphens
+          (-),Cannot end in numbers
+        Type: String
+        Default: Archive
+      EnableLogging:
+        Description: enable or discable S3 logging
+        Type: String
+        AllowedValues:
+          - 'true'
+          - 'false'
+        Default: 'true'
+      EnableGlacierLifeCycle:
+        Description: enable archiving to Glacier Storage
+        Type: String
+        AllowedValues:
+          - 'true'
+          - 'false'
+        Default: 'false'
+      GlacierLifeCycleTransitionInDays:
+        Description: Define how many days objects should exist before being moved to Glacier
+        Type: String
+        Default: '0'
+      EnableVersioning:
+        Description: enable versioning
+        Type: String
+        AllowedValues:
+          - 'true'
+          - 'false'
+        Default: 'false'
+      LifeCyclePrefix:
+        Description: >-
+          Must contain only lowercase letters, numbers, periods (.), and hyphens
+          (-),Cannot end in numbers
+        Type: String
+        Default: Archive
+      BucketAccessControl:
+        Description: define if the bucket can be accessed from public or private locations
+        Type: String
+        AllowedValues:
+          - Private
+          - PublicRead
+          - PublicReadWrite
+          - AuthenticatedRead
+          - LogDeliveryWrite
+          - BucketOwnerRead
+          - BucketOwnerFullControl
+          - AwsExecRead
+        Default: "Private"
+    Mappings: {}
+    Conditions:
+      UseLogging: !Equals 
+        - !Ref EnableLogging
+        - 'true'
+      UseGlacierLifeCycle: !Equals 
+        - !Ref EnableGlacierLifeCycle
+        - 'true'
+      UseVersioning: !Equals 
+        - !Ref EnableVersioning
+        - 'true'
+    Resources:
+      S3bucket:
+        Type: 'AWS::S3::Bucket'
+        Properties:
+          BucketName: !Ref BucketName
+          AccessControl: !Ref BucketAccessControl
+          LifecycleConfiguration:
+            Rules:
+              - Id: GlacierRule
+                Prefix: !Ref LifeCyclePrefix
+                Status: Enabled
+                ExpirationInDays: '365'
+                Transitions:
+                  - TransitionInDays: !Ref GlacierLifeCycleTransitionInDays
+                    StorageClass: Glacier
+          LoggingConfiguration: !If 
+            - UseLogging
+            - DestinationBucketName: !Ref LoggingBucket
+              LogFilePrefix: !Ref LoggingPrefix
+            - !Ref 'AWS::NoValue'
+          Tags:
+            - Key: Namespace
+              Value: !Ref Namespace
+            - Key: ResourceVersion
+              Value: !Ref ResourceVersion
+            - Key: ResourceName
+              Value: !Ref ResourceName
+            - Key: ClusterName
+              Value: !Ref ClusterName
+            - Key: Heritage
+              Value: operator.aws
+          VersioningConfiguration: !If 
+            - UseVersioning
+            - Status: Enabled
+            - !Ref 'AWS::NoValue'
+        DeletionPolicy: Retain
+      LoggingBucket:
+        Condition: UseLogging
+        Type: 'AWS::S3::Bucket'
+        DeletionPolicy: Retain
+        Properties:
+          AccessControl: LogDeliveryWrite
+          BucketName: !Join 
+            - ''
+            - - !Ref BucketName
+              - logging
+    Outputs:
+      BucketName:
+        Value: !Ref S3bucket
+        Description: Name of the sample Amazon S3 bucket.
+      BucketArn:
+        Value: !GetAtt 
+          - S3bucket
+          - Arn
+        Description: Name of the Amazon S3 bucket
