@@ -1,0 +1,89 @@
+= AWS Operator
+
+The AWS Operator allows you to create custom AWS specific resources using
+Kubernetes CRDs or Custom Resource Definitions. These help with defining your
+applications including all the necessary components such as Amazon RDS
+databases, Amazon ElasticCache resources, Amazon SQS queues and many more.
+
+Using the AWS Operator allows your to use processes like `gitops` to keep your
+clusters in a specified state with the internal control loop managing the
+lifecycle of those components.
+
+To make this all possible we merge together Kubernetes CRDs with an operator
+which interacts with Amazon Cloudformation to keep the AWS resources in-sync
+with the control loop.
+
+// TODO: Add demo screen capture
+
+== Getting Started
+
+First thing that you will need to do is install an Pod to IAM management layer
+such as `kube2iam`. This will allow you to create an AWS IAM role that gives
+access to create resources. For an example policy check the
+`examples/iam-policy.json`.
+
+To get started with `kube2iam` go [here](https://github.com/jtblin/kube2iam)
+
+After you have installed `kube2iam` we need to do is deploy the `aws-operator`
+this runs as a pod in your Kubernetes cluster and listen for new CRD's of the
+`aws` type and creates the resource and allocates a kubernetes `Service` to
+connect to it.
+
+You'll want to download the operator file like so
+
+[source,shell]
+----
+wget https://raw.githubusercontent.com/christopherhein/aws-operator/master/configs/aws-operator.yaml
+----
+
+Then edit the file and replace `{{POD-ARN}}` with the pod ARN you created for
+`kube2iam`
+
+Last install the manifest with the pod ARN specified.
+
+[source,shell]
+----
+# Install RBAC
+kubectl apply -f aws-operator.yaml
+----
+
+To test this create a file like this
+
+[source,yaml]
+----
+# s3bucket.yml
+apiVersion: operator.aws/v1alpha1
+kind: S3Bucket
+metadata:
+  name: some-name-for-your-bucket
+spec:
+  bucketName: some-name-for-your-bucket
+  versioning: false
+  logging:
+    enabled: true
+    prefix: "archive"
+  tags:
+  - key: service
+    value: kube
+----
+
+Then install like you would any other manifest file.
+
+[source,shell]
+----
+kubectl apply -f s3bucket.yml
+----
+
+This will communicate directly with Cloudformation to create the S3 bucket using
+the parameters you have passed in. If you'd like to see the progress you can
+view the status directly via `kubectl`.
+
+[source,shell]
+----
+kubectl get s3buckets <bucket-name> -w
+// TODO: add output.
+----
+
+To learn more about the other resources please visit the documentation at
+link:/docs/readme.adoc[Documentation]
+
