@@ -1,0 +1,75 @@
+apiVersion: operator.aws/v1alpha1
+kind: ModelDefinition
+metadata:
+  name: S3BucketResource
+spec:
+  kind: S3Bucket
+  type: Spec # can be Spec or Data
+  queue: true
+  useCloudFormation: true
+  resource:
+    name: s3bucket
+    plural: s3buckets
+    shortNames:
+    - name: s3
+    - name: bucket
+    - name: buckets
+  body:
+    schema:
+      type: object
+      properties:
+      - key: bucketName
+        type: string
+        description: |
+          BucketName is the name of the S3 Bucket to be created.
+        structKey: BucketName
+        templateKey: BucketName
+      - key: versioning
+        type: bool
+        description: |
+          Versioning specifies if whether you want to automatically enable versioning of the content in the bucket.
+        structKey: Versioning
+        templateKey: EnableVersioning
+      - key: logging
+        type: object
+        description: |
+          Logging defines the options for managing the S3 logging options.
+        structKey: Logging
+        templateKey: logging
+        properties:
+        - key: enabled
+          type: bool
+          description: |
+            Logging Enabled configures the S3 Bucket to log to a separate Logging bucket
+          structKey: Enabled
+          templateKey: EnableLogging
+        - key: prefix
+          type: string
+          description: |
+            Logging prefix to attach to all logs in the bucket.
+          structKey: Prefix
+          templateKey: LoggingPrefix
+  output:
+    schema:
+      type: object
+      properties:
+      - key: bucketName
+        type: string
+        description: |
+          BucketName is the output bucketname incase it changed
+        structKey: BucketName
+        templateKey: BucketName
+      - key: bucketARN
+        type: string
+        description: |
+          BucketARN is the full Amazon ARN for the bucket created
+        structKey: BucketARN
+        templateKey: BucketArn
+  # additionalResources:
+  #   services:
+  #   - type: ExternalName
+  #     externalName: "{{.Obj.Spec.BucketName}}.s3-{{.Config.Region}}.amazonaws.com"
+  #     ports:
+  #     - protocol: tcp
+  #       port: 443
+

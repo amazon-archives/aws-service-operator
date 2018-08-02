@@ -9,7 +9,10 @@ import (
 
 	awsclient "github.com/christopherhein/aws-operator/pkg/client/clientset/versioned/typed/operator.aws/v1alpha1"
 	"github.com/christopherhein/aws-operator/pkg/config"
+	"github.com/christopherhein/aws-operator/pkg/operator/cloudformationtemplate"
+	"github.com/christopherhein/aws-operator/pkg/operator/s3bucket"
 	opkit "github.com/christopherhein/operator-kit"
+	"k8s.io/api/core/v1"
 	apiextensionsclient "k8s.io/apiextensions-apiserver/pkg/client/clientset/clientset"
 	"k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/rest"
@@ -38,7 +41,10 @@ func (c *Server) Run(stopChan chan struct{}) {
 
 	// Create and wait for CRD resources
 	logger.Info("Registering resources")
-	resources := []opkit.CustomResource{}
+	resources := []opkit.CustomResource{
+		cloudformationtemplate.Resource,
+		s3bucket.Resource,
+	}
 	err = opkit.CreateCustomResources(*context, resources)
 	if err != nil {
 		logger.Fatalf("failed to create custom resource. %+v\n", err)
@@ -70,6 +76,11 @@ func (c *Server) Run(stopChan chan struct{}) {
 
 	// start watching the aws operator resources
 	logger.Info("Watching the resources")
+	cftcontroller := cloudformationtemplate.NewController(config, context, awsClientset)
+	cftcontroller.StartWatch(v1.NamespaceAll, stopChan)
+
+	s3controller := s3bucket.NewController(config, context, awsClientset)
+	s3controller.StartWatch(v1.NamespaceAll, stopChan)
 }
 
 func getClientConfig(kubeconfig string) (*rest.Config, error) {
