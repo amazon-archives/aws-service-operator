@@ -1,0 +1,53 @@
+= Development
+
+Make sure you first have all the dependencies installed.
+
+[source,shell]
+----
+brew install dep
+brew upgrade dep
+dep ensure
+----
+
+If you want to make changes to the operators, they are all generated code, to
+modify them you will need to install the `aws-operator-codegen` project by
+running.
+
+[source,shell]
+----
+go get -u github.com/christopherhein/aws-operator-codegen
+----
+
+After you have this installed you can run the following from the root of the
+project.
+
+[source,shell]
+----
+aws-operator-codegen process
+----
+
+This takes the model files that are in `models/` and converts them into the
+operator code in `pkg/operator`
+
+Once you have run this you can then use the Kubernetes code generation libraries
+to auto generate the `pkg/client`.
+
+[source,shell]
+----
+./codegen.sh
+----
+
+After have made sure the codegen is run you can then build the package and
+run it against a remote cluster by passing in the `kubeconfig` file.
+
+```bash
+make build && ./aws-operator server --kubeconfig ~/.kube/config --region
+us-west-2
+```
+
+== Writing Additional Operators
+
+Additional Custom Resource Definitions and Controllers can be created and
+deployed using the build in model file to controller logic. Because each
+resource is defined using Cloudformation we have a simple to use DSL for adding
+additional resources.
