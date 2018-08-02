@@ -1,0 +1,51 @@
+project_name: aws-operator
+
+# This will be useful in making sure that all files are updated before
+# a release is made.
+before:
+  hooks:
+  - make codegen
+  - make update-bindata
+
+# Builds the binary for each platform
+builds:
+- binary: aws-operator
+  main: ./cmd/aws-operator/
+  goos:
+  - darwin
+  - windows
+  - linux
+  goarch:
+  - amd64
+
+# Will package downloadable archives to share on Github
+archive:
+  replacements:
+    darwin: Darwin
+    linux: Linux
+    windows: Windows
+  format: tar.gz
+  format_overrides:
+    - goos: windows
+      format: zip
+
+# Use short hash for commit ldflags
+git:
+  short_hash: true
+
+# Release will configure where the GitHub release is handled
+release:
+  github:
+    owner: christopherhein
+    name: aws-operator
+  draft: true
+  prerelease: true
+
+# Creates a Docker container with the operator packaged into it for distribution
+dockers:
+- image: christopherhein/aws-operator
+  binary: aws-operator
+  dockerfile: Dockerfile
+  tag_templates:
+  - "{{ .Tag }}"
+  - "latest"
