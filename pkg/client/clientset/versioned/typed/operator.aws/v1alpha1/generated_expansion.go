@@ -20,4 +20,6 @@ package v1alpha1
 
 type CloudFormationTemplateExpansion interface{}
 
+type DynamoDBExpansion interface{}
+
 type S3BucketExpansion interface{}

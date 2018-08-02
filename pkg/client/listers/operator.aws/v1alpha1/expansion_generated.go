@@ -26,6 +26,14 @@ type CloudFormationTemplateListerExpansion interface{}
 // CloudFormationTemplateNamespaceLister.
 type CloudFormationTemplateNamespaceListerExpansion interface{}
 
+// DynamoDBListerExpansion allows custom methods to be added to
+// DynamoDBLister.
+type DynamoDBListerExpansion interface{}
+
+// DynamoDBNamespaceListerExpansion allows custom methods to be added to
+// DynamoDBNamespaceLister.
+type DynamoDBNamespaceListerExpansion interface{}
+
 // S3BucketListerExpansion allows custom methods to be added to
 // S3BucketLister.
 type S3BucketListerExpansion interface{}

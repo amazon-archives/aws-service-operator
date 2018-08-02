@@ -26,6 +26,8 @@ import (
 type Interface interface {
 	// CloudFormationTemplates returns a CloudFormationTemplateInformer.
 	CloudFormationTemplates() CloudFormationTemplateInformer
+	// DynamoDBs returns a DynamoDBInformer.
+	DynamoDBs() DynamoDBInformer
 	// S3Buckets returns a S3BucketInformer.
 	S3Buckets() S3BucketInformer
 }
@@ -44,6 +46,11 @@ func New(f internalinterfaces.SharedInformerFactory, namespace string, tweakList
 // CloudFormationTemplates returns a CloudFormationTemplateInformer.
 func (v *version) CloudFormationTemplates() CloudFormationTemplateInformer {
 	return &cloudFormationTemplateInformer{factory: v.factory, namespace: v.namespace, tweakListOptions: v.tweakListOptions}
+}
+
+// DynamoDBs returns a DynamoDBInformer.
+func (v *version) DynamoDBs() DynamoDBInformer {
+	return &dynamoDBInformer{factory: v.factory, namespace: v.namespace, tweakListOptions: v.tweakListOptions}
 }
 
 // S3Buckets returns a S3BucketInformer.
