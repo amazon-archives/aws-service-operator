@@ -1,0 +1,8 @@
+apiVersion: operator.aws/v1alpha1
+kind: SQS
+metadata:
+  name: chrishein-test-sqs-1
+spec:
+  contentBasedDeduplication: false
+  delaySeconds: 1
+  usedeadletterQueue: false
