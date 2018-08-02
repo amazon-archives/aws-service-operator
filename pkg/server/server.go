@@ -10,6 +10,7 @@ import (
 	awsclient "github.com/christopherhein/aws-operator/pkg/client/clientset/versioned/typed/operator.aws/v1alpha1"
 	"github.com/christopherhein/aws-operator/pkg/config"
 	"github.com/christopherhein/aws-operator/pkg/operator/cloudformationtemplate"
+	"github.com/christopherhein/aws-operator/pkg/operator/dynamodb"
 	"github.com/christopherhein/aws-operator/pkg/operator/s3bucket"
 	opkit "github.com/christopherhein/operator-kit"
 	"k8s.io/api/core/v1"
@@ -44,6 +45,7 @@ func (c *Server) Run(stopChan chan struct{}) {
 	resources := []opkit.CustomResource{
 		cloudformationtemplate.Resource,
 		s3bucket.Resource,
+		dynamodb.Resource,
 	}
 	err = opkit.CreateCustomResources(*context, resources)
 	if err != nil {
@@ -81,6 +83,9 @@ func (c *Server) Run(stopChan chan struct{}) {
 
 	s3controller := s3bucket.NewController(config, context, awsClientset)
 	s3controller.StartWatch(v1.NamespaceAll, stopChan)
+
+	ddbcontroller := dynamodb.NewController(config, context, awsClientset)
+	ddbcontroller.StartWatch(v1.NamespaceAll, stopChan)
 }
 
 func getClientConfig(kubeconfig string) (*rest.Config, error) {
