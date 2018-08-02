@@ -1,0 +1,10 @@
+apiVersion: operator.aws/v1alpha1
+kind: S3Bucket
+metadata:
+  name: chrishein-test-bucket-104
+spec:
+  bucketName: chrishein-test-bucket-name-104
+  versioning: false
+  logging:
+    enabled: false
+    prefix: "archive"
