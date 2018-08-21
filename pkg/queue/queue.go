@@ -224,6 +224,7 @@ func process(q *Queue, svc *sqs.SQS, h Handler, stopCh <-chan struct{}) error {
 				logger.WithError(err).Error("error parsing message body")
 			}
 			mb.ParseMessage()
+			logger.Debugf("%+v", mb)
 
 			err = h.HandleMessage(config, mb)
 			if err != nil {

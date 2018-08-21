@@ -42,6 +42,14 @@ type S3BucketListerExpansion interface{}
 // S3BucketNamespaceLister.
 type S3BucketNamespaceListerExpansion interface{}
 
+// SNSTopicListerExpansion allows custom methods to be added to
+// SNSTopicLister.
+type SNSTopicListerExpansion interface{}
+
+// SNSTopicNamespaceListerExpansion allows custom methods to be added to
+// SNSTopicNamespaceLister.
+type SNSTopicNamespaceListerExpansion interface{}
+
 // SQSQueueListerExpansion allows custom methods to be added to
 // SQSQueueLister.
 type SQSQueueListerExpansion interface{}

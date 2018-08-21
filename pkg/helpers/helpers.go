@@ -5,7 +5,6 @@ import (
 	"github.com/aws/aws-sdk-go/service/cloudformation"
 	awsclient "github.com/christopherhein/aws-operator/pkg/client/clientset/versioned/typed/operator.aws/v1alpha1"
 	"github.com/christopherhein/aws-operator/pkg/config"
-	apiv1 "k8s.io/api/core/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"reflect"
 	"strconv"
@@ -67,24 +66,6 @@ func Templatize(tempStr string, data interface{}) (resp string, err error) {
 	var tpl bytes.Buffer
 	err = t.Execute(&tpl, data)
 	return tpl.String(), err
-}
-
-// ServiceType will return the service object
-func ServiceType(str string) apiv1.ServiceType {
-	var sType apiv1.ServiceType
-	switch str {
-	case "ClusterIP":
-		sType = apiv1.ServiceTypeClusterIP
-	case "NodePort":
-		sType = apiv1.ServiceTypeNodePort
-	case "LoadBalancer":
-		sType = apiv1.ServiceTypeLoadBalancer
-	case "ExternalName":
-		sType = apiv1.ServiceTypeExternalName
-	default:
-		sType = apiv1.ServiceTypeClusterIP
-	}
-	return sType
 }
 
 // GetCloudFormationTemplate will return the url to the CFT from the CFT resource

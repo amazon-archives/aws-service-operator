@@ -30,6 +30,7 @@ type OperatorV1alpha1Interface interface {
 	CloudFormationTemplatesGetter
 	DynamoDBsGetter
 	S3BucketsGetter
+	SNSTopicsGetter
 	SQSQueuesGetter
 }
 
@@ -48,6 +49,10 @@ func (c *OperatorV1alpha1Client) DynamoDBs(namespace string) DynamoDBInterface {
 
 func (c *OperatorV1alpha1Client) S3Buckets(namespace string) S3BucketInterface {
 	return newS3Buckets(c, namespace)
+}
+
+func (c *OperatorV1alpha1Client) SNSTopics(namespace string) SNSTopicInterface {
+	return newSNSTopics(c, namespace)
 }
 
 func (c *OperatorV1alpha1Client) SQSQueues(namespace string) SQSQueueInterface {

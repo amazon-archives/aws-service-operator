@@ -1,0 +1,4 @@
+apiVersion: operator.aws/v1alpha1
+kind: SNSTopic
+metadata:
+  name: sns-topic-10

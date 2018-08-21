@@ -44,11 +44,6 @@ type Controller struct {
   topicARN     string
 }
 
-type data struct {
-	Obj    *awsV1alpha1.CloudFormationTemplate
-	Config *config.Config
-}
-
 // NewController create controller for watching object store custom resources created
 func NewController(config *config.Config, context *opkit.Context, awsclientset awsclient.OperatorV1alpha1Interface) *Controller {
 	return &Controller{

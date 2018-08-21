@@ -3,7 +3,7 @@
 // If you'd like the change anything about this file make edits to the .templ
 // file in the pkg/codegen/assets directory.
 
-package s3bucket
+package snstopic
 
 import (
 	 metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -23,16 +23,16 @@ import (
 
 // Resource is the object store definition
 var Resource = opkit.CustomResource{
-	Name:       "s3bucket",
-	Plural:     "s3buckets",
+	Name:       "snstopic",
+	Plural:     "snstopics",
 	Group:      awsapi.GroupName,
 	Version:    awsapi.Version,
 	Scope:      apiextensionsv1beta1.NamespaceScoped,
-	Kind:       reflect.TypeOf(awsV1alpha1.S3Bucket{}).Name(),
+	Kind:       reflect.TypeOf(awsV1alpha1.SNSTopic{}).Name(),
 	ShortNames: []string{
-		"s3",
-		"bucket",
-		"buckets",
+		"sns",
+		"topic",
+		"topics",
 	},
 }
 
@@ -61,12 +61,12 @@ func (c *Controller) StartWatch(namespace string, stopCh chan struct{}) error {
 		DeleteFunc: c.onDelete,
 	}
 	queuectrl := queue.New(c.config, c.context, c.awsclientset, 1)
-	c.topicARN, _, _, _ = queuectrl.Register("s3bucket", &awsV1alpha1.S3Bucket{})
+	c.topicARN, _, _, _ = queuectrl.Register("snstopic", &awsV1alpha1.SNSTopic{})
 	go queuectrl.StartWatch(queue.HandlerFunc(QueueUpdater), stopCh)
 
 	restClient := c.awsclientset.RESTClient()
 	watcher := opkit.NewWatcher(Resource, namespace, resourceHandlers, restClient)
-	go watcher.Watch(&awsV1alpha1.S3Bucket{}, stopCh)
+	go watcher.Watch(&awsV1alpha1.SNSTopic{}, stopCh)
 
 	return nil
 }
@@ -79,9 +79,9 @@ func QueueUpdater(config *config.Config, msg *queue.MessageBody) error {
 		namespace = msg.Namespace
 	} else {
 		clientSet, _ := awsclient.NewForConfig(config.RESTConfig)
-		resources, err := clientSet.S3Buckets("").List(metav1.ListOptions{})
+		resources, err := clientSet.SNSTopics("").List(metav1.ListOptions{})
 		if err != nil {
-			logger.WithError(err).Error("error getting s3buckets")
+			logger.WithError(err).Error("error getting snstopics")
 			return err
 		}
 		for _, resource := range resources.Items {
@@ -103,15 +103,15 @@ func QueueUpdater(config *config.Config, msg *queue.MessageBody) error {
 }
 
 func (c *Controller) onAdd(obj interface{}) {
-	s := obj.(*awsV1alpha1.S3Bucket).DeepCopy()
+	s := obj.(*awsV1alpha1.SNSTopic).DeepCopy()
   if s.Status.ResourceStatus == "" {
     cft := New(c.config, s, c.topicARN)
     output, err := cft.CreateStack()
     if err != nil {
-      c.config.Logger.WithError(err).Errorf("error creating s3bucket '%s'", s.Name)
+      c.config.Logger.WithError(err).Errorf("error creating snstopic '%s'", s.Name)
       return
     }
-    c.config.Logger.Infof("added s3bucket '%s' with stackID '%s'", s.Name, string(*output.StackId))
+    c.config.Logger.Infof("added snstopic '%s' with stackID '%s'", s.Name, string(*output.StackId))
     c.config.Logger.Infof("view at https://console.aws.amazon.com/cloudformation/home?#/stack/detail?stackId=%s", string(*output.StackId))
 
 		err = updateStatus(c.config, s.Name, s.Namespace, string(*output.StackId), "CREATE_IN_PROGRESS", "")
@@ -122,16 +122,16 @@ func (c *Controller) onAdd(obj interface{}) {
 }
 
 func (c *Controller) onUpdate(oldObj, newObj interface{}) {
-	oo := oldObj.(*awsV1alpha1.S3Bucket).DeepCopy()
-	no := newObj.(*awsV1alpha1.S3Bucket).DeepCopy()
+	oo := oldObj.(*awsV1alpha1.SNSTopic).DeepCopy()
+	no := newObj.(*awsV1alpha1.SNSTopic).DeepCopy()
   if helpers.IsStackComplete(oo.Status.ResourceStatus, false) {
     cft := New(c.config, oo, c.topicARN)
     output, err := cft.UpdateStack(no)
     if err != nil {
-      c.config.Logger.WithError(err).Errorf("error updating s3bucket '%s' with new params %+v and old %+v", no.Name, no, oo)
+      c.config.Logger.WithError(err).Errorf("error updating snstopic '%s' with new params %+v and old %+v", no.Name, no, oo)
       return
     }
-    c.config.Logger.Infof("updated s3bucket '%s' with params '%s'", no.Name, string(*output.StackId))
+    c.config.Logger.Infof("updated snstopic '%s' with params '%s'", no.Name, string(*output.StackId))
     c.config.Logger.Infof("view at https://console.aws.amazon.com/cloudformation/home?#/stack/detail?stackId=%s", string(*output.StackId))
 
 		err = updateStatus(c.config, oo.Name, oo.Namespace, string(*output.StackId), "UPDATE_IN_PROGRESS", "")
@@ -142,22 +142,22 @@ func (c *Controller) onUpdate(oldObj, newObj interface{}) {
 }
 
 func (c *Controller) onDelete(obj interface{}) {
-	s := obj.(*awsV1alpha1.S3Bucket).DeepCopy()
+	s := obj.(*awsV1alpha1.SNSTopic).DeepCopy()
 	cft := New(c.config, s, c.topicARN)
 	err := cft.DeleteStack()
 	if err != nil {
-		c.config.Logger.WithError(err).Errorf("error deleting s3bucket '%s'", s.Name)
+		c.config.Logger.WithError(err).Errorf("error deleting snstopic '%s'", s.Name)
 		return
 	}
 
-	c.config.Logger.Infof("deleted s3bucket '%s'", s.Name)
+	c.config.Logger.Infof("deleted snstopic '%s'", s.Name)
 }
 func updateStatus(config *config.Config, name string, namespace string, stackID string, status string, reason string) error {
 		logger := config.Logger
 		clientSet, _ := awsclient.NewForConfig(config.RESTConfig)
-		resource, err := clientSet.S3Buckets(namespace).Get(name, metav1.GetOptions{})
+		resource, err := clientSet.SNSTopics(namespace).Get(name, metav1.GetOptions{})
 		if err != nil {
-			logger.WithError(err).Error("error getting s3buckets")
+			logger.WithError(err).Error("error getting snstopics")
 			return err
 		}
 
@@ -172,11 +172,10 @@ func updateStatus(config *config.Config, name string, namespace string, stackID 
 			if err != nil {
 				logger.WithError(err).Error("error getting outputs")
 			}
-			resourceCopy.Output.BucketName = outputs["BucketName"]
-			resourceCopy.Output.BucketARN = outputs["BucketArn"]
+			resourceCopy.Output.TopicName = outputs["TopicName"]
 		}
 
-		_, err = clientSet.S3Buckets(namespace).Update(resourceCopy)
+		_, err = clientSet.SNSTopics(namespace).Update(resourceCopy)
 		if err != nil {
 			logger.WithError(err).Error("error updating resource")
 			return err
@@ -189,21 +188,19 @@ func updateStatus(config *config.Config, name string, namespace string, stackID 
 		return nil
 }
 
-func syncAdditionalResources(config *config.Config, s *awsV1alpha1.S3Bucket) (err error) {
+func syncAdditionalResources(config *config.Config, s *awsV1alpha1.SNSTopic) (err error) {
 	clientSet, _ := awsclient.NewForConfig(config.RESTConfig)
-	resource, err := clientSet.S3Buckets(s.Namespace).Get(s.Name, metav1.GetOptions{})
+	resource, err := clientSet.SNSTopics(s.Namespace).Get(s.Name, metav1.GetOptions{})
 	if err != nil {
 		return err
 	}
 	resource = resource.DeepCopy()
 
-	services := []string{}
-	s3BucketSvc := helpers.CreateExternalNameService(config, s, s.Name, s.Namespace, "{{.Obj.Spec.BucketName}}.s3-{{.Config.Region}}.amazonaws.com", 443)
-	services = append(services, s3BucketSvc)
-	resource.AdditionalResources.Services = services
+	
+	
 
 
-	_, err = clientSet.S3Buckets(s.Namespace).Update(resource)
+	_, err = clientSet.SNSTopics(s.Namespace).Update(resource)
 	if err != nil {
 		return err
 	}

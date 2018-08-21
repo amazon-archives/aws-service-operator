@@ -59,6 +59,8 @@ func (f *sharedInformerFactory) ForResource(resource schema.GroupVersionResource
 		return &genericInformer{resource: resource.GroupResource(), informer: f.Operator().V1alpha1().DynamoDBs().Informer()}, nil
 	case v1alpha1.SchemeGroupVersion.WithResource("s3buckets"):
 		return &genericInformer{resource: resource.GroupResource(), informer: f.Operator().V1alpha1().S3Buckets().Informer()}, nil
+	case v1alpha1.SchemeGroupVersion.WithResource("snstopics"):
+		return &genericInformer{resource: resource.GroupResource(), informer: f.Operator().V1alpha1().SNSTopics().Informer()}, nil
 	case v1alpha1.SchemeGroupVersion.WithResource("sqsqueues"):
 		return &genericInformer{resource: resource.GroupResource(), informer: f.Operator().V1alpha1().SQSQueues().Informer()}, nil
 

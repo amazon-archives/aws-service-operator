@@ -1,0 +1,31 @@
+apiVersion: operator.aws/v1alpha1
+kind: ModelDefinition
+metadata:
+  name: SNSResource
+spec:
+  kind: SNSTopic
+  type: Spec # can be Spec or Data
+  queue: true
+  useCloudFormation: true
+  resource:
+    name: snstopic
+    plural: snstopics
+    shortNames:
+    - name: sns
+    - name: topic
+    - name: topics
+  body:
+    schema:
+      type: object
+      properties:
+
+  output:
+    schema:
+      type: object
+      properties:
+      - key: topicName
+        type: string
+        description: |
+          TopicName is the output topicname incase it changed
+        structKey: TopicName
+        templateKey: TopicName

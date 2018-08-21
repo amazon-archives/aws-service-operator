@@ -49,6 +49,7 @@ type S3BucketStatus struct {
 
 // S3BucketAdditionalResources holds the additional resources
 type S3BucketAdditionalResources struct {
+	Services		[]string	`json:"services"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
