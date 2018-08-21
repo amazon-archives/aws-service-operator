@@ -1,0 +1,135 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: "AWS Servicebroker - Amazon SQS (qs-1nt0fs93h)"
+Parameters:
+  Namespace:
+    Type: String
+    Description: >-
+      This is the namespace for the Kubernetes object.
+  ResourceVersion:
+    Type: String
+    Description: >-
+      This is the resource version for the Kubernetes object.
+  ResourceName:
+    Type: String
+    Description: >-
+      This is the resource name for the Kubernetes object
+  ClusterName:
+    Type: String
+    Description: >-
+      This is the cluster name for the operator
+  ContentBasedDeduplication:
+    Type: String
+    Description: >-
+      Specifies whether to enable content-based deduplication, only applies to FIFO queues
+    AllowedValues:
+      - 'true'
+      - 'false'
+    Default: 'true'
+  DelaySeconds:
+    Type: Number
+    Description: >-
+      The Id of the AMI you wish to launch the instance from.
+    Default: '5'
+  MaximumMessageSize:
+    Type: Number
+    Description: >-
+      The limit of how many bytes that a message can contain before Amazon SQS
+      rejects it, 1024 bytes (1 KiB) to 262144 bytes (256 KiB)
+    Default: '262144'
+  MessageRetentionPeriod:
+    Type: Number
+    Description: >-
+      The number of seconds that Amazon SQS retains a message. You can specify
+      an integer value from 60 seconds (1 minute) to 1209600 seconds (14 days).
+    Default: '345600'
+  ReceiveMessageWaitTimeSeconds:
+    Type: Number
+    Description: >-
+      Specifies the duration, in seconds, that the ReceiveMessage action call
+      waits until a message is in the queue in order to include it in the
+      response, as opposed to returning an empty response if a message is not
+      yet available. 1 to 20
+    Default: '0'
+  UsedeadletterQueue:
+    Type: String
+    Description: >-
+      A dead-letter queue is a queue that other (source) queues can target for
+      messages that can't be processed (consumed) successfully. You can set
+      aside and isolate these messages in the dead-letter queue to determine why
+      their processing doesn't succeed.
+    AllowedValues:
+      - 'true'
+      - 'false'
+    Default: 'false'
+  VisibilityTimeout:
+    Type: Number
+    Description: >-
+      This should be longer than the time it would take to process and delete a
+      message, this should not exceed 12 hours.
+    Default: '5'
+  FifoQueue:
+    Type: String
+    Description: >-
+      If true queue will be FIFO
+    AllowedValues:
+      - 'true'
+      - 'false'
+    Default: 'false'
+Conditions:
+  CreateDeadLetterQueue: !Equals
+    - !Ref UsedeadletterQueue
+    - 'true'
+  IsFifo: !Equals
+    - !Ref FifoQueue
+    - 'true'
+Resources:
+  SQSQueue:
+    Type: 'AWS::SQS::Queue'
+    Properties:
+      ContentBasedDeduplication: !If
+        - IsFifo
+        - !Ref ContentBasedDeduplication
+        - !Ref AWS::NoValue
+      FifoQueue: !If
+        - IsFifo
+        - 'true'
+        - !Ref AWS::NoValue
+      MaximumMessageSize: !Ref MaximumMessageSize
+      MessageRetentionPeriod: !Ref MessageRetentionPeriod
+      ReceiveMessageWaitTimeSeconds: !Ref ReceiveMessageWaitTimeSeconds
+      RedrivePolicy: !If
+        - CreateDeadLetterQueue
+        - deadLetterTargetArn: !GetAtt
+            - MyDeadLetterQueue
+            - Arn
+          maxReceiveCount: 5
+        - !Ref 'AWS::NoValue'
+      VisibilityTimeout: !Ref VisibilityTimeout
+  MyDeadLetterQueue:
+    Condition: CreateDeadLetterQueue
+    Type: 'AWS::SQS::Queue'
+    Properties:
+      FifoQueue: !Ref FifoQueue
+Outputs:
+  QueueURL:
+    Description: URL of newly created SQS Queue
+    Value: !Ref SQSQueue
+  QueueARN:
+    Description: ARN of newly created SQS Queue
+    Value: !GetAtt
+      - SQSQueue
+      - Arn
+  QueueName:
+    Description: Name newly created SQS Queue
+    Value: !GetAtt
+      - SQSQueue
+      - QueueName
+  DeadLetterQueueURL:
+    Description: URL of newly created SQS Queue
+    Value: !If [ CreateDeadLetterQueue, !Ref MyDeadLetterQueue, "" ]
+  DeadLetterQueueARN:
+    Description: ARN of newly created SQS Queue
+    Value: !If [ CreateDeadLetterQueue, !GetAtt MyDeadLetterQueue.Arn, "" ]
+  DeadLetterQueueName:
+    Description: Name newly created SQS Queue
+    Value: !If [ CreateDeadLetterQueue, !GetAtt MyDeadLetterQueue.QueueName, "" ]

@@ -1,0 +1,31 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: 'AWS Service Broker - Amazon SNS (qs-1nt0fs93c)'
+Parameters:
+  Namespace:
+    Description: >-
+      This is the namespace for the Kubernetes object.
+    Type: String
+  ResourceVersion:
+    Type: String
+    Description: >-
+      This is the resource version for the Kubernetes object.
+  ResourceName:
+    Description: >-
+      This is the resource name for the Kubernetes object
+    Type: String
+  ClusterName:
+    Description: >-
+      This is the cluster name for the operator
+    Type: String
+  DisplayName:
+    Type: String
+    Description: >-
+      What should the SNS Topics name display as.
+Resources:
+  SNSTopic:
+    Type: 'AWS::SNS::Topic'
+
+Outputs:
+  TopicName:
+    Value: !Ref SNSTopic
+    Description: Name of the topic

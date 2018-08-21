@@ -1,0 +1,93 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: 'AWS Operator - Amazon DynamoDB'
+Parameters:
+  Namespace:
+    Description: >-
+      This is the namespace for the Kubernetes object.
+    Type: String
+  ResourceVersion:
+    Type: String
+    Description: >-
+      This is the resource version for the Kubernetes object.
+  ResourceName:
+    Description: >-
+      This is the resource name for the Kubernetes object
+    Type: String
+  ClusterName:
+    Description: >-
+      This is the cluster name for the operator
+    Type: String
+  TableName:
+    Description: >-
+      Must contain only lowercase letters, numbers and hyphens.
+    Type: String
+  HashAttributeName:
+    Type: String
+    Description: Name of the Hash key
+  HashAttributeType:
+    Type: String
+    AllowedValues:
+      - S
+      - N
+      - B
+    Default: "S"
+    Description: AttributeType for  Hash key
+  RangeAttributeName:
+    Type: String
+    Description: Name of the Range key
+  RangeAttributeType:
+    Type: String
+    AllowedValues:
+      - S
+      - N
+      - B
+    Default: "S"
+    Description: AttributeType for the  Range key
+  ReadCapacityUnits:
+    Type: String
+    Description: Read ReadCapacity Units
+    Default: "5"
+  WriteCapacityUnits:
+    Type: String
+    Description: Write Capacity Units
+    Default: "5"
+Resources:
+  DynamoDBTable:
+    Type: "AWS::DynamoDB::Table"
+    Properties:
+      TableName: !Ref TableName
+      KeySchema:
+        -
+          AttributeName: !Ref HashAttributeName
+          KeyType: "HASH"
+        -
+          AttributeName: !Ref RangeAttributeName
+          KeyType: "RANGE"
+      AttributeDefinitions: 
+        -
+          AttributeName: !Ref HashAttributeName
+          AttributeType: "S"
+        -
+          AttributeName: !Ref RangeAttributeName
+          AttributeType: "S"
+      ProvisionedThroughput:
+        ReadCapacityUnits: !Ref ReadCapacityUnits
+        WriteCapacityUnits: !Ref WriteCapacityUnits
+      Tags:
+        - Key: Namespace
+          Value: !Ref Namespace
+        - Key: ResourceVersion
+          Value: !Ref ResourceVersion
+        - Key: ResourceName
+          Value: !Ref ResourceName
+        - Key: ClusterName
+          Value: !Ref ClusterName
+        - Key: Heritage
+          Value: operator.aws
+Outputs:
+  TableName:
+    Description: Name of the DynamoDB Table
+    Value: !Ref DynamoDBTable
+  TableArn:
+    Description: Arn of the DynamoDB Table
+    Value: !GetAtt DynamoDBTable.Arn
