@@ -7,7 +7,6 @@ package sqsqueue
 
 import (
 	 metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	 apiv1 "k8s.io/api/core/v1"
 	"github.com/christopherhein/aws-operator/pkg/helpers"
 	"reflect"
 
@@ -45,11 +44,6 @@ type Controller struct {
   topicARN     string
 }
 
-type data struct {
-	Obj    *awsV1alpha1.SQSQueue
-	Config *config.Config
-}
-
 // NewController create controller for watching object store custom resources created
 func NewController(config *config.Config, context *opkit.Context, awsclientset awsclient.OperatorV1alpha1Interface) *Controller {
 	return &Controller{
@@ -78,12 +72,33 @@ func (c *Controller) StartWatch(namespace string, stopCh chan struct{}) error {
 }
 // QueueUpdater will take the messages from the queue and process them
 func QueueUpdater(config *config.Config, msg *queue.MessageBody) error {
+	logger := config.Logger
+	var name, namespace string
 	if msg.Updatable {
-		err := updateStatus(config, msg.ResourceName, msg.Namespace, msg.ParsedMessage["StackId"], msg.ParsedMessage["ResourceStatus"], msg.ParsedMessage["ResourceStatusReason"])
+		name = msg.ResourceName
+		namespace = msg.Namespace
+	} else {
+		clientSet, _ := awsclient.NewForConfig(config.RESTConfig)
+		resources, err := clientSet.SQSQueues("").List(metav1.ListOptions{})
+		if err != nil {
+			logger.WithError(err).Error("error getting sqsqueues")
+			return err
+		}
+		for _, resource := range resources.Items {
+			if resource.Status.StackID == msg.ParsedMessage["StackId"] {
+				name = resource.Name
+				namespace = resource.Namespace
+			}
+		}
+	}
+
+	if name != "" && namespace != "" {
+		err := updateStatus(config, name, namespace, msg.ParsedMessage["StackId"], msg.ParsedMessage["ResourceStatus"], msg.ParsedMessage["ResourceStatusReason"])
 		if err != nil {
 			return err
 		}
 	}
+
 	return nil
 }
 
@@ -102,11 +117,6 @@ func (c *Controller) onAdd(obj interface{}) {
 		err = updateStatus(c.config, s.Name, s.Namespace, string(*output.StackId), "CREATE_IN_PROGRESS", "")
 		if err != nil {
 			c.config.Logger.WithError(err).Error("error updating status")
-		}
-
-		err = c.syncAdditionalResources(s)
-		if err != nil {
-			c.config.Logger.WithError(err).Error("error syncing resources")
 		}
   }
 }
@@ -128,26 +138,19 @@ func (c *Controller) onUpdate(oldObj, newObj interface{}) {
 		if err != nil {
 			c.config.Logger.WithError(err).Error("error updating status")
 		}
-
-		err = c.syncAdditionalResources(no)
-		if err != nil {
-			c.config.Logger.WithError(err).Info("error syncing resources")
-		}
   }
 }
 
 func (c *Controller) onDelete(obj interface{}) {
 	s := obj.(*awsV1alpha1.SQSQueue).DeepCopy()
-  if helpers.IsStackComplete(s.Status.ResourceStatus, false) {
-    cft := New(c.config, s, c.topicARN)
-    err := cft.DeleteStack()
-    if err != nil {
-      c.config.Logger.WithError(err).Errorf("error deleting sqsqueue '%s'", s.Name)
-      return
-    }
+	cft := New(c.config, s, c.topicARN)
+	err := cft.DeleteStack()
+	if err != nil {
+		c.config.Logger.WithError(err).Errorf("error deleting sqsqueue '%s'", s.Name)
+		return
+	}
 
-    c.config.Logger.Infof("deleted sqsqueue '%s'", s.Name)
-  }
+	c.config.Logger.Infof("deleted sqsqueue '%s'", s.Name)
 }
 func updateStatus(config *config.Config, name string, namespace string, stackID string, status string, reason string) error {
 		logger := config.Logger
@@ -182,11 +185,16 @@ func updateStatus(config *config.Config, name string, namespace string, stackID 
 			logger.WithError(err).Error("error updating resource")
 			return err
 		}
+
+		err = syncAdditionalResources(config, resourceCopy)
+		if err != nil {
+			logger.WithError(err).Info("error syncing resources")
+		}
 		return nil
 }
 
-func (c *Controller) syncAdditionalResources(s *awsV1alpha1.SQSQueue) (err error) {
-	clientSet, _ := awsclient.NewForConfig(c.config.RESTConfig)
+func syncAdditionalResources(config *config.Config, s *awsV1alpha1.SQSQueue) (err error) {
+	clientSet, _ := awsclient.NewForConfig(config.RESTConfig)
 	resource, err := clientSet.SQSQueues(s.Namespace).Get(s.Name, metav1.GetOptions{})
 	if err != nil {
 		return err
@@ -202,29 +210,4 @@ func (c *Controller) syncAdditionalResources(s *awsV1alpha1.SQSQueue) (err error
 		return err
 	}
   return nil
-}
-
-
-func createService(config *config.Config, s *awsV1alpha1.SQSQueue, svcType string, externalName string) string {
-	logger := config.Logger
-	service := &apiv1.Service{
-		ObjectMeta: metav1.ObjectMeta{
-			Name: s.Name+"-service",
-		},
-		Spec: apiv1.ServiceSpec{
-			Type: helpers.ServiceType(svcType),
-			ExternalName: externalName,
-			Ports: []apiv1.ServicePort{
-				apiv1.ServicePort{
-					Port: 443,
-				},
-			},
-		},
-	}
-
-	newService, err := config.Context.Clientset.CoreV1().Services(s.Namespace).Create(service)
-	if err != nil {
-		logger.WithError(err).Error("error creating service")
-	}
-	return newService.Name
 }

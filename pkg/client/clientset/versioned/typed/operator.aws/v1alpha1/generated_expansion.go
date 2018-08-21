@@ -24,4 +24,6 @@ type DynamoDBExpansion interface{}
 
 type S3BucketExpansion interface{}
 
+type SNSTopicExpansion interface{}
+
 type SQSQueueExpansion interface{}

@@ -30,6 +30,8 @@ type Interface interface {
 	DynamoDBs() DynamoDBInformer
 	// S3Buckets returns a S3BucketInformer.
 	S3Buckets() S3BucketInformer
+	// SNSTopics returns a SNSTopicInformer.
+	SNSTopics() SNSTopicInformer
 	// SQSQueues returns a SQSQueueInformer.
 	SQSQueues() SQSQueueInformer
 }
@@ -58,6 +60,11 @@ func (v *version) DynamoDBs() DynamoDBInformer {
 // S3Buckets returns a S3BucketInformer.
 func (v *version) S3Buckets() S3BucketInformer {
 	return &s3BucketInformer{factory: v.factory, namespace: v.namespace, tweakListOptions: v.tweakListOptions}
+}
+
+// SNSTopics returns a SNSTopicInformer.
+func (v *version) SNSTopics() SNSTopicInformer {
+	return &sNSTopicInformer{factory: v.factory, namespace: v.namespace, tweakListOptions: v.tweakListOptions}
 }
 
 // SQSQueues returns a SQSQueueInformer.

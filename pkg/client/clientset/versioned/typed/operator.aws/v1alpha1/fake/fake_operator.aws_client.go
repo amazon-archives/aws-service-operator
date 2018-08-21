@@ -40,6 +40,10 @@ func (c *FakeOperatorV1alpha1) S3Buckets(namespace string) v1alpha1.S3BucketInte
 	return &FakeS3Buckets{c, namespace}
 }
 
+func (c *FakeOperatorV1alpha1) SNSTopics(namespace string) v1alpha1.SNSTopicInterface {
+	return &FakeSNSTopics{c, namespace}
+}
+
 func (c *FakeOperatorV1alpha1) SQSQueues(namespace string) v1alpha1.SQSQueueInterface {
 	return &FakeSQSQueues{c, namespace}
 }
