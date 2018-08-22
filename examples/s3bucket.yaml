@@ -1,9 +1,9 @@
 apiVersion: operator.aws/v1alpha1
 kind: S3Bucket
 metadata:
-  name: chrishein-test-bucket-104
+  name: chrishein-test-bucket-109
 spec:
-  bucketName: chrishein-test-bucket-name-104
+  bucketName: chrishein-test-bucket-name-109
   versioning: false
   logging:
     enabled: false

@@ -65,11 +65,19 @@ spec:
           BucketARN is the full Amazon ARN for the bucket created
         structKey: BucketARN
         templateKey: BucketArn
-  # additionalResources:
-  #   services:
-  #   - type: ExternalName
-  #     externalName: "{{.Obj.Spec.BucketName}}.s3-{{.Config.Region}}.amazonaws.com"
-  #     ports:
-  #     - protocol: tcp
-  #       port: 443
+  additionalResources:
+    services:
+    - name: s3BucketSvc
+      type: ExternalName
+      externalName: "{{.Obj.Spec.BucketName}}.s3-{{.Config.Region}}.amazonaws.com"
+      ports:
+      - port: 443
+    configMap:
+      - name: s3BucketCM
+        data:
+          bucketName: "{{.Obj.Spec.BucketName}}"
+          bucketARN: "{{.Obj.Output.BucketARN}}"
+          serviceName: "{{.Obj}}"
+          region: "{{.Config.Region}}"
+          bucketURL: "{{.Obj.Output.BucketName}}.s3-{{.Config.Region}}.amazonaws.com"
 
