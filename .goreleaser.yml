@@ -5,7 +5,6 @@ project_name: aws-operator
 before:
   hooks:
   - make codegen
-  - make update-bindata
 
 # Builds the binary for each platform
 builds:
@@ -43,7 +42,7 @@ release:
 
 # Creates a Docker container with the operator packaged into it for distribution
 dockers:
-- image: christopherhein/aws-operator
+- image: 915347744415.dkr.ecr.us-west-2.amazonaws.com/aws-operator
   binary: aws-operator
   dockerfile: Dockerfile
   tag_templates:
