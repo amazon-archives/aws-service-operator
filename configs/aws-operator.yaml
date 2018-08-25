@@ -12,7 +12,7 @@ items:
     name: aws-operator
   rules:
   - apiGroups:
-    - v1
+    - ""
     resources:
     - secrets
     - pods
