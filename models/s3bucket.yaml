@@ -19,7 +19,7 @@ spec:
       type: object
       properties:
       - key: bucketName
-        type: string
+        type: resourceName
         description: |
           BucketName is the name of the S3 Bucket to be created.
         structKey: BucketName
