@@ -28,6 +28,8 @@ type Interface interface {
 	CloudFormationTemplates() CloudFormationTemplateInformer
 	// DynamoDBs returns a DynamoDBInformer.
 	DynamoDBs() DynamoDBInformer
+	// ECRRepositories returns a ECRRepositoryInformer.
+	ECRRepositories() ECRRepositoryInformer
 	// S3Buckets returns a S3BucketInformer.
 	S3Buckets() S3BucketInformer
 	// SNSTopics returns a SNSTopicInformer.
@@ -55,6 +57,11 @@ func (v *version) CloudFormationTemplates() CloudFormationTemplateInformer {
 // DynamoDBs returns a DynamoDBInformer.
 func (v *version) DynamoDBs() DynamoDBInformer {
 	return &dynamoDBInformer{factory: v.factory, namespace: v.namespace, tweakListOptions: v.tweakListOptions}
+}
+
+// ECRRepositories returns a ECRRepositoryInformer.
+func (v *version) ECRRepositories() ECRRepositoryInformer {
+	return &eCRRepositoryInformer{factory: v.factory, namespace: v.namespace, tweakListOptions: v.tweakListOptions}
 }
 
 // S3Buckets returns a S3BucketInformer.

@@ -22,6 +22,8 @@ type CloudFormationTemplateExpansion interface{}
 
 type DynamoDBExpansion interface{}
 
+type ECRRepositoryExpansion interface{}
+
 type S3BucketExpansion interface{}
 
 type SNSTopicExpansion interface{}

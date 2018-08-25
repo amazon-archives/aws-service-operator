@@ -34,6 +34,14 @@ type DynamoDBListerExpansion interface{}
 // DynamoDBNamespaceLister.
 type DynamoDBNamespaceListerExpansion interface{}
 
+// ECRRepositoryListerExpansion allows custom methods to be added to
+// ECRRepositoryLister.
+type ECRRepositoryListerExpansion interface{}
+
+// ECRRepositoryNamespaceListerExpansion allows custom methods to be added to
+// ECRRepositoryNamespaceLister.
+type ECRRepositoryNamespaceListerExpansion interface{}
+
 // S3BucketListerExpansion allows custom methods to be added to
 // S3BucketLister.
 type S3BucketListerExpansion interface{}
