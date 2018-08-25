@@ -3,7 +3,6 @@ kind: S3Bucket
 metadata:
   name: chrishein-test-bucket-109
 spec:
-  bucketName: chrishein-test-bucket-name-109
   versioning: false
   logging:
     enabled: false
