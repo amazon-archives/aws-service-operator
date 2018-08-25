@@ -10,17 +10,9 @@ release:
 	rm -fr dist
 	goreleaser
 
-.PHONY: install-bindata
-install-bindata:
-	go get -u github.com/jteeuwen/go-bindata/...
-
 .PHONY: install-aws-codegen
 install-aws-codegen:
 	go get -u github.com/christopherhein/aws-operator-codegen
-
-# .PHONY: update-bindata
-# update-bindata:
-# 	go generate ./pkg/cloudformation/
 
 .PHONY: aws-codegen
 aws-codegen:
