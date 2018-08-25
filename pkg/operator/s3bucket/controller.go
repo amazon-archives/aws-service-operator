@@ -198,7 +198,7 @@ func syncAdditionalResources(config *config.Config, s *awsV1alpha1.S3Bucket) (er
 	resource = resource.DeepCopy()
 
 	services := []string{}
-	s3BucketSvc := helpers.CreateExternalNameService(config, s, s.Name, s.Namespace, "{{.Obj.Spec.BucketName}}.s3-{{.Config.Region}}.amazonaws.com", 443)
+	s3BucketSvc := helpers.CreateExternalNameService(config, s, s.Name, s.Namespace, "{{.Obj.Name}}.s3-{{.Config.Region}}.amazonaws.com", 443)
 	services = append(services, s3BucketSvc)
 	resource.AdditionalResources.Services = services
 

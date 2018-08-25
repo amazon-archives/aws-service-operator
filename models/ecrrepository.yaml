@@ -53,3 +53,16 @@ spec:
           the repository name. For more information, see Name Type.
         structKey: RepositoryName
         templateKey: RepositoryName
+      - key: repositoryARN
+        type: string
+        description: |
+          ARN for the Amazon ECR Repository
+        structKey: RepositoryARN
+        templateKey: RepositoryARN
+      - key: repositoryURL
+        type: string
+        description: |
+          URL for the Amazon ECR Repository
+        structKey: RepositoryURL
+        templatized: true
+        template: "{{.Config.AccountID}}.dkr.ecr.{{.Config.Region}}.amazonaws.com/{{.Obj.Name}}"

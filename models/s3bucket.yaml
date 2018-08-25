@@ -69,15 +69,15 @@ spec:
     services:
     - name: s3BucketSvc
       type: ExternalName
-      externalName: "{{.Obj.Spec.BucketName}}.s3-{{.Config.Region}}.amazonaws.com"
+      externalName: "{{.Obj.Name}}.s3-{{.Config.Region}}.amazonaws.com"
       ports:
       - port: 443
     configMap:
       - name: s3BucketCM
         data:
-          bucketName: "{{.Obj.Spec.BucketName}}"
+          bucketName: "{{.Obj.Name}}"
           bucketARN: "{{.Obj.Output.BucketARN}}"
           serviceName: "{{.Obj}}"
           region: "{{.Config.Region}}"
-          bucketURL: "{{.Obj.Output.BucketName}}.s3-{{.Config.Region}}.amazonaws.com"
+          bucketURL: "{{.Obj.Name}}.s3-{{.Config.Region}}.amazonaws.com"
 

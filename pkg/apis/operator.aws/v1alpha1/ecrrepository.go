@@ -28,6 +28,8 @@ type ECRRepositorySpec struct {
 // ECRRepositoryOutput defines the output resource for ECRRepository
 type ECRRepositoryOutput struct {
   RepositoryName string `json:"repositoryName"`
+  RepositoryARN string `json:"repositoryARN"`
+  RepositoryURL string `json:"repositoryURL"`
 }
 
 // ECRRepositoryStatus holds the status of the Cloudformation template

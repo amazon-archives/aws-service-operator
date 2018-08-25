@@ -172,6 +172,9 @@ func updateStatus(config *config.Config, name string, namespace string, stackID 
 				logger.WithError(err).Error("error getting outputs")
 			}
 			resourceCopy.Output.RepositoryName = outputs["RepositoryName"]
+			resourceCopy.Output.RepositoryARN = outputs["RepositoryARN"]
+			repositoryURL, _ := helpers.Templatize("{{.Config.AccountID}}.dkr.ecr.{{.Config.Region}}.amazonaws.com/{{.Obj.Name}}", helpers.Data{Obj: resourceCopy, Config: config})
+			resourceCopy.Output.RepositoryURL = repositoryURL
 		}
 
 		_, err = clientSet.ECRRepositories(namespace).Update(resourceCopy)
