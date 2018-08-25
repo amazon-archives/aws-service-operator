@@ -14,7 +14,7 @@ import (
 
 var (
 	// cfgFile, kubeConfig, awsRegion all help support passed in flags into the server
-	cfgFile, kubeconfig, awsRegion, logLevel, logFile, resources, clusterName, bucket string
+	cfgFile, kubeconfig, awsRegion, logLevel, logFile, resources, clusterName, bucket, accountID string
 
 	// rootCmd represents the base command when called without any subcommands
 	rootCmd = &cobra.Command{
@@ -45,6 +45,7 @@ func init() {
 	rootCmd.PersistentFlags().StringVarP(&resources, "resources", "", "s3bucket,dynamodb", "Comma delimited list of CRDs to deploy")
 	rootCmd.PersistentFlags().StringVarP(&clusterName, "cluster-name", "i", "aws-operator", "Cluster name for the Application to run as, used to label the Cloudformation templated to avoid conflict")
 	rootCmd.PersistentFlags().StringVarP(&bucket, "bucket", "b", "aws-operator", "To configure the operator you need a base bucket to contain the resources")
+	rootCmd.PersistentFlags().StringVarP(&accountID, "account-id", "a", "", "AWS Account ID, this is used to configure outputs and operate on the proper account.")
 
 	viper.BindPFlag("config", rootCmd.PersistentFlags().Lookup("config"))
 	viper.BindPFlag("kubeconfig", rootCmd.PersistentFlags().Lookup("kubeconfig"))
@@ -54,6 +55,7 @@ func init() {
 	viper.BindPFlag("resources", rootCmd.PersistentFlags().Lookup("resources"))
 	viper.BindPFlag("clustername", rootCmd.PersistentFlags().Lookup("cluster-name"))
 	viper.BindPFlag("bucket", rootCmd.PersistentFlags().Lookup("bucket"))
+	viper.BindPFlag("accountid", rootCmd.PersistentFlags().Lookup("account-id"))
 }
 
 // initConfig reads in config file and ENV variables if set.
@@ -94,6 +96,7 @@ func getConfig() (*config.Config, error) {
 		Resources:   resourcesList,
 		ClusterName: clusterName,
 		Bucket:      bucket,
+		AccountID:   accountID,
 	}
 
 	return config, nil

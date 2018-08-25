@@ -21,6 +21,7 @@ type Config struct {
 	Resources     []string
 	ClusterName   string
 	Bucket        string
+	AccountID     string
 }
 
 // LoggingConfig defines the attributes for the logger
