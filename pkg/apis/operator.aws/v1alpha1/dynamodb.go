@@ -34,6 +34,7 @@ type DynamoDBRangeAttribute struct {
 type DynamoDBSpec struct {
 	CloudFormationTemplateName string `json:"cloudFormationTemplateName"`
 	CloudFormationTemplateNamespace string `json:"cloudFormationTemplateNamespace"`
+	RollbackCount int `json:"rollbackCount"`
   RangeAttribute DynamoDBRangeAttribute `json:"rangeAttribute"`
   ReadCapacityUnits int `json:"readCapacityUnits"`
   WriteCapacityUnits int `json:"writeCapacityUnits"`

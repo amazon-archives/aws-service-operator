@@ -26,6 +26,8 @@ type ECRRepositoryExpansion interface{}
 
 type S3BucketExpansion interface{}
 
+type SNSSubscriptionExpansion interface{}
+
 type SNSTopicExpansion interface{}
 
 type SQSQueueExpansion interface{}

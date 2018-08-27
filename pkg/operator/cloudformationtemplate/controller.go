@@ -76,6 +76,10 @@ func (c *Controller) onAdd(obj interface{}) {
 func (c *Controller) onUpdate(oldObj, newObj interface{}) {
 	oo := oldObj.(*awsV1alpha1.CloudFormationTemplate).DeepCopy()
 	no := newObj.(*awsV1alpha1.CloudFormationTemplate).DeepCopy()
+
+	if no.Status.ResourceStatus == "DELETE_COMPLETE" {
+		c.onAdd(no)
+  }
 	cloudformationtemplate.OnUpdate(c.config, oo, no)
 }
 

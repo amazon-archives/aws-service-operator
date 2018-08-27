@@ -44,6 +44,10 @@ func (c *FakeOperatorV1alpha1) S3Buckets(namespace string) v1alpha1.S3BucketInte
 	return &FakeS3Buckets{c, namespace}
 }
 
+func (c *FakeOperatorV1alpha1) SNSSubscriptions(namespace string) v1alpha1.SNSSubscriptionInterface {
+	return &FakeSNSSubscriptions{c, namespace}
+}
+
 func (c *FakeOperatorV1alpha1) SNSTopics(namespace string) v1alpha1.SNSTopicInterface {
 	return &FakeSNSTopics{c, namespace}
 }

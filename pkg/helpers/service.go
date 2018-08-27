@@ -8,8 +8,9 @@ import (
 
 // Data wrapps the object that is needed for the services
 type Data struct {
-	Obj    interface{}
-	Config *config.Config
+	Helpers Helpers
+	Obj     interface{}
+	Config  *config.Config
 }
 
 // CreateExternalNameService will create a Kubernetes Servic Using ExternalName types

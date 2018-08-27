@@ -32,6 +32,8 @@ type Interface interface {
 	ECRRepositories() ECRRepositoryInformer
 	// S3Buckets returns a S3BucketInformer.
 	S3Buckets() S3BucketInformer
+	// SNSSubscriptions returns a SNSSubscriptionInformer.
+	SNSSubscriptions() SNSSubscriptionInformer
 	// SNSTopics returns a SNSTopicInformer.
 	SNSTopics() SNSTopicInformer
 	// SQSQueues returns a SQSQueueInformer.
@@ -67,6 +69,11 @@ func (v *version) ECRRepositories() ECRRepositoryInformer {
 // S3Buckets returns a S3BucketInformer.
 func (v *version) S3Buckets() S3BucketInformer {
 	return &s3BucketInformer{factory: v.factory, namespace: v.namespace, tweakListOptions: v.tweakListOptions}
+}
+
+// SNSSubscriptions returns a SNSSubscriptionInformer.
+func (v *version) SNSSubscriptions() SNSSubscriptionInformer {
+	return &sNSSubscriptionInformer{factory: v.factory, namespace: v.namespace, tweakListOptions: v.tweakListOptions}
 }
 
 // SNSTopics returns a SNSTopicInformer.

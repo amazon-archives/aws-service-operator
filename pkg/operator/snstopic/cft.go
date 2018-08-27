@@ -30,6 +30,11 @@ type Cloudformation struct {
   topicARN       string
 }
 
+// StackName returns the name of the stack based on the aws-operator-config
+func (s *Cloudformation) StackName() string {
+	return helpers.StackName(s.config.ClusterName, "snstopic", s.SNSTopic.Name, s.SNSTopic.Namespace)
+}
+
 // GetOutputs return the stack outputs from the DescribeStacks call
 func (s *Cloudformation) GetOutputs() (map[string]string, error) {
 	outputs := map[string]string{}
@@ -37,7 +42,7 @@ func (s *Cloudformation) GetOutputs() (map[string]string, error) {
 	svc := cloudformation.New(sess)
 
 	stackInputs := cloudformation.DescribeStacksInput{
-		StackName:   aws.String(s.SNSTopic.Name),
+		StackName:   aws.String(s.StackName()),
 	}
 
 	output, err := svc.DescribeStacks(&stackInputs)
@@ -64,7 +69,7 @@ func (s *Cloudformation) CreateStack() (output *cloudformation.CreateStackOutput
 	cftemplate := helpers.GetCloudFormationTemplate(s.config, "snstopic", s.SNSTopic.Spec.CloudFormationTemplateName, s.SNSTopic.Spec.CloudFormationTemplateNamespace)
 
 	stackInputs := cloudformation.CreateStackInput{
-		StackName:   aws.String(s.SNSTopic.Name),
+		StackName:   aws.String(s.StackName()),
 		TemplateURL: aws.String(cftemplate),
 		NotificationARNs: []*string{
 			aws.String(s.topicARN),
@@ -109,7 +114,7 @@ func (s *Cloudformation) UpdateStack(updated *awsV1alpha1.SNSTopic) (output *clo
 	cftemplate := helpers.GetCloudFormationTemplate(s.config, "snstopic", updated.Spec.CloudFormationTemplateName, updated.Spec.CloudFormationTemplateNamespace)
 
 	stackInputs := cloudformation.UpdateStackInput{
-		StackName:   aws.String(s.SNSTopic.Name),
+		StackName:   aws.String(s.StackName()),
 		TemplateURL: aws.String(cftemplate),
 		NotificationARNs: []*string{
 			aws.String(s.topicARN),
@@ -152,8 +157,21 @@ func (s *Cloudformation) DeleteStack() (err error) {
 	svc := cloudformation.New(sess)
 
 	stackInputs := cloudformation.DeleteStackInput{}
-	stackInputs.SetStackName(s.SNSTopic.Name)
+	stackInputs.SetStackName(s.StackName())
 
   _, err = svc.DeleteStack(&stackInputs)
+	return
+}
+
+// WaitUntilStackDeleted will delete the stack
+func (s *Cloudformation) WaitUntilStackDeleted() (err error) {
+	sess := s.config.AWSSession
+	svc := cloudformation.New(sess)
+
+	stackInputs := cloudformation.DescribeStacksInput{
+		StackName:   aws.String(s.StackName()),
+	}
+
+  err = svc.WaitUntilStackDeleteComplete(&stackInputs)
 	return
 }

@@ -22,6 +22,7 @@ type ECRRepository struct {
 type ECRRepositorySpec struct {
 	CloudFormationTemplateName string `json:"cloudFormationTemplateName"`
 	CloudFormationTemplateNamespace string `json:"cloudFormationTemplateNamespace"`
+	RollbackCount int `json:"rollbackCount"`
 }
 
 

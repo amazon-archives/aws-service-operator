@@ -21,11 +21,12 @@ type SNSTopic struct {
 type SNSTopicSpec struct {
 	CloudFormationTemplateName string `json:"cloudFormationTemplateName"`
 	CloudFormationTemplateNamespace string `json:"cloudFormationTemplateNamespace"`
+	RollbackCount int `json:"rollbackCount"`
 }
 
 // SNSTopicOutput defines the output resource for SNSTopic
 type SNSTopicOutput struct {
-  TopicName string `json:"topicName"`
+  TopicARN string `json:"topicARN"`
 }
 
 // SNSTopicStatus holds the status of the Cloudformation template

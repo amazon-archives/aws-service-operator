@@ -30,6 +30,11 @@ type Cloudformation struct {
   topicARN       string
 }
 
+// StackName returns the name of the stack based on the aws-operator-config
+func (s *Cloudformation) StackName() string {
+	return helpers.StackName(s.config.ClusterName, "dynamodb", s.DynamoDB.Name, s.DynamoDB.Namespace)
+}
+
 // GetOutputs return the stack outputs from the DescribeStacks call
 func (s *Cloudformation) GetOutputs() (map[string]string, error) {
 	outputs := map[string]string{}
@@ -37,7 +42,7 @@ func (s *Cloudformation) GetOutputs() (map[string]string, error) {
 	svc := cloudformation.New(sess)
 
 	stackInputs := cloudformation.DescribeStacksInput{
-		StackName:   aws.String(s.DynamoDB.Name),
+		StackName:   aws.String(s.StackName()),
 	}
 
 	output, err := svc.DescribeStacks(&stackInputs)
@@ -64,7 +69,7 @@ func (s *Cloudformation) CreateStack() (output *cloudformation.CreateStackOutput
 	cftemplate := helpers.GetCloudFormationTemplate(s.config, "dynamodb", s.DynamoDB.Spec.CloudFormationTemplateName, s.DynamoDB.Spec.CloudFormationTemplateNamespace)
 
 	stackInputs := cloudformation.CreateStackInput{
-		StackName:   aws.String(s.DynamoDB.Name),
+		StackName:   aws.String(s.StackName()),
 		TemplateURL: aws.String(cftemplate),
 		NotificationARNs: []*string{
 			aws.String(s.topicARN),
@@ -76,12 +81,42 @@ func (s *Cloudformation) CreateStack() (output *cloudformation.CreateStackOutput
 	namespace := helpers.CreateParam("Namespace", s.DynamoDB.Namespace)
 	clusterName := helpers.CreateParam("ClusterName", s.config.ClusterName)
 	tableName := helpers.CreateParam("TableName", helpers.Stringify(s.DynamoDB.Name))
-  rangeAttributeName := helpers.CreateParam("RangeAttributeName", helpers.Stringify(s.DynamoDB.Spec.RangeAttribute.Name))
-  rangeAttributeType := helpers.CreateParam("RangeAttributeType", helpers.Stringify(s.DynamoDB.Spec.RangeAttribute.Type))
-	readCapacityUnits := helpers.CreateParam("ReadCapacityUnits", helpers.Stringify(s.DynamoDB.Spec.ReadCapacityUnits))
-	writeCapacityUnits := helpers.CreateParam("WriteCapacityUnits", helpers.Stringify(s.DynamoDB.Spec.WriteCapacityUnits))
-  hashAttributeName := helpers.CreateParam("HashAttributeName", helpers.Stringify(s.DynamoDB.Spec.HashAttribute.Name))
-  hashAttributeType := helpers.CreateParam("HashAttributeType", helpers.Stringify(s.DynamoDB.Spec.HashAttribute.Type))
+	rangeAttributeNameTemp := "{{.Obj.Spec.RangeAttribute.Name}}"
+	rangeAttributeNameValue, err := helpers.Templatize(rangeAttributeNameTemp, helpers.Data{Obj: s.DynamoDB, Config: s.config, Helpers: helpers.New()})
+	if err != nil {
+		return output, err
+	}
+  rangeAttributeName := helpers.CreateParam("RangeAttributeName", helpers.Stringify(rangeAttributeNameValue))
+	rangeAttributeTypeTemp := "{{.Obj.Spec.RangeAttribute.Type}}"
+	rangeAttributeTypeValue, err := helpers.Templatize(rangeAttributeTypeTemp, helpers.Data{Obj: s.DynamoDB, Config: s.config, Helpers: helpers.New()})
+	if err != nil {
+		return output, err
+	}
+  rangeAttributeType := helpers.CreateParam("RangeAttributeType", helpers.Stringify(rangeAttributeTypeValue))
+	readCapacityUnitsTemp :=	"{{.Obj.Spec.ReadCapacityUnits}}"
+	readCapacityUnitsValue, err := helpers.Templatize(readCapacityUnitsTemp, helpers.Data{Obj: s.DynamoDB, Config: s.config, Helpers: helpers.New()})
+	if err != nil {
+		return output, err
+	}
+	readCapacityUnits := helpers.CreateParam("ReadCapacityUnits", helpers.Stringify(readCapacityUnitsValue))
+	writeCapacityUnitsTemp :=	"{{.Obj.Spec.WriteCapacityUnits}}"
+	writeCapacityUnitsValue, err := helpers.Templatize(writeCapacityUnitsTemp, helpers.Data{Obj: s.DynamoDB, Config: s.config, Helpers: helpers.New()})
+	if err != nil {
+		return output, err
+	}
+	writeCapacityUnits := helpers.CreateParam("WriteCapacityUnits", helpers.Stringify(writeCapacityUnitsValue))
+	hashAttributeNameTemp := "{{.Obj.Spec.HashAttribute.Name}}"
+	hashAttributeNameValue, err := helpers.Templatize(hashAttributeNameTemp, helpers.Data{Obj: s.DynamoDB, Config: s.config, Helpers: helpers.New()})
+	if err != nil {
+		return output, err
+	}
+  hashAttributeName := helpers.CreateParam("HashAttributeName", helpers.Stringify(hashAttributeNameValue))
+	hashAttributeTypeTemp := "{{.Obj.Spec.HashAttribute.Type}}"
+	hashAttributeTypeValue, err := helpers.Templatize(hashAttributeTypeTemp, helpers.Data{Obj: s.DynamoDB, Config: s.config, Helpers: helpers.New()})
+	if err != nil {
+		return output, err
+	}
+  hashAttributeType := helpers.CreateParam("HashAttributeType", helpers.Stringify(hashAttributeTypeValue))
 
 	parameters := []*cloudformation.Parameter{}
 	parameters = append(parameters, resourceName)
@@ -123,7 +158,7 @@ func (s *Cloudformation) UpdateStack(updated *awsV1alpha1.DynamoDB) (output *clo
 	cftemplate := helpers.GetCloudFormationTemplate(s.config, "dynamodb", updated.Spec.CloudFormationTemplateName, updated.Spec.CloudFormationTemplateNamespace)
 
 	stackInputs := cloudformation.UpdateStackInput{
-		StackName:   aws.String(s.DynamoDB.Name),
+		StackName:   aws.String(s.StackName()),
 		TemplateURL: aws.String(cftemplate),
 		NotificationARNs: []*string{
 			aws.String(s.topicARN),
@@ -135,12 +170,42 @@ func (s *Cloudformation) UpdateStack(updated *awsV1alpha1.DynamoDB) (output *clo
 	namespace := helpers.CreateParam("Namespace", s.DynamoDB.Namespace)
 	clusterName := helpers.CreateParam("ClusterName", s.config.ClusterName)
 	tableName := helpers.CreateParam("TableName", helpers.Stringify(s.DynamoDB.Name))
-	rangeAttributeName := helpers.CreateParam("RangeAttributeName", helpers.Stringify(updated.Spec.RangeAttribute.Name))
-	rangeAttributeType := helpers.CreateParam("RangeAttributeType", helpers.Stringify(updated.Spec.RangeAttribute.Type))
-	readCapacityUnits := helpers.CreateParam("ReadCapacityUnits", helpers.Stringify(updated.Spec.ReadCapacityUnits))
-	writeCapacityUnits := helpers.CreateParam("WriteCapacityUnits", helpers.Stringify(updated.Spec.WriteCapacityUnits))
-	hashAttributeName := helpers.CreateParam("HashAttributeName", helpers.Stringify(updated.Spec.HashAttribute.Name))
-	hashAttributeType := helpers.CreateParam("HashAttributeType", helpers.Stringify(updated.Spec.HashAttribute.Type))
+	rangeAttributeNameTemp := "{{.Obj.Spec.RangeAttribute.Name}}"
+	rangeAttributeNameValue, err := helpers.Templatize(rangeAttributeNameTemp, helpers.Data{Obj: updated, Config: s.config, Helpers: helpers.New()})
+	if err != nil {
+		return output, err
+	}
+	rangeAttributeName := helpers.CreateParam("RangeAttributeName", helpers.Stringify(rangeAttributeNameValue))
+	rangeAttributeTypeTemp := "{{.Obj.Spec.RangeAttribute.Type}}"
+	rangeAttributeTypeValue, err := helpers.Templatize(rangeAttributeTypeTemp, helpers.Data{Obj: updated, Config: s.config, Helpers: helpers.New()})
+	if err != nil {
+		return output, err
+	}
+	rangeAttributeType := helpers.CreateParam("RangeAttributeType", helpers.Stringify(rangeAttributeTypeValue))
+	readCapacityUnitsTemp :=	"{{.Obj.Spec.ReadCapacityUnits}}"
+	readCapacityUnitsValue, err := helpers.Templatize(readCapacityUnitsTemp, helpers.Data{Obj: updated, Config: s.config, Helpers: helpers.New()})
+	if err != nil {
+		return output, err
+	}
+	readCapacityUnits := helpers.CreateParam("ReadCapacityUnits", helpers.Stringify(readCapacityUnitsValue))
+	writeCapacityUnitsTemp :=	"{{.Obj.Spec.WriteCapacityUnits}}"
+	writeCapacityUnitsValue, err := helpers.Templatize(writeCapacityUnitsTemp, helpers.Data{Obj: updated, Config: s.config, Helpers: helpers.New()})
+	if err != nil {
+		return output, err
+	}
+	writeCapacityUnits := helpers.CreateParam("WriteCapacityUnits", helpers.Stringify(writeCapacityUnitsValue))
+	hashAttributeNameTemp := "{{.Obj.Spec.HashAttribute.Name}}"
+	hashAttributeNameValue, err := helpers.Templatize(hashAttributeNameTemp, helpers.Data{Obj: updated, Config: s.config, Helpers: helpers.New()})
+	if err != nil {
+		return output, err
+	}
+	hashAttributeName := helpers.CreateParam("HashAttributeName", helpers.Stringify(hashAttributeNameValue))
+	hashAttributeTypeTemp := "{{.Obj.Spec.HashAttribute.Type}}"
+	hashAttributeTypeValue, err := helpers.Templatize(hashAttributeTypeTemp, helpers.Data{Obj: updated, Config: s.config, Helpers: helpers.New()})
+	if err != nil {
+		return output, err
+	}
+	hashAttributeType := helpers.CreateParam("HashAttributeType", helpers.Stringify(hashAttributeTypeValue))
 
 	parameters := []*cloudformation.Parameter{}
 	parameters = append(parameters, resourceName)
@@ -180,8 +245,21 @@ func (s *Cloudformation) DeleteStack() (err error) {
 	svc := cloudformation.New(sess)
 
 	stackInputs := cloudformation.DeleteStackInput{}
-	stackInputs.SetStackName(s.DynamoDB.Name)
+	stackInputs.SetStackName(s.StackName())
 
   _, err = svc.DeleteStack(&stackInputs)
+	return
+}
+
+// WaitUntilStackDeleted will delete the stack
+func (s *Cloudformation) WaitUntilStackDeleted() (err error) {
+	sess := s.config.AWSSession
+	svc := cloudformation.New(sess)
+
+	stackInputs := cloudformation.DescribeStacksInput{
+		StackName:   aws.String(s.StackName()),
+	}
+
+  err = svc.WaitUntilStackDeleteComplete(&stackInputs)
 	return
 }

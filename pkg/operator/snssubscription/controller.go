@@ -3,7 +3,7 @@
 // If you'd like the change anything about this file make edits to the .templ
 // file in the pkg/codegen/assets directory.
 
-package dynamodb
+package snssubscription
 
 import (
 	 metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
@@ -23,18 +23,14 @@ import (
 
 // Resource is the object store definition
 var Resource = opkit.CustomResource{
-	Name:       "dynamodb",
-	Plural:     "dynamodbs",
+	Name:       "snssubscription",
+	Plural:     "snssubscriptions",
 	Group:      awsapi.GroupName,
 	Version:    awsapi.Version,
 	Scope:      apiextensionsv1beta1.NamespaceScoped,
-	Kind:       reflect.TypeOf(awsV1alpha1.DynamoDB{}).Name(),
+	Kind:       reflect.TypeOf(awsV1alpha1.SNSSubscription{}).Name(),
 	ShortNames: []string{
-		"ddb",
-		"ddbs",
-		"dynamo",
-		"dynamotable",
-		"dynamotables",
+		"subscription",
 	},
 }
 
@@ -63,12 +59,12 @@ func (c *Controller) StartWatch(namespace string, stopCh chan struct{}) error {
 		DeleteFunc: c.onDelete,
 	}
 	queuectrl := queue.New(c.config, c.context, c.awsclientset, 1)
-	c.topicARN, _, _, _ = queuectrl.Register("dynamodb", &awsV1alpha1.DynamoDB{})
+	c.topicARN, _, _, _ = queuectrl.Register("snssubscription", &awsV1alpha1.SNSSubscription{})
 	go queuectrl.StartWatch(queue.HandlerFunc(QueueUpdater), stopCh)
 
 	restClient := c.awsclientset.RESTClient()
 	watcher := opkit.NewWatcher(Resource, namespace, resourceHandlers, restClient)
-	go watcher.Watch(&awsV1alpha1.DynamoDB{}, stopCh)
+	go watcher.Watch(&awsV1alpha1.SNSSubscription{}, stopCh)
 
 	return nil
 }
@@ -81,9 +77,9 @@ func QueueUpdater(config *config.Config, msg *queue.MessageBody) error {
 		namespace = msg.Namespace
 	} else {
 		clientSet, _ := awsclient.NewForConfig(config.RESTConfig)
-		resources, err := clientSet.DynamoDBs("").List(metav1.ListOptions{})
+		resources, err := clientSet.SNSSubscriptions("").List(metav1.ListOptions{})
 		if err != nil {
-			logger.WithError(err).Error("error getting dynamodbs")
+			logger.WithError(err).Error("error getting snssubscriptions")
 			return err
 		}
 		for _, resource := range resources.Items {
@@ -122,15 +118,15 @@ func QueueUpdater(config *config.Config, msg *queue.MessageBody) error {
 }
 
 func (c *Controller) onAdd(obj interface{}) {
-	s := obj.(*awsV1alpha1.DynamoDB).DeepCopy()
+	s := obj.(*awsV1alpha1.SNSSubscription).DeepCopy()
   if s.Status.ResourceStatus == "" || s.Status.ResourceStatus == "DELETE_COMPLETE" {
     cft := New(c.config, s, c.topicARN)
     output, err := cft.CreateStack()
     if err != nil {
-      c.config.Logger.WithError(err).Errorf("error creating dynamodb '%s'", s.Name)
+      c.config.Logger.WithError(err).Errorf("error creating snssubscription '%s'", s.Name)
       return
     }
-    c.config.Logger.Infof("added dynamodb '%s' with stackID '%s'", s.Name, string(*output.StackId))
+    c.config.Logger.Infof("added snssubscription '%s' with stackID '%s'", s.Name, string(*output.StackId))
     c.config.Logger.Infof("view at https://console.aws.amazon.com/cloudformation/home?#/stack/detail?stackId=%s", string(*output.StackId))
 
 		err = updateStatus(c.config, s.Name, s.Namespace, string(*output.StackId), "CREATE_IN_PROGRESS", "")
@@ -141,8 +137,8 @@ func (c *Controller) onAdd(obj interface{}) {
 }
 
 func (c *Controller) onUpdate(oldObj, newObj interface{}) {
-	oo := oldObj.(*awsV1alpha1.DynamoDB).DeepCopy()
-	no := newObj.(*awsV1alpha1.DynamoDB).DeepCopy()
+	oo := oldObj.(*awsV1alpha1.SNSSubscription).DeepCopy()
+	no := newObj.(*awsV1alpha1.SNSSubscription).DeepCopy()
 
 	if no.Status.ResourceStatus == "DELETE_COMPLETE" {
 		c.onAdd(no)
@@ -151,10 +147,10 @@ func (c *Controller) onUpdate(oldObj, newObj interface{}) {
     cft := New(c.config, oo, c.topicARN)
     output, err := cft.UpdateStack(no)
     if err != nil {
-      c.config.Logger.WithError(err).Errorf("error updating dynamodb '%s' with new params %+v and old %+v", no.Name, no, oo)
+      c.config.Logger.WithError(err).Errorf("error updating snssubscription '%s' with new params %+v and old %+v", no.Name, no, oo)
       return
     }
-    c.config.Logger.Infof("updated dynamodb '%s' with params '%s'", no.Name, string(*output.StackId))
+    c.config.Logger.Infof("updated snssubscription '%s' with params '%s'", no.Name, string(*output.StackId))
     c.config.Logger.Infof("view at https://console.aws.amazon.com/cloudformation/home?#/stack/detail?stackId=%s", string(*output.StackId))
 
 		err = updateStatus(c.config, oo.Name, oo.Namespace, string(*output.StackId), "UPDATE_IN_PROGRESS", "")
@@ -165,29 +161,29 @@ func (c *Controller) onUpdate(oldObj, newObj interface{}) {
 }
 
 func (c *Controller) onDelete(obj interface{}) {
-	s := obj.(*awsV1alpha1.DynamoDB).DeepCopy()
+	s := obj.(*awsV1alpha1.SNSSubscription).DeepCopy()
 	cft := New(c.config, s, c.topicARN)
 	err := cft.DeleteStack()
 	if err != nil {
-		c.config.Logger.WithError(err).Errorf("error deleting dynamodb '%s'", s.Name)
+		c.config.Logger.WithError(err).Errorf("error deleting snssubscription '%s'", s.Name)
 		return
 	}
 
-	c.config.Logger.Infof("deleted dynamodb '%s'", s.Name)
+	c.config.Logger.Infof("deleted snssubscription '%s'", s.Name)
 }
 func incrementRollbackCount(config *config.Config, name string, namespace string) error {
 	logger := config.Logger
 	clientSet, _ := awsclient.NewForConfig(config.RESTConfig)
-	resource, err := clientSet.DynamoDBs(namespace).Get(name, metav1.GetOptions{})
+	resource, err := clientSet.SNSSubscriptions(namespace).Get(name, metav1.GetOptions{})
 	if err != nil {
-		logger.WithError(err).Error("error getting dynamodbs")
+		logger.WithError(err).Error("error getting snssubscriptions")
 		return err
 	}
 
 	resourceCopy := resource.DeepCopy()
 	resourceCopy.Spec.RollbackCount = resourceCopy.Spec.RollbackCount+1
 
-	_, err = clientSet.DynamoDBs(namespace).Update(resourceCopy)
+	_, err = clientSet.SNSSubscriptions(namespace).Update(resourceCopy)
 	if err != nil {
 		logger.WithError(err).Error("error updating resource")
 		return err
@@ -198,9 +194,9 @@ func incrementRollbackCount(config *config.Config, name string, namespace string
 func updateStatus(config *config.Config, name string, namespace string, stackID string, status string, reason string) error {
 	logger := config.Logger
 	clientSet, _ := awsclient.NewForConfig(config.RESTConfig)
-	resource, err := clientSet.DynamoDBs(namespace).Get(name, metav1.GetOptions{})
+	resource, err := clientSet.SNSSubscriptions(namespace).Get(name, metav1.GetOptions{})
 	if err != nil {
-		logger.WithError(err).Error("error getting dynamodbs")
+		logger.WithError(err).Error("error getting snssubscriptions")
 		return err
 	}
 
@@ -215,11 +211,10 @@ func updateStatus(config *config.Config, name string, namespace string, stackID 
 		if err != nil {
 			logger.WithError(err).Error("error getting outputs")
 		}
-		resourceCopy.Output.TableName = outputs["TableName"]
-		resourceCopy.Output.TableARN = outputs["TableArn"]
+		resourceCopy.Output.SubscriptionARN = outputs["SubscriptionARN"]
 	}
 
-	_, err = clientSet.DynamoDBs(namespace).Update(resourceCopy)
+	_, err = clientSet.SNSSubscriptions(namespace).Update(resourceCopy)
 	if err != nil {
 		logger.WithError(err).Error("error updating resource")
 		return err
@@ -235,9 +230,9 @@ func updateStatus(config *config.Config, name string, namespace string, stackID 
 func deleteStack(config *config.Config, name string, namespace string, stackID string) error {
 	logger := config.Logger
 	clientSet, _ := awsclient.NewForConfig(config.RESTConfig)
-	resource, err := clientSet.DynamoDBs(namespace).Get(name, metav1.GetOptions{})
+	resource, err := clientSet.SNSSubscriptions(namespace).Get(name, metav1.GetOptions{})
 	if err != nil {
-		logger.WithError(err).Error("error getting dynamodbs")
+		logger.WithError(err).Error("error getting snssubscriptions")
 		return err
 	}
 
@@ -251,9 +246,9 @@ func deleteStack(config *config.Config, name string, namespace string, stackID s
 	return err
 }
 
-func syncAdditionalResources(config *config.Config, s *awsV1alpha1.DynamoDB) (err error) {
+func syncAdditionalResources(config *config.Config, s *awsV1alpha1.SNSSubscription) (err error) {
 	clientSet, _ := awsclient.NewForConfig(config.RESTConfig)
-	resource, err := clientSet.DynamoDBs(s.Namespace).Get(s.Name, metav1.GetOptions{})
+	resource, err := clientSet.SNSSubscriptions(s.Namespace).Get(s.Name, metav1.GetOptions{})
 	if err != nil {
 		return err
 	}
@@ -263,7 +258,7 @@ func syncAdditionalResources(config *config.Config, s *awsV1alpha1.DynamoDB) (er
 	
 
 
-	_, err = clientSet.DynamoDBs(s.Namespace).Update(resource)
+	_, err = clientSet.SNSSubscriptions(s.Namespace).Update(resource)
 	if err != nil {
 		return err
 	}

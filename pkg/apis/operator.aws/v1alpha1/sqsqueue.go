@@ -22,6 +22,7 @@ type SQSQueue struct {
 type SQSQueueSpec struct {
 	CloudFormationTemplateName string `json:"cloudFormationTemplateName"`
 	CloudFormationTemplateNamespace string `json:"cloudFormationTemplateNamespace"`
+	RollbackCount int `json:"rollbackCount"`
   ContentBasedDeduplication bool `json:"contentBasedDeduplication"`
   DelaySeconds int `json:"delaySeconds"`
   MaximumMessageSize int `json:"maximumMessageSize"`
