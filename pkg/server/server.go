@@ -13,6 +13,7 @@ import (
 	"github.com/christopherhein/aws-operator/pkg/operator/dynamodb"
 	"github.com/christopherhein/aws-operator/pkg/operator/ecrrepository"
 	"github.com/christopherhein/aws-operator/pkg/operator/s3bucket"
+	"github.com/christopherhein/aws-operator/pkg/operator/snssubscription"
 	"github.com/christopherhein/aws-operator/pkg/operator/snstopic"
 	"github.com/christopherhein/aws-operator/pkg/operator/sqsqueue"
 	opkit "github.com/christopherhein/operator-kit"
@@ -52,6 +53,7 @@ func (c *Server) Run(stopChan chan struct{}) {
 		sqsqueue.Resource,
 		snstopic.Resource,
 		ecrrepository.Resource,
+		snssubscription.Resource,
 	}
 	err = opkit.CreateCustomResources(*context, resources)
 	if err != nil {
@@ -102,6 +104,8 @@ func (c *Server) Run(stopChan chan struct{}) {
 	snscontroller := snstopic.NewController(config, context, awsClientset)
 	snscontroller.StartWatch(v1.NamespaceAll, stopChan)
 
+	snssubcontroller := snssubscription.NewController(config, context, awsClientset)
+	snssubcontroller.StartWatch(v1.NamespaceAll, stopChan)
 }
 
 func getClientConfig(kubeconfig string) (*rest.Config, error) {

@@ -1,5 +1,5 @@
 AWSTemplateFormatVersion: 2010-09-09
-Description: 'AWS Service Broker - Amazon SNS (qs-1nt0fs93c)'
+Description: 'AWS Operator - Amazon ECR Repository'
 Parameters:
   Namespace:
     Description: >-

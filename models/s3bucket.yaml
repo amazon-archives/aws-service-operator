@@ -26,10 +26,18 @@ spec:
         templateKey: BucketName
       - key: versioning
         type: bool
+        default: false
         description: |
           Versioning specifies if whether you want to automatically enable versioning of the content in the bucket.
         structKey: Versioning
         templateKey: EnableVersioning
+      - key: accessControl
+        type: string
+        default: "Private"
+        description: |
+          Default Bucket ACL, each item can have it's own ACL as well.
+        structKey: AccessControl
+        templateKey: BucketAccessControl
       - key: logging
         type: object
         description: |
@@ -39,12 +47,14 @@ spec:
         properties:
         - key: enabled
           type: bool
+          false: true
           description: |
             Logging Enabled configures the S3 Bucket to log to a separate Logging bucket
           structKey: Enabled
           templateKey: EnableLogging
         - key: prefix
           type: string
+          default: "-archive"
           description: |
             Logging prefix to attach to all logs in the bucket.
           structKey: Prefix

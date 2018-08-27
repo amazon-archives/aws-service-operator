@@ -1,9 +1,10 @@
 apiVersion: operator.aws/v1alpha1
 kind: S3Bucket
 metadata:
-  name: chrishein-test-bucket-112
+  name: s3bucket.aws-operator.com
 spec:
   versioning: true
+  accessControl: Private
   logging:
-    enabled: true
+    enabled: false
     prefix: "archive"

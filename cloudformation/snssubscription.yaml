@@ -1,0 +1,72 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: 'AWS Operator - Amazon SNS Subscription'
+Parameters:
+  Namespace:
+    Description: >-
+      This is the namespace for the Kubernetes object.
+    Type: String
+  ResourceVersion:
+    Type: String
+    Description: >-
+      This is the resource version for the Kubernetes object.
+  ResourceName:
+    Description: >-
+      This is the resource name for the Kubernetes object
+    Type: String
+  ClusterName:
+    Description: >-
+      This is the cluster name for the operator
+    Type: String
+  TopicARN:
+    Type: String
+    Description: >-
+      What is the Amazon SNS Topic ARN to subscribe to?
+  Protocol:
+    Type: String
+    Description: >-
+      What is the protocol for the endpoint?
+  Endpoint:
+    Type: String
+    Description: >-
+      What is the endpoint address?
+  QueueURL:
+    Type: String
+    Description: >-
+      What is the SQS Queue URL?
+
+Conditions:
+  UseSQS: !Equals [!Ref Protocol, "sqs"]
+
+Resources:
+  SNSSubscription:
+    Type: 'AWS::SNS::Subscription'
+    Properties:
+      Endpoint: !Ref Endpoint
+      Protocol: !Ref Protocol
+      TopicArn: !Ref TopicARN
+      Region: !Ref "AWS::Region"
+
+  SQSQueuePolicy:
+    Type: 'AWS::SQS::QueuePolicy'
+    Condition: UseSQS
+    Properties:
+      PolicyDocument:
+        Id: AWSOperatorQueuePolicy
+        Version: '2012-10-17'
+        Statement:
+        - Sid: AllowSendReceive
+          Effect: Allow
+          Principal: "*"
+          Action:
+          - SQS:SendMessage
+          Resource: !Ref Endpoint
+          Condition:
+            ArnEquals:
+              "aws:SourceArn": !Ref TopicARN
+      Queues:
+      - !Ref QueueURL
+
+Outputs:
+  SubscriptionARN:
+    Value: !Ref SNSSubscription
+    Description: Subscription ARN

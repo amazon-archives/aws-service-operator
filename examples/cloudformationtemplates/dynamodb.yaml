@@ -98,3 +98,4 @@ data:
       TableArn:
         Description: Arn of the DynamoDB Table
         Value: !GetAtt DynamoDBTable.Arn
+

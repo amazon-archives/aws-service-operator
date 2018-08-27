@@ -1,0 +1,28 @@
+---
+apiVersion: operator.aws/v1alpha1
+kind: SNSTopic
+metadata:
+  name: chrishein-sns-topic-3
+
+---
+apiVersion: operator.aws/v1alpha1
+kind: SQSQueue
+metadata:
+  name: chrishein-test-sqs-3
+spec:
+  contentBasedDeduplication: true
+  delaySeconds: 5
+  usedeadletterQueue: false
+  maximumMessageSize: 262144
+  messageRetentionPeriod: 345600
+  visibilityTimeout: 30
+
+---
+apiVersion: operator.aws/v1alpha1
+kind: SNSSubscription
+metadata:
+  name: chrishein-sns-subscription-3
+spec:
+  topicName: chrishein-sns-topic-3
+  protocol: sqs
+  endpoint: chrishein-test-sqs-3

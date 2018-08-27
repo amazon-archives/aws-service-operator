@@ -23,9 +23,9 @@ spec:
     schema:
       type: object
       properties:
-      - key: topicName
+      - key: topicARN
         type: string
         description: |
           TopicName is the output topicname incase it changed
-        structKey: TopicName
-        templateKey: TopicName
+        structKey: TopicARN
+        templateKey: TopicARN

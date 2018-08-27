@@ -25,7 +25,7 @@ func CreateExternalNameService(config *config.Config, resource interface{}, svcN
 
 	service := &apiv1.Service{
 		ObjectMeta: metav1.ObjectMeta{
-			Name: svcName,
+			Name: KubernetesResourceName(svcName),
 		},
 		Spec: apiv1.ServiceSpec{
 			Type:         apiv1.ServiceTypeExternalName,
