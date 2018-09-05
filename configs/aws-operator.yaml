@@ -87,7 +87,7 @@ items:
         serviceAccountName: aws-operator
         containers:
         - name: aws-operator
-          image: christopherhein/test-operator:v0.0.1.alpha2
+          image: christopherhein/test-operator:v0.0.1-alpha2
           imagePullPolicy: Always
           env:
             - name: AWS_ACCESS_KEY_ID
