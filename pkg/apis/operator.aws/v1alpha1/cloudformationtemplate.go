@@ -22,6 +22,7 @@ type CloudFormationTemplate struct {
 type CloudFormationTemplateData struct {
 	CloudFormationTemplateName string `json:"cloudFormationTemplateName"`
 	CloudFormationTemplateNamespace string `json:"cloudFormationTemplateNamespace"`
+	RollbackCount int `json:"rollbackCount"`
   Key string `json:"key"`
   Template string `json:"template"`
 }

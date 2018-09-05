@@ -42,18 +42,21 @@ spec:
           templateKey: RangeAttributeName
         - key: Type
           type: string
+          default: "S"
           description: |
             Type is the kind of range attribute that should be used.
           structKey: Type
           templateKey: RangeAttributeType
       - key: readCapacityUnits
         type: int
+        default: 5
         description: |
           ReadCapacityUnits specifies the read capacity of the table.
         structKey: ReadCapacityUnits
         templateKey: ReadCapacityUnits
       - key: writeCapacityUnits
         type: int
+        default: 5
         description: |
           WriteCapacityUnits specifies the write capacity of the table.
         structKey: WriteCapacityUnits
@@ -73,6 +76,7 @@ spec:
           templateKey: HashAttributeName
         - key: Type
           type: string
+          default: "S"
           description: |
             Type is the kind of hash attribute that should be used.
           structKey: Type

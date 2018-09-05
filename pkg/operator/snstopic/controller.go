@@ -93,9 +93,26 @@ func QueueUpdater(config *config.Config, msg *queue.MessageBody) error {
 	}
 
 	if name != "" && namespace != "" {
-		err := updateStatus(config, name, namespace, msg.ParsedMessage["StackId"], msg.ParsedMessage["ResourceStatus"], msg.ParsedMessage["ResourceStatusReason"])
-		if err != nil {
-			return err
+		if msg.ParsedMessage["ResourceStatus"] == "ROLLBACK_COMPLETE" {
+			err := deleteStack(config, name, namespace, msg.ParsedMessage["StackId"])
+			if err != nil {
+				return err
+			}
+		} else if msg.ParsedMessage["ResourceStatus"] == "DELETE_COMPLETE" {
+			err := updateStatus(config, name, namespace, msg.ParsedMessage["StackId"], msg.ParsedMessage["ResourceStatus"], msg.ParsedMessage["ResourceStatusReason"])
+			if err != nil {
+				return err
+			}
+
+			err = incrementRollbackCount(config, name, namespace)
+			if err != nil {
+				return err
+			}
+		} else {
+			err := updateStatus(config, name, namespace, msg.ParsedMessage["StackId"], msg.ParsedMessage["ResourceStatus"], msg.ParsedMessage["ResourceStatusReason"])
+			if err != nil {
+				return err
+			}
 		}
 	}
 
@@ -104,7 +121,7 @@ func QueueUpdater(config *config.Config, msg *queue.MessageBody) error {
 
 func (c *Controller) onAdd(obj interface{}) {
 	s := obj.(*awsV1alpha1.SNSTopic).DeepCopy()
-  if s.Status.ResourceStatus == "" {
+  if s.Status.ResourceStatus == "" || s.Status.ResourceStatus == "DELETE_COMPLETE" {
     cft := New(c.config, s, c.topicARN)
     output, err := cft.CreateStack()
     if err != nil {
@@ -124,7 +141,11 @@ func (c *Controller) onAdd(obj interface{}) {
 func (c *Controller) onUpdate(oldObj, newObj interface{}) {
 	oo := oldObj.(*awsV1alpha1.SNSTopic).DeepCopy()
 	no := newObj.(*awsV1alpha1.SNSTopic).DeepCopy()
-  if helpers.IsStackComplete(oo.Status.ResourceStatus, false) {
+
+	if no.Status.ResourceStatus == "DELETE_COMPLETE" {
+		c.onAdd(no)
+  }
+  if helpers.IsStackComplete(oo.Status.ResourceStatus, false) && !reflect.DeepEqual(oo.Spec, no.Spec) {
     cft := New(c.config, oo, c.topicARN)
     output, err := cft.UpdateStack(no)
     if err != nil {
@@ -152,40 +173,79 @@ func (c *Controller) onDelete(obj interface{}) {
 
 	c.config.Logger.Infof("deleted snstopic '%s'", s.Name)
 }
+func incrementRollbackCount(config *config.Config, name string, namespace string) error {
+	logger := config.Logger
+	clientSet, _ := awsclient.NewForConfig(config.RESTConfig)
+	resource, err := clientSet.SNSTopics(namespace).Get(name, metav1.GetOptions{})
+	if err != nil {
+		logger.WithError(err).Error("error getting snstopics")
+		return err
+	}
+
+	resourceCopy := resource.DeepCopy()
+	resourceCopy.Spec.RollbackCount = resourceCopy.Spec.RollbackCount+1
+
+	_, err = clientSet.SNSTopics(namespace).Update(resourceCopy)
+	if err != nil {
+		logger.WithError(err).Error("error updating resource")
+		return err
+	}
+	return nil
+}
+
 func updateStatus(config *config.Config, name string, namespace string, stackID string, status string, reason string) error {
-		logger := config.Logger
-		clientSet, _ := awsclient.NewForConfig(config.RESTConfig)
-		resource, err := clientSet.SNSTopics(namespace).Get(name, metav1.GetOptions{})
+	logger := config.Logger
+	clientSet, _ := awsclient.NewForConfig(config.RESTConfig)
+	resource, err := clientSet.SNSTopics(namespace).Get(name, metav1.GetOptions{})
+	if err != nil {
+		logger.WithError(err).Error("error getting snstopics")
+		return err
+	}
+
+	resourceCopy := resource.DeepCopy()
+	resourceCopy.Status.ResourceStatus = status
+	resourceCopy.Status.ResourceStatusReason = reason
+	resourceCopy.Status.StackID = stackID
+
+	if helpers.IsStackComplete(status, false) {
+		cft := New(config, resourceCopy, "")
+		outputs, err := cft.GetOutputs()
 		if err != nil {
-			logger.WithError(err).Error("error getting snstopics")
-			return err
+			logger.WithError(err).Error("error getting outputs")
 		}
+		resourceCopy.Output.TopicARN = outputs["TopicARN"]
+	}
 
-		resourceCopy := resource.DeepCopy()
-		resourceCopy.Status.ResourceStatus = status
-		resourceCopy.Status.ResourceStatusReason = reason
-		resourceCopy.Status.StackID = stackID
+	_, err = clientSet.SNSTopics(namespace).Update(resourceCopy)
+	if err != nil {
+		logger.WithError(err).Error("error updating resource")
+		return err
+	}
 
-		if helpers.IsStackComplete(status, true) {
-			cft := New(config, resourceCopy, "")
-			outputs, err := cft.GetOutputs()
-			if err != nil {
-				logger.WithError(err).Error("error getting outputs")
-			}
-			resourceCopy.Output.TopicName = outputs["TopicName"]
-		}
+	err = syncAdditionalResources(config, resourceCopy)
+	if err != nil {
+		logger.WithError(err).Info("error syncing resources")
+	}
+	return nil
+}
 
-		_, err = clientSet.SNSTopics(namespace).Update(resourceCopy)
-		if err != nil {
-			logger.WithError(err).Error("error updating resource")
-			return err
-		}
+func deleteStack(config *config.Config, name string, namespace string, stackID string) error {
+	logger := config.Logger
+	clientSet, _ := awsclient.NewForConfig(config.RESTConfig)
+	resource, err := clientSet.SNSTopics(namespace).Get(name, metav1.GetOptions{})
+	if err != nil {
+		logger.WithError(err).Error("error getting snstopics")
+		return err
+	}
 
-		err = syncAdditionalResources(config, resourceCopy)
-		if err != nil {
-			logger.WithError(err).Info("error syncing resources")
-		}
-		return nil
+	cft := New(config, resource, "")
+	err = cft.DeleteStack()
+	if err != nil {
+		return err
+	}
+
+	err = cft.WaitUntilStackDeleted()
+	return err
 }
 
 func syncAdditionalResources(config *config.Config, s *awsV1alpha1.SNSTopic) (err error) {

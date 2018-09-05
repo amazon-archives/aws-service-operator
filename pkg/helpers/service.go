@@ -8,8 +8,9 @@ import (
 
 // Data wrapps the object that is needed for the services
 type Data struct {
-	Obj    interface{}
-	Config *config.Config
+	Helpers Helpers
+	Obj     interface{}
+	Config  *config.Config
 }
 
 // CreateExternalNameService will create a Kubernetes Servic Using ExternalName types
@@ -24,7 +25,7 @@ func CreateExternalNameService(config *config.Config, resource interface{}, svcN
 
 	service := &apiv1.Service{
 		ObjectMeta: metav1.ObjectMeta{
-			Name: svcName,
+			Name: KubernetesResourceName(svcName),
 		},
 		Spec: apiv1.ServiceSpec{
 			Type:         apiv1.ServiceTypeExternalName,

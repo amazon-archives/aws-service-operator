@@ -31,6 +31,7 @@ type OperatorV1alpha1Interface interface {
 	DynamoDBsGetter
 	ECRRepositoriesGetter
 	S3BucketsGetter
+	SNSSubscriptionsGetter
 	SNSTopicsGetter
 	SQSQueuesGetter
 }
@@ -54,6 +55,10 @@ func (c *OperatorV1alpha1Client) ECRRepositories(namespace string) ECRRepository
 
 func (c *OperatorV1alpha1Client) S3Buckets(namespace string) S3BucketInterface {
 	return newS3Buckets(c, namespace)
+}
+
+func (c *OperatorV1alpha1Client) SNSSubscriptions(namespace string) SNSSubscriptionInterface {
+	return newSNSSubscriptions(c, namespace)
 }
 
 func (c *OperatorV1alpha1Client) SNSTopics(namespace string) SNSTopicInterface {

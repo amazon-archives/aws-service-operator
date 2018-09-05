@@ -7,9 +7,23 @@ import (
 	"github.com/christopherhein/aws-operator/pkg/config"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"reflect"
+	"regexp"
 	"strconv"
+	"strings"
 	"text/template"
 )
+
+// KubernetesResourceName returns the resource name for other components
+func KubernetesResourceName(name string) string {
+	reg, _ := regexp.Compile("[^a-zA-Z0-9_-]+")
+	return reg.ReplaceAllString(name, "-")
+}
+
+// StackName will return the proper stack name for each component
+func StackName(clusterName string, resourceType string, name string, namespace string) string {
+	nameParts := []string{clusterName, resourceType, name, namespace}
+	return KubernetesResourceName(strings.Join(nameParts, "-"))
+}
 
 // Stringify will create a string based on the params
 func Stringify(attr interface{}) string {
@@ -72,7 +86,17 @@ func Templatize(tempStr string, data interface{}) (resp string, err error) {
 func GetCloudFormationTemplate(config *config.Config, rType string, name string, namespace string) string {
 	logger := config.Logger
 	clientSet, _ := awsclient.NewForConfig(config.RESTConfig)
-	resource, err := clientSet.CloudFormationTemplates(namespace).Get(name, metav1.GetOptions{})
+
+	var cName string
+	var cNamespace string
+	if name == "" {
+		cName = rType
+	}
+	if namespace == "" {
+		cNamespace = "default"
+	}
+
+	resource, err := clientSet.CloudFormationTemplates(cNamespace).Get(cName, metav1.GetOptions{})
 	if err != nil {
 		logger.WithError(err).Error("error getting cloudformation template returning fallback template")
 		return "https://s3-us-west-2.amazonaws.com/cloudkit-templates/" + rType + ".yaml"

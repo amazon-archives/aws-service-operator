@@ -1,5 +1,5 @@
 AWSTemplateFormatVersion: 2010-09-09
-Description: "AWS Servicebroker - Amazon SQS (qs-1nt0fs93h)"
+Description: "AWS Operator - Amazon SQS Queue"
 Parameters:
   Namespace:
     Type: String

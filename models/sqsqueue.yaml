@@ -20,24 +20,28 @@ spec:
       properties:
       - key: contentBasedDeduplication
         type: bool
+        default: true
         description: |
           ContentBasedDeduplication enables content deduping on the queue
         structKey: ContentBasedDeduplication
         templateKey: ContentBasedDeduplication
       - key: delaySeconds
         type: int
+        default: 5
         description: |
           DelaySeconds is how long the message should delay on recieving.
         structKey: DelaySeconds
         templateKey: DelaySeconds
       - key: maximumMessageSize
         type: int
+        default: 262144
         description: |
           MaximumMessageSize the maximum size a message should be and int
         structKey: MaximumMessageSize
         templateKey: MaximumMessageSize
       - key: messageRetentionPeriod
         type: int
+        default: 345600
         description: |
           MaximumMessageSize the maximum size a message should be
           MessageRetentionPeriod determines how long to keep a message
@@ -45,24 +49,28 @@ spec:
         templateKey: MessageRetentionPeriod
       - key: receiveMessageWaitTimeSeconds
         type: int
+        default: 0
         description: |
           Time it will wait until it tries to find another message to process.
         structKey: ReceiveMessageWaitTimeSeconds
         templateKey: ReceiveMessageWaitTimeSeconds
       - key: usedeadletterQueue
         type: bool
+        default: false
         description: |
           Queue specifically made for messages that cannot be processed
         structKey: UsedeadletterQueue
         templateKey: UsedeadletterQueue
       - key: visibilityTimeout
         type: int
+        default: 5
         description: |
           Timeout for processing a message.
         structKey: VisibilityTimeout
         templateKey: VisibilityTimeout
       - key: fifoQueue
         type: bool
+        default: false
         description: |
           Should this queue process messages in a first in first out manner
         structKey: FifoQueue

@@ -28,7 +28,9 @@ type S3BucketLogging struct {
 type S3BucketSpec struct {
 	CloudFormationTemplateName string `json:"cloudFormationTemplateName"`
 	CloudFormationTemplateNamespace string `json:"cloudFormationTemplateNamespace"`
+	RollbackCount int `json:"rollbackCount"`
   Versioning bool `json:"versioning"`
+  AccessControl string `json:"accessControl"`
   Logging S3BucketLogging `json:"logging"`
 }
 

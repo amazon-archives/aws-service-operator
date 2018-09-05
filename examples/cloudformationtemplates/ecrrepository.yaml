@@ -1,0 +1,43 @@
+apiVersion: operator.aws/v1alpha1
+kind: CloudFormationTemplate
+metadata:
+  name: ecrrepository
+data:
+  key: ecrrepository.yaml
+  template: |
+    AWSTemplateFormatVersion: 2010-09-09
+    Description: 'AWS Operator - Amazon ECR Repository'
+    Parameters:
+      Namespace:
+        Description: >-
+          This is the namespace for the Kubernetes object.
+        Type: String
+      ResourceVersion:
+        Type: String
+        Description: >-
+          This is the resource version for the Kubernetes object.
+      ResourceName:
+        Description: >-
+          This is the resource name for the Kubernetes object
+        Type: String
+      ClusterName:
+        Description: >-
+          This is the cluster name for the operator
+        Type: String
+      RepositoryName:
+        Type: String
+        Description: >-
+          What should the ECR Repository be named
+    Resources:
+      ECRRepository:
+        Type: AWS::ECR::Repository
+        Properties:
+          RepositoryName: !Ref RepositoryName
+
+    Outputs:
+      RepositoryName:
+        Value: !Ref ECRRepository
+        Description: Name of the topic
+      RepositoryARN:
+        Value: !GetAtt ECRRepository.Arn
+        Description: ARN of the Repository
