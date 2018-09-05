@@ -87,7 +87,7 @@ items:
         serviceAccountName: aws-operator
         containers:
         - name: aws-operator
-          image: <account-id>.dkr.ecr.us-west-2.amazonaws.com/aws-operator:v0.0.1.alpha1
+          image: christopherhein/aws-operator:v0.0.1.alpha1
           imagePullPolicy: Always
           env:
             - name: AWS_ACCESS_KEY_ID
