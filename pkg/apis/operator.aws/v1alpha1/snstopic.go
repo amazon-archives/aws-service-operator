@@ -11,29 +11,29 @@ import (
 
 // SNSTopic defines the base resource
 type SNSTopic struct {
-	metav1.TypeMeta   `json:",inline"`
-	metav1.ObjectMeta `json:"metadata"`
-	Spec    SNSTopicSpec   `json:"spec"`
-	Status            SNSTopicStatus           `json:"status"`
-	Output            SNSTopicOutput           `json:"output"`
+	metav1.TypeMeta     `json:",inline"`
+	metav1.ObjectMeta   `json:"metadata"`
+	Spec                SNSTopicSpec                `json:"spec"`
+	Status              SNSTopicStatus              `json:"status"`
+	Output              SNSTopicOutput              `json:"output"`
 	AdditionalResources SNSTopicAdditionalResources `json:"additionalResources"`
 }
 type SNSTopicSpec struct {
-	CloudFormationTemplateName string `json:"cloudFormationTemplateName"`
+	CloudFormationTemplateName      string `json:"cloudFormationTemplateName"`
 	CloudFormationTemplateNamespace string `json:"cloudFormationTemplateNamespace"`
-	RollbackCount int `json:"rollbackCount"`
+	RollbackCount                   int    `json:"rollbackCount"`
 }
 
 // SNSTopicOutput defines the output resource for SNSTopic
 type SNSTopicOutput struct {
-  TopicARN string `json:"topicARN"`
+	TopicARN string `json:"topicARN"`
 }
 
 // SNSTopicStatus holds the status of the Cloudformation template
 type SNSTopicStatus struct {
-  ResourceStatus       string `json:"resourceStatus"`
-  ResourceStatusReason string `json:"resourceStatusReason"`
-  StackID              string `json:"stackID"`
+	ResourceStatus       string `json:"resourceStatus"`
+	ResourceStatusReason string `json:"resourceStatusReason"`
+	StackID              string `json:"stackID"`
 }
 
 // SNSTopicAdditionalResources holds the additional resources

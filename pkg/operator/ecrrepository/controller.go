@@ -6,12 +6,12 @@
 package ecrrepository
 
 import (
-	 metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"github.com/christopherhein/aws-operator/pkg/helpers"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"reflect"
 
 	"github.com/christopherhein/aws-operator/pkg/config"
-  "github.com/christopherhein/aws-operator/pkg/queue"
+	"github.com/christopherhein/aws-operator/pkg/queue"
 	opkit "github.com/christopherhein/operator-kit"
 	apiextensionsv1beta1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
 	"k8s.io/client-go/tools/cache"
@@ -23,12 +23,12 @@ import (
 
 // Resource is the object store definition
 var Resource = opkit.CustomResource{
-	Name:       "ecrrepository",
-	Plural:     "ecrrepositories",
-	Group:      awsapi.GroupName,
-	Version:    awsapi.Version,
-	Scope:      apiextensionsv1beta1.NamespaceScoped,
-	Kind:       reflect.TypeOf(awsV1alpha1.ECRRepository{}).Name(),
+	Name:    "ecrrepository",
+	Plural:  "ecrrepositories",
+	Group:   awsapi.GroupName,
+	Version: awsapi.Version,
+	Scope:   apiextensionsv1beta1.NamespaceScoped,
+	Kind:    reflect.TypeOf(awsV1alpha1.ECRRepository{}).Name(),
 	ShortNames: []string{
 		"ecr",
 		"repository",
@@ -40,7 +40,7 @@ type Controller struct {
 	config       *config.Config
 	context      *opkit.Context
 	awsclientset awsclient.OperatorV1alpha1Interface
-  topicARN     string
+	topicARN     string
 }
 
 // NewController create controller for watching object store custom resources created
@@ -69,6 +69,7 @@ func (c *Controller) StartWatch(namespace string, stopCh chan struct{}) error {
 
 	return nil
 }
+
 // QueueUpdater will take the messages from the queue and process them
 func QueueUpdater(config *config.Config, msg *queue.MessageBody) error {
 	logger := config.Logger
@@ -120,21 +121,21 @@ func QueueUpdater(config *config.Config, msg *queue.MessageBody) error {
 
 func (c *Controller) onAdd(obj interface{}) {
 	s := obj.(*awsV1alpha1.ECRRepository).DeepCopy()
-  if s.Status.ResourceStatus == "" || s.Status.ResourceStatus == "DELETE_COMPLETE" {
-    cft := New(c.config, s, c.topicARN)
-    output, err := cft.CreateStack()
-    if err != nil {
-      c.config.Logger.WithError(err).Errorf("error creating ecrrepository '%s'", s.Name)
-      return
-    }
-    c.config.Logger.Infof("added ecrrepository '%s' with stackID '%s'", s.Name, string(*output.StackId))
-    c.config.Logger.Infof("view at https://console.aws.amazon.com/cloudformation/home?#/stack/detail?stackId=%s", string(*output.StackId))
+	if s.Status.ResourceStatus == "" || s.Status.ResourceStatus == "DELETE_COMPLETE" {
+		cft := New(c.config, s, c.topicARN)
+		output, err := cft.CreateStack()
+		if err != nil {
+			c.config.Logger.WithError(err).Errorf("error creating ecrrepository '%s'", s.Name)
+			return
+		}
+		c.config.Logger.Infof("added ecrrepository '%s' with stackID '%s'", s.Name, string(*output.StackId))
+		c.config.Logger.Infof("view at https://console.aws.amazon.com/cloudformation/home?#/stack/detail?stackId=%s", string(*output.StackId))
 
 		err = updateStatus(c.config, s.Name, s.Namespace, string(*output.StackId), "CREATE_IN_PROGRESS", "")
 		if err != nil {
 			c.config.Logger.WithError(err).Error("error updating status")
 		}
-  }
+	}
 }
 
 func (c *Controller) onUpdate(oldObj, newObj interface{}) {
@@ -143,22 +144,22 @@ func (c *Controller) onUpdate(oldObj, newObj interface{}) {
 
 	if no.Status.ResourceStatus == "DELETE_COMPLETE" {
 		c.onAdd(no)
-  }
-  if helpers.IsStackComplete(oo.Status.ResourceStatus, false) && !reflect.DeepEqual(oo.Spec, no.Spec) {
-    cft := New(c.config, oo, c.topicARN)
-    output, err := cft.UpdateStack(no)
-    if err != nil {
-      c.config.Logger.WithError(err).Errorf("error updating ecrrepository '%s' with new params %+v and old %+v", no.Name, no, oo)
-      return
-    }
-    c.config.Logger.Infof("updated ecrrepository '%s' with params '%s'", no.Name, string(*output.StackId))
-    c.config.Logger.Infof("view at https://console.aws.amazon.com/cloudformation/home?#/stack/detail?stackId=%s", string(*output.StackId))
+	}
+	if helpers.IsStackComplete(oo.Status.ResourceStatus, false) && !reflect.DeepEqual(oo.Spec, no.Spec) {
+		cft := New(c.config, oo, c.topicARN)
+		output, err := cft.UpdateStack(no)
+		if err != nil {
+			c.config.Logger.WithError(err).Errorf("error updating ecrrepository '%s' with new params %+v and old %+v", no.Name, no, oo)
+			return
+		}
+		c.config.Logger.Infof("updated ecrrepository '%s' with params '%s'", no.Name, string(*output.StackId))
+		c.config.Logger.Infof("view at https://console.aws.amazon.com/cloudformation/home?#/stack/detail?stackId=%s", string(*output.StackId))
 
 		err = updateStatus(c.config, oo.Name, oo.Namespace, string(*output.StackId), "UPDATE_IN_PROGRESS", "")
 		if err != nil {
 			c.config.Logger.WithError(err).Error("error updating status")
 		}
-  }
+	}
 }
 
 func (c *Controller) onDelete(obj interface{}) {
@@ -182,7 +183,7 @@ func incrementRollbackCount(config *config.Config, name string, namespace string
 	}
 
 	resourceCopy := resource.DeepCopy()
-	resourceCopy.Spec.RollbackCount = resourceCopy.Spec.RollbackCount+1
+	resourceCopy.Spec.RollbackCount = resourceCopy.Spec.RollbackCount + 1
 
 	_, err = clientSet.ECRRepositories(namespace).Update(resourceCopy)
 	if err != nil {
@@ -224,9 +225,11 @@ func updateStatus(config *config.Config, name string, namespace string, stackID 
 		return err
 	}
 
-	err = syncAdditionalResources(config, resourceCopy)
-	if err != nil {
-		logger.WithError(err).Info("error syncing resources")
+	if helpers.IsStackComplete(status, false) {
+		err = syncAdditionalResources(config, resourceCopy)
+		if err != nil {
+			logger.WithError(err).Info("error syncing resources")
+		}
 	}
 	return nil
 }
@@ -258,13 +261,9 @@ func syncAdditionalResources(config *config.Config, s *awsV1alpha1.ECRRepository
 	}
 	resource = resource.DeepCopy()
 
-	
-	
-
-
 	_, err = clientSet.ECRRepositories(s.Namespace).Update(resource)
 	if err != nil {
 		return err
 	}
-  return nil
+	return nil
 }

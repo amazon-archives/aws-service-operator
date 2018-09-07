@@ -11,35 +11,35 @@ import (
 
 // SNSSubscription defines the base resource
 type SNSSubscription struct {
-	metav1.TypeMeta   `json:",inline"`
-	metav1.ObjectMeta `json:"metadata"`
-	Spec    SNSSubscriptionSpec   `json:"spec"`
-	Status            SNSSubscriptionStatus           `json:"status"`
-	Output            SNSSubscriptionOutput           `json:"output"`
+	metav1.TypeMeta     `json:",inline"`
+	metav1.ObjectMeta   `json:"metadata"`
+	Spec                SNSSubscriptionSpec                `json:"spec"`
+	Status              SNSSubscriptionStatus              `json:"status"`
+	Output              SNSSubscriptionOutput              `json:"output"`
 	AdditionalResources SNSSubscriptionAdditionalResources `json:"additionalResources"`
 }
+
 // SNSSubscriptionSpec defines the Spec resource for SNSSubscription
 type SNSSubscriptionSpec struct {
-	CloudFormationTemplateName string `json:"cloudFormationTemplateName"`
+	CloudFormationTemplateName      string `json:"cloudFormationTemplateName"`
 	CloudFormationTemplateNamespace string `json:"cloudFormationTemplateNamespace"`
-	RollbackCount int `json:"rollbackCount"`
-  TopicName string `json:"topicName"`
-  Protocol string `json:"protocol"`
-  Endpoint string `json:"endpoint"`
-  QueueURL string `json:"queueURL"`
+	RollbackCount                   int    `json:"rollbackCount"`
+	TopicName                       string `json:"topicName"`
+	Protocol                        string `json:"protocol"`
+	Endpoint                        string `json:"endpoint"`
+	QueueURL                        string `json:"queueURL"`
 }
-
 
 // SNSSubscriptionOutput defines the output resource for SNSSubscription
 type SNSSubscriptionOutput struct {
-  SubscriptionARN string `json:"subscriptionARN"`
+	SubscriptionARN string `json:"subscriptionARN"`
 }
 
 // SNSSubscriptionStatus holds the status of the Cloudformation template
 type SNSSubscriptionStatus struct {
-  ResourceStatus       string `json:"resourceStatus"`
-  ResourceStatusReason string `json:"resourceStatusReason"`
-  StackID              string `json:"stackID"`
+	ResourceStatus       string `json:"resourceStatus"`
+	ResourceStatusReason string `json:"resourceStatusReason"`
+	StackID              string `json:"stackID"`
 }
 
 // SNSSubscriptionAdditionalResources holds the additional resources

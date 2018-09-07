@@ -11,46 +11,47 @@ import (
 
 // S3Bucket defines the base resource
 type S3Bucket struct {
-	metav1.TypeMeta   `json:",inline"`
-	metav1.ObjectMeta `json:"metadata"`
-	Spec    S3BucketSpec   `json:"spec"`
-	Status            S3BucketStatus           `json:"status"`
-	Output            S3BucketOutput           `json:"output"`
+	metav1.TypeMeta     `json:",inline"`
+	metav1.ObjectMeta   `json:"metadata"`
+	Spec                S3BucketSpec                `json:"spec"`
+	Status              S3BucketStatus              `json:"status"`
+	Output              S3BucketOutput              `json:"output"`
 	AdditionalResources S3BucketAdditionalResources `json:"additionalResources"`
 }
+
 // S3BucketLogging defines the Logging resource for S3Bucket
 type S3BucketLogging struct {
-  Enabled bool `json:"enabled"`
-  Prefix string `json:"prefix"`
+	Enabled bool   `json:"enabled"`
+	Prefix  string `json:"prefix"`
 }
 
 // S3BucketSpec defines the Spec resource for S3Bucket
 type S3BucketSpec struct {
-	CloudFormationTemplateName string `json:"cloudFormationTemplateName"`
-	CloudFormationTemplateNamespace string `json:"cloudFormationTemplateNamespace"`
-	RollbackCount int `json:"rollbackCount"`
-  Versioning bool `json:"versioning"`
-  AccessControl string `json:"accessControl"`
-  Logging S3BucketLogging `json:"logging"`
+	CloudFormationTemplateName      string          `json:"cloudFormationTemplateName"`
+	CloudFormationTemplateNamespace string          `json:"cloudFormationTemplateNamespace"`
+	RollbackCount                   int             `json:"rollbackCount"`
+	Versioning                      bool            `json:"versioning"`
+	AccessControl                   string          `json:"accessControl"`
+	Logging                         S3BucketLogging `json:"logging"`
 }
-
 
 // S3BucketOutput defines the output resource for S3Bucket
 type S3BucketOutput struct {
-  BucketName string `json:"bucketName"`
-  BucketARN string `json:"bucketARN"`
+	BucketName string `json:"bucketName"`
+	BucketARN  string `json:"bucketARN"`
 }
 
 // S3BucketStatus holds the status of the Cloudformation template
 type S3BucketStatus struct {
-  ResourceStatus       string `json:"resourceStatus"`
-  ResourceStatusReason string `json:"resourceStatusReason"`
-  StackID              string `json:"stackID"`
+	ResourceStatus       string `json:"resourceStatus"`
+	ResourceStatusReason string `json:"resourceStatusReason"`
+	StackID              string `json:"stackID"`
 }
 
 // S3BucketAdditionalResources holds the additional resources
 type S3BucketAdditionalResources struct {
-	Services		[]string	`json:"services"`
+	Services   []string `json:"services"`
+	ConfigMaps []string `json:"configMaps"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

@@ -82,12 +82,17 @@ spec:
       externalName: "{{.Obj.Name}}.s3-{{.Config.Region}}.amazonaws.com"
       ports:
       - port: 443
-    configMap:
-      - name: s3BucketCM
-        data:
-          bucketName: "{{.Obj.Name}}"
-          bucketARN: "{{.Obj.Output.BucketARN}}"
-          serviceName: "{{.Obj}}"
-          region: "{{.Config.Region}}"
-          bucketURL: "{{.Obj.Name}}.s3-{{.Config.Region}}.amazonaws.com"
+    configMaps:
+    - name: s3BucketCM
+      data:
+      - key: bucketName
+        value: "{{.Obj.Name}}"
+      - key: bucketARN
+        value: "{{.Obj.Output.BucketARN}}"
+      - key: serviceName
+        value: "{{call .Helpers.KubernetesResourceName .Obj.Name}}"
+      - key: region
+        value: "{{.Config.Region}}"
+      - key: bucketURL
+        value: "{{.Obj.Name}}.s3-{{.Config.Region}}.amazonaws.com"
 

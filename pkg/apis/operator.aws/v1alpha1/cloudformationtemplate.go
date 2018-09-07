@@ -11,32 +11,32 @@ import (
 
 // CloudFormationTemplate defines the base resource
 type CloudFormationTemplate struct {
-	metav1.TypeMeta   `json:",inline"`
-	metav1.ObjectMeta `json:"metadata"`
-	Data    CloudFormationTemplateData   `json:"data"`
-	Status            CloudFormationTemplateStatus           `json:"status"`
-	Output            CloudFormationTemplateOutput           `json:"output"`
+	metav1.TypeMeta     `json:",inline"`
+	metav1.ObjectMeta   `json:"metadata"`
+	Data                CloudFormationTemplateData                `json:"data"`
+	Status              CloudFormationTemplateStatus              `json:"status"`
+	Output              CloudFormationTemplateOutput              `json:"output"`
 	AdditionalResources CloudFormationTemplateAdditionalResources `json:"additionalResources"`
 }
+
 // CloudFormationTemplateData defines the Data resource for CloudFormationTemplate
 type CloudFormationTemplateData struct {
-	CloudFormationTemplateName string `json:"cloudFormationTemplateName"`
+	CloudFormationTemplateName      string `json:"cloudFormationTemplateName"`
 	CloudFormationTemplateNamespace string `json:"cloudFormationTemplateNamespace"`
-	RollbackCount int `json:"rollbackCount"`
-  Key string `json:"key"`
-  Template string `json:"template"`
+	RollbackCount                   int    `json:"rollbackCount"`
+	Key                             string `json:"key"`
+	Template                        string `json:"template"`
 }
-
 
 // CloudFormationTemplateOutput defines the output resource for CloudFormationTemplate
 type CloudFormationTemplateOutput struct {
-  URL string `json:"url"`
+	URL string `json:"url"`
 }
 
 // CloudFormationTemplateStatus holds the status of the Cloudformation template
 type CloudFormationTemplateStatus struct {
-  ResourceStatus       string `json:"resourceStatus"`
-  ResourceStatusReason string `json:"resourceStatusReason"`
+	ResourceStatus       string `json:"resourceStatus"`
+	ResourceStatusReason string `json:"resourceStatusReason"`
 }
 
 // CloudFormationTemplateAdditionalResources holds the additional resources

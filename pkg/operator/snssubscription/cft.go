@@ -18,16 +18,16 @@ import (
 func New(config *config.Config, snssubscription *awsV1alpha1.SNSSubscription, topicARN string) *Cloudformation {
 	return &Cloudformation{
 		SNSSubscription: snssubscription,
-		config:					config,
-    topicARN:       topicARN,
+		config:          config,
+		topicARN:        topicARN,
 	}
 }
 
 // Cloudformation defines the snssubscription cfts
 type Cloudformation struct {
-	config         *config.Config
+	config          *config.Config
 	SNSSubscription *awsV1alpha1.SNSSubscription
-  topicARN       string
+	topicARN        string
 }
 
 // StackName returns the name of the stack based on the aws-operator-config
@@ -42,7 +42,7 @@ func (s *Cloudformation) GetOutputs() (map[string]string, error) {
 	svc := cloudformation.New(sess)
 
 	stackInputs := cloudformation.DescribeStacksInput{
-		StackName:   aws.String(s.StackName()),
+		StackName: aws.String(s.StackName()),
 	}
 
 	output, err := svc.DescribeStacks(&stackInputs)
@@ -80,25 +80,25 @@ func (s *Cloudformation) CreateStack() (output *cloudformation.CreateStackOutput
 	resourceVersion := helpers.CreateParam("ResourceVersion", s.SNSSubscription.ResourceVersion)
 	namespace := helpers.CreateParam("Namespace", s.SNSSubscription.Namespace)
 	clusterName := helpers.CreateParam("ClusterName", s.config.ClusterName)
-	topicNameTemp :=	"{{(call .Helpers.GetSNSTopicByName .Config .Obj.Spec.TopicName .Obj.Namespace).Output.TopicARN}}"
+	topicNameTemp := "{{(call .Helpers.GetSNSTopicByName .Config .Obj.Spec.TopicName .Obj.Namespace).Output.TopicARN}}"
 	topicNameValue, err := helpers.Templatize(topicNameTemp, helpers.Data{Obj: s.SNSSubscription, Config: s.config, Helpers: helpers.New()})
 	if err != nil {
 		return output, err
 	}
 	topicName := helpers.CreateParam("TopicARN", helpers.Stringify(topicNameValue))
-	protocolTemp :=	"{{.Obj.Spec.Protocol}}"
+	protocolTemp := "{{.Obj.Spec.Protocol}}"
 	protocolValue, err := helpers.Templatize(protocolTemp, helpers.Data{Obj: s.SNSSubscription, Config: s.config, Helpers: helpers.New()})
 	if err != nil {
 		return output, err
 	}
 	protocol := helpers.CreateParam("Protocol", helpers.Stringify(protocolValue))
-	endpointTemp :=	"{{if (eq .Obj.Spec.Protocol \"sqs\")}}{{(call .Helpers.GetSQSQueueByName .Config .Obj.Spec.Endpoint .Obj.Namespace).Output.QueueARN }}{{else}}{{.Obj.Spec.Endpoint}}{{end}}"
+	endpointTemp := "{{if (eq .Obj.Spec.Protocol \"sqs\")}}{{(call .Helpers.GetSQSQueueByName .Config .Obj.Spec.Endpoint .Obj.Namespace).Output.QueueARN }}{{else}}{{.Obj.Spec.Endpoint}}{{end}}"
 	endpointValue, err := helpers.Templatize(endpointTemp, helpers.Data{Obj: s.SNSSubscription, Config: s.config, Helpers: helpers.New()})
 	if err != nil {
 		return output, err
 	}
 	endpoint := helpers.CreateParam("Endpoint", helpers.Stringify(endpointValue))
-	queueURLTemp :=	"{{(call .Helpers.GetSQSQueueByName .Config .Obj.Spec.Endpoint .Obj.Namespace).Output.QueueURL }}"
+	queueURLTemp := "{{(call .Helpers.GetSQSQueueByName .Config .Obj.Spec.Endpoint .Obj.Namespace).Output.QueueURL }}"
 	queueURLValue, err := helpers.Templatize(queueURLTemp, helpers.Data{Obj: s.SNSSubscription, Config: s.config, Helpers: helpers.New()})
 	if err != nil {
 		return output, err
@@ -130,7 +130,7 @@ func (s *Cloudformation) CreateStack() (output *cloudformation.CreateStackOutput
 
 	stackInputs.SetTags(tags)
 
-  output, err = svc.CreateStack(&stackInputs)
+	output, err = svc.CreateStack(&stackInputs)
 	return
 }
 
@@ -159,7 +159,7 @@ func (s *Cloudformation) UpdateStack(updated *awsV1alpha1.SNSSubscription) (outp
 		return output, err
 	}
 	topicName := helpers.CreateParam("TopicARN", helpers.Stringify(topicNameValue))
-	protocolTemp :=	"{{.Obj.Spec.Protocol}}"
+	protocolTemp := "{{.Obj.Spec.Protocol}}"
 	protocolValue, err := helpers.Templatize(protocolTemp, helpers.Data{Obj: updated, Config: s.config, Helpers: helpers.New()})
 	if err != nil {
 		return output, err
@@ -203,7 +203,7 @@ func (s *Cloudformation) UpdateStack(updated *awsV1alpha1.SNSSubscription) (outp
 
 	stackInputs.SetTags(tags)
 
-  output, err = svc.UpdateStack(&stackInputs)
+	output, err = svc.UpdateStack(&stackInputs)
 	return
 }
 
@@ -215,7 +215,7 @@ func (s *Cloudformation) DeleteStack() (err error) {
 	stackInputs := cloudformation.DeleteStackInput{}
 	stackInputs.SetStackName(s.StackName())
 
-  _, err = svc.DeleteStack(&stackInputs)
+	_, err = svc.DeleteStack(&stackInputs)
 	return
 }
 
@@ -225,9 +225,9 @@ func (s *Cloudformation) WaitUntilStackDeleted() (err error) {
 	svc := cloudformation.New(sess)
 
 	stackInputs := cloudformation.DescribeStacksInput{
-		StackName:   aws.String(s.StackName()),
+		StackName: aws.String(s.StackName()),
 	}
 
-  err = svc.WaitUntilStackDeleteComplete(&stackInputs)
+	err = svc.WaitUntilStackDeleteComplete(&stackInputs)
 	return
 }

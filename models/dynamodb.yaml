@@ -97,3 +97,13 @@ spec:
           TableARN is the full Amazon ARN for the table created
         structKey: TableARN
         templateKey: TableArn
+  additionalResources:
+    configMaps:
+    - name: s3BucketCM
+      data:
+      - key: tableName
+        value: "{{.Obj.Output.TableName}}"
+      - key: tableARN
+        value: "{{.Obj.Output.TableARN}}"
+      - key: region
+        value: "{{.Config.Region}}"
