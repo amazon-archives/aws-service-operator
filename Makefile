@@ -7,8 +7,16 @@ build:
 
 .PHONY: release
 release:
-	rm -fr dist
-	goreleaser
+	goreleaser --rm-dist
+
+.PHONY: dev-release
+dev-release:
+	goreleaser --rm-dist --snapshot --skip-publish
+
+.PHONY: tag
+tag:
+	git tag -a ${VERSION} -s
+	git push origin --tags
 
 .PHONY: install-aws-codegen
 install-aws-codegen:
