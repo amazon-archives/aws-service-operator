@@ -263,13 +263,13 @@ func syncAdditionalResources(config *config.Config, s *awsV1alpha1.DynamoDB) (er
 	resource = resource.DeepCopy()
 
 	configmaps := []string{}
-	s3BucketCMData := map[string]string{
+	dynamoCMData := map[string]string{
 		"tableName": "{{.Obj.Output.TableName}}",
 		"tableARN":  "{{.Obj.Output.TableARN}}",
 		"region":    "{{.Config.Region}}",
 	}
-	s3BucketCM := helpers.CreateConfigMap(config, s, s.Name, s.Namespace, s3BucketCMData)
-	configmaps = append(configmaps, s3BucketCM)
+	dynamoCM := helpers.CreateConfigMap(config, s, s.Name, s.Namespace, dynamoCMData)
+	configmaps = append(configmaps, dynamoCM)
 	resource.AdditionalResources.ConfigMaps = configmaps
 
 	_, err = clientSet.DynamoDBs(s.Namespace).Update(resource)
