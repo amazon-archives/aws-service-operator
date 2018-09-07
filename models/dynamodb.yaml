@@ -99,7 +99,7 @@ spec:
         templateKey: TableArn
   additionalResources:
     configMaps:
-    - name: s3BucketCM
+    - name: dynamoCM
       data:
       - key: tableName
         value: "{{.Obj.Output.TableName}}"
