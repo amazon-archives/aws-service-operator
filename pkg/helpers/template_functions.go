@@ -14,26 +14,29 @@ import (
 // New Will return helpers to be passed into the templates
 func New() Helpers {
 	return Helpers{
+		KubernetesResourceName:          KubernetesResourceName,
 		GetCloudFormationTemplateByName: GetCloudFormationTemplateByName,
-		GetDynamoDBByName: GetDynamoDBByName,
-		GetECRRepositoryByName: GetECRRepositoryByName,
-		GetS3BucketByName: GetS3BucketByName,
-		GetSNSSubscriptionByName: GetSNSSubscriptionByName,
-		GetSNSTopicByName: GetSNSTopicByName,
-		GetSQSQueueByName: GetSQSQueueByName,
+		GetDynamoDBByName:               GetDynamoDBByName,
+		GetECRRepositoryByName:          GetECRRepositoryByName,
+		GetS3BucketByName:               GetS3BucketByName,
+		GetSNSSubscriptionByName:        GetSNSSubscriptionByName,
+		GetSNSTopicByName:               GetSNSTopicByName,
+		GetSQSQueueByName:               GetSQSQueueByName,
 	}
 }
 
 // Helpers defines all the Helper functions that are exposed to the templates
 type Helpers struct {
+	KubernetesResourceName          func(string) string
 	GetCloudFormationTemplateByName func(*config.Config, string, string) (interface{}, error)
-	GetDynamoDBByName func(*config.Config, string, string) (interface{}, error)
-	GetECRRepositoryByName func(*config.Config, string, string) (interface{}, error)
-	GetS3BucketByName func(*config.Config, string, string) (interface{}, error)
-	GetSNSSubscriptionByName func(*config.Config, string, string) (interface{}, error)
-	GetSNSTopicByName func(*config.Config, string, string) (interface{}, error)
-	GetSQSQueueByName func(*config.Config, string, string) (interface{}, error)
+	GetDynamoDBByName               func(*config.Config, string, string) (interface{}, error)
+	GetECRRepositoryByName          func(*config.Config, string, string) (interface{}, error)
+	GetS3BucketByName               func(*config.Config, string, string) (interface{}, error)
+	GetSNSSubscriptionByName        func(*config.Config, string, string) (interface{}, error)
+	GetSNSTopicByName               func(*config.Config, string, string) (interface{}, error)
+	GetSQSQueueByName               func(*config.Config, string, string) (interface{}, error)
 }
+
 // GetCloudFormationTemplateByName will find the resource by name
 func GetCloudFormationTemplateByName(config *config.Config, name string, namespace string) (interface{}, error) {
 	logger := config.Logger
@@ -46,6 +49,7 @@ func GetCloudFormationTemplateByName(config *config.Config, name string, namespa
 
 	return resource, nil
 }
+
 // GetDynamoDBByName will find the resource by name
 func GetDynamoDBByName(config *config.Config, name string, namespace string) (interface{}, error) {
 	logger := config.Logger
@@ -58,6 +62,7 @@ func GetDynamoDBByName(config *config.Config, name string, namespace string) (in
 
 	return resource, nil
 }
+
 // GetECRRepositoryByName will find the resource by name
 func GetECRRepositoryByName(config *config.Config, name string, namespace string) (interface{}, error) {
 	logger := config.Logger
@@ -70,6 +75,7 @@ func GetECRRepositoryByName(config *config.Config, name string, namespace string
 
 	return resource, nil
 }
+
 // GetS3BucketByName will find the resource by name
 func GetS3BucketByName(config *config.Config, name string, namespace string) (interface{}, error) {
 	logger := config.Logger
@@ -82,6 +88,7 @@ func GetS3BucketByName(config *config.Config, name string, namespace string) (in
 
 	return resource, nil
 }
+
 // GetSNSSubscriptionByName will find the resource by name
 func GetSNSSubscriptionByName(config *config.Config, name string, namespace string) (interface{}, error) {
 	logger := config.Logger
@@ -94,6 +101,7 @@ func GetSNSSubscriptionByName(config *config.Config, name string, namespace stri
 
 	return resource, nil
 }
+
 // GetSNSTopicByName will find the resource by name
 func GetSNSTopicByName(config *config.Config, name string, namespace string) (interface{}, error) {
 	logger := config.Logger
@@ -106,6 +114,7 @@ func GetSNSTopicByName(config *config.Config, name string, namespace string) (in
 
 	return resource, nil
 }
+
 // GetSQSQueueByName will find the resource by name
 func GetSQSQueueByName(config *config.Config, name string, namespace string) (interface{}, error) {
 	logger := config.Logger

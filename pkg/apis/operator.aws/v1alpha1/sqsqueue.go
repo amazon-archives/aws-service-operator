@@ -11,44 +11,44 @@ import (
 
 // SQSQueue defines the base resource
 type SQSQueue struct {
-	metav1.TypeMeta   `json:",inline"`
-	metav1.ObjectMeta `json:"metadata"`
-	Spec    SQSQueueSpec   `json:"spec"`
-	Status            SQSQueueStatus           `json:"status"`
-	Output            SQSQueueOutput           `json:"output"`
+	metav1.TypeMeta     `json:",inline"`
+	metav1.ObjectMeta   `json:"metadata"`
+	Spec                SQSQueueSpec                `json:"spec"`
+	Status              SQSQueueStatus              `json:"status"`
+	Output              SQSQueueOutput              `json:"output"`
 	AdditionalResources SQSQueueAdditionalResources `json:"additionalResources"`
 }
+
 // SQSQueueSpec defines the Spec resource for SQSQueue
 type SQSQueueSpec struct {
-	CloudFormationTemplateName string `json:"cloudFormationTemplateName"`
+	CloudFormationTemplateName      string `json:"cloudFormationTemplateName"`
 	CloudFormationTemplateNamespace string `json:"cloudFormationTemplateNamespace"`
-	RollbackCount int `json:"rollbackCount"`
-  ContentBasedDeduplication bool `json:"contentBasedDeduplication"`
-  DelaySeconds int `json:"delaySeconds"`
-  MaximumMessageSize int `json:"maximumMessageSize"`
-  MessageRetentionPeriod int `json:"messageRetentionPeriod"`
-  ReceiveMessageWaitTimeSeconds int `json:"receiveMessageWaitTimeSeconds"`
-  UsedeadletterQueue bool `json:"usedeadletterQueue"`
-  VisibilityTimeout int `json:"visibilityTimeout"`
-  FifoQueue bool `json:"fifoQueue"`
+	RollbackCount                   int    `json:"rollbackCount"`
+	ContentBasedDeduplication       bool   `json:"contentBasedDeduplication"`
+	DelaySeconds                    int    `json:"delaySeconds"`
+	MaximumMessageSize              int    `json:"maximumMessageSize"`
+	MessageRetentionPeriod          int    `json:"messageRetentionPeriod"`
+	ReceiveMessageWaitTimeSeconds   int    `json:"receiveMessageWaitTimeSeconds"`
+	UsedeadletterQueue              bool   `json:"usedeadletterQueue"`
+	VisibilityTimeout               int    `json:"visibilityTimeout"`
+	FifoQueue                       bool   `json:"fifoQueue"`
 }
-
 
 // SQSQueueOutput defines the output resource for SQSQueue
 type SQSQueueOutput struct {
-  QueueURL string `json:"queueURL"`
-  QueueARN string `json:"queueARN"`
-  QueueName string `json:"queueName"`
-  DeadLetterQueueURL string `json:"deadLetterQueueURL"`
-  DeadLetterQueueARN string `json:"deadLetterQueueARN"`
-  DeadLetterQueueName string `json:"deadLetterQueueName"`
+	QueueURL            string `json:"queueURL"`
+	QueueARN            string `json:"queueARN"`
+	QueueName           string `json:"queueName"`
+	DeadLetterQueueURL  string `json:"deadLetterQueueURL"`
+	DeadLetterQueueARN  string `json:"deadLetterQueueARN"`
+	DeadLetterQueueName string `json:"deadLetterQueueName"`
 }
 
 // SQSQueueStatus holds the status of the Cloudformation template
 type SQSQueueStatus struct {
-  ResourceStatus       string `json:"resourceStatus"`
-  ResourceStatusReason string `json:"resourceStatusReason"`
-  StackID              string `json:"stackID"`
+	ResourceStatus       string `json:"resourceStatus"`
+	ResourceStatusReason string `json:"resourceStatusReason"`
+	StackID              string `json:"stackID"`
 }
 
 // SQSQueueAdditionalResources holds the additional resources

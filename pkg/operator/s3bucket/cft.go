@@ -18,16 +18,16 @@ import (
 func New(config *config.Config, s3bucket *awsV1alpha1.S3Bucket, topicARN string) *Cloudformation {
 	return &Cloudformation{
 		S3Bucket: s3bucket,
-		config:					config,
-    topicARN:       topicARN,
+		config:   config,
+		topicARN: topicARN,
 	}
 }
 
 // Cloudformation defines the s3bucket cfts
 type Cloudformation struct {
-	config         *config.Config
+	config   *config.Config
 	S3Bucket *awsV1alpha1.S3Bucket
-  topicARN       string
+	topicARN string
 }
 
 // StackName returns the name of the stack based on the aws-operator-config
@@ -42,7 +42,7 @@ func (s *Cloudformation) GetOutputs() (map[string]string, error) {
 	svc := cloudformation.New(sess)
 
 	stackInputs := cloudformation.DescribeStacksInput{
-		StackName:   aws.String(s.StackName()),
+		StackName: aws.String(s.StackName()),
 	}
 
 	output, err := svc.DescribeStacks(&stackInputs)
@@ -81,13 +81,13 @@ func (s *Cloudformation) CreateStack() (output *cloudformation.CreateStackOutput
 	namespace := helpers.CreateParam("Namespace", s.S3Bucket.Namespace)
 	clusterName := helpers.CreateParam("ClusterName", s.config.ClusterName)
 	bucketName := helpers.CreateParam("BucketName", helpers.Stringify(s.S3Bucket.Name))
-	versioningTemp :=	"{{.Obj.Spec.Versioning}}"
+	versioningTemp := "{{.Obj.Spec.Versioning}}"
 	versioningValue, err := helpers.Templatize(versioningTemp, helpers.Data{Obj: s.S3Bucket, Config: s.config, Helpers: helpers.New()})
 	if err != nil {
 		return output, err
 	}
 	versioning := helpers.CreateParam("EnableVersioning", helpers.Stringify(versioningValue))
-	accessControlTemp :=	"{{.Obj.Spec.AccessControl}}"
+	accessControlTemp := "{{.Obj.Spec.AccessControl}}"
 	accessControlValue, err := helpers.Templatize(accessControlTemp, helpers.Data{Obj: s.S3Bucket, Config: s.config, Helpers: helpers.New()})
 	if err != nil {
 		return output, err
@@ -98,13 +98,13 @@ func (s *Cloudformation) CreateStack() (output *cloudformation.CreateStackOutput
 	if err != nil {
 		return output, err
 	}
-  loggingenabled := helpers.CreateParam("EnableLogging", helpers.Stringify(loggingenabledValue))
+	loggingenabled := helpers.CreateParam("EnableLogging", helpers.Stringify(loggingenabledValue))
 	loggingprefixTemp := "{{.Obj.Spec.Logging.Prefix}}"
 	loggingprefixValue, err := helpers.Templatize(loggingprefixTemp, helpers.Data{Obj: s.S3Bucket, Config: s.config, Helpers: helpers.New()})
 	if err != nil {
 		return output, err
 	}
-  loggingprefix := helpers.CreateParam("LoggingPrefix", helpers.Stringify(loggingprefixValue))
+	loggingprefix := helpers.CreateParam("LoggingPrefix", helpers.Stringify(loggingprefixValue))
 
 	parameters := []*cloudformation.Parameter{}
 	parameters = append(parameters, resourceName)
@@ -132,7 +132,7 @@ func (s *Cloudformation) CreateStack() (output *cloudformation.CreateStackOutput
 
 	stackInputs.SetTags(tags)
 
-  output, err = svc.CreateStack(&stackInputs)
+	output, err = svc.CreateStack(&stackInputs)
 	return
 }
 
@@ -156,13 +156,13 @@ func (s *Cloudformation) UpdateStack(updated *awsV1alpha1.S3Bucket) (output *clo
 	namespace := helpers.CreateParam("Namespace", s.S3Bucket.Namespace)
 	clusterName := helpers.CreateParam("ClusterName", s.config.ClusterName)
 	bucketName := helpers.CreateParam("BucketName", helpers.Stringify(s.S3Bucket.Name))
-	versioningTemp :=	"{{.Obj.Spec.Versioning}}"
+	versioningTemp := "{{.Obj.Spec.Versioning}}"
 	versioningValue, err := helpers.Templatize(versioningTemp, helpers.Data{Obj: updated, Config: s.config, Helpers: helpers.New()})
 	if err != nil {
 		return output, err
 	}
 	versioning := helpers.CreateParam("EnableVersioning", helpers.Stringify(versioningValue))
-	accessControlTemp :=	"{{.Obj.Spec.AccessControl}}"
+	accessControlTemp := "{{.Obj.Spec.AccessControl}}"
 	accessControlValue, err := helpers.Templatize(accessControlTemp, helpers.Data{Obj: updated, Config: s.config, Helpers: helpers.New()})
 	if err != nil {
 		return output, err
@@ -207,7 +207,7 @@ func (s *Cloudformation) UpdateStack(updated *awsV1alpha1.S3Bucket) (output *clo
 
 	stackInputs.SetTags(tags)
 
-  output, err = svc.UpdateStack(&stackInputs)
+	output, err = svc.UpdateStack(&stackInputs)
 	return
 }
 
@@ -219,7 +219,7 @@ func (s *Cloudformation) DeleteStack() (err error) {
 	stackInputs := cloudformation.DeleteStackInput{}
 	stackInputs.SetStackName(s.StackName())
 
-  _, err = svc.DeleteStack(&stackInputs)
+	_, err = svc.DeleteStack(&stackInputs)
 	return
 }
 
@@ -229,9 +229,9 @@ func (s *Cloudformation) WaitUntilStackDeleted() (err error) {
 	svc := cloudformation.New(sess)
 
 	stackInputs := cloudformation.DescribeStacksInput{
-		StackName:   aws.String(s.StackName()),
+		StackName: aws.String(s.StackName()),
 	}
 
-  err = svc.WaitUntilStackDeleteComplete(&stackInputs)
+	err = svc.WaitUntilStackDeleteComplete(&stackInputs)
 	return
 }

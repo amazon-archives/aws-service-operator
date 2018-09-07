@@ -18,16 +18,16 @@ import (
 func New(config *config.Config, snstopic *awsV1alpha1.SNSTopic, topicARN string) *Cloudformation {
 	return &Cloudformation{
 		SNSTopic: snstopic,
-		config:					config,
-    topicARN:       topicARN,
+		config:   config,
+		topicARN: topicARN,
 	}
 }
 
 // Cloudformation defines the snstopic cfts
 type Cloudformation struct {
-	config         *config.Config
+	config   *config.Config
 	SNSTopic *awsV1alpha1.SNSTopic
-  topicARN       string
+	topicARN string
 }
 
 // StackName returns the name of the stack based on the aws-operator-config
@@ -42,7 +42,7 @@ func (s *Cloudformation) GetOutputs() (map[string]string, error) {
 	svc := cloudformation.New(sess)
 
 	stackInputs := cloudformation.DescribeStacksInput{
-		StackName:   aws.String(s.StackName()),
+		StackName: aws.String(s.StackName()),
 	}
 
 	output, err := svc.DescribeStacks(&stackInputs)
@@ -102,7 +102,7 @@ func (s *Cloudformation) CreateStack() (output *cloudformation.CreateStackOutput
 
 	stackInputs.SetTags(tags)
 
-  output, err = svc.CreateStack(&stackInputs)
+	output, err = svc.CreateStack(&stackInputs)
 	return
 }
 
@@ -147,7 +147,7 @@ func (s *Cloudformation) UpdateStack(updated *awsV1alpha1.SNSTopic) (output *clo
 
 	stackInputs.SetTags(tags)
 
-  output, err = svc.UpdateStack(&stackInputs)
+	output, err = svc.UpdateStack(&stackInputs)
 	return
 }
 
@@ -159,7 +159,7 @@ func (s *Cloudformation) DeleteStack() (err error) {
 	stackInputs := cloudformation.DeleteStackInput{}
 	stackInputs.SetStackName(s.StackName())
 
-  _, err = svc.DeleteStack(&stackInputs)
+	_, err = svc.DeleteStack(&stackInputs)
 	return
 }
 
@@ -169,9 +169,9 @@ func (s *Cloudformation) WaitUntilStackDeleted() (err error) {
 	svc := cloudformation.New(sess)
 
 	stackInputs := cloudformation.DescribeStacksInput{
-		StackName:   aws.String(s.StackName()),
+		StackName: aws.String(s.StackName()),
 	}
 
-  err = svc.WaitUntilStackDeleteComplete(&stackInputs)
+	err = svc.WaitUntilStackDeleteComplete(&stackInputs)
 	return
 }

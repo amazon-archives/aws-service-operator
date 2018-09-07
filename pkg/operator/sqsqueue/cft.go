@@ -18,16 +18,16 @@ import (
 func New(config *config.Config, sqsqueue *awsV1alpha1.SQSQueue, topicARN string) *Cloudformation {
 	return &Cloudformation{
 		SQSQueue: sqsqueue,
-		config:					config,
-    topicARN:       topicARN,
+		config:   config,
+		topicARN: topicARN,
 	}
 }
 
 // Cloudformation defines the sqsqueue cfts
 type Cloudformation struct {
-	config         *config.Config
+	config   *config.Config
 	SQSQueue *awsV1alpha1.SQSQueue
-  topicARN       string
+	topicARN string
 }
 
 // StackName returns the name of the stack based on the aws-operator-config
@@ -42,7 +42,7 @@ func (s *Cloudformation) GetOutputs() (map[string]string, error) {
 	svc := cloudformation.New(sess)
 
 	stackInputs := cloudformation.DescribeStacksInput{
-		StackName:   aws.String(s.StackName()),
+		StackName: aws.String(s.StackName()),
 	}
 
 	output, err := svc.DescribeStacks(&stackInputs)
@@ -80,49 +80,49 @@ func (s *Cloudformation) CreateStack() (output *cloudformation.CreateStackOutput
 	resourceVersion := helpers.CreateParam("ResourceVersion", s.SQSQueue.ResourceVersion)
 	namespace := helpers.CreateParam("Namespace", s.SQSQueue.Namespace)
 	clusterName := helpers.CreateParam("ClusterName", s.config.ClusterName)
-	contentBasedDeduplicationTemp :=	"{{.Obj.Spec.ContentBasedDeduplication}}"
+	contentBasedDeduplicationTemp := "{{.Obj.Spec.ContentBasedDeduplication}}"
 	contentBasedDeduplicationValue, err := helpers.Templatize(contentBasedDeduplicationTemp, helpers.Data{Obj: s.SQSQueue, Config: s.config, Helpers: helpers.New()})
 	if err != nil {
 		return output, err
 	}
 	contentBasedDeduplication := helpers.CreateParam("ContentBasedDeduplication", helpers.Stringify(contentBasedDeduplicationValue))
-	delaySecondsTemp :=	"{{.Obj.Spec.DelaySeconds}}"
+	delaySecondsTemp := "{{.Obj.Spec.DelaySeconds}}"
 	delaySecondsValue, err := helpers.Templatize(delaySecondsTemp, helpers.Data{Obj: s.SQSQueue, Config: s.config, Helpers: helpers.New()})
 	if err != nil {
 		return output, err
 	}
 	delaySeconds := helpers.CreateParam("DelaySeconds", helpers.Stringify(delaySecondsValue))
-	maximumMessageSizeTemp :=	"{{.Obj.Spec.MaximumMessageSize}}"
+	maximumMessageSizeTemp := "{{.Obj.Spec.MaximumMessageSize}}"
 	maximumMessageSizeValue, err := helpers.Templatize(maximumMessageSizeTemp, helpers.Data{Obj: s.SQSQueue, Config: s.config, Helpers: helpers.New()})
 	if err != nil {
 		return output, err
 	}
 	maximumMessageSize := helpers.CreateParam("MaximumMessageSize", helpers.Stringify(maximumMessageSizeValue))
-	messageRetentionPeriodTemp :=	"{{.Obj.Spec.MessageRetentionPeriod}}"
+	messageRetentionPeriodTemp := "{{.Obj.Spec.MessageRetentionPeriod}}"
 	messageRetentionPeriodValue, err := helpers.Templatize(messageRetentionPeriodTemp, helpers.Data{Obj: s.SQSQueue, Config: s.config, Helpers: helpers.New()})
 	if err != nil {
 		return output, err
 	}
 	messageRetentionPeriod := helpers.CreateParam("MessageRetentionPeriod", helpers.Stringify(messageRetentionPeriodValue))
-	receiveMessageWaitTimeSecondsTemp :=	"{{.Obj.Spec.ReceiveMessageWaitTimeSeconds}}"
+	receiveMessageWaitTimeSecondsTemp := "{{.Obj.Spec.ReceiveMessageWaitTimeSeconds}}"
 	receiveMessageWaitTimeSecondsValue, err := helpers.Templatize(receiveMessageWaitTimeSecondsTemp, helpers.Data{Obj: s.SQSQueue, Config: s.config, Helpers: helpers.New()})
 	if err != nil {
 		return output, err
 	}
 	receiveMessageWaitTimeSeconds := helpers.CreateParam("ReceiveMessageWaitTimeSeconds", helpers.Stringify(receiveMessageWaitTimeSecondsValue))
-	usedeadletterQueueTemp :=	"{{.Obj.Spec.UsedeadletterQueue}}"
+	usedeadletterQueueTemp := "{{.Obj.Spec.UsedeadletterQueue}}"
 	usedeadletterQueueValue, err := helpers.Templatize(usedeadletterQueueTemp, helpers.Data{Obj: s.SQSQueue, Config: s.config, Helpers: helpers.New()})
 	if err != nil {
 		return output, err
 	}
 	usedeadletterQueue := helpers.CreateParam("UsedeadletterQueue", helpers.Stringify(usedeadletterQueueValue))
-	visibilityTimeoutTemp :=	"{{.Obj.Spec.VisibilityTimeout}}"
+	visibilityTimeoutTemp := "{{.Obj.Spec.VisibilityTimeout}}"
 	visibilityTimeoutValue, err := helpers.Templatize(visibilityTimeoutTemp, helpers.Data{Obj: s.SQSQueue, Config: s.config, Helpers: helpers.New()})
 	if err != nil {
 		return output, err
 	}
 	visibilityTimeout := helpers.CreateParam("VisibilityTimeout", helpers.Stringify(visibilityTimeoutValue))
-	fifoQueueTemp :=	"{{.Obj.Spec.FifoQueue}}"
+	fifoQueueTemp := "{{.Obj.Spec.FifoQueue}}"
 	fifoQueueValue, err := helpers.Templatize(fifoQueueTemp, helpers.Data{Obj: s.SQSQueue, Config: s.config, Helpers: helpers.New()})
 	if err != nil {
 		return output, err
@@ -158,7 +158,7 @@ func (s *Cloudformation) CreateStack() (output *cloudformation.CreateStackOutput
 
 	stackInputs.SetTags(tags)
 
-  output, err = svc.CreateStack(&stackInputs)
+	output, err = svc.CreateStack(&stackInputs)
 	return
 }
 
@@ -181,49 +181,49 @@ func (s *Cloudformation) UpdateStack(updated *awsV1alpha1.SQSQueue) (output *clo
 	resourceVersion := helpers.CreateParam("ResourceVersion", s.SQSQueue.ResourceVersion)
 	namespace := helpers.CreateParam("Namespace", s.SQSQueue.Namespace)
 	clusterName := helpers.CreateParam("ClusterName", s.config.ClusterName)
-	contentBasedDeduplicationTemp :=	"{{.Obj.Spec.ContentBasedDeduplication}}"
+	contentBasedDeduplicationTemp := "{{.Obj.Spec.ContentBasedDeduplication}}"
 	contentBasedDeduplicationValue, err := helpers.Templatize(contentBasedDeduplicationTemp, helpers.Data{Obj: updated, Config: s.config, Helpers: helpers.New()})
 	if err != nil {
 		return output, err
 	}
 	contentBasedDeduplication := helpers.CreateParam("ContentBasedDeduplication", helpers.Stringify(contentBasedDeduplicationValue))
-	delaySecondsTemp :=	"{{.Obj.Spec.DelaySeconds}}"
+	delaySecondsTemp := "{{.Obj.Spec.DelaySeconds}}"
 	delaySecondsValue, err := helpers.Templatize(delaySecondsTemp, helpers.Data{Obj: updated, Config: s.config, Helpers: helpers.New()})
 	if err != nil {
 		return output, err
 	}
 	delaySeconds := helpers.CreateParam("DelaySeconds", helpers.Stringify(delaySecondsValue))
-	maximumMessageSizeTemp :=	"{{.Obj.Spec.MaximumMessageSize}}"
+	maximumMessageSizeTemp := "{{.Obj.Spec.MaximumMessageSize}}"
 	maximumMessageSizeValue, err := helpers.Templatize(maximumMessageSizeTemp, helpers.Data{Obj: updated, Config: s.config, Helpers: helpers.New()})
 	if err != nil {
 		return output, err
 	}
 	maximumMessageSize := helpers.CreateParam("MaximumMessageSize", helpers.Stringify(maximumMessageSizeValue))
-	messageRetentionPeriodTemp :=	"{{.Obj.Spec.MessageRetentionPeriod}}"
+	messageRetentionPeriodTemp := "{{.Obj.Spec.MessageRetentionPeriod}}"
 	messageRetentionPeriodValue, err := helpers.Templatize(messageRetentionPeriodTemp, helpers.Data{Obj: updated, Config: s.config, Helpers: helpers.New()})
 	if err != nil {
 		return output, err
 	}
 	messageRetentionPeriod := helpers.CreateParam("MessageRetentionPeriod", helpers.Stringify(messageRetentionPeriodValue))
-	receiveMessageWaitTimeSecondsTemp :=	"{{.Obj.Spec.ReceiveMessageWaitTimeSeconds}}"
+	receiveMessageWaitTimeSecondsTemp := "{{.Obj.Spec.ReceiveMessageWaitTimeSeconds}}"
 	receiveMessageWaitTimeSecondsValue, err := helpers.Templatize(receiveMessageWaitTimeSecondsTemp, helpers.Data{Obj: updated, Config: s.config, Helpers: helpers.New()})
 	if err != nil {
 		return output, err
 	}
 	receiveMessageWaitTimeSeconds := helpers.CreateParam("ReceiveMessageWaitTimeSeconds", helpers.Stringify(receiveMessageWaitTimeSecondsValue))
-	usedeadletterQueueTemp :=	"{{.Obj.Spec.UsedeadletterQueue}}"
+	usedeadletterQueueTemp := "{{.Obj.Spec.UsedeadletterQueue}}"
 	usedeadletterQueueValue, err := helpers.Templatize(usedeadletterQueueTemp, helpers.Data{Obj: updated, Config: s.config, Helpers: helpers.New()})
 	if err != nil {
 		return output, err
 	}
 	usedeadletterQueue := helpers.CreateParam("UsedeadletterQueue", helpers.Stringify(usedeadletterQueueValue))
-	visibilityTimeoutTemp :=	"{{.Obj.Spec.VisibilityTimeout}}"
+	visibilityTimeoutTemp := "{{.Obj.Spec.VisibilityTimeout}}"
 	visibilityTimeoutValue, err := helpers.Templatize(visibilityTimeoutTemp, helpers.Data{Obj: updated, Config: s.config, Helpers: helpers.New()})
 	if err != nil {
 		return output, err
 	}
 	visibilityTimeout := helpers.CreateParam("VisibilityTimeout", helpers.Stringify(visibilityTimeoutValue))
-	fifoQueueTemp :=	"{{.Obj.Spec.FifoQueue}}"
+	fifoQueueTemp := "{{.Obj.Spec.FifoQueue}}"
 	fifoQueueValue, err := helpers.Templatize(fifoQueueTemp, helpers.Data{Obj: updated, Config: s.config, Helpers: helpers.New()})
 	if err != nil {
 		return output, err
@@ -259,7 +259,7 @@ func (s *Cloudformation) UpdateStack(updated *awsV1alpha1.SQSQueue) (output *clo
 
 	stackInputs.SetTags(tags)
 
-  output, err = svc.UpdateStack(&stackInputs)
+	output, err = svc.UpdateStack(&stackInputs)
 	return
 }
 
@@ -271,7 +271,7 @@ func (s *Cloudformation) DeleteStack() (err error) {
 	stackInputs := cloudformation.DeleteStackInput{}
 	stackInputs.SetStackName(s.StackName())
 
-  _, err = svc.DeleteStack(&stackInputs)
+	_, err = svc.DeleteStack(&stackInputs)
 	return
 }
 
@@ -281,9 +281,9 @@ func (s *Cloudformation) WaitUntilStackDeleted() (err error) {
 	svc := cloudformation.New(sess)
 
 	stackInputs := cloudformation.DescribeStacksInput{
-		StackName:   aws.String(s.StackName()),
+		StackName: aws.String(s.StackName()),
 	}
 
-  err = svc.WaitUntilStackDeleteComplete(&stackInputs)
+	err = svc.WaitUntilStackDeleteComplete(&stackInputs)
 	return
 }

@@ -16,17 +16,17 @@ import (
 	awsapi "github.com/christopherhein/aws-operator/pkg/apis/operator.aws"
 	awsV1alpha1 "github.com/christopherhein/aws-operator/pkg/apis/operator.aws/v1alpha1"
 	awsclient "github.com/christopherhein/aws-operator/pkg/client/clientset/versioned/typed/operator.aws/v1alpha1"
-  "github.com/christopherhein/aws-operator/pkg/customizations/cloudformationtemplate"
+	"github.com/christopherhein/aws-operator/pkg/customizations/cloudformationtemplate"
 )
 
 // Resource is the object store definition
 var Resource = opkit.CustomResource{
-	Name:       "cloudformationtemplate",
-	Plural:     "cloudformationtemplates",
-	Group:      awsapi.GroupName,
-	Version:    awsapi.Version,
-	Scope:      apiextensionsv1beta1.NamespaceScoped,
-	Kind:       reflect.TypeOf(awsV1alpha1.CloudFormationTemplate{}).Name(),
+	Name:    "cloudformationtemplate",
+	Plural:  "cloudformationtemplates",
+	Group:   awsapi.GroupName,
+	Version: awsapi.Version,
+	Scope:   apiextensionsv1beta1.NamespaceScoped,
+	Kind:    reflect.TypeOf(awsV1alpha1.CloudFormationTemplate{}).Name(),
 	ShortNames: []string{
 		"cft",
 		"cfts",
@@ -41,7 +41,7 @@ type Controller struct {
 	config       *config.Config
 	context      *opkit.Context
 	awsclientset awsclient.OperatorV1alpha1Interface
-  topicARN     string
+	topicARN     string
 }
 
 // NewController create controller for watching object store custom resources created
@@ -79,7 +79,7 @@ func (c *Controller) onUpdate(oldObj, newObj interface{}) {
 
 	if no.Status.ResourceStatus == "DELETE_COMPLETE" {
 		c.onAdd(no)
-  }
+	}
 	cloudformationtemplate.OnUpdate(c.config, oo, no)
 }
 

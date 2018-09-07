@@ -11,33 +11,33 @@ import (
 
 // ECRRepository defines the base resource
 type ECRRepository struct {
-	metav1.TypeMeta   `json:",inline"`
-	metav1.ObjectMeta `json:"metadata"`
-	Spec    ECRRepositorySpec   `json:"spec"`
-	Status            ECRRepositoryStatus           `json:"status"`
-	Output            ECRRepositoryOutput           `json:"output"`
+	metav1.TypeMeta     `json:",inline"`
+	metav1.ObjectMeta   `json:"metadata"`
+	Spec                ECRRepositorySpec                `json:"spec"`
+	Status              ECRRepositoryStatus              `json:"status"`
+	Output              ECRRepositoryOutput              `json:"output"`
 	AdditionalResources ECRRepositoryAdditionalResources `json:"additionalResources"`
 }
+
 // ECRRepositorySpec defines the Spec resource for ECRRepository
 type ECRRepositorySpec struct {
-	CloudFormationTemplateName string `json:"cloudFormationTemplateName"`
+	CloudFormationTemplateName      string `json:"cloudFormationTemplateName"`
 	CloudFormationTemplateNamespace string `json:"cloudFormationTemplateNamespace"`
-	RollbackCount int `json:"rollbackCount"`
+	RollbackCount                   int    `json:"rollbackCount"`
 }
-
 
 // ECRRepositoryOutput defines the output resource for ECRRepository
 type ECRRepositoryOutput struct {
-  RepositoryName string `json:"repositoryName"`
-  RepositoryARN string `json:"repositoryARN"`
-  RepositoryURL string `json:"repositoryURL"`
+	RepositoryName string `json:"repositoryName"`
+	RepositoryARN  string `json:"repositoryARN"`
+	RepositoryURL  string `json:"repositoryURL"`
 }
 
 // ECRRepositoryStatus holds the status of the Cloudformation template
 type ECRRepositoryStatus struct {
-  ResourceStatus       string `json:"resourceStatus"`
-  ResourceStatusReason string `json:"resourceStatusReason"`
-  StackID              string `json:"stackID"`
+	ResourceStatus       string `json:"resourceStatus"`
+	ResourceStatusReason string `json:"resourceStatusReason"`
+	StackID              string `json:"stackID"`
 }
 
 // ECRRepositoryAdditionalResources holds the additional resources
