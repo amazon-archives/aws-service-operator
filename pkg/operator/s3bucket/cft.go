@@ -105,6 +105,24 @@ func (s *Cloudformation) CreateStack() (output *cloudformation.CreateStackOutput
 		return output, err
 	}
 	loggingprefix := helpers.CreateParam("LoggingPrefix", helpers.Stringify(loggingprefixValue))
+	websiteenabledTemp := "{{.Obj.Spec.Website.Enabled}}"
+	websiteenabledValue, err := helpers.Templatize(websiteenabledTemp, helpers.Data{Obj: s.S3Bucket, Config: s.config, Helpers: helpers.New()})
+	if err != nil {
+		return output, err
+	}
+	websiteenabled := helpers.CreateParam("EnableStaticSite", helpers.Stringify(websiteenabledValue))
+	websiteindexPageTemp := "{{.Obj.Spec.Website.IndexPage}}"
+	websiteindexPageValue, err := helpers.Templatize(websiteindexPageTemp, helpers.Data{Obj: s.S3Bucket, Config: s.config, Helpers: helpers.New()})
+	if err != nil {
+		return output, err
+	}
+	websiteindexPage := helpers.CreateParam("StaticSiteIndex", helpers.Stringify(websiteindexPageValue))
+	websiteerrorPageTemp := "{{.Obj.Spec.Website.ErrorPage}}"
+	websiteerrorPageValue, err := helpers.Templatize(websiteerrorPageTemp, helpers.Data{Obj: s.S3Bucket, Config: s.config, Helpers: helpers.New()})
+	if err != nil {
+		return output, err
+	}
+	websiteerrorPage := helpers.CreateParam("StaticSiteError", helpers.Stringify(websiteerrorPageValue))
 
 	parameters := []*cloudformation.Parameter{}
 	parameters = append(parameters, resourceName)
@@ -116,6 +134,9 @@ func (s *Cloudformation) CreateStack() (output *cloudformation.CreateStackOutput
 	parameters = append(parameters, accessControl)
 	parameters = append(parameters, loggingenabled)
 	parameters = append(parameters, loggingprefix)
+	parameters = append(parameters, websiteenabled)
+	parameters = append(parameters, websiteindexPage)
+	parameters = append(parameters, websiteerrorPage)
 
 	stackInputs.SetParameters(parameters)
 
@@ -180,6 +201,24 @@ func (s *Cloudformation) UpdateStack(updated *awsV1alpha1.S3Bucket) (output *clo
 		return output, err
 	}
 	loggingprefix := helpers.CreateParam("LoggingPrefix", helpers.Stringify(loggingprefixValue))
+	websiteenabledTemp := "{{.Obj.Spec.Website.Enabled}}"
+	websiteenabledValue, err := helpers.Templatize(websiteenabledTemp, helpers.Data{Obj: updated, Config: s.config, Helpers: helpers.New()})
+	if err != nil {
+		return output, err
+	}
+	websiteenabled := helpers.CreateParam("EnableStaticSite", helpers.Stringify(websiteenabledValue))
+	websiteindexPageTemp := "{{.Obj.Spec.Website.IndexPage}}"
+	websiteindexPageValue, err := helpers.Templatize(websiteindexPageTemp, helpers.Data{Obj: updated, Config: s.config, Helpers: helpers.New()})
+	if err != nil {
+		return output, err
+	}
+	websiteindexPage := helpers.CreateParam("StaticSiteIndex", helpers.Stringify(websiteindexPageValue))
+	websiteerrorPageTemp := "{{.Obj.Spec.Website.ErrorPage}}"
+	websiteerrorPageValue, err := helpers.Templatize(websiteerrorPageTemp, helpers.Data{Obj: updated, Config: s.config, Helpers: helpers.New()})
+	if err != nil {
+		return output, err
+	}
+	websiteerrorPage := helpers.CreateParam("StaticSiteError", helpers.Stringify(websiteerrorPageValue))
 
 	parameters := []*cloudformation.Parameter{}
 	parameters = append(parameters, resourceName)
@@ -191,6 +230,9 @@ func (s *Cloudformation) UpdateStack(updated *awsV1alpha1.S3Bucket) (output *clo
 	parameters = append(parameters, accessControl)
 	parameters = append(parameters, loggingenabled)
 	parameters = append(parameters, loggingprefix)
+	parameters = append(parameters, websiteenabled)
+	parameters = append(parameters, websiteindexPage)
+	parameters = append(parameters, websiteerrorPage)
 
 	stackInputs.SetParameters(parameters)
 

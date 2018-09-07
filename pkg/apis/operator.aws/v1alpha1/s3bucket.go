@@ -33,12 +33,21 @@ type S3BucketSpec struct {
 	Versioning                      bool            `json:"versioning"`
 	AccessControl                   string          `json:"accessControl"`
 	Logging                         S3BucketLogging `json:"logging"`
+	Website                         S3BucketWebsite `json:"website"`
+}
+
+// S3BucketWebsite defines the Website resource for S3Bucket
+type S3BucketWebsite struct {
+	Enabled   bool   `json:"enabled"`
+	IndexPage string `json:"indexPage"`
+	ErrorPage string `json:"errorPage"`
 }
 
 // S3BucketOutput defines the output resource for S3Bucket
 type S3BucketOutput struct {
 	BucketName string `json:"bucketName"`
 	BucketARN  string `json:"bucketARN"`
+	WebsiteURL string `json:"websiteURL"`
 }
 
 // S3BucketStatus holds the status of the Cloudformation template

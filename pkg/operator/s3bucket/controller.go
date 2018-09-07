@@ -216,6 +216,7 @@ func updateStatus(config *config.Config, name string, namespace string, stackID 
 		}
 		resourceCopy.Output.BucketName = outputs["BucketName"]
 		resourceCopy.Output.BucketARN = outputs["BucketArn"]
+		resourceCopy.Output.WebsiteURL = outputs["WebsiteURL"]
 	}
 
 	_, err = clientSet.S3Buckets(namespace).Update(resourceCopy)
@@ -272,6 +273,7 @@ func syncAdditionalResources(config *config.Config, s *awsV1alpha1.S3Bucket) (er
 		"serviceName": "{{call .Helpers.KubernetesResourceName .Obj.Name}}",
 		"region":      "{{.Config.Region}}",
 		"bucketURL":   "{{.Obj.Name}}.s3-{{.Config.Region}}.amazonaws.com",
+		"websiteURL":  "{{.Obj.Output.WebsiteURL}}",
 	}
 	s3BucketCM := helpers.CreateConfigMap(config, s, s.Name, s.Namespace, s3BucketCMData)
 	configmaps = append(configmaps, s3BucketCM)
