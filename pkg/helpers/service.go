@@ -6,13 +6,6 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
-// Data wrapps the object that is needed for the services
-type Data struct {
-	Helpers Helpers
-	Obj     interface{}
-	Config  *config.Config
-}
-
 // CreateExternalNameService will create a Kubernetes Servic Using ExternalName types
 func CreateExternalNameService(config *config.Config, resource interface{}, svcName string, svcNamespace string, externalNameTemplate string, svcPort int32) string {
 	logger := config.Logger
