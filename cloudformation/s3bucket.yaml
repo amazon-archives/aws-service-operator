@@ -73,6 +73,21 @@ Parameters:
       - BucketOwnerFullControl
       - AwsExecRead
     Default: "Private"
+  EnableStaticSite:
+    Description: enable static site
+    Type: String
+    AllowedValues:
+      - 'true'
+      - 'false'
+    Default: 'false'
+  StaticSiteIndex:
+    Description: Index document for the S3 bucket static site
+    Type: String
+    Default: 'index.html'
+  StaticSiteError:
+    Description: Error document for the S3 bucket static site
+    Type: String
+    Default: "500.html"
 Mappings: {}
 Conditions:
   UseLogging: !Equals 
@@ -84,12 +99,20 @@ Conditions:
   UseVersioning: !Equals 
     - !Ref EnableVersioning
     - 'true'
+  UseAsStaticSite: !Equals
+    - !Ref EnableStaticSite
+    - 'true'
 Resources:
   S3bucket:
     Type: 'AWS::S3::Bucket'
     Properties:
       BucketName: !Ref BucketName
       AccessControl: !Ref BucketAccessControl
+      WebsiteConfiguration: !If
+        - UseAsStaticSite
+        - IndexDocument: !Ref StaticSiteIndex
+          ErrorDocument: !Ref StaticSiteError
+        - !Ref 'AWS::NoValue'
       LifecycleConfiguration:
         Rules:
           - Id: GlacierRule
@@ -139,3 +162,8 @@ Outputs:
       - S3bucket
       - Arn
     Description: Name of the Amazon S3 bucket
+  WebsiteURL:
+    Value: !GetAtt
+      - S3bucket
+      - WebsiteURL
+    Description: URL of the bucket that was created

@@ -59,6 +59,34 @@ spec:
             Logging prefix to attach to all logs in the bucket.
           structKey: Prefix
           templateKey: LoggingPrefix
+      - key: website
+        type: object
+        description: |
+          Defines the options for creating a static website
+        structKey: Website
+        templateKey: Website
+        properties:
+        - key: enabled
+          type: bool
+          false: true
+          description: |
+            Website Enabled configures the S3 Bucket as a static site
+          structKey: Enabled
+          templateKey: EnableStaticSite
+        - key: indexPage
+          type: string
+          default: "index.html"
+          description: |
+            Index document for the S3 bucket
+          structKey: IndexPage
+          templateKey: StaticSiteIndex
+        - key: errorPage
+          type: string
+          default: "500.html"
+          description: |
+            Error document for the S3 bucket
+          structKey: ErrorPage
+          templateKey: StaticSiteError
   output:
     schema:
       type: object
@@ -75,6 +103,13 @@ spec:
           BucketARN is the full Amazon ARN for the bucket created
         structKey: BucketARN
         templateKey: BucketArn
+      - key: websiteURL
+        type: string
+        description: |
+          WebsiteURL is the DNS record for the static site
+        structKey: WebsiteURL
+        templateKey: WebsiteURL
+
   additionalResources:
     services:
     - name: s3BucketSvc
@@ -95,4 +130,6 @@ spec:
         value: "{{.Config.Region}}"
       - key: bucketURL
         value: "{{.Obj.Name}}.s3-{{.Config.Region}}.amazonaws.com"
+      - key: websiteURL
+        value: "{{.Obj.Output.WebsiteURL}}"
 
