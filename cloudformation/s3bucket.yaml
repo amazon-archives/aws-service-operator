@@ -143,6 +143,28 @@ Resources:
         - Status: Enabled
         - !Ref 'AWS::NoValue'
     DeletionPolicy: Retain
+
+  WebsiteBucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Condition: UseAsStaticSite
+    Properties:
+      Bucket: !Ref S3bucket
+      PolicyDocument:
+        Statement:
+        -
+          Action:
+          - "s3:GetObject"
+          Effect: Allow
+          Principal: "*"
+          Resource:
+            Fn::Join:
+              - ""
+              -
+                - "arn:aws:s3:::"
+                - !Ref S3bucket
+                - "/*"
+
+
   LoggingBucket:
     Condition: UseLogging
     Type: 'AWS::S3::Bucket'
