@@ -1,7 +1,7 @@
 apiVersion: operator.aws/v1alpha1
 kind: DynamoDB
 metadata:
-  name: dynamodb-table
+  name: example-table-name
 spec:
   hashAttribute:
     name: user_id

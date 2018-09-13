@@ -1,6 +1,6 @@
 apiVersion: operator.aws/v1alpha1
 kind: SNSTopic
 metadata:
-  name: chrishein-sns-topic-2
+  name: example-sns-topic-name
 spec:
 

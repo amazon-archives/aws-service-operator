@@ -4,12 +4,12 @@ items:
 - kind: Namespace
   apiVersion: v1
   metadata:
-    name: aws-operator
+    name: aws-service-operator
 
 - kind: ClusterRole
   apiVersion: rbac.authorization.k8s.io/v1beta1
   metadata:
-    name: aws-operator
+    name: aws-service-operator
   rules:
   - apiGroups:
     - ""
@@ -56,47 +56,43 @@ items:
 - kind: ServiceAccount
   apiVersion: v1
   metadata:
-    name: aws-operator
-    namespace: aws-operator
+    name: aws-service-operator
+    namespace: aws-service-operator
 
 - kind: ClusterRoleBinding
   apiVersion: rbac.authorization.k8s.io/v1beta1
   metadata:
-    name: aws-operator
+    name: aws-service-operator
   roleRef:
     apiGroup: rbac.authorization.k8s.io
     kind: ClusterRole
-    name: aws-operator
+    name: aws-service-operator
   subjects:
   - kind: ServiceAccount
-    name: aws-operator
-    namespace: aws-operator
+    name: aws-service-operator
+    namespace: aws-service-operator
 
 - kind: Deployment
   apiVersion: apps/v1beta1
   metadata:
-    name: aws-operator
-    namespace: aws-operator
+    name: aws-service-operator
+    namespace: aws-service-operator
   spec:
     replicas: 1
     template:
       metadata:
+        annotations:
+          iam.amazonaws.com/role: arn:aws:iam::<ACCOUNT_ID>:role/aws-service-operator
         labels:
-          app: aws-operator
+          app: aws-service-operator
       spec:
-        serviceAccountName: aws-operator
+        serviceAccountName: aws-service-operator
         containers:
-        - name: aws-operator
-          image: christopherhein/test-operator:v0.0.1-alpha4
+        - name: aws-service-operator
+          image: awsserviceoperator/aws-service-operator:v0.0.1-alpha4
           imagePullPolicy: Always
-          env:
-            - name: AWS_ACCESS_KEY_ID
-              value:
-            - name: AWS_SECRET_ACCESS_KEY
-              value:
           args:
             - server
-            - --cluster-name=<cluster-name>
-            - --region=<region>
-            - --bucket=<bucket-name>
-            - --account-id=<account-id>
+            - --cluster-name=<CLUSTER_NAME>
+            - --region=<REGION>
+            - --account-id=<ACCOUNT_ID>

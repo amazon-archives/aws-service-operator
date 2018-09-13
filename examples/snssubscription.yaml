@@ -1,8 +1,8 @@
 apiVersion: operator.aws/v1alpha1
 kind: SNSSubscription
 metadata:
-  name: chrishein-sns-subscription-2
+  name: example-sns-subscription-name
 spec:
-  topicName: chrishein-sns-topic-2
+  topicName: example-sns-topic-name
   protocol: sqs
-  endpoint: chrishein-test-sqs-2
+  endpoint: example-sqs-queue-name
