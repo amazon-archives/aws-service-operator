@@ -1,89 +1,92 @@
-= AWS Operator
+= AWS Service Operator
 
-The AWS Operator allows you to create custom AWS specific resources using
-Kubernetes CRDs or Custom Resource Definitions. These help with defining your
-applications including all the necessary components such as Amazon RDS
-databases, Amazon ElasticCache resources, Amazon SQS queues and many more.
+The AWS Service Operator allows you to manage AWS resources using
+Kubernetes Custom Resource Definitions. 
 
-Using the AWS Operator allows your to use processes like `gitops` to keep your
-clusters in a specified state with the internal control loop managing the
-lifecycle of those components.
+Using the AWS Service Operator enables a `gitops` workflow to drive your infrastructure to the desired state leveraging Kubernetes Custom Resource Definitions (CRD), the Kubernetes internal control loop, and AWS cloudformation orchestration.  Read more about "operators" link:https://coreos.com/operators/[here].
 
-To make this all possible we merge together Kubernetes CRDs with an operator
-which interacts with Amazon Cloudformation to keep the AWS resources in-sync
-with the control loop.
+image::aws-service-operator-example.gif[]
 
-// TODO: Add demo screen capture
+== Prerequisites
+
+To get started you will need
+
+- a Kubernetes cluster running in AWS. Check out link:https://docs.aws.amazon.com/eks/latest/userguide/what-is-eks.html[EKS] or link:https://github.com/kubernetes/kops[kops] to get started
+- link:https://kubernetes.io/docs/tasks/tools/install-kubectl/[kubectl]
+- link:https://docs.aws.amazon.com/cli/latest/userguide/installing.html[awscli]
 
 == Getting Started
 
-First thing that you will need to do is install an Pod to IAM management layer
-such as `kube2iam`. This will allow you to create an AWS IAM role that gives
-access to create resources. For an example policy check the
-`examples/iam-policy.json`.
+Make sure your Kubernetes cluster is up and running and you've configured your awscli for the approriate account and region you'll be working in.
 
-To get started with `kube2iam` go [here](https://github.com/jtblin/kube2iam)
+=== IAM permissions management
 
-After you have installed `kube2iam` we need to do is deploy the `aws-operator`
-this runs as a pod in your Kubernetes cluster and listen for new CRD's of the
-`aws` type and creates the resource and allocates a kubernetes `Service` to
-connect to it.
+You will need to install an IAM management layer
+such as `kube2iam`. This will allow you to use an AWS IAM role to manage a pod's 
+access to AWS resources. 
 
-You'll want to download the operator file like so
+To get started with `kube2iam` go link:https://github.com/jtblin/kube2iam[here] or check out the 
+link:https://github.com/helm/charts/tree/master/stable/kube2iam[helm chart]
 
-[source,shell]
-----
-wget https://raw.githubusercontent.com/christopherhein/aws-operator/master/configs/aws-operator.yaml
-----
+The `aws-service-operator` runs as a pod in your Kubernetes cluster and listens for new `aws` type CRDs.  
+When a new CRD is created the operator will create the resource in AWS via cloudformation and 
+create a Kubernetes `Service` for access within the cluster.
 
-Then edit the file and replace `{{POD-ARN}}` with the pod ARN you created for
-`kube2iam`
-
-Last install the manifest with the pod ARN specified.
+=== Create an IAM role for the `aws-service-operator`
+ 
+ The `K8S_WORKER_NODE_IAM_ROLE` is the IAM role assigned to your kubernetes worker instances.
 
 [source,shell]
-----
-# Install RBAC
-kubectl apply -f aws-operator.yaml
-----
+aws cloudformation create-stack \
+  --stack-name aws-service-operator-role \
+  --capabilities CAPABILITY_NAMED_IAM \
+  --template-body file://configs/aws-service-operator-role.yaml \
+  --parameters \
+    ParameterKey=WorkerArn,ParameterValue=<K8S_WORKER_NODE_IAM_ROLE>    
 
-To test this create a file like this
+Your resulting IAM role arn should look something like `arn:aws:iam::<ACCOUNT_ID>:role/aws-service-operator`
 
+=== Deploy the aws-service-operator
+
+Before applying these resources make sure to replace the following placeholders with the approriate information in `configs/aws-service-operator.yaml`
+
+- `<ACCOUNT_ID>` - Your AWS Account ID
+- `<REGION>` - The AWS Region you're working in 
+- `<CLUSTER_NAME>` - The name of your cluster
+- `<BUCKET_NAME>` - (optional) The operator stores certain things in s3 create a bucket or provide an existing bucket for the operator to use `i.e. aws s3 mb s3://foobar`
+
+
+.1. Create the operator
+[source,shell]
+kubectl apply -f configs/aws-service-operator.yaml
+
+.2. Create the cloudformation templates (cft) used by the operator
+[source,shell]
+kubectl apply -f examples/cloudformationtemplates
+
+.3. (optional) Follow the operator logs
+[source,shell]
+kubectl logs -f -n aws-service-operator deploy/aws-service-operator
+
+.4. Create an ecr repository with the operator
 [source,yaml]
-----
-# s3bucket.yml
-apiVersion: operator.aws/v1alpha1
-kind: S3Bucket
-metadata:
-  name: some-name-for-your-bucket
-spec:
-  bucketName: some-name-for-your-bucket
-  versioning: false
-  logging:
-    enabled: true
-    prefix: "archive"
-  tags:
-  - key: service
-    value: kube
-----
+kubectl apply -f examples/ecrrepository.yaml
 
-Then install like you would any other manifest file.
-
-[source,shell]
-----
-kubectl apply -f s3bucket.yml
-----
-
-This will communicate directly with Cloudformation to create the S3 bucket using
+The operator will communicate directly with Cloudformation to create the ecr repository using
 the parameters you have passed in. If you'd like to see the progress you can
 view the status directly via `kubectl`.
 
+.5. Check the ecr resource in Kubernetes
 [source,shell]
-----
-kubectl get s3buckets <bucket-name> -w
-// TODO: add output.
-----
+kubectl describe ecr example-repository-name
 
-To learn more about the other resources please visit the documentation at
-link:/docs/readme.adoc[Documentation]
+== Removing everything
 
+If you would like to tear everything down - run the following commands. 
+
+*IMPORTANT* this will not remove anything you created with the AWS cli (ecr repo for the operator itself, IAM roles etc.)
+
+[source,shell]
+kubectl delete ecr example-repository-name
+kubectl get crd | grep ".operator.aws" | awk '{print $1}' | xargs kubectl delete crd
+kubectl delete -f configs/aws-service-operator.yaml

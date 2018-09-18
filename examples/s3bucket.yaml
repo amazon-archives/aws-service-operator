@@ -1,7 +1,7 @@
 apiVersion: operator.aws/v1alpha1
 kind: S3Bucket
 metadata:
-  name: s3bucket.aws-operator.com
+  name: Private
 spec:
   versioning: true
   accessControl: PublicRead

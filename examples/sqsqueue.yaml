@@ -1,7 +1,7 @@
 apiVersion: operator.aws/v1alpha1
 kind: SQSQueue
 metadata:
-  name: chrishein-test-sqs-2
+  name: example-sqs-queue-name
 spec:
   contentBasedDeduplication: true
   delaySeconds: 5

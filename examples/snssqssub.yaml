@@ -2,13 +2,13 @@
 apiVersion: operator.aws/v1alpha1
 kind: SNSTopic
 metadata:
-  name: chrishein-sns-topic-3
+  name: example-sns-topic
 
 ---
 apiVersion: operator.aws/v1alpha1
 kind: SQSQueue
 metadata:
-  name: chrishein-test-sqs-3
+  name: example-sqs-queue-name
 spec:
   contentBasedDeduplication: true
   delaySeconds: 5
@@ -21,8 +21,8 @@ spec:
 apiVersion: operator.aws/v1alpha1
 kind: SNSSubscription
 metadata:
-  name: chrishein-sns-subscription-3
+  name: example-subscription-name
 spec:
-  topicName: chrishein-sns-topic-3
+  topicName: example-sns-topic
   protocol: sqs
-  endpoint: chrishein-test-sqs-3
+  endpoint: example-sqs-queue-name
