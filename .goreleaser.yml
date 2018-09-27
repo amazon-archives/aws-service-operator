@@ -42,7 +42,7 @@ release:
 
 # Creates a Docker container with the operator packaged into it for distribution
 dockers:
-- image: christopherhein/test-operator
+- image: awsserviceoperator/aws-service-operator
   binary: aws-operator
   dockerfile: Dockerfile
   tag_templates:
