@@ -1,5 +1,8 @@
 = Development
 
+Before start working on the AWS Service Operator please read the
+link:contributing.adoc[Contributing Guidelines].
+
 Make sure you first have all the dependencies installed.
 
 [source,shell]
