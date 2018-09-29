@@ -1,7 +1,7 @@
 FROM alpine
-MAINTAINER Christopher Hein <me@christopherhein.com>
+MAINTAINER Christopher Hein <heichris@amazon.com>
 
 RUN apk --no-cache add openssl musl-dev ca-certificates
-COPY aws-operator /usr/local/bin/
+COPY aws-service-operator /usr/local/bin/
 
-ENTRYPOINT ["/usr/local/bin/aws-operator"]
+ENTRYPOINT ["/usr/local/bin/aws-service-operator"]
