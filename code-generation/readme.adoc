@@ -1,0 +1,58 @@
+= AWS Operator Codegen Libraries
+
+This project configured the AWS Operator code generation allowing you to model
+your CRD resources for AWS using YAML which defines how it connects into the API
+server and how it manages the Cloudformation resources to make deploying
+application resources quick and easy.
+
+== Getting Started
+
+This project is currently only available via `git` and `go`.
+
+[source,shell]
+----
+go get -u github.com/christopherhein/aws-operator-codegen
+----
+
+== Usage
+
+This project has two commands `process` and `version`
+
+=== Process
+
+[source,shell]
+----
+aws-operator-codegen process
+----
+
+==== Options
+
+If you need to run this from a sub directory or you have configured your client
+differently you can modify where the models are referenced from and where the
+root of the project is by using the following.
+
+[options="header"]
+|========================================================================
+| Flag         | Default | Description
+| --model-path | models/ | Model path used for regenerating the codebase.
+| --root-path  | ./      | Root path used for regenerating the codebase.
+|========================================================================
+
+=== Version
+
+[source,shell]
+----
+aws-operator-codegen version
+----
+
+==== Options
+
+If you want to mutate the version output you can use one of these flags. this is
+useful for checking that you have the latest template files based on the
+operator version you are using.
+
+[options="header"]
+|========================================================================
+| Flag         | Default | Description
+| --short / -s | false   | Display this in a human readable way, with line breaks between params
+|========================================================================

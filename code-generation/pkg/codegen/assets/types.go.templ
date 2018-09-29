@@ -1,0 +1,95 @@
+package v1alpha1
+
+import (
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/apimachinery/pkg/runtime"
+)
+
+// +genclient
+// +genclient:noStatus
+// +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
+
+// {{.Spec.Kind}} defines the base resource
+type {{.Spec.Kind}} struct {
+	metav1.TypeMeta   `json:",inline"`
+	metav1.ObjectMeta `json:"metadata"`
+	{{.Spec.Type}}    {{.Spec.Kind}}{{.Spec.Type}}   `json:"{{.Spec.TypeJSON}}"`
+	Status            {{.Spec.Kind}}Status           `json:"status"`
+	Output            {{.Spec.Kind}}Output           `json:"output"`
+	AdditionalResources {{.Spec.Kind}}AdditionalResources `json:"additionalResources"`
+}
+
+{{- if (ge (len .Spec.Body.Schema.KeyMapping) 1)}}
+{{- range $index, $element := .Spec.Body.Schema.KeyMapping}}
+// {{$.Spec.Kind}}{{$index}} defines the {{$index}} resource for {{$.Spec.Kind}}
+type {{$.Spec.Kind}}{{$index}} struct {
+	{{- if (or (eq $index "Spec") (eq $index "Data"))}}
+	CloudFormationTemplateName string `json:"cloudFormationTemplateName"`
+	CloudFormationTemplateNamespace string `json:"cloudFormationTemplateNamespace"`
+	RollbackCount int `json:"rollbackCount"`
+	{{- end}}
+  {{- range $prop := $element}}
+	{{- if (ne $prop.Type "resourceName")}}
+  {{$prop.StructKey}} {{$prop.TypeOfObject $.Spec.Kind}} `json:"{{$prop.Key}}"`
+	{{- end}}
+  {{- end}}
+}
+{{end}}
+{{- else}}
+type {{$.Spec.Kind}}{{.Spec.Type}} struct {
+	CloudFormationTemplateName string `json:"cloudFormationTemplateName"`
+	CloudFormationTemplateNamespace string `json:"cloudFormationTemplateNamespace"`
+	RollbackCount int `json:"rollbackCount"`
+}
+{{- end}}
+
+// {{.Spec.Kind}}Output defines the output resource for {{.Spec.Kind}}
+type {{.Spec.Kind}}Output struct {
+  {{- range $prop := .Spec.Output.Schema.Properties }}
+  {{$prop.StructKey}} {{$prop.TypeOfObject $.Spec.Kind}} `json:"{{$prop.Key}}"`
+  {{- end}}
+}
+
+// {{.Spec.Kind}}Status holds the status of the Cloudformation template
+type {{.Spec.Kind}}Status struct {
+  ResourceStatus       string `json:"resourceStatus"`
+  ResourceStatusReason string `json:"resourceStatusReason"`
+  {{- if .Spec.UseCloudFormation}}
+  StackID              string `json:"stackID"`
+  {{- end}}
+}
+
+// {{.Spec.Kind}}AdditionalResources holds the additional resources
+type {{.Spec.Kind}}AdditionalResources struct {
+	{{- if .Spec.AdditionalResources.Services}}
+	Services		[]string	`json:"services"`
+	{{- end}}
+	{{- if .Spec.AdditionalResources.Secrets}}
+	Secrets			[]string	`json:"secrets"`
+	{{- end}}
+	{{- if .Spec.AdditionalResources.ConfigMaps}}
+	ConfigMaps	[]string	`json:"configMaps"`
+	{{- end}}
+}
+
+// +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object
+
+// {{.Spec.Kind}}List defines the list attribute for the {{.Spec.Kind}} type
+type {{.Spec.Kind}}List struct {
+	metav1.TypeMeta `json:",inline"`
+	metav1.ListMeta `json:"metadata"`
+	Items           []{{.Spec.Kind}} `json:"items"`
+}
+
+func init() {
+	localSchemeBuilder.Register(add{{.Spec.Kind}}Types)
+}
+
+func add{{.Spec.Kind}}Types(scheme *runtime.Scheme) error {
+	scheme.AddKnownTypes(SchemeGroupVersion,
+		&{{.Spec.Kind}}{},
+		&{{.Spec.Kind}}List{},
+	)
+	metav1.AddToGroupVersion(scheme, SchemeGroupVersion)
+	return nil
+}
