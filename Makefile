@@ -20,11 +20,11 @@ tag:
 
 .PHONY: install-aws-codegen
 install-aws-codegen:
-	go get -u github.com/christopherhein/aws-operator-codegen
+	go install -ldflags "-X main.commit=$(commitSHA) -X main.date=$(dateStr)" ./code-generation/cmd/aws-service-operator-codegen
 
 .PHONY: aws-codegen
 aws-codegen:
-	aws-operator-codegen process
+	aws-service-operator-codegen process
 
 .PHONY: k8s-codegen
 k8s-codegen:
