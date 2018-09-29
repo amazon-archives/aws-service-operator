@@ -1,7 +1,7 @@
-/aws-operator
+/aws-service-operator
 pod-role.json
 .DS_Store
-aws-operator.yaml
+/aws-service-operator.yaml
 kubeconfig
 dist/
 .envrc

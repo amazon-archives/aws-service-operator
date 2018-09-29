@@ -3,7 +3,7 @@ dateStr := $(shell date +%s)
 
 .PHONY: build
 build:
-	go build -ldflags "-X main.commit=$(commitSHA) -X main.date=$(dateStr)" ./cmd/aws-operator
+	go build -ldflags "-X main.commit=$(commitSHA) -X main.date=$(dateStr)" ./cmd/aws-service-operator
 
 .PHONY: release
 release:

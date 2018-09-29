@@ -1,4 +1,4 @@
-project_name: aws-operator
+project_name: aws-service-operator
 
 # This will be useful in making sure that all files are updated before
 # a release is made.
@@ -8,8 +8,8 @@ before:
 
 # Builds the binary for each platform
 builds:
-- binary: aws-operator
-  main: ./cmd/aws-operator/
+- binary: aws-service-operator
+  main: ./cmd/aws-service-operator/
   goos:
   - darwin
   - windows
@@ -43,7 +43,7 @@ release:
 # Creates a Docker container with the operator packaged into it for distribution
 dockers:
 - image: awsserviceoperator/aws-service-operator
-  binary: aws-operator
+  binary: aws-service-operator
   dockerfile: Dockerfile
   tag_templates:
   - "{{ .Tag }}"
