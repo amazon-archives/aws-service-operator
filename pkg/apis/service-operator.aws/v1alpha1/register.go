@@ -5,7 +5,7 @@ import (
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/runtime/schema"
 
-	awsio "github.com/christopherhein/aws-operator/pkg/apis/service-operator.aws"
+	awsio "github.com/awslabs/aws-service-operator/pkg/apis/service-operator.aws"
 )
 
 // SchemeBuilder definition

@@ -21,10 +21,10 @@ package v1alpha1
 import (
 	time "time"
 
-	service_operator_aws_v1alpha1 "github.com/christopherhein/aws-operator/pkg/apis/service-operator.aws/v1alpha1"
-	versioned "github.com/christopherhein/aws-operator/pkg/client/clientset/versioned"
-	internalinterfaces "github.com/christopherhein/aws-operator/pkg/client/informers/externalversions/internalinterfaces"
-	v1alpha1 "github.com/christopherhein/aws-operator/pkg/client/listers/service-operator.aws/v1alpha1"
+	service_operator_aws_v1alpha1 "github.com/awslabs/aws-service-operator/pkg/apis/service-operator.aws/v1alpha1"
+	versioned "github.com/awslabs/aws-service-operator/pkg/client/clientset/versioned"
+	internalinterfaces "github.com/awslabs/aws-service-operator/pkg/client/informers/externalversions/internalinterfaces"
+	v1alpha1 "github.com/awslabs/aws-service-operator/pkg/client/listers/service-operator.aws/v1alpha1"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	runtime "k8s.io/apimachinery/pkg/runtime"
 	watch "k8s.io/apimachinery/pkg/watch"

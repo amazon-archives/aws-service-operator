@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/christopherhein/aws-operator/code-generation/pkg/codegen"
+	"github.com/awslabs/aws-service-operator/code-generation/pkg/codegen"
 	"github.com/spf13/cobra"
 )
 

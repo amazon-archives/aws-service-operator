@@ -19,7 +19,7 @@ limitations under the License.
 package versioned
 
 import (
-	serviceoperatorv1alpha1 "github.com/christopherhein/aws-operator/pkg/client/clientset/versioned/typed/service-operator.aws/v1alpha1"
+	serviceoperatorv1alpha1 "github.com/awslabs/aws-service-operator/pkg/client/clientset/versioned/typed/service-operator.aws/v1alpha1"
 	glog "github.com/golang/glog"
 	discovery "k8s.io/client-go/discovery"
 	rest "k8s.io/client-go/rest"

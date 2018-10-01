@@ -4,7 +4,7 @@ import (
 	"fmt"
 	homedir "github.com/mitchellh/go-homedir"
 
-	"github.com/christopherhein/aws-operator/pkg/config"
+	"github.com/awslabs/aws-service-operator/pkg/config"
 
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"

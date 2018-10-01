@@ -44,7 +44,7 @@ spec:
         templateKey: URL
 
   customizations:
-    package: github.com/christopherhein/aws-operator/pkg/customizations/cloudformationtemplate
+    package: github.com/awslabs/aws-service-operator/pkg/customizations/cloudformationtemplate
     add: cloudformationtemplate.OnAdd
     update: cloudformationtemplate.OnUpdate
     delete: cloudformationtemplate.OnDelete

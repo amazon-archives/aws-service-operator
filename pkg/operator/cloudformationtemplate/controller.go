@@ -8,15 +8,15 @@ package cloudformationtemplate
 import (
 	"reflect"
 
-	"github.com/christopherhein/aws-operator/pkg/config"
+	"github.com/awslabs/aws-service-operator/pkg/config"
 	opkit "github.com/christopherhein/operator-kit"
 	apiextensionsv1beta1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
 	"k8s.io/client-go/tools/cache"
 
-	awsapi "github.com/christopherhein/aws-operator/pkg/apis/service-operator.aws"
-	awsV1alpha1 "github.com/christopherhein/aws-operator/pkg/apis/service-operator.aws/v1alpha1"
-	awsclient "github.com/christopherhein/aws-operator/pkg/client/clientset/versioned/typed/service-operator.aws/v1alpha1"
-	"github.com/christopherhein/aws-operator/pkg/customizations/cloudformationtemplate"
+	awsapi "github.com/awslabs/aws-service-operator/pkg/apis/service-operator.aws"
+	awsV1alpha1 "github.com/awslabs/aws-service-operator/pkg/apis/service-operator.aws/v1alpha1"
+	awsclient "github.com/awslabs/aws-service-operator/pkg/client/clientset/versioned/typed/service-operator.aws/v1alpha1"
+	"github.com/awslabs/aws-service-operator/pkg/customizations/cloudformationtemplate"
 )
 
 // Resource is the object store definition

@@ -9,9 +9,9 @@ import (
 	"errors"
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/cloudformation"
-	awsV1alpha1 "github.com/christopherhein/aws-operator/pkg/apis/service-operator.aws/v1alpha1"
-	"github.com/christopherhein/aws-operator/pkg/config"
-	"github.com/christopherhein/aws-operator/pkg/helpers"
+	awsV1alpha1 "github.com/awslabs/aws-service-operator/pkg/apis/service-operator.aws/v1alpha1"
+	"github.com/awslabs/aws-service-operator/pkg/config"
+	"github.com/awslabs/aws-service-operator/pkg/helpers"
 )
 
 // New generates a new object

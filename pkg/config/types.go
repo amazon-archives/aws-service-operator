@@ -2,7 +2,7 @@ package config
 
 import (
 	"github.com/aws/aws-sdk-go/aws/session"
-	awsclient "github.com/christopherhein/aws-operator/pkg/client/clientset/versioned/typed/service-operator.aws/v1alpha1"
+	awsclient "github.com/awslabs/aws-service-operator/pkg/client/clientset/versioned/typed/service-operator.aws/v1alpha1"
 	opkit "github.com/christopherhein/operator-kit"
 	"github.com/sirupsen/logrus"
 	"k8s.io/client-go/rest"

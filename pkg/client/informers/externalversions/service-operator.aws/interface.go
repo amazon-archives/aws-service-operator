@@ -19,8 +19,8 @@ limitations under the License.
 package serviceoperator
 
 import (
-	internalinterfaces "github.com/christopherhein/aws-operator/pkg/client/informers/externalversions/internalinterfaces"
-	v1alpha1 "github.com/christopherhein/aws-operator/pkg/client/informers/externalversions/service-operator.aws/v1alpha1"
+	internalinterfaces "github.com/awslabs/aws-service-operator/pkg/client/informers/externalversions/internalinterfaces"
+	v1alpha1 "github.com/awslabs/aws-service-operator/pkg/client/informers/externalversions/service-operator.aws/v1alpha1"
 )
 
 // Interface provides access to each of this group's versions.

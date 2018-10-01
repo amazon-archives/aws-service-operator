@@ -23,9 +23,9 @@ import (
 	sync "sync"
 	time "time"
 
-	versioned "github.com/christopherhein/aws-operator/pkg/client/clientset/versioned"
-	internalinterfaces "github.com/christopherhein/aws-operator/pkg/client/informers/externalversions/internalinterfaces"
-	service_operator_aws "github.com/christopherhein/aws-operator/pkg/client/informers/externalversions/service-operator.aws"
+	versioned "github.com/awslabs/aws-service-operator/pkg/client/clientset/versioned"
+	internalinterfaces "github.com/awslabs/aws-service-operator/pkg/client/informers/externalversions/internalinterfaces"
+	service_operator_aws "github.com/awslabs/aws-service-operator/pkg/client/informers/externalversions/service-operator.aws"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	runtime "k8s.io/apimachinery/pkg/runtime"
 	schema "k8s.io/apimachinery/pkg/runtime/schema"

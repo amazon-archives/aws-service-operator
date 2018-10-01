@@ -6,19 +6,19 @@
 package sqsqueue
 
 import (
-	"github.com/christopherhein/aws-operator/pkg/helpers"
+	"github.com/awslabs/aws-service-operator/pkg/helpers"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"reflect"
 
-	"github.com/christopherhein/aws-operator/pkg/config"
-	"github.com/christopherhein/aws-operator/pkg/queue"
+	"github.com/awslabs/aws-service-operator/pkg/config"
+	"github.com/awslabs/aws-service-operator/pkg/queue"
 	opkit "github.com/christopherhein/operator-kit"
 	apiextensionsv1beta1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
 	"k8s.io/client-go/tools/cache"
 
-	awsapi "github.com/christopherhein/aws-operator/pkg/apis/service-operator.aws"
-	awsV1alpha1 "github.com/christopherhein/aws-operator/pkg/apis/service-operator.aws/v1alpha1"
-	awsclient "github.com/christopherhein/aws-operator/pkg/client/clientset/versioned/typed/service-operator.aws/v1alpha1"
+	awsapi "github.com/awslabs/aws-service-operator/pkg/apis/service-operator.aws"
+	awsV1alpha1 "github.com/awslabs/aws-service-operator/pkg/apis/service-operator.aws/v1alpha1"
+	awsclient "github.com/awslabs/aws-service-operator/pkg/client/clientset/versioned/typed/service-operator.aws/v1alpha1"
 )
 
 // Resource is the object store definition

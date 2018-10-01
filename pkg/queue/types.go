@@ -1,8 +1,8 @@
 package queue
 
 import (
-	awsclient "github.com/christopherhein/aws-operator/pkg/client/clientset/versioned/typed/service-operator.aws/v1alpha1"
-	"github.com/christopherhein/aws-operator/pkg/config"
+	awsclient "github.com/awslabs/aws-service-operator/pkg/client/clientset/versioned/typed/service-operator.aws/v1alpha1"
+	"github.com/awslabs/aws-service-operator/pkg/config"
 	opkit "github.com/christopherhein/operator-kit"
 )
 

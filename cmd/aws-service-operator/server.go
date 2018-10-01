@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/christopherhein/aws-operator/pkg/logger"
-	"github.com/christopherhein/aws-operator/pkg/server"
+	"github.com/awslabs/aws-service-operator/pkg/logger"
+	"github.com/awslabs/aws-service-operator/pkg/server"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
 	"os"

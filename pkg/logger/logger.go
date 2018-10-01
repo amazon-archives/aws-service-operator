@@ -2,7 +2,7 @@ package logger
 
 import (
 	"bufio"
-	"github.com/christopherhein/aws-operator/pkg/config"
+	"github.com/awslabs/aws-service-operator/pkg/config"
 	"github.com/sirupsen/logrus"
 	"os"
 	"strings"

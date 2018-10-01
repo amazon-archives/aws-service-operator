@@ -35,8 +35,8 @@ git:
 # Release will configure where the GitHub release is handled
 release:
   github:
-    owner: christopherhein
-    name: aws-operator
+    owner: awslabs
+    name: aws-service-operator
   draft: true
   prerelease: true
 
