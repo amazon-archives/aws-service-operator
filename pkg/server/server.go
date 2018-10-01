@@ -7,7 +7,7 @@ import (
 	"github.com/aws/aws-sdk-go/aws/session"
 	"time"
 
-	awsclient "github.com/christopherhein/aws-operator/pkg/client/clientset/versioned/typed/operator.aws/v1alpha1"
+	awsclient "github.com/christopherhein/aws-operator/pkg/client/clientset/versioned/typed/service-operator.aws/v1alpha1"
 	"github.com/christopherhein/aws-operator/pkg/config"
 	"github.com/christopherhein/aws-operator/pkg/operator/cloudformationtemplate"
 	"github.com/christopherhein/aws-operator/pkg/operator/dynamodb"
@@ -115,7 +115,7 @@ func getClientConfig(kubeconfig string) (*rest.Config, error) {
 	return rest.InClusterConfig()
 }
 
-func createContext(kubeconfig string) (*opkit.Context, *rest.Config, awsclient.OperatorV1alpha1Interface, error) {
+func createContext(kubeconfig string) (*opkit.Context, *rest.Config, awsclient.ServiceoperatorV1alpha1Interface, error) {
 	config, err := getClientConfig(kubeconfig)
 	if err != nil {
 		return nil, nil, nil, fmt.Errorf("failed to get k8s config. %+v", err)

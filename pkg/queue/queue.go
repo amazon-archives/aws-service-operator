@@ -6,7 +6,7 @@ import (
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/sns"
 	"github.com/aws/aws-sdk-go/service/sqs"
-	awsclient "github.com/christopherhein/aws-operator/pkg/client/clientset/versioned/typed/operator.aws/v1alpha1"
+	awsclient "github.com/christopherhein/aws-operator/pkg/client/clientset/versioned/typed/service-operator.aws/v1alpha1"
 	"github.com/christopherhein/aws-operator/pkg/config"
 	"github.com/christopherhein/aws-operator/pkg/helpers"
 	opkit "github.com/christopherhein/operator-kit"
@@ -71,7 +71,7 @@ func (m *MessageBody) IsComplete() bool {
 }
 
 // New will initialize the Queue object for watching
-func New(config *config.Config, context *opkit.Context, awsclientset awsclient.OperatorV1alpha1Interface, timeout int) *Queue {
+func New(config *config.Config, context *opkit.Context, awsclientset awsclient.ServiceoperatorV1alpha1Interface, timeout int) *Queue {
 	return &Queue{
 		config:       config,
 		context:      context,
