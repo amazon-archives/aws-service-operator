@@ -18,4 +18,4 @@ cd ${scriptdir}/vendor/k8s.io/code-generator && ./generate-groups.sh \
   all \
   ${projectdir}/pkg/client \
   ${projectdir}/pkg/apis \
-  "operator.aws:v1alpha1" \
+  "service-operator.aws:v1alpha1" \

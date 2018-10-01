@@ -47,7 +47,7 @@ items:
     - create
     - delete
   - apiGroups:
-    - operator.aws
+    - service-operator.aws
     resources:
     - "*"
     verbs:

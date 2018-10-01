@@ -3,7 +3,7 @@ package helpers
 import (
 	"bytes"
 	"github.com/aws/aws-sdk-go/service/cloudformation"
-	awsclient "github.com/christopherhein/aws-operator/pkg/client/clientset/versioned/typed/operator.aws/v1alpha1"
+	awsclient "github.com/christopherhein/aws-operator/pkg/client/clientset/versioned/typed/service-operator.aws/v1alpha1"
 	"github.com/christopherhein/aws-operator/pkg/config"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"reflect"

@@ -21,7 +21,7 @@ package externalversions
 import (
 	"fmt"
 
-	v1alpha1 "github.com/christopherhein/aws-operator/pkg/apis/operator.aws/v1alpha1"
+	v1alpha1 "github.com/christopherhein/aws-operator/pkg/apis/service-operator.aws/v1alpha1"
 	schema "k8s.io/apimachinery/pkg/runtime/schema"
 	cache "k8s.io/client-go/tools/cache"
 )
@@ -52,21 +52,21 @@ func (f *genericInformer) Lister() cache.GenericLister {
 // TODO extend this to unknown resources with a client pool
 func (f *sharedInformerFactory) ForResource(resource schema.GroupVersionResource) (GenericInformer, error) {
 	switch resource {
-	// Group=operator.aws, Version=v1alpha1
+	// Group=serviceoperator.aws, Version=v1alpha1
 	case v1alpha1.SchemeGroupVersion.WithResource("cloudformationtemplates"):
-		return &genericInformer{resource: resource.GroupResource(), informer: f.Operator().V1alpha1().CloudFormationTemplates().Informer()}, nil
+		return &genericInformer{resource: resource.GroupResource(), informer: f.Serviceoperator().V1alpha1().CloudFormationTemplates().Informer()}, nil
 	case v1alpha1.SchemeGroupVersion.WithResource("dynamodbs"):
-		return &genericInformer{resource: resource.GroupResource(), informer: f.Operator().V1alpha1().DynamoDBs().Informer()}, nil
+		return &genericInformer{resource: resource.GroupResource(), informer: f.Serviceoperator().V1alpha1().DynamoDBs().Informer()}, nil
 	case v1alpha1.SchemeGroupVersion.WithResource("ecrrepositories"):
-		return &genericInformer{resource: resource.GroupResource(), informer: f.Operator().V1alpha1().ECRRepositories().Informer()}, nil
+		return &genericInformer{resource: resource.GroupResource(), informer: f.Serviceoperator().V1alpha1().ECRRepositories().Informer()}, nil
 	case v1alpha1.SchemeGroupVersion.WithResource("s3buckets"):
-		return &genericInformer{resource: resource.GroupResource(), informer: f.Operator().V1alpha1().S3Buckets().Informer()}, nil
+		return &genericInformer{resource: resource.GroupResource(), informer: f.Serviceoperator().V1alpha1().S3Buckets().Informer()}, nil
 	case v1alpha1.SchemeGroupVersion.WithResource("snssubscriptions"):
-		return &genericInformer{resource: resource.GroupResource(), informer: f.Operator().V1alpha1().SNSSubscriptions().Informer()}, nil
+		return &genericInformer{resource: resource.GroupResource(), informer: f.Serviceoperator().V1alpha1().SNSSubscriptions().Informer()}, nil
 	case v1alpha1.SchemeGroupVersion.WithResource("snstopics"):
-		return &genericInformer{resource: resource.GroupResource(), informer: f.Operator().V1alpha1().SNSTopics().Informer()}, nil
+		return &genericInformer{resource: resource.GroupResource(), informer: f.Serviceoperator().V1alpha1().SNSTopics().Informer()}, nil
 	case v1alpha1.SchemeGroupVersion.WithResource("sqsqueues"):
-		return &genericInformer{resource: resource.GroupResource(), informer: f.Operator().V1alpha1().SQSQueues().Informer()}, nil
+		return &genericInformer{resource: resource.GroupResource(), informer: f.Serviceoperator().V1alpha1().SQSQueues().Informer()}, nil
 
 	}
 

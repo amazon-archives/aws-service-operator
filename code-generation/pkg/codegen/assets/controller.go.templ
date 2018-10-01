@@ -20,9 +20,9 @@ import (
 	apiextensionsv1beta1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
 	"k8s.io/client-go/tools/cache"
 
-	awsapi "github.com/christopherhein/aws-operator/pkg/apis/operator.aws"
-	awsV1alpha1 "github.com/christopherhein/aws-operator/pkg/apis/operator.aws/v1alpha1"
-	awsclient "github.com/christopherhein/aws-operator/pkg/client/clientset/versioned/typed/operator.aws/v1alpha1"
+	awsapi "github.com/christopherhein/aws-operator/pkg/apis/service-operator.aws"
+	awsV1alpha1 "github.com/christopherhein/aws-operator/pkg/apis/service-operator.aws/v1alpha1"
+	awsclient "github.com/christopherhein/aws-operator/pkg/client/clientset/versioned/typed/service-operator.aws/v1alpha1"
 	{{- if .Spec.Customizations.Package}}
   "{{.Spec.Customizations.Package}}"
 	{{- end}}
@@ -49,12 +49,12 @@ var Resource = opkit.CustomResource{
 type Controller struct {
 	config       *config.Config
 	context      *opkit.Context
-	awsclientset awsclient.OperatorV1alpha1Interface
+	awsclientset awsclient.ServiceoperatorV1alpha1Interface
   topicARN     string
 }
 
 // NewController create controller for watching object store custom resources created
-func NewController(config *config.Config, context *opkit.Context, awsclientset awsclient.OperatorV1alpha1Interface) *Controller {
+func NewController(config *config.Config, context *opkit.Context, awsclientset awsclient.ServiceoperatorV1alpha1Interface) *Controller {
 	return &Controller{
 		config:       config,
 		context:      context,

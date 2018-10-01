@@ -111,7 +111,7 @@ func (c *Codegen) Run() error {
 			models.Items = append(models.Items, parsedModel)
 
 			operatorPath := rootPath + "pkg/operator/" + parsedModel.Spec.Resource.Name
-			apiPath := rootPath + "pkg/apis/operator.aws/v1alpha1"
+			apiPath := rootPath + "pkg/apis/service-operator.aws/v1alpha1"
 
 			createDirIfNotExist(operatorPath)
 

@@ -1,4 +1,4 @@
-apiVersion: operator.aws/v1alpha1
+apiVersion: service-operator.aws/v1alpha1
 kind: CloudFormationTemplate
 metadata:
   name: snstopic
