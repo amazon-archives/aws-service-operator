@@ -25,7 +25,7 @@ import (
 
 	versioned "github.com/christopherhein/aws-operator/pkg/client/clientset/versioned"
 	internalinterfaces "github.com/christopherhein/aws-operator/pkg/client/informers/externalversions/internalinterfaces"
-	operator_aws "github.com/christopherhein/aws-operator/pkg/client/informers/externalversions/operator.aws"
+	service_operator_aws "github.com/christopherhein/aws-operator/pkg/client/informers/externalversions/service-operator.aws"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	runtime "k8s.io/apimachinery/pkg/runtime"
 	schema "k8s.io/apimachinery/pkg/runtime/schema"
@@ -123,9 +123,9 @@ type SharedInformerFactory interface {
 	ForResource(resource schema.GroupVersionResource) (GenericInformer, error)
 	WaitForCacheSync(stopCh <-chan struct{}) map[reflect.Type]bool
 
-	Operator() operator_aws.Interface
+	Serviceoperator() service_operator_aws.Interface
 }
 
-func (f *sharedInformerFactory) Operator() operator_aws.Interface {
-	return operator_aws.New(f, f.namespace, f.tweakListOptions)
+func (f *sharedInformerFactory) Serviceoperator() service_operator_aws.Interface {
+	return service_operator_aws.New(f, f.namespace, f.tweakListOptions)
 }

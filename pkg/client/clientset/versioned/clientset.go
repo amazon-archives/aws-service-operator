@@ -19,7 +19,7 @@ limitations under the License.
 package versioned
 
 import (
-	operatorv1alpha1 "github.com/christopherhein/aws-operator/pkg/client/clientset/versioned/typed/operator.aws/v1alpha1"
+	serviceoperatorv1alpha1 "github.com/christopherhein/aws-operator/pkg/client/clientset/versioned/typed/service-operator.aws/v1alpha1"
 	glog "github.com/golang/glog"
 	discovery "k8s.io/client-go/discovery"
 	rest "k8s.io/client-go/rest"
@@ -28,27 +28,27 @@ import (
 
 type Interface interface {
 	Discovery() discovery.DiscoveryInterface
-	OperatorV1alpha1() operatorv1alpha1.OperatorV1alpha1Interface
+	ServiceoperatorV1alpha1() serviceoperatorv1alpha1.ServiceoperatorV1alpha1Interface
 	// Deprecated: please explicitly pick a version if possible.
-	Operator() operatorv1alpha1.OperatorV1alpha1Interface
+	Serviceoperator() serviceoperatorv1alpha1.ServiceoperatorV1alpha1Interface
 }
 
 // Clientset contains the clients for groups. Each group has exactly one
 // version included in a Clientset.
 type Clientset struct {
 	*discovery.DiscoveryClient
-	operatorV1alpha1 *operatorv1alpha1.OperatorV1alpha1Client
+	serviceoperatorV1alpha1 *serviceoperatorv1alpha1.ServiceoperatorV1alpha1Client
 }
 
-// OperatorV1alpha1 retrieves the OperatorV1alpha1Client
-func (c *Clientset) OperatorV1alpha1() operatorv1alpha1.OperatorV1alpha1Interface {
-	return c.operatorV1alpha1
+// ServiceoperatorV1alpha1 retrieves the ServiceoperatorV1alpha1Client
+func (c *Clientset) ServiceoperatorV1alpha1() serviceoperatorv1alpha1.ServiceoperatorV1alpha1Interface {
+	return c.serviceoperatorV1alpha1
 }
 
-// Deprecated: Operator retrieves the default version of OperatorClient.
+// Deprecated: Serviceoperator retrieves the default version of ServiceoperatorClient.
 // Please explicitly pick a version.
-func (c *Clientset) Operator() operatorv1alpha1.OperatorV1alpha1Interface {
-	return c.operatorV1alpha1
+func (c *Clientset) Serviceoperator() serviceoperatorv1alpha1.ServiceoperatorV1alpha1Interface {
+	return c.serviceoperatorV1alpha1
 }
 
 // Discovery retrieves the DiscoveryClient
@@ -67,7 +67,7 @@ func NewForConfig(c *rest.Config) (*Clientset, error) {
 	}
 	var cs Clientset
 	var err error
-	cs.operatorV1alpha1, err = operatorv1alpha1.NewForConfig(&configShallowCopy)
+	cs.serviceoperatorV1alpha1, err = serviceoperatorv1alpha1.NewForConfig(&configShallowCopy)
 	if err != nil {
 		return nil, err
 	}
@@ -84,7 +84,7 @@ func NewForConfig(c *rest.Config) (*Clientset, error) {
 // panics if there is an error in the config.
 func NewForConfigOrDie(c *rest.Config) *Clientset {
 	var cs Clientset
-	cs.operatorV1alpha1 = operatorv1alpha1.NewForConfigOrDie(c)
+	cs.serviceoperatorV1alpha1 = serviceoperatorv1alpha1.NewForConfigOrDie(c)
 
 	cs.DiscoveryClient = discovery.NewDiscoveryClientForConfigOrDie(c)
 	return &cs
@@ -93,7 +93,7 @@ func NewForConfigOrDie(c *rest.Config) *Clientset {
 // New creates a new Clientset for the given RESTClient.
 func New(c rest.Interface) *Clientset {
 	var cs Clientset
-	cs.operatorV1alpha1 = operatorv1alpha1.New(c)
+	cs.serviceoperatorV1alpha1 = serviceoperatorv1alpha1.New(c)
 
 	cs.DiscoveryClient = discovery.NewDiscoveryClient(c)
 	return &cs

@@ -20,8 +20,8 @@ package fake
 
 import (
 	clientset "github.com/christopherhein/aws-operator/pkg/client/clientset/versioned"
-	operatorv1alpha1 "github.com/christopherhein/aws-operator/pkg/client/clientset/versioned/typed/operator.aws/v1alpha1"
-	fakeoperatorv1alpha1 "github.com/christopherhein/aws-operator/pkg/client/clientset/versioned/typed/operator.aws/v1alpha1/fake"
+	serviceoperatorv1alpha1 "github.com/christopherhein/aws-operator/pkg/client/clientset/versioned/typed/service-operator.aws/v1alpha1"
+	fakeserviceoperatorv1alpha1 "github.com/christopherhein/aws-operator/pkg/client/clientset/versioned/typed/service-operator.aws/v1alpha1/fake"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/watch"
 	"k8s.io/client-go/discovery"
@@ -70,12 +70,12 @@ func (c *Clientset) Discovery() discovery.DiscoveryInterface {
 
 var _ clientset.Interface = &Clientset{}
 
-// OperatorV1alpha1 retrieves the OperatorV1alpha1Client
-func (c *Clientset) OperatorV1alpha1() operatorv1alpha1.OperatorV1alpha1Interface {
-	return &fakeoperatorv1alpha1.FakeOperatorV1alpha1{Fake: &c.Fake}
+// ServiceoperatorV1alpha1 retrieves the ServiceoperatorV1alpha1Client
+func (c *Clientset) ServiceoperatorV1alpha1() serviceoperatorv1alpha1.ServiceoperatorV1alpha1Interface {
+	return &fakeserviceoperatorv1alpha1.FakeServiceoperatorV1alpha1{Fake: &c.Fake}
 }
 
-// Operator retrieves the OperatorV1alpha1Client
-func (c *Clientset) Operator() operatorv1alpha1.OperatorV1alpha1Interface {
-	return &fakeoperatorv1alpha1.FakeOperatorV1alpha1{Fake: &c.Fake}
+// Serviceoperator retrieves the ServiceoperatorV1alpha1Client
+func (c *Clientset) Serviceoperator() serviceoperatorv1alpha1.ServiceoperatorV1alpha1Interface {
+	return &fakeserviceoperatorv1alpha1.FakeServiceoperatorV1alpha1{Fake: &c.Fake}
 }
