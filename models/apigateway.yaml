@@ -1,0 +1,49 @@
+apiVersion: operator.aws/v1alpha1
+kind: ModelDefinition
+metadata:
+  name: ApiGatewayResource
+spec:
+  kind: ApiGateway
+  type: Spec 
+  queue: true
+  useCloudFormation: true
+  resource:
+    name: apigateway
+    plural: apigateways
+    shortNames:
+    - name: apigw
+  body:
+    schema:
+      type: object
+      properties:  
+      - key: nlbDNSName
+        type: string
+        description: |
+          Fill this out
+        structKey: NLBDNSName
+        templateKey: NLBDNSName
+      - key: nlbArn
+        type: string
+        description: |
+          Fill this out
+        structKey: NLBArn
+        templateKey: NLBArn
+  output:
+    schema:
+      type: object
+      properties:
+      - key: apiGatewayEndpoint
+        type: string
+        description: |
+          Fill this out
+        structKey: ApiGatewayEndpoint
+        templateKey: ApiGatewayEndpoint
+
+  additionalResources:
+    services:
+    - name: apiGatewayEndpoint
+      type: ExternalName
+      externalName: '{{ .Obj.Output.ApiGatewayEndpoint }}'
+      ports:
+      - port: 443
+  

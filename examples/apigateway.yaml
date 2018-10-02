@@ -1,0 +1,8 @@
+apiVersion: operator.aws/v1alpha1
+kind: ApiGateway
+metadata:
+  name: foobar-proxy
+spec:
+  nlbDNSName: <DNS NAME FOR NLB>
+  nlbArn: <NLB ARN>
+  

@@ -1,0 +1,96 @@
+apiVersion: operator.aws/v1alpha1
+kind: CloudFormationTemplate
+metadata:
+  name: apigateway
+data:
+  key: apigateway.yaml
+  template: | 
+    AWSTemplateFormatVersion: 2010-09-09
+    Description: 'AWS Operator - Amazon DynamoDB'
+    Parameters:
+      Namespace:
+        Description: >-
+          This is the namespace for the Kubernetes object.
+        Type: String
+      ResourceVersion:
+        Type: String
+        Description: >-
+          This is the resource version for the Kubernetes object.
+      ResourceName:
+        Description: >-
+          This is the resource name for the Kubernetes object
+        Type: String
+      ClusterName:
+        Description: >-
+          This is the cluster name for the operator
+        Type: String
+      NLBDNSName:
+        Description: >-
+          This is the service URL to the API Gateway should proxy requests to.
+        Type: String
+      NLBArn:
+        Description: >-
+          This is the NLB Arn for the VPCLink.
+        Type: String
+    Resources:
+      VPCLink:
+        Type: AWS::ApiGateway::VpcLink
+        Properties:
+          Name: !Join
+            - ''
+            -  [!Ref 'ResourceName', '-vpclink']
+          TargetArns:
+            - !Ref 'NLBArn'
+      RestAPI:
+        Type: AWS::ApiGateway::RestApi
+        Properties:
+          Name: !Ref 'ResourceName'
+          EndpointConfiguration: 
+            Types:
+              - REGIONAL
+      Resource:
+        Type: AWS::ApiGateway::Resource
+        Properties:
+          ParentId: !GetAtt 'RestAPI.RootResourceId'
+          RestApiId: !Ref 'RestAPI'
+          PathPart: '{proxy+}'  
+      Method:
+        Type: AWS::ApiGateway::Method
+        Properties:
+          RestApiId: !Ref RestAPI
+          ResourceId: !Ref Resource
+          HttpMethod: 'ANY'
+          AuthorizationType: 'AWS_IAM'
+          RequestParameters:
+            "method.request.path.proxy": true
+          Integration:
+            ConnectionId: !Ref 'VPCLink'
+            ConnectionType: 'VPC_LINK'
+            IntegrationHttpMethod: 'ANY'
+            PassthroughBehavior: 'WHEN_NO_MATCH'
+            RequestParameters:
+              "integration.request.path.proxy": "method.request.path.proxy"
+              "integration.request.header.Accept-Encoding": "'identity'"
+            Type: 'HTTP_PROXY'
+            Uri: !Join
+              - ''
+              - ['http://', !Ref 'NLBDNSName']
+          MethodResponses:
+            - ResponseModels:
+                "application/json": "Empty"
+              StatusCode: '200'
+      Deployment: 
+        DependsOn: 
+          - VPCLink
+          - RestAPI
+          - Resource
+          - Method
+        Type: AWS::ApiGateway::Deployment
+        Properties: 
+          RestApiId: !Ref RestAPI
+          StageName: "prod"
+    Outputs:
+      ApiGatewayEndpointURL:
+        Value: !Join
+          - ""
+          - ["https://", !Ref Deployment, ".execute-api.", !Ref 'AWS::Region', '.amazonaws.com/prod']
