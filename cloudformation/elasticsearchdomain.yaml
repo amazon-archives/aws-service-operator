@@ -1,0 +1,76 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: 'AWS Operator - Amazon Elasticsearch Cluster'
+Parameters:
+  Namespace:
+    Description: >-
+      This is the namespace for the Kubernetes object.
+    Type: String
+  ResourceVersion:
+    Type: String
+    Description: >-
+      This is the resource version for the Kubernetes object.
+  ResourceName:
+    Description: >-
+      This is the resource name for the Kubernetes object
+    Type: String
+  ClusterName:
+    Description: >-
+      This is the cluster name for the operator
+    Type: String
+  DomainName:
+    Description: >-
+      This is the elasticsearch service domain name
+    Type: String
+Resources:
+  ElasticsearchDomain:
+    Type: AWS::Elasticsearch::Domain
+    Properties: 
+      DomainName: !Ref DomainName
+      ElasticsearchClusterConfig: 
+        DedicatedMasterEnabled: false
+        InstanceCount: 1
+        ZoneAwarenessEnabled: false
+        InstanceType: "m4.large.elasticsearch"
+      EBSOptions: 
+        EBSEnabled: true
+        Iops: 0
+        VolumeSize: 20
+        VolumeType: "gp2"
+      SnapshotOptions: 
+        AutomatedSnapshotStartHour: "0"
+      AccessPolicies: 
+        Version: "2012-10-17"
+        Statement: 
+          - Effect: "Allow"
+            Principal: 
+              AWS: !Join 
+                - "" 
+                - ["arn:aws:iam::", !Ref 'AWS::AccountId', ":root"]
+            Action: "es:*"
+            Resource: !Join 
+              - ""
+              - ["arn:aws:es:", !Ref "AWS::Region", ":", !Ref 'AWS::AccountId', ":", domain/, !Ref DomainName, "/*"]
+      AdvancedOptions: 
+        "rest.action.multi.allow_explicit_index": "true"
+      Tags:
+        - Key: Namespace
+          Value: !Ref Namespace
+        - Key: ResourceVersion
+          Value: !Ref ResourceVersion
+        - Key: ResourceName
+          Value: !Ref ResourceName
+        - Key: ClusterName
+          Value: !Ref ClusterName
+        - Key: Heritage
+          Value: operator.aws
+Outputs:
+  DomainArn:
+    Value: !GetAtt 
+      - ElasticsearchDomain
+      - DomainArn
+    Description: Arn of the Elasticsearch Domain
+  DomainEndpoint:
+    Value: !GetAtt 
+      - ElasticsearchDomain 
+      - DomainEndpoint
+    Description: Domain Endpoint for the Elasticsearch cluster

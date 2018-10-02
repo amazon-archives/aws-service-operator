@@ -1,0 +1,6 @@
+apiVersion: operator.aws/v1alpha1
+kind: ElasticsearchDomain
+metadata:
+  name: private-es-cluster
+spec:
+  domainName: private-es-cluster

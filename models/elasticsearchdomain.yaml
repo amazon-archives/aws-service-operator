@@ -1,0 +1,49 @@
+apiVersion: operator.aws/v1alpha1
+kind: ModelDefinition
+metadata:
+  name: ElasticsearchDomainResource
+spec:
+  kind: ElasticsearchDomain
+  type: Spec 
+  queue: true
+  useCloudFormation: true
+  resource:
+    name: elasticsearchdomain
+    plural: elasticsearchdomains
+    shortNames:
+    - name: es
+  body:
+    schema:
+      type: object
+      properties:
+      - key: domainName
+        type: resourceName
+        description: |
+          DomainName is the domain name of the Elasticsearch domain to be created.
+        structKey: DomainName
+        templateKey: DomainName  
+  output:
+    schema:
+      type: object
+      properties:
+      - key: domainArn
+        type: string
+        description: |
+          DomainArn is the ARN for the Elasticsearch Domain.
+        structKey: DomainArn
+        templateKey: DomainArn
+      - key: domainEndpoint
+        type: string
+        description: |
+          DomainEndpoint is the endpoint for the Elasticsearch Domain.
+        structKey: DomainEndpoint
+        templateKey: DomainEndpoint
+
+  additionalResources:
+    services:
+    - name: elasticSearchDomainEndpoint
+      type: ExternalName
+      externalName: '{{ .Obj.Output.DomainEndpoint }}'
+      ports:
+      - port: 443
+  
