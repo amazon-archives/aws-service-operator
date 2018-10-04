@@ -89,7 +89,7 @@ items:
         serviceAccountName: aws-service-operator
         containers:
         - name: aws-service-operator
-          image: awsserviceoperator/aws-service-operator:v0.0.1-alpha1
+          image: awsserviceoperator/aws-service-operator:v0.0.1-alpha2
           imagePullPolicy: Always
           args:
             - server
