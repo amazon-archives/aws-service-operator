@@ -81,18 +81,18 @@ func (s *Cloudformation) CreateStack() (output *cloudformation.CreateStackOutput
 	namespace := helpers.CreateParam("Namespace", s.DynamoDB.Namespace)
 	clusterName := helpers.CreateParam("ClusterName", s.config.ClusterName)
 	tableName := helpers.CreateParam("TableName", helpers.Stringify(s.DynamoDB.Name))
-	rangeAttributeNameTemp := "{{.Obj.Spec.RangeAttribute.Name}}"
-	rangeAttributeNameValue, err := helpers.Templatize(rangeAttributeNameTemp, helpers.Data{Obj: s.DynamoDB, Config: s.config, Helpers: helpers.New()})
+	rangeAttributenameTemp := "{{.Obj.Spec.RangeAttribute.Name}}"
+	rangeAttributenameValue, err := helpers.Templatize(rangeAttributenameTemp, helpers.Data{Obj: s.DynamoDB, Config: s.config, Helpers: helpers.New()})
 	if err != nil {
 		return output, err
 	}
-	rangeAttributeName := helpers.CreateParam("RangeAttributeName", helpers.Stringify(rangeAttributeNameValue))
-	rangeAttributeTypeTemp := "{{.Obj.Spec.RangeAttribute.Type}}"
-	rangeAttributeTypeValue, err := helpers.Templatize(rangeAttributeTypeTemp, helpers.Data{Obj: s.DynamoDB, Config: s.config, Helpers: helpers.New()})
+	rangeAttributename := helpers.CreateParam("RangeAttributeName", helpers.Stringify(rangeAttributenameValue))
+	rangeAttributetypeTemp := "{{.Obj.Spec.RangeAttribute.Type}}"
+	rangeAttributetypeValue, err := helpers.Templatize(rangeAttributetypeTemp, helpers.Data{Obj: s.DynamoDB, Config: s.config, Helpers: helpers.New()})
 	if err != nil {
 		return output, err
 	}
-	rangeAttributeType := helpers.CreateParam("RangeAttributeType", helpers.Stringify(rangeAttributeTypeValue))
+	rangeAttributetype := helpers.CreateParam("RangeAttributeType", helpers.Stringify(rangeAttributetypeValue))
 	readCapacityUnitsTemp := "{{.Obj.Spec.ReadCapacityUnits}}"
 	readCapacityUnitsValue, err := helpers.Templatize(readCapacityUnitsTemp, helpers.Data{Obj: s.DynamoDB, Config: s.config, Helpers: helpers.New()})
 	if err != nil {
@@ -105,18 +105,18 @@ func (s *Cloudformation) CreateStack() (output *cloudformation.CreateStackOutput
 		return output, err
 	}
 	writeCapacityUnits := helpers.CreateParam("WriteCapacityUnits", helpers.Stringify(writeCapacityUnitsValue))
-	hashAttributeNameTemp := "{{.Obj.Spec.HashAttribute.Name}}"
-	hashAttributeNameValue, err := helpers.Templatize(hashAttributeNameTemp, helpers.Data{Obj: s.DynamoDB, Config: s.config, Helpers: helpers.New()})
+	hashAttributenameTemp := "{{.Obj.Spec.HashAttribute.Name}}"
+	hashAttributenameValue, err := helpers.Templatize(hashAttributenameTemp, helpers.Data{Obj: s.DynamoDB, Config: s.config, Helpers: helpers.New()})
 	if err != nil {
 		return output, err
 	}
-	hashAttributeName := helpers.CreateParam("HashAttributeName", helpers.Stringify(hashAttributeNameValue))
-	hashAttributeTypeTemp := "{{.Obj.Spec.HashAttribute.Type}}"
-	hashAttributeTypeValue, err := helpers.Templatize(hashAttributeTypeTemp, helpers.Data{Obj: s.DynamoDB, Config: s.config, Helpers: helpers.New()})
+	hashAttributename := helpers.CreateParam("HashAttributeName", helpers.Stringify(hashAttributenameValue))
+	hashAttributetypeTemp := "{{.Obj.Spec.HashAttribute.Type}}"
+	hashAttributetypeValue, err := helpers.Templatize(hashAttributetypeTemp, helpers.Data{Obj: s.DynamoDB, Config: s.config, Helpers: helpers.New()})
 	if err != nil {
 		return output, err
 	}
-	hashAttributeType := helpers.CreateParam("HashAttributeType", helpers.Stringify(hashAttributeTypeValue))
+	hashAttributetype := helpers.CreateParam("HashAttributeType", helpers.Stringify(hashAttributetypeValue))
 
 	parameters := []*cloudformation.Parameter{}
 	parameters = append(parameters, resourceName)
@@ -124,12 +124,12 @@ func (s *Cloudformation) CreateStack() (output *cloudformation.CreateStackOutput
 	parameters = append(parameters, namespace)
 	parameters = append(parameters, clusterName)
 	parameters = append(parameters, tableName)
-	parameters = append(parameters, rangeAttributeName)
-	parameters = append(parameters, rangeAttributeType)
+	parameters = append(parameters, rangeAttributename)
+	parameters = append(parameters, rangeAttributetype)
 	parameters = append(parameters, readCapacityUnits)
 	parameters = append(parameters, writeCapacityUnits)
-	parameters = append(parameters, hashAttributeName)
-	parameters = append(parameters, hashAttributeType)
+	parameters = append(parameters, hashAttributename)
+	parameters = append(parameters, hashAttributetype)
 
 	stackInputs.SetParameters(parameters)
 
@@ -170,18 +170,18 @@ func (s *Cloudformation) UpdateStack(updated *awsV1alpha1.DynamoDB) (output *clo
 	namespace := helpers.CreateParam("Namespace", s.DynamoDB.Namespace)
 	clusterName := helpers.CreateParam("ClusterName", s.config.ClusterName)
 	tableName := helpers.CreateParam("TableName", helpers.Stringify(s.DynamoDB.Name))
-	rangeAttributeNameTemp := "{{.Obj.Spec.RangeAttribute.Name}}"
-	rangeAttributeNameValue, err := helpers.Templatize(rangeAttributeNameTemp, helpers.Data{Obj: updated, Config: s.config, Helpers: helpers.New()})
+	rangeAttributenameTemp := "{{.Obj.Spec.RangeAttribute.Name}}"
+	rangeAttributenameValue, err := helpers.Templatize(rangeAttributenameTemp, helpers.Data{Obj: updated, Config: s.config, Helpers: helpers.New()})
 	if err != nil {
 		return output, err
 	}
-	rangeAttributeName := helpers.CreateParam("RangeAttributeName", helpers.Stringify(rangeAttributeNameValue))
-	rangeAttributeTypeTemp := "{{.Obj.Spec.RangeAttribute.Type}}"
-	rangeAttributeTypeValue, err := helpers.Templatize(rangeAttributeTypeTemp, helpers.Data{Obj: updated, Config: s.config, Helpers: helpers.New()})
+	rangeAttributename := helpers.CreateParam("RangeAttributeName", helpers.Stringify(rangeAttributenameValue))
+	rangeAttributetypeTemp := "{{.Obj.Spec.RangeAttribute.Type}}"
+	rangeAttributetypeValue, err := helpers.Templatize(rangeAttributetypeTemp, helpers.Data{Obj: updated, Config: s.config, Helpers: helpers.New()})
 	if err != nil {
 		return output, err
 	}
-	rangeAttributeType := helpers.CreateParam("RangeAttributeType", helpers.Stringify(rangeAttributeTypeValue))
+	rangeAttributetype := helpers.CreateParam("RangeAttributeType", helpers.Stringify(rangeAttributetypeValue))
 	readCapacityUnitsTemp := "{{.Obj.Spec.ReadCapacityUnits}}"
 	readCapacityUnitsValue, err := helpers.Templatize(readCapacityUnitsTemp, helpers.Data{Obj: updated, Config: s.config, Helpers: helpers.New()})
 	if err != nil {
@@ -194,18 +194,18 @@ func (s *Cloudformation) UpdateStack(updated *awsV1alpha1.DynamoDB) (output *clo
 		return output, err
 	}
 	writeCapacityUnits := helpers.CreateParam("WriteCapacityUnits", helpers.Stringify(writeCapacityUnitsValue))
-	hashAttributeNameTemp := "{{.Obj.Spec.HashAttribute.Name}}"
-	hashAttributeNameValue, err := helpers.Templatize(hashAttributeNameTemp, helpers.Data{Obj: updated, Config: s.config, Helpers: helpers.New()})
+	hashAttributenameTemp := "{{.Obj.Spec.HashAttribute.Name}}"
+	hashAttributenameValue, err := helpers.Templatize(hashAttributenameTemp, helpers.Data{Obj: updated, Config: s.config, Helpers: helpers.New()})
 	if err != nil {
 		return output, err
 	}
-	hashAttributeName := helpers.CreateParam("HashAttributeName", helpers.Stringify(hashAttributeNameValue))
-	hashAttributeTypeTemp := "{{.Obj.Spec.HashAttribute.Type}}"
-	hashAttributeTypeValue, err := helpers.Templatize(hashAttributeTypeTemp, helpers.Data{Obj: updated, Config: s.config, Helpers: helpers.New()})
+	hashAttributename := helpers.CreateParam("HashAttributeName", helpers.Stringify(hashAttributenameValue))
+	hashAttributetypeTemp := "{{.Obj.Spec.HashAttribute.Type}}"
+	hashAttributetypeValue, err := helpers.Templatize(hashAttributetypeTemp, helpers.Data{Obj: updated, Config: s.config, Helpers: helpers.New()})
 	if err != nil {
 		return output, err
 	}
-	hashAttributeType := helpers.CreateParam("HashAttributeType", helpers.Stringify(hashAttributeTypeValue))
+	hashAttributetype := helpers.CreateParam("HashAttributeType", helpers.Stringify(hashAttributetypeValue))
 
 	parameters := []*cloudformation.Parameter{}
 	parameters = append(parameters, resourceName)
@@ -213,12 +213,12 @@ func (s *Cloudformation) UpdateStack(updated *awsV1alpha1.DynamoDB) (output *clo
 	parameters = append(parameters, namespace)
 	parameters = append(parameters, clusterName)
 	parameters = append(parameters, tableName)
-	parameters = append(parameters, rangeAttributeName)
-	parameters = append(parameters, rangeAttributeType)
+	parameters = append(parameters, rangeAttributename)
+	parameters = append(parameters, rangeAttributetype)
 	parameters = append(parameters, readCapacityUnits)
 	parameters = append(parameters, writeCapacityUnits)
-	parameters = append(parameters, hashAttributeName)
-	parameters = append(parameters, hashAttributeType)
+	parameters = append(parameters, hashAttributename)
+	parameters = append(parameters, hashAttributetype)
 
 	stackInputs.SetParameters(parameters)
 
