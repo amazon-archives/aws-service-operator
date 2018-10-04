@@ -230,7 +230,7 @@ func process(q *Queue, svc *sqs.SQS, h Handler, stopCh <-chan struct{}) error {
 			if err != nil {
 				logger.WithError(err).Error("error processing message")
 			}
-			logger.Infof("stackID %v updated status to %v", mb.ParsedMessage["StackId"], mb.ParsedMessage["ResourceStatus"])
+			logger.Debugf("stackID %v updated status to %v", mb.ParsedMessage["StackId"], mb.ParsedMessage["ResourceStatus"])
 			_, err = svc.DeleteMessage(&sqs.DeleteMessageInput{
 				QueueUrl:      aws.String(q.queueURL),
 				ReceiptHandle: message.ReceiptHandle,

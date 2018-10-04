@@ -89,7 +89,7 @@ func getClientConfig(kubeconfig string) (*rest.Config, error) {
 func createContext(kubeconfig string) (*opkit.Context, sampleclient.MyprojectV1alpha1Interface, error) {
 	config, err := getClientConfig(kubeconfig)
 	if err != nil {
-		return nil, nil, fmt.Errorf("failed to get k8s local config. %+v", err)
+		return nil, nil, fmt.Errorf("failed to get k8s config. %+v", err)
 	}
 
 	clientset, err := kubernetes.NewForConfig(config)

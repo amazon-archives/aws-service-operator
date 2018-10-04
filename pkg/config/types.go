@@ -6,6 +6,7 @@ import (
 	opkit "github.com/christopherhein/operator-kit"
 	"github.com/sirupsen/logrus"
 	"k8s.io/client-go/rest"
+	"k8s.io/client-go/tools/record"
 )
 
 // Config defines the configuration for the operator
@@ -22,6 +23,7 @@ type Config struct {
 	ClusterName   string
 	Bucket        string
 	AccountID     string
+	Recorder      record.EventRecorder
 }
 
 // LoggingConfig defines the attributes for the logger

@@ -13,8 +13,11 @@ import (
 	"github.com/awslabs/aws-service-operator/pkg/config"
 	"github.com/awslabs/aws-service-operator/pkg/queue"
 	opkit "github.com/christopherhein/operator-kit"
+	"github.com/iancoleman/strcase"
+	corev1 "k8s.io/api/core/v1"
 	apiextensionsv1beta1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
 	"k8s.io/client-go/tools/cache"
+	"strings"
 
 	awsapi "github.com/awslabs/aws-service-operator/pkg/apis/service-operator.aws"
 	awsV1alpha1 "github.com/awslabs/aws-service-operator/pkg/apis/service-operator.aws/v1alpha1"
@@ -94,27 +97,35 @@ func QueueUpdater(config *config.Config, msg *queue.MessageBody) error {
 	}
 
 	if name != "" && namespace != "" {
+		annotations := map[string]string{
+			"StackID":      msg.ParsedMessage["StackId"],
+			"StackName":    msg.ParsedMessage["StackName"],
+			"ResourceType": msg.ParsedMessage["ResourceType"],
+		}
 		if msg.ParsedMessage["ResourceStatus"] == "ROLLBACK_COMPLETE" {
-			err := deleteStack(config, name, namespace, msg.ParsedMessage["StackId"])
+			obj, err := deleteStack(config, name, namespace, msg.ParsedMessage["StackId"])
 			if err != nil {
 				return err
 			}
+			config.Recorder.AnnotatedEventf(obj, annotations, corev1.EventTypeWarning, strcase.ToCamel(strings.ToLower(msg.ParsedMessage["ResourceStatus"])), msg.ParsedMessage["ResourceStatusReason"])
 		} else if msg.ParsedMessage["ResourceStatus"] == "DELETE_COMPLETE" {
-			err := updateStatus(config, name, namespace, msg.ParsedMessage["StackId"], msg.ParsedMessage["ResourceStatus"], msg.ParsedMessage["ResourceStatusReason"])
+			obj, err := updateStatus(config, name, namespace, msg.ParsedMessage["StackId"], msg.ParsedMessage["ResourceStatus"], msg.ParsedMessage["ResourceStatusReason"])
 			if err != nil {
 				return err
 			}
-
+			config.Recorder.AnnotatedEventf(obj, annotations, corev1.EventTypeWarning, strcase.ToCamel(strings.ToLower(msg.ParsedMessage["ResourceStatus"])), msg.ParsedMessage["ResourceStatusReason"])
 			err = incrementRollbackCount(config, name, namespace)
 			if err != nil {
 				return err
 			}
 		} else {
-			err := updateStatus(config, name, namespace, msg.ParsedMessage["StackId"], msg.ParsedMessage["ResourceStatus"], msg.ParsedMessage["ResourceStatusReason"])
+			obj, err := updateStatus(config, name, namespace, msg.ParsedMessage["StackId"], msg.ParsedMessage["ResourceStatus"], msg.ParsedMessage["ResourceStatusReason"])
 			if err != nil {
 				return err
 			}
+			config.Recorder.AnnotatedEventf(obj, annotations, corev1.EventTypeNormal, strcase.ToCamel(strings.ToLower(msg.ParsedMessage["ResourceStatus"])), msg.ParsedMessage["ResourceStatusReason"])
 		}
+
 	}
 
 	return nil
@@ -132,7 +143,7 @@ func (c *Controller) onAdd(obj interface{}) {
 		c.config.Logger.Infof("added s3bucket '%s' with stackID '%s'", s.Name, string(*output.StackId))
 		c.config.Logger.Infof("view at https://console.aws.amazon.com/cloudformation/home?#/stack/detail?stackId=%s", string(*output.StackId))
 
-		err = updateStatus(c.config, s.Name, s.Namespace, string(*output.StackId), "CREATE_IN_PROGRESS", "")
+		_, err = updateStatus(c.config, s.Name, s.Namespace, string(*output.StackId), "CREATE_IN_PROGRESS", "")
 		if err != nil {
 			c.config.Logger.WithError(err).Error("error updating status")
 		}
@@ -156,7 +167,7 @@ func (c *Controller) onUpdate(oldObj, newObj interface{}) {
 		c.config.Logger.Infof("updated s3bucket '%s' with params '%s'", no.Name, string(*output.StackId))
 		c.config.Logger.Infof("view at https://console.aws.amazon.com/cloudformation/home?#/stack/detail?stackId=%s", string(*output.StackId))
 
-		err = updateStatus(c.config, oo.Name, oo.Namespace, string(*output.StackId), "UPDATE_IN_PROGRESS", "")
+		_, err = updateStatus(c.config, oo.Name, oo.Namespace, string(*output.StackId), "UPDATE_IN_PROGRESS", "")
 		if err != nil {
 			c.config.Logger.WithError(err).Error("error updating status")
 		}
@@ -194,13 +205,13 @@ func incrementRollbackCount(config *config.Config, name string, namespace string
 	return nil
 }
 
-func updateStatus(config *config.Config, name string, namespace string, stackID string, status string, reason string) error {
+func updateStatus(config *config.Config, name string, namespace string, stackID string, status string, reason string) (*awsV1alpha1.S3Bucket, error) {
 	logger := config.Logger
 	clientSet, _ := awsclient.NewForConfig(config.RESTConfig)
 	resource, err := clientSet.S3Buckets(namespace).Get(name, metav1.GetOptions{})
 	if err != nil {
 		logger.WithError(err).Error("error getting s3buckets")
-		return err
+		return nil, err
 	}
 
 	resourceCopy := resource.DeepCopy()
@@ -222,7 +233,7 @@ func updateStatus(config *config.Config, name string, namespace string, stackID 
 	_, err = clientSet.S3Buckets(namespace).Update(resourceCopy)
 	if err != nil {
 		logger.WithError(err).Error("error updating resource")
-		return err
+		return nil, err
 	}
 
 	if helpers.IsStackComplete(status, false) {
@@ -231,26 +242,26 @@ func updateStatus(config *config.Config, name string, namespace string, stackID 
 			logger.WithError(err).Info("error syncing resources")
 		}
 	}
-	return nil
+	return resourceCopy, nil
 }
 
-func deleteStack(config *config.Config, name string, namespace string, stackID string) error {
+func deleteStack(config *config.Config, name string, namespace string, stackID string) (*awsV1alpha1.S3Bucket, error) {
 	logger := config.Logger
 	clientSet, _ := awsclient.NewForConfig(config.RESTConfig)
 	resource, err := clientSet.S3Buckets(namespace).Get(name, metav1.GetOptions{})
 	if err != nil {
 		logger.WithError(err).Error("error getting s3buckets")
-		return err
+		return nil, err
 	}
 
 	cft := New(config, resource, "")
 	err = cft.DeleteStack()
 	if err != nil {
-		return err
+		return nil, err
 	}
 
 	err = cft.WaitUntilStackDeleted()
-	return err
+	return resource, err
 }
 
 func syncAdditionalResources(config *config.Config, s *awsV1alpha1.S3Bucket) (err error) {

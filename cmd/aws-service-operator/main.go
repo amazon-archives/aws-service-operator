@@ -20,7 +20,8 @@ var (
 	rootCmd = &cobra.Command{
 		Use:   "aws-operator",
 		Short: "AWS Operator manages your AWS Infrastructure using CRDs and Operators",
-		Long:  `TODO WRITE THIS`,
+		Long: `AWS Operator manages your AWS Infrastructure using CRDs and Operators. 
+With a single manifest file you can now model both the application and the resource necessary to run it.`,
 		Run: func(c *cobra.Command, _ []string) {
 			c.Help()
 		},

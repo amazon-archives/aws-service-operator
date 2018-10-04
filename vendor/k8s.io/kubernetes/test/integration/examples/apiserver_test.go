@@ -31,10 +31,13 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
+	apierrors "k8s.io/apimachinery/pkg/api/errors"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/apimachinery/pkg/util/wait"
 	genericapiserver "k8s.io/apiserver/pkg/server"
 	genericapiserveroptions "k8s.io/apiserver/pkg/server/options"
+	discovery "k8s.io/client-go/discovery"
 	client "k8s.io/client-go/kubernetes"
 	"k8s.io/client-go/rest"
 	"k8s.io/client-go/tools/clientcmd"
@@ -46,16 +49,10 @@ import (
 	"k8s.io/kubernetes/cmd/kube-apiserver/app"
 	"k8s.io/kubernetes/cmd/kube-apiserver/app/options"
 	"k8s.io/kubernetes/test/integration/framework"
-	"k8s.io/sample-apiserver/pkg/apis/wardle/v1alpha1"
+	wardlev1alpha1 "k8s.io/sample-apiserver/pkg/apis/wardle/v1alpha1"
+	wardlev1beta1 "k8s.io/sample-apiserver/pkg/apis/wardle/v1beta1"
 	sampleserver "k8s.io/sample-apiserver/pkg/cmd/server"
 )
-
-var groupVersion = v1alpha1.SchemeGroupVersion
-
-var groupVersionForDiscovery = metav1.GroupVersionForDiscovery{
-	GroupVersion: groupVersion.String(),
-	Version:      groupVersion.Version,
-}
 
 func TestAggregatedAPIServer(t *testing.T) {
 	stopCh := make(chan struct{})
@@ -109,13 +106,17 @@ func TestAggregatedAPIServer(t *testing.T) {
 		kubeAPIServerOptions.Authentication.RequestHeader.AllowedNames = []string{"kube-aggregator"}
 		kubeAPIServerOptions.Authentication.RequestHeader.ClientCAFile = proxyCACertFile.Name()
 		kubeAPIServerOptions.Authentication.ClientCert.ClientCA = clientCACertFile.Name()
-		kubeAPIServerOptions.Authorization.Mode = "RBAC"
-
-		tunneler, proxyTransport, err := app.CreateNodeDialer(kubeAPIServerOptions)
+		kubeAPIServerOptions.Authorization.Modes = []string{"RBAC"}
+		completedOptions, err := app.Complete(kubeAPIServerOptions)
 		if err != nil {
 			t.Fatal(err)
 		}
-		kubeAPIServerConfig, sharedInformers, versionedInformers, _, _, _, err := app.CreateKubeAPIServerConfig(kubeAPIServerOptions, tunneler, proxyTransport)
+
+		tunneler, proxyTransport, err := app.CreateNodeDialer(completedOptions)
+		if err != nil {
+			t.Fatal(err)
+		}
+		kubeAPIServerConfig, sharedInformers, versionedInformers, _, _, _, admissionPostStartHook, err := app.CreateKubeAPIServerConfig(completedOptions, tunneler, proxyTransport)
 		if err != nil {
 			t.Fatal(err)
 		}
@@ -126,7 +127,7 @@ func TestAggregatedAPIServer(t *testing.T) {
 		kubeAPIServerClientConfig.ServerName = ""
 		kubeClientConfigValue.Store(kubeAPIServerClientConfig)
 
-		kubeAPIServer, err := app.CreateKubeAPIServer(kubeAPIServerConfig, genericapiserver.EmptyDelegate, sharedInformers, versionedInformers)
+		kubeAPIServer, err := app.CreateKubeAPIServer(kubeAPIServerConfig, genericapiserver.NewEmptyDelegate(), sharedInformers, versionedInformers, admissionPostStartHook)
 		if err != nil {
 			t.Fatal(err)
 		}
@@ -137,7 +138,7 @@ func TestAggregatedAPIServer(t *testing.T) {
 	}()
 
 	// just use json because everyone speaks it
-	err = wait.PollImmediate(100*time.Millisecond, 10*time.Second, func() (done bool, err error) {
+	err = wait.PollImmediate(time.Second, time.Minute, func() (done bool, err error) {
 		obj := kubeClientConfigValue.Load()
 		if obj == nil {
 			return false, nil
@@ -336,9 +337,8 @@ func TestAggregatedAPIServer(t *testing.T) {
 	// this is ugly, but sleep just a little bit so that the watch is probably observed.  Since nothing will actually be added to discovery
 	// (the service is missing), we don't have an external signal.
 	time.Sleep(100 * time.Millisecond)
-	if _, err := aggregatorDiscoveryClient.Discovery().ServerResources(); err != nil {
-		t.Fatal(err)
-	}
+	_, err = aggregatorDiscoveryClient.Discovery().ServerResources()
+	assertWardleUnavailableDiscoveryError(t, err)
 
 	_, err = aggregatorClient.ApiregistrationV1beta1().APIServices().Create(&apiregistrationv1beta1.APIService{
 		ObjectMeta: metav1.ObjectMeta{Name: "v1."},
@@ -359,11 +359,30 @@ func TestAggregatedAPIServer(t *testing.T) {
 	// (the service is missing), we don't have an external signal.
 	time.Sleep(100 * time.Millisecond)
 	_, err = aggregatorDiscoveryClient.Discovery().ServerResources()
-	if err != nil {
-		t.Fatal(err)
-	}
+	assertWardleUnavailableDiscoveryError(t, err)
 
 	// TODO figure out how to turn on enough of services and dns to run more
+}
+
+func assertWardleUnavailableDiscoveryError(t *testing.T, err error) {
+	if err == nil {
+		t.Fatal("Discovery call expected to return failed unavailable service")
+	}
+	if !discovery.IsGroupDiscoveryFailedError(err) {
+		t.Fatalf("Unexpected error: %T, %v", err, err)
+	}
+	discoveryErr := err.(*discovery.ErrGroupDiscoveryFailed)
+	if len(discoveryErr.Groups) != 1 {
+		t.Fatalf("Unexpected failed groups: %v", err)
+	}
+	groupVersion := schema.GroupVersion{Group: "wardle.k8s.io", Version: "v1alpha1"}
+	groupVersionErr, ok := discoveryErr.Groups[groupVersion]
+	if !ok {
+		t.Fatalf("Unexpected failed group version: %v", err)
+	}
+	if !apierrors.IsServiceUnavailable(groupVersionErr) {
+		t.Fatalf("Unexpected failed group version error: %v", err)
+	}
 }
 
 func createKubeConfig(clientCfg *rest.Config) *clientcmdapi.Config {
@@ -419,10 +438,21 @@ func testAPIGroupList(t *testing.T, client rest.Interface) {
 		t.Fatalf("Error in unmarshalling response from server %s: %v", "/apis", err)
 	}
 	assert.Equal(t, 1, len(apiGroupList.Groups))
-	assert.Equal(t, groupVersion.Group, apiGroupList.Groups[0].Name)
-	assert.Equal(t, 1, len(apiGroupList.Groups[0].Versions))
-	assert.Equal(t, groupVersionForDiscovery, apiGroupList.Groups[0].Versions[0])
-	assert.Equal(t, groupVersionForDiscovery, apiGroupList.Groups[0].PreferredVersion)
+	assert.Equal(t, wardlev1alpha1.GroupName, apiGroupList.Groups[0].Name)
+	assert.Equal(t, 2, len(apiGroupList.Groups[0].Versions))
+
+	v1alpha1 := metav1.GroupVersionForDiscovery{
+		GroupVersion: wardlev1alpha1.SchemeGroupVersion.String(),
+		Version:      wardlev1alpha1.SchemeGroupVersion.Version,
+	}
+	v1beta1 := metav1.GroupVersionForDiscovery{
+		GroupVersion: wardlev1beta1.SchemeGroupVersion.String(),
+		Version:      wardlev1beta1.SchemeGroupVersion.Version,
+	}
+
+	assert.Equal(t, v1beta1, apiGroupList.Groups[0].Versions[0])
+	assert.Equal(t, v1alpha1, apiGroupList.Groups[0].Versions[1])
+	assert.Equal(t, v1beta1, apiGroupList.Groups[0].PreferredVersion)
 }
 
 func testAPIGroup(t *testing.T, client rest.Interface) {
@@ -436,10 +466,10 @@ func testAPIGroup(t *testing.T, client rest.Interface) {
 	if err != nil {
 		t.Fatalf("Error in unmarshalling response from server %s: %v", "/apis/wardle.k8s.io", err)
 	}
-	assert.Equal(t, groupVersion.Group, apiGroup.Name)
-	assert.Equal(t, 1, len(apiGroup.Versions))
-	assert.Equal(t, groupVersion.String(), apiGroup.Versions[0].GroupVersion)
-	assert.Equal(t, groupVersion.Version, apiGroup.Versions[0].Version)
+	assert.Equal(t, wardlev1alpha1.SchemeGroupVersion.Group, apiGroup.Name)
+	assert.Equal(t, 2, len(apiGroup.Versions))
+	assert.Equal(t, wardlev1alpha1.SchemeGroupVersion.String(), apiGroup.Versions[1].GroupVersion)
+	assert.Equal(t, wardlev1alpha1.SchemeGroupVersion.Version, apiGroup.Versions[1].Version)
 	assert.Equal(t, apiGroup.PreferredVersion, apiGroup.Versions[0])
 }
 
@@ -454,7 +484,7 @@ func testAPIResourceList(t *testing.T, client rest.Interface) {
 	if err != nil {
 		t.Fatalf("Error in unmarshalling response from server %s: %v", "/apis/wardle.k8s.io/v1alpha1", err)
 	}
-	assert.Equal(t, groupVersion.String(), apiResourceList.GroupVersion)
+	assert.Equal(t, wardlev1alpha1.SchemeGroupVersion.String(), apiResourceList.GroupVersion)
 	assert.Equal(t, 2, len(apiResourceList.APIResources))
 	assert.Equal(t, "fischers", apiResourceList.APIResources[0].Name)
 	assert.False(t, apiResourceList.APIResources[0].Namespaced)

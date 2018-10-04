@@ -26,6 +26,7 @@ import (
 	"k8s.io/api/core/v1"
 	apiequality "k8s.io/apimachinery/pkg/api/equality"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/apimachinery/pkg/util/rand"
 	"k8s.io/apimachinery/pkg/util/uuid"
 	"k8s.io/apimachinery/pkg/util/wait"
@@ -37,7 +38,6 @@ import (
 	core "k8s.io/client-go/testing"
 	"k8s.io/client-go/tools/cache"
 	"k8s.io/client-go/util/workqueue"
-	"k8s.io/kubernetes/pkg/api/legacyscheme"
 	_ "k8s.io/kubernetes/pkg/apis/core/install"
 	"k8s.io/kubernetes/pkg/controller"
 )
@@ -269,7 +269,7 @@ func TestControllerSyncJob(t *testing.T) {
 			nil, true, 0, 0, 0, 0,
 			10, 0, 10, 0, 0, nil, "",
 		},
-		"to many job sync failure": {
+		"too many job failures": {
 			2, 5, 0, true, 0,
 			nil, true, 0, 0, 0, 1,
 			0, 0, 0, 0, 1, &jobConditionFailed, "BackoffLimitExceeded",
@@ -278,7 +278,7 @@ func TestControllerSyncJob(t *testing.T) {
 
 	for name, tc := range testCases {
 		// job manager setup
-		clientset := clientset.NewForConfigOrDie(&restclient.Config{Host: "", ContentConfig: restclient.ContentConfig{GroupVersion: &legacyscheme.Registry.GroupOrDie(v1.GroupName).GroupVersion}})
+		clientset := clientset.NewForConfigOrDie(&restclient.Config{Host: "", ContentConfig: restclient.ContentConfig{GroupVersion: &schema.GroupVersion{Group: "", Version: "v1"}}})
 		manager, sharedInformerFactory := newJobControllerFromClient(clientset, controller.NoResyncPeriodFunc)
 		fakePodControl := controller.FakePodControl{Err: tc.podControllerError, CreateLimit: tc.podLimit}
 		manager.podControl = &fakePodControl
@@ -412,14 +412,14 @@ func TestSyncJobPastDeadline(t *testing.T) {
 		},
 		"activeDeadlineSeconds with backofflimit reach": {
 			1, 1, 1, 10, 0,
-			1, 0, 2,
-			true, 1, 0, 0, 3, "BackoffLimitExceeded",
+			0, 0, 1,
+			true, 0, 0, 0, 1, "BackoffLimitExceeded",
 		},
 	}
 
 	for name, tc := range testCases {
 		// job manager setup
-		clientset := clientset.NewForConfigOrDie(&restclient.Config{Host: "", ContentConfig: restclient.ContentConfig{GroupVersion: &legacyscheme.Registry.GroupOrDie(v1.GroupName).GroupVersion}})
+		clientset := clientset.NewForConfigOrDie(&restclient.Config{Host: "", ContentConfig: restclient.ContentConfig{GroupVersion: &schema.GroupVersion{Group: "", Version: "v1"}}})
 		manager, sharedInformerFactory := newJobControllerFromClient(clientset, controller.NoResyncPeriodFunc)
 		fakePodControl := controller.FakePodControl{}
 		manager.podControl = &fakePodControl
@@ -485,7 +485,7 @@ func getCondition(job *batch.Job, condition batch.JobConditionType, reason strin
 }
 
 func TestSyncPastDeadlineJobFinished(t *testing.T) {
-	clientset := clientset.NewForConfigOrDie(&restclient.Config{Host: "", ContentConfig: restclient.ContentConfig{GroupVersion: &legacyscheme.Registry.GroupOrDie(v1.GroupName).GroupVersion}})
+	clientset := clientset.NewForConfigOrDie(&restclient.Config{Host: "", ContentConfig: restclient.ContentConfig{GroupVersion: &schema.GroupVersion{Group: "", Version: "v1"}}})
 	manager, sharedInformerFactory := newJobControllerFromClient(clientset, controller.NoResyncPeriodFunc)
 	fakePodControl := controller.FakePodControl{}
 	manager.podControl = &fakePodControl
@@ -523,7 +523,7 @@ func TestSyncPastDeadlineJobFinished(t *testing.T) {
 }
 
 func TestSyncJobComplete(t *testing.T) {
-	clientset := clientset.NewForConfigOrDie(&restclient.Config{Host: "", ContentConfig: restclient.ContentConfig{GroupVersion: &legacyscheme.Registry.GroupOrDie(v1.GroupName).GroupVersion}})
+	clientset := clientset.NewForConfigOrDie(&restclient.Config{Host: "", ContentConfig: restclient.ContentConfig{GroupVersion: &schema.GroupVersion{Group: "", Version: "v1"}}})
 	manager, sharedInformerFactory := newJobControllerFromClient(clientset, controller.NoResyncPeriodFunc)
 	fakePodControl := controller.FakePodControl{}
 	manager.podControl = &fakePodControl
@@ -551,7 +551,7 @@ func TestSyncJobComplete(t *testing.T) {
 }
 
 func TestSyncJobDeleted(t *testing.T) {
-	clientset := clientset.NewForConfigOrDie(&restclient.Config{Host: "", ContentConfig: restclient.ContentConfig{GroupVersion: &legacyscheme.Registry.GroupOrDie(v1.GroupName).GroupVersion}})
+	clientset := clientset.NewForConfigOrDie(&restclient.Config{Host: "", ContentConfig: restclient.ContentConfig{GroupVersion: &schema.GroupVersion{Group: "", Version: "v1"}}})
 	manager, _ := newJobControllerFromClient(clientset, controller.NoResyncPeriodFunc)
 	fakePodControl := controller.FakePodControl{}
 	manager.podControl = &fakePodControl
@@ -575,7 +575,7 @@ func TestSyncJobDeleted(t *testing.T) {
 }
 
 func TestSyncJobUpdateRequeue(t *testing.T) {
-	clientset := clientset.NewForConfigOrDie(&restclient.Config{Host: "", ContentConfig: restclient.ContentConfig{GroupVersion: &legacyscheme.Registry.GroupOrDie(v1.GroupName).GroupVersion}})
+	clientset := clientset.NewForConfigOrDie(&restclient.Config{Host: "", ContentConfig: restclient.ContentConfig{GroupVersion: &schema.GroupVersion{Group: "", Version: "v1"}}})
 	DefaultJobBackOff = time.Duration(0) // overwrite the default value for testing
 	manager, sharedInformerFactory := newJobControllerFromClient(clientset, controller.NoResyncPeriodFunc)
 	fakePodControl := controller.FakePodControl{}
@@ -605,7 +605,7 @@ func TestSyncJobUpdateRequeue(t *testing.T) {
 }
 
 func TestJobPodLookup(t *testing.T) {
-	clientset := clientset.NewForConfigOrDie(&restclient.Config{Host: "", ContentConfig: restclient.ContentConfig{GroupVersion: &legacyscheme.Registry.GroupOrDie(v1.GroupName).GroupVersion}})
+	clientset := clientset.NewForConfigOrDie(&restclient.Config{Host: "", ContentConfig: restclient.ContentConfig{GroupVersion: &schema.GroupVersion{Group: "", Version: "v1"}}})
 	manager, sharedInformerFactory := newJobControllerFromClient(clientset, controller.NoResyncPeriodFunc)
 	manager.podStoreSynced = alwaysReady
 	manager.jobStoreSynced = alwaysReady
@@ -687,7 +687,7 @@ func TestJobPodLookup(t *testing.T) {
 }
 
 func TestGetPodsForJob(t *testing.T) {
-	clientset := clientset.NewForConfigOrDie(&restclient.Config{Host: "", ContentConfig: restclient.ContentConfig{GroupVersion: &legacyscheme.Registry.GroupOrDie(v1.GroupName).GroupVersion}})
+	clientset := clientset.NewForConfigOrDie(&restclient.Config{Host: "", ContentConfig: restclient.ContentConfig{GroupVersion: &schema.GroupVersion{Group: "", Version: "v1"}}})
 	jm, informer := newJobControllerFromClient(clientset, controller.NoResyncPeriodFunc)
 	jm.podStoreSynced = alwaysReady
 	jm.jobStoreSynced = alwaysReady
@@ -823,7 +823,7 @@ func TestGetPodsForJobNoAdoptIfBeingDeletedRace(t *testing.T) {
 }
 
 func TestGetPodsForJobRelease(t *testing.T) {
-	clientset := clientset.NewForConfigOrDie(&restclient.Config{Host: "", ContentConfig: restclient.ContentConfig{GroupVersion: &legacyscheme.Registry.GroupOrDie(v1.GroupName).GroupVersion}})
+	clientset := clientset.NewForConfigOrDie(&restclient.Config{Host: "", ContentConfig: restclient.ContentConfig{GroupVersion: &schema.GroupVersion{Group: "", Version: "v1"}}})
 	jm, informer := newJobControllerFromClient(clientset, controller.NoResyncPeriodFunc)
 	jm.podStoreSynced = alwaysReady
 	jm.jobStoreSynced = alwaysReady
@@ -852,7 +852,7 @@ func TestGetPodsForJobRelease(t *testing.T) {
 }
 
 func TestAddPod(t *testing.T) {
-	clientset := clientset.NewForConfigOrDie(&restclient.Config{Host: "", ContentConfig: restclient.ContentConfig{GroupVersion: &legacyscheme.Registry.GroupOrDie(v1.GroupName).GroupVersion}})
+	clientset := clientset.NewForConfigOrDie(&restclient.Config{Host: "", ContentConfig: restclient.ContentConfig{GroupVersion: &schema.GroupVersion{Group: "", Version: "v1"}}})
 	jm, informer := newJobControllerFromClient(clientset, controller.NoResyncPeriodFunc)
 	jm.podStoreSynced = alwaysReady
 	jm.jobStoreSynced = alwaysReady
@@ -897,7 +897,7 @@ func TestAddPod(t *testing.T) {
 }
 
 func TestAddPodOrphan(t *testing.T) {
-	clientset := clientset.NewForConfigOrDie(&restclient.Config{Host: "", ContentConfig: restclient.ContentConfig{GroupVersion: &legacyscheme.Registry.GroupOrDie(v1.GroupName).GroupVersion}})
+	clientset := clientset.NewForConfigOrDie(&restclient.Config{Host: "", ContentConfig: restclient.ContentConfig{GroupVersion: &schema.GroupVersion{Group: "", Version: "v1"}}})
 	jm, informer := newJobControllerFromClient(clientset, controller.NoResyncPeriodFunc)
 	jm.podStoreSynced = alwaysReady
 	jm.jobStoreSynced = alwaysReady
@@ -925,7 +925,7 @@ func TestAddPodOrphan(t *testing.T) {
 }
 
 func TestUpdatePod(t *testing.T) {
-	clientset := clientset.NewForConfigOrDie(&restclient.Config{Host: "", ContentConfig: restclient.ContentConfig{GroupVersion: &legacyscheme.Registry.GroupOrDie(v1.GroupName).GroupVersion}})
+	clientset := clientset.NewForConfigOrDie(&restclient.Config{Host: "", ContentConfig: restclient.ContentConfig{GroupVersion: &schema.GroupVersion{Group: "", Version: "v1"}}})
 	jm, informer := newJobControllerFromClient(clientset, controller.NoResyncPeriodFunc)
 	jm.podStoreSynced = alwaysReady
 	jm.jobStoreSynced = alwaysReady
@@ -974,7 +974,7 @@ func TestUpdatePod(t *testing.T) {
 }
 
 func TestUpdatePodOrphanWithNewLabels(t *testing.T) {
-	clientset := clientset.NewForConfigOrDie(&restclient.Config{Host: "", ContentConfig: restclient.ContentConfig{GroupVersion: &legacyscheme.Registry.GroupOrDie(v1.GroupName).GroupVersion}})
+	clientset := clientset.NewForConfigOrDie(&restclient.Config{Host: "", ContentConfig: restclient.ContentConfig{GroupVersion: &schema.GroupVersion{Group: "", Version: "v1"}}})
 	jm, informer := newJobControllerFromClient(clientset, controller.NoResyncPeriodFunc)
 	jm.podStoreSynced = alwaysReady
 	jm.jobStoreSynced = alwaysReady
@@ -1001,7 +1001,7 @@ func TestUpdatePodOrphanWithNewLabels(t *testing.T) {
 }
 
 func TestUpdatePodChangeControllerRef(t *testing.T) {
-	clientset := clientset.NewForConfigOrDie(&restclient.Config{Host: "", ContentConfig: restclient.ContentConfig{GroupVersion: &legacyscheme.Registry.GroupOrDie(v1.GroupName).GroupVersion}})
+	clientset := clientset.NewForConfigOrDie(&restclient.Config{Host: "", ContentConfig: restclient.ContentConfig{GroupVersion: &schema.GroupVersion{Group: "", Version: "v1"}}})
 	jm, informer := newJobControllerFromClient(clientset, controller.NoResyncPeriodFunc)
 	jm.podStoreSynced = alwaysReady
 	jm.jobStoreSynced = alwaysReady
@@ -1027,7 +1027,7 @@ func TestUpdatePodChangeControllerRef(t *testing.T) {
 }
 
 func TestUpdatePodRelease(t *testing.T) {
-	clientset := clientset.NewForConfigOrDie(&restclient.Config{Host: "", ContentConfig: restclient.ContentConfig{GroupVersion: &legacyscheme.Registry.GroupOrDie(v1.GroupName).GroupVersion}})
+	clientset := clientset.NewForConfigOrDie(&restclient.Config{Host: "", ContentConfig: restclient.ContentConfig{GroupVersion: &schema.GroupVersion{Group: "", Version: "v1"}}})
 	jm, informer := newJobControllerFromClient(clientset, controller.NoResyncPeriodFunc)
 	jm.podStoreSynced = alwaysReady
 	jm.jobStoreSynced = alwaysReady
@@ -1053,7 +1053,7 @@ func TestUpdatePodRelease(t *testing.T) {
 }
 
 func TestDeletePod(t *testing.T) {
-	clientset := clientset.NewForConfigOrDie(&restclient.Config{Host: "", ContentConfig: restclient.ContentConfig{GroupVersion: &legacyscheme.Registry.GroupOrDie(v1.GroupName).GroupVersion}})
+	clientset := clientset.NewForConfigOrDie(&restclient.Config{Host: "", ContentConfig: restclient.ContentConfig{GroupVersion: &schema.GroupVersion{Group: "", Version: "v1"}}})
 	jm, informer := newJobControllerFromClient(clientset, controller.NoResyncPeriodFunc)
 	jm.podStoreSynced = alwaysReady
 	jm.jobStoreSynced = alwaysReady
@@ -1098,7 +1098,7 @@ func TestDeletePod(t *testing.T) {
 }
 
 func TestDeletePodOrphan(t *testing.T) {
-	clientset := clientset.NewForConfigOrDie(&restclient.Config{Host: "", ContentConfig: restclient.ContentConfig{GroupVersion: &legacyscheme.Registry.GroupOrDie(v1.GroupName).GroupVersion}})
+	clientset := clientset.NewForConfigOrDie(&restclient.Config{Host: "", ContentConfig: restclient.ContentConfig{GroupVersion: &schema.GroupVersion{Group: "", Version: "v1"}}})
 	jm, informer := newJobControllerFromClient(clientset, controller.NoResyncPeriodFunc)
 	jm.podStoreSynced = alwaysReady
 	jm.jobStoreSynced = alwaysReady
@@ -1138,7 +1138,7 @@ func (fe FakeJobExpectations) SatisfiedExpectations(controllerKey string) bool {
 // TestSyncJobExpectations tests that a pod cannot sneak in between counting active pods
 // and checking expectations.
 func TestSyncJobExpectations(t *testing.T) {
-	clientset := clientset.NewForConfigOrDie(&restclient.Config{Host: "", ContentConfig: restclient.ContentConfig{GroupVersion: &legacyscheme.Registry.GroupOrDie(v1.GroupName).GroupVersion}})
+	clientset := clientset.NewForConfigOrDie(&restclient.Config{Host: "", ContentConfig: restclient.ContentConfig{GroupVersion: &schema.GroupVersion{Group: "", Version: "v1"}}})
 	manager, sharedInformerFactory := newJobControllerFromClient(clientset, controller.NoResyncPeriodFunc)
 	fakePodControl := controller.FakePodControl{}
 	manager.podControl = &fakePodControl
@@ -1299,7 +1299,7 @@ func TestJobBackoffReset(t *testing.T) {
 	}
 
 	for name, tc := range testCases {
-		clientset := clientset.NewForConfigOrDie(&restclient.Config{Host: "", ContentConfig: restclient.ContentConfig{GroupVersion: &legacyscheme.Registry.GroupOrDie(v1.GroupName).GroupVersion}})
+		clientset := clientset.NewForConfigOrDie(&restclient.Config{Host: "", ContentConfig: restclient.ContentConfig{GroupVersion: &schema.GroupVersion{Group: "", Version: "v1"}}})
 		DefaultJobBackOff = time.Duration(0) // overwrite the default value for testing
 		manager, sharedInformerFactory := newJobControllerFromClient(clientset, controller.NoResyncPeriodFunc)
 		fakePodControl := controller.FakePodControl{}
@@ -1350,7 +1350,9 @@ type fakeRateLimitingQueue struct {
 }
 
 func (f *fakeRateLimitingQueue) AddRateLimited(item interface{}) {}
-func (f *fakeRateLimitingQueue) Forget(item interface{})         {}
+func (f *fakeRateLimitingQueue) Forget(item interface{}) {
+	f.requeues = 0
+}
 func (f *fakeRateLimitingQueue) NumRequeues(item interface{}) int {
 	return f.requeues
 }
@@ -1386,7 +1388,7 @@ func TestJobBackoff(t *testing.T) {
 
 	for name, tc := range testCases {
 		t.Run(name, func(t *testing.T) {
-			clientset := clientset.NewForConfigOrDie(&restclient.Config{Host: "", ContentConfig: restclient.ContentConfig{GroupVersion: &legacyscheme.Registry.GroupOrDie(v1.GroupName).GroupVersion}})
+			clientset := clientset.NewForConfigOrDie(&restclient.Config{Host: "", ContentConfig: restclient.ContentConfig{GroupVersion: &schema.GroupVersion{Group: "", Version: "v1"}}})
 			manager, sharedInformerFactory := newJobControllerFromClient(clientset, controller.NoResyncPeriodFunc)
 			fakePodControl := controller.FakePodControl{}
 			manager.podControl = &fakePodControl
@@ -1402,6 +1404,95 @@ func TestJobBackoff(t *testing.T) {
 
 			if queue.duration.Nanoseconds() != int64(tc.backoff)*DefaultJobBackOff.Nanoseconds() {
 				t.Errorf("unexpected backoff %v", queue.duration)
+			}
+		})
+	}
+}
+
+func TestJobBackoffForOnFailure(t *testing.T) {
+	jobConditionFailed := batch.JobFailed
+
+	testCases := map[string]struct {
+		// job setup
+		parallelism  int32
+		completions  int32
+		backoffLimit int32
+
+		// pod setup
+		jobKeyForget  bool
+		restartCounts []int32
+
+		// expectations
+		expectedActive          int32
+		expectedSucceeded       int32
+		expectedFailed          int32
+		expectedCondition       *batch.JobConditionType
+		expectedConditionReason string
+	}{
+		"too many job failures - single pod": {
+			1, 5, 2,
+			true, []int32{2},
+			0, 0, 1, &jobConditionFailed, "BackoffLimitExceeded",
+		},
+		"too many job failures - multiple pods": {
+			2, 5, 2,
+			true, []int32{1, 1},
+			0, 0, 2, &jobConditionFailed, "BackoffLimitExceeded",
+		},
+		"not enough failures": {
+			2, 5, 3,
+			true, []int32{1, 1},
+			2, 0, 0, nil, "",
+		},
+	}
+
+	for name, tc := range testCases {
+		t.Run(name, func(t *testing.T) {
+			// job manager setup
+			clientset := clientset.NewForConfigOrDie(&restclient.Config{Host: "", ContentConfig: restclient.ContentConfig{GroupVersion: &schema.GroupVersion{Group: "", Version: "v1"}}})
+			manager, sharedInformerFactory := newJobControllerFromClient(clientset, controller.NoResyncPeriodFunc)
+			fakePodControl := controller.FakePodControl{}
+			manager.podControl = &fakePodControl
+			manager.podStoreSynced = alwaysReady
+			manager.jobStoreSynced = alwaysReady
+			var actual *batch.Job
+			manager.updateHandler = func(job *batch.Job) error {
+				actual = job
+				return nil
+			}
+
+			// job & pods setup
+			job := newJob(tc.parallelism, tc.completions, tc.backoffLimit)
+			job.Spec.Template.Spec.RestartPolicy = v1.RestartPolicyOnFailure
+			sharedInformerFactory.Batch().V1().Jobs().Informer().GetIndexer().Add(job)
+			podIndexer := sharedInformerFactory.Core().V1().Pods().Informer().GetIndexer()
+			for i, pod := range newPodList(int32(len(tc.restartCounts)), v1.PodRunning, job) {
+				pod.Status.ContainerStatuses = []v1.ContainerStatus{{RestartCount: tc.restartCounts[i]}}
+				podIndexer.Add(&pod)
+			}
+
+			// run
+			forget, err := manager.syncJob(getKey(job, t))
+
+			if err != nil {
+				t.Errorf("unexpected error syncing job.  Got %#v", err)
+			}
+			if forget != tc.jobKeyForget {
+				t.Errorf("unexpected forget value. Expected %v, saw %v\n", tc.jobKeyForget, forget)
+			}
+			// validate status
+			if actual.Status.Active != tc.expectedActive {
+				t.Errorf("unexpected number of active pods.  Expected %d, saw %d\n", tc.expectedActive, actual.Status.Active)
+			}
+			if actual.Status.Succeeded != tc.expectedSucceeded {
+				t.Errorf("unexpected number of succeeded pods.  Expected %d, saw %d\n", tc.expectedSucceeded, actual.Status.Succeeded)
+			}
+			if actual.Status.Failed != tc.expectedFailed {
+				t.Errorf("unexpected number of failed pods.  Expected %d, saw %d\n", tc.expectedFailed, actual.Status.Failed)
+			}
+			// validate conditions
+			if tc.expectedCondition != nil && !getCondition(actual, *tc.expectedCondition, tc.expectedConditionReason) {
+				t.Errorf("expected completion condition.  Got %#v", actual.Status.Conditions)
 			}
 		})
 	}
