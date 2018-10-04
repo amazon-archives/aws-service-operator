@@ -26,7 +26,7 @@ var (
 	date       = "unknown"
 	versionCmd = &cobra.Command{
 		Use:   "version",
-		Short: "Version will output the current aws-operator build information",
+		Short: "Version will output the current build information",
 		Long:  ``,
 		Run: func(_ *cobra.Command, _ []string) {
 			var response string
@@ -74,3 +74,8 @@ Version: dev
 Commit: <SOMEHASH>
 Date: <SOMEDATE>
 ----
+
+== Contributing
+
+If you want to contribute check out
+https://github.com/christopherhein/go-version/blob/master/CONTRIBUTING.adoc

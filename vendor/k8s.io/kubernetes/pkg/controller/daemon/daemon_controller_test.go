@@ -147,7 +147,7 @@ func updateStrategies() []*apps.DaemonSetUpdateStrategy {
 
 func newNode(name string, label map[string]string) *v1.Node {
 	return &v1.Node{
-		TypeMeta: metav1.TypeMeta{APIVersion: legacyscheme.Registry.GroupOrDie(v1.GroupName).GroupVersion.String()},
+		TypeMeta: metav1.TypeMeta{APIVersion: "v1"},
 		ObjectMeta: metav1.ObjectMeta{
 			Name:      name,
 			Labels:    label,
@@ -197,7 +197,7 @@ func newPod(podName string, nodeName string, label map[string]string, ds *apps.D
 	}
 
 	pod := &v1.Pod{
-		TypeMeta: metav1.TypeMeta{APIVersion: legacyscheme.Registry.GroupOrDie(v1.GroupName).GroupVersion.String()},
+		TypeMeta: metav1.TypeMeta{APIVersion: "v1"},
 		ObjectMeta: metav1.ObjectMeta{
 			GenerateName: podName,
 			Labels:       newLabels,
@@ -1953,6 +1953,7 @@ func TestNodeShouldRunDaemonPod(t *testing.T) {
 			for _, p := range c.podsOnNode {
 				manager.podStore.Add(p)
 				p.Spec.NodeName = "test-node"
+				manager.podNodeIndex.Add(p)
 			}
 			c.ds.Spec.UpdateStrategy = *strategy
 			wantToRun, shouldSchedule, shouldContinueRunning, err := manager.nodeShouldRunDaemonPod(node, c.ds)

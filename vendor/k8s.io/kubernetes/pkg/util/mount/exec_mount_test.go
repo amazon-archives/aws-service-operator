@@ -147,8 +147,8 @@ func (fm *fakeMounter) MakeFile(pathname string) error {
 func (fm *fakeMounter) MakeDir(pathname string) error {
 	return nil
 }
-func (fm *fakeMounter) ExistsPath(pathname string) bool {
-	return false
+func (fm *fakeMounter) ExistsPath(pathname string) (bool, error) {
+	return false, errors.New("not implemented")
 }
 func (fm *fakeMounter) GetFileType(pathname string) (FileType, error) {
 	return FileTypeFile, nil
@@ -165,6 +165,18 @@ func (fm *fakeMounter) SafeMakeDir(pathname string, base string, perm os.FileMod
 	return nil
 }
 
+func (fm *fakeMounter) GetMountRefs(pathname string) ([]string, error) {
+	return nil, errors.New("not implemented")
+}
+
+func (fm *fakeMounter) GetFSGroup(pathname string) (int64, error) {
+	return -1, errors.New("not implemented")
+}
+
 func (fm *fakeMounter) GetSELinuxSupport(pathname string) (bool, error) {
 	return false, errors.New("not implemented")
+}
+
+func (fm *fakeMounter) GetMode(pathname string) (os.FileMode, error) {
+	return 0, errors.New("not implemented")
 }

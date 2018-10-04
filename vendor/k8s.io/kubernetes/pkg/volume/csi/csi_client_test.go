@@ -22,7 +22,6 @@ import (
 	"testing"
 
 	csipb "github.com/container-storage-interface/spec/lib/go/csi/v0"
-	grpctx "golang.org/x/net/context"
 	api "k8s.io/api/core/v1"
 	"k8s.io/kubernetes/pkg/volume/csi/fake"
 )
@@ -164,7 +163,7 @@ func TestClientNodePublishVolume(t *testing.T) {
 		t.Logf("test case: %s", tc.name)
 		client.(*fakeCsiDriverClient).nodeClient.SetNextError(tc.err)
 		err := client.NodePublishVolume(
-			grpctx.Background(),
+			context.Background(),
 			tc.volID,
 			false,
 			"",
@@ -231,7 +230,7 @@ func TestClientNodeStageVolume(t *testing.T) {
 		t.Logf("Running test case: %s", tc.name)
 		client.(*fakeCsiDriverClient).nodeClient.SetNextError(tc.err)
 		err := client.NodeStageVolume(
-			grpctx.Background(),
+			context.Background(),
 			tc.volID,
 			map[string]string{"device": "/dev/null"},
 			tc.stagingTargetPath,
@@ -267,7 +266,7 @@ func TestClientNodeUnstageVolume(t *testing.T) {
 		t.Logf("Running test case: %s", tc.name)
 		client.(*fakeCsiDriverClient).nodeClient.SetNextError(tc.err)
 		err := client.NodeUnstageVolume(
-			grpctx.Background(),
+			context.Background(),
 			tc.volID, tc.stagingTargetPath,
 		)
 		if tc.mustFail && err == nil {
