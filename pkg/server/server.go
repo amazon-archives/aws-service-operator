@@ -7,6 +7,7 @@ import (
 	"github.com/aws/aws-sdk-go/aws/session"
 	"time"
 
+	awsscheme "github.com/awslabs/aws-service-operator/pkg/client/clientset/versioned/scheme"
 	awsclient "github.com/awslabs/aws-service-operator/pkg/client/clientset/versioned/typed/service-operator.aws/v1alpha1"
 	"github.com/awslabs/aws-service-operator/pkg/config"
 	"github.com/awslabs/aws-service-operator/pkg/operator/cloudformationtemplate"
@@ -20,12 +21,11 @@ import (
 	corev1 "k8s.io/api/core/v1"
 	apiextensionsclient "k8s.io/apiextensions-apiserver/pkg/client/clientset/clientset"
 	"k8s.io/client-go/kubernetes"
+	"k8s.io/client-go/kubernetes/scheme"
+	typedcorev1 "k8s.io/client-go/kubernetes/typed/core/v1"
 	"k8s.io/client-go/rest"
 	"k8s.io/client-go/tools/clientcmd"
 	"k8s.io/client-go/tools/record"
-	typedcorev1 "k8s.io/client-go/kubernetes/typed/core/v1"
-	"k8s.io/client-go/kubernetes/scheme"
-	awsscheme "github.com/awslabs/aws-service-operator/pkg/client/clientset/versioned/scheme"
 )
 
 const controllerName = "aws-service-operator"

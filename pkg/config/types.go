@@ -23,7 +23,7 @@ type Config struct {
 	ClusterName   string
 	Bucket        string
 	AccountID     string
-	Recorder	  record.EventRecorder
+	Recorder      record.EventRecorder
 }
 
 // LoggingConfig defines the attributes for the logger
