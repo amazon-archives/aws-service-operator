@@ -28,7 +28,7 @@ aws-codegen:
 
 .PHONY: k8s-codegen
 k8s-codegen:
-	./codegen.sh
+	./hack/update-codegen.sh
 
 .PHONY: codegen
 codegen: aws-codegen k8s-codegen
