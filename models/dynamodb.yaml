@@ -34,13 +34,13 @@ spec:
         structKey: RangeAttribute
         templateKey: RangeAttribute
         properties:
-        - key: Name
+        - key: name
           type: string
           description: |
             Name is the name of the range attribute on the table.
           structKey: Name
           templateKey: RangeAttributeName
-        - key: Type
+        - key: type
           type: string
           default: "S"
           description: |
@@ -68,13 +68,13 @@ spec:
         structKey: HashAttribute
         templateKey: HashAttribute
         properties:
-        - key: Name
+        - key: name
           type: string
           description: |
             Name is the name of the hashing attribute on the table.
           structKey: Name
           templateKey: HashAttributeName
-        - key: Type
+        - key: type
           type: string
           default: "S"
           description: |

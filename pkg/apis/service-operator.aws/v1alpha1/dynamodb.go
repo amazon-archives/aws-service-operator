@@ -21,14 +21,14 @@ type DynamoDB struct {
 
 // DynamoDBHashAttribute defines the HashAttribute resource for DynamoDB
 type DynamoDBHashAttribute struct {
-	Name string `json:"Name"`
-	Type string `json:"Type"`
+	Name string `json:"name"`
+	Type string `json:"type"`
 }
 
 // DynamoDBRangeAttribute defines the RangeAttribute resource for DynamoDB
 type DynamoDBRangeAttribute struct {
-	Name string `json:"Name"`
-	Type string `json:"Type"`
+	Name string `json:"name"`
+	Type string `json:"type"`
 }
 
 // DynamoDBSpec defines the Spec resource for DynamoDB
