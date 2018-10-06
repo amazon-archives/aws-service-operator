@@ -1,0 +1,105 @@
+apiVersion: v1
+kind: List
+items:
+- kind: Namespace
+  apiVersion: v1
+  metadata:
+    name: aws-service-operator
+{{range $index, $element := .Items}}
+- apiVersion: apiextensions.k8s.io/v1beta1
+  kind: CustomResourceDefinition
+  metadata:
+    name: {{$element.Spec.Resource.Plural}}.service-operator.aws
+  spec:
+    group: service-operator.aws
+    names:
+      kind: {{$element.Spec.Kind}}
+      listKind: {{$element.Spec.Kind}}List
+      plural: {{$element.Spec.Resource.Plural}}
+      shortNames:
+      {{- range $index, $elem := $element.Spec.Resource.Shortnames}}
+      - {{$elem.Name}}
+      {{- end}}
+      singular: {{$element.Spec.Resource.Plural}}
+    scope: Namespaced
+    version: v1alpha1
+{{end}}
+- kind: ClusterRole
+  apiVersion: rbac.authorization.k8s.io/v1beta1
+  metadata:
+    name: aws-service-operator
+  rules:
+  - apiGroups:
+    - ""
+    resources:
+    - secrets
+    - pods
+    - configmaps
+    - services
+    verbs:
+    - get
+    - list
+    - watch
+    - create
+    - delete
+    - update
+  - apiGroups:
+    - apiextensions.k8s.io
+    resources:
+    - customresourcedefinitions
+    verbs:
+    - get
+    - list
+    - watch
+    - create
+    - delete
+  - apiGroups:
+    - service-operator.aws
+    resources:
+    - "*"
+    verbs:
+    - "*"
+
+- kind: ServiceAccount
+  apiVersion: v1
+  metadata:
+    name: aws-service-operator
+    namespace: aws-service-operator
+
+- kind: ClusterRoleBinding
+  apiVersion: rbac.authorization.k8s.io/v1beta1
+  metadata:
+    name: aws-service-operator
+  roleRef:
+    apiGroup: rbac.authorization.k8s.io
+    kind: ClusterRole
+    name: aws-service-operator
+  subjects:
+  - kind: ServiceAccount
+    name: aws-service-operator
+    namespace: aws-service-operator
+
+- kind: Deployment
+  apiVersion: apps/v1beta1
+  metadata:
+    name: aws-service-operator
+    namespace: aws-service-operator
+  spec:
+    replicas: 1
+    template:
+      metadata:
+        annotations:
+          iam.amazonaws.com/role: aws-service-operator
+        labels:
+          app: aws-service-operator
+      spec:
+        serviceAccountName: aws-service-operator
+        containers:
+        - name: aws-service-operator
+          image: awsserviceoperator/aws-service-operator:v0.0.1-alpha2
+          imagePullPolicy: Always
+          args:
+            - server
+            - --cluster-name=<CLUSTER_NAME>
+            - --region=<REGION>
+            - --account-id=<ACCOUNT_ID>
