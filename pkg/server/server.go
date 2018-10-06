@@ -50,22 +50,6 @@ func (c *Server) Run(stopChan chan struct{}) {
 	config.AWSClientset = awsClientset
 	config.RESTConfig = restConfig
 
-	// Create and wait for CRD resources
-	logger.Info("Registering resources")
-	resources := []opkit.CustomResource{
-		cloudformationtemplate.Resource,
-		s3bucket.Resource,
-		dynamodb.Resource,
-		sqsqueue.Resource,
-		snstopic.Resource,
-		ecrrepository.Resource,
-		snssubscription.Resource,
-	}
-	err = opkit.CreateCustomResources(*context, resources)
-	if err != nil {
-		logger.Fatalf("failed to create custom resource. %+v\n", err)
-	}
-
 	// TODO: Figure out how to get the node tag so I can store the
 	// `KubernetesCluster` attribute so that all resources can be cleaned up
 	// using that tag. Also we can create an inventory of all aws resources that

@@ -1,5 +1,5 @@
 AWSTemplateFormatVersion: 2010-09-09
-Description: 'AWS Operator - Amazon DynamoDB'
+Description: 'AWS Service Operator - Amazon DynamoDB'
 Parameters:
   Namespace:
     Description: >-
@@ -63,7 +63,7 @@ Resources:
         -
           AttributeName: !Ref RangeAttributeName
           KeyType: "RANGE"
-      AttributeDefinitions: 
+      AttributeDefinitions:
         -
           AttributeName: !Ref HashAttributeName
           AttributeType: "S"

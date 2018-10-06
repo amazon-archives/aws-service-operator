@@ -1,0 +1,5 @@
+file-prefix	zz_generated.
+path-prefix pkg/client/
+path-prefix pkg/operator
+file-name	template_functions.go
+file-name	aws-service-operator.yaml
