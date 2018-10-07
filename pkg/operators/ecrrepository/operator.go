@@ -38,17 +38,17 @@ var Resource = opkit.CustomResource{
 	},
 }
 
-// Controller represents a controller object for object store custom resources
-type Controller struct {
+// Operator represents a controller object for object store custom resources
+type Operator struct {
 	config       *config.Config
 	context      *opkit.Context
 	awsclientset awsclient.ServiceoperatorV1alpha1Interface
 	topicARN     string
 }
 
-// NewController create controller for watching object store custom resources created
-func NewController(config *config.Config, context *opkit.Context, awsclientset awsclient.ServiceoperatorV1alpha1Interface) *Controller {
-	return &Controller{
+// NewOperator create controller for watching object store custom resources created
+func NewOperator(config *config.Config, context *opkit.Context, awsclientset awsclient.ServiceoperatorV1alpha1Interface) *Operator {
+	return &Operator{
 		config:       config,
 		context:      context,
 		awsclientset: awsclientset,
@@ -56,7 +56,7 @@ func NewController(config *config.Config, context *opkit.Context, awsclientset a
 }
 
 // StartWatch watches for instances of Object Store custom resources and acts on them
-func (c *Controller) StartWatch(namespace string, stopCh chan struct{}) error {
+func (c *Operator) StartWatch(namespace string, stopCh chan struct{}) error {
 	resourceHandlers := cache.ResourceEventHandlerFuncs{
 		AddFunc:    c.onAdd,
 		UpdateFunc: c.onUpdate,
@@ -130,7 +130,7 @@ func QueueUpdater(config *config.Config, msg *queue.MessageBody) error {
 	return nil
 }
 
-func (c *Controller) onAdd(obj interface{}) {
+func (c *Operator) onAdd(obj interface{}) {
 	s := obj.(*awsV1alpha1.ECRRepository).DeepCopy()
 	if s.Status.ResourceStatus == "" || s.Status.ResourceStatus == "DELETE_COMPLETE" {
 		cft := New(c.config, s, c.topicARN)
@@ -149,7 +149,7 @@ func (c *Controller) onAdd(obj interface{}) {
 	}
 }
 
-func (c *Controller) onUpdate(oldObj, newObj interface{}) {
+func (c *Operator) onUpdate(oldObj, newObj interface{}) {
 	oo := oldObj.(*awsV1alpha1.ECRRepository).DeepCopy()
 	no := newObj.(*awsV1alpha1.ECRRepository).DeepCopy()
 
@@ -173,7 +173,7 @@ func (c *Controller) onUpdate(oldObj, newObj interface{}) {
 	}
 }
 
-func (c *Controller) onDelete(obj interface{}) {
+func (c *Operator) onDelete(obj interface{}) {
 	s := obj.(*awsV1alpha1.ECRRepository).DeepCopy()
 	cft := New(c.config, s, c.topicARN)
 	err := cft.DeleteStack()
