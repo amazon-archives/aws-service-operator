@@ -10,13 +10,7 @@ import (
 	awsscheme "github.com/awslabs/aws-service-operator/pkg/client/clientset/versioned/scheme"
 	awsclient "github.com/awslabs/aws-service-operator/pkg/client/clientset/versioned/typed/service-operator.aws/v1alpha1"
 	"github.com/awslabs/aws-service-operator/pkg/config"
-	"github.com/awslabs/aws-service-operator/pkg/operator/cloudformationtemplate"
-	"github.com/awslabs/aws-service-operator/pkg/operator/dynamodb"
-	"github.com/awslabs/aws-service-operator/pkg/operator/ecrrepository"
-	"github.com/awslabs/aws-service-operator/pkg/operator/s3bucket"
-	"github.com/awslabs/aws-service-operator/pkg/operator/snssubscription"
-	"github.com/awslabs/aws-service-operator/pkg/operator/snstopic"
-	"github.com/awslabs/aws-service-operator/pkg/operator/sqsqueue"
+	opBase "github.com/awslabs/aws-service-operator/pkg/operators/base"
 	opkit "github.com/christopherhein/operator-kit"
 	corev1 "k8s.io/api/core/v1"
 	apiextensionsclient "k8s.io/apiextensions-apiserver/pkg/client/clientset/clientset"
@@ -41,7 +35,7 @@ func New(config *config.Config) *Server {
 func (c *Server) Run(stopChan chan struct{}) {
 	config := c.Config
 	logger := config.Logger
-	logger.Info("Getting kubernetes context")
+	logger.Info("getting kubernetes context")
 	context, restConfig, kubeclientset, awsClientset, err := createContext(config.Kubeconfig)
 	if err != nil {
 		logger.Fatalf("failed to create context. %+v\n", err)
@@ -64,13 +58,13 @@ func (c *Server) Run(stopChan chan struct{}) {
 		region = config.Region
 	}
 
-	logger.Infof("Region: %+v", region)
+	logger.Infof("region: %+v", region)
 
 	sess, err := session.NewSession(&aws.Config{
 		Region: aws.String(region),
 	})
 	if err != nil {
-		logger.Infof("Error creating AWS session '%s'\n", err)
+		logger.Infof("error creating AWS session '%s'\n", err)
 	}
 	config.AWSSession = sess
 
@@ -83,29 +77,14 @@ func (c *Server) Run(stopChan chan struct{}) {
 
 	// start watching the aws operator resources
 	logger.Info("Watching the resources")
-	cftcontroller := cloudformationtemplate.NewController(config, context, awsClientset)
-	cftcontroller.StartWatch(corev1.NamespaceAll, stopChan)
-
-	s3controller := s3bucket.NewController(config, context, awsClientset)
-	s3controller.StartWatch(corev1.NamespaceAll, stopChan)
-
-	ddbcontroller := dynamodb.NewController(config, context, awsClientset)
-	ddbcontroller.StartWatch(corev1.NamespaceAll, stopChan)
-
-	sqscontroller := sqsqueue.NewController(config, context, awsClientset)
-	sqscontroller.StartWatch(corev1.NamespaceAll, stopChan)
-
-	ecrcontroller := ecrrepository.NewController(config, context, awsClientset)
-	ecrcontroller.StartWatch(corev1.NamespaceAll, stopChan)
-
-	snscontroller := snstopic.NewController(config, context, awsClientset)
-	snscontroller.StartWatch(corev1.NamespaceAll, stopChan)
-
-	snssubcontroller := snssubscription.NewController(config, context, awsClientset)
-	snssubcontroller.StartWatch(corev1.NamespaceAll, stopChan)
+	operators := opBase.New(config, context, awsClientset)
+	err = operators.Watch(corev1.NamespaceAll, stopChan)
+	if err != nil {
+	  logger.Infof("error watching operators '%s'\n", err)
+	}
 }
 
-func getClientConfig(kubeconfig string) (*rest.Config, error) {
+func getConfig(kubeconfig string) (*rest.Config, error) {
 	if kubeconfig != "" {
 		return clientcmd.BuildConfigFromFlags("", kubeconfig)
 	}
@@ -113,7 +92,7 @@ func getClientConfig(kubeconfig string) (*rest.Config, error) {
 }
 
 func createContext(kubeconfig string) (*opkit.Context, *rest.Config, kubernetes.Interface, awsclient.ServiceoperatorV1alpha1Interface, error) {
-	config, err := getClientConfig(kubeconfig)
+	config, err := getConfig(kubeconfig)
 	if err != nil {
 		return nil, nil, nil, nil, fmt.Errorf("failed to get k8s config. %+v", err)
 	}
