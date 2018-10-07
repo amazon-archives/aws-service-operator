@@ -110,7 +110,7 @@ func (c *Codegen) Run() error {
 			}
 			models.Items = append(models.Items, parsedModel)
 
-			operatorPath := rootPath + "pkg/operator/" + parsedModel.Spec.Resource.Name
+			operatorPath := rootPath + "pkg/operators/" + parsedModel.Spec.Resource.Name
 			apiPath := rootPath + "pkg/apis/service-operator.aws/v1alpha1"
 
 			createDirIfNotExist(operatorPath)
@@ -131,9 +131,11 @@ func (c *Codegen) Run() error {
 
 	helpersPath := rootPath + "pkg/helpers"
 	configPath := rootPath + "configs"
+	operatorsPath := rootPath + "pkg/operators/base"
 
 	createFile(rootPath, "template_functions.go", "template_functions.go", helpersPath+"/", models)
 	createFile(rootPath, "aws-service-operator.yaml", "aws-service-operator.yaml", configPath+"/", models)
+	createFile(rootPath, "base.go", "base.go", operatorsPath+"/", models)
 
 	return nil
 }
