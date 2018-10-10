@@ -1,9 +1,9 @@
 = AWS Service Operator
 
 The AWS Service Operator allows you to manage AWS resources using
-Kubernetes Custom Resource Definitions. 
+Kubernetes Custom Resource Definitions.
 
-Using the AWS Service Operator enables a `gitops` workflow to drive your infrastructure to the desired state leveraging Kubernetes Custom Resource Definitions (CRD), the Kubernetes internal control loop, and AWS cloudformation orchestration.  Read more about "operators" link:https://coreos.com/operators/[here].
+Using the AWS Service Operator enables a `gitops` workflow to drive your infrastructure to the desired state leveraging Kubernetes Custom Resource Definitions (CRD), the Kubernetes internal control loop, and AWS CloudFormation orchestration.  Read more about "operators" link:https://coreos.com/operators/[here].
 
 image::aws-service-operator-example.gif[]
 
@@ -22,18 +22,18 @@ Make sure your Kubernetes cluster is up and running and you've configured your a
 === IAM permissions management
 
 You will need to install an IAM management layer
-such as `kube2iam`. This will allow you to use an AWS IAM role to manage a pod's 
-access to AWS resources. 
+such as `kube2iam`. This will allow you to use an AWS IAM role to manage a pod's
+access to AWS resources.
 
-To get started with `kube2iam` go link:https://github.com/jtblin/kube2iam[here] or check out the 
+To get started with `kube2iam` go link:https://github.com/jtblin/kube2iam[here] or check out the
 link:https://github.com/helm/charts/tree/master/stable/kube2iam[helm chart]
 
-The `aws-service-operator` runs as a pod in your Kubernetes cluster and listens for new `aws` type CRDs.  
-When a new CRD is created the operator will create the resource in AWS via cloudformation and 
+The `aws-service-operator` runs as a pod in your Kubernetes cluster and listens for new `aws` type CRDs.
+When a new CRD is created the operator will create the resource in AWS via CloudFormation and
 create a Kubernetes `Service` for access within the cluster.
 
 === Create an IAM role for the `aws-service-operator`
- 
+
  The `K8S_WORKER_NODE_IAM_ROLE` is the IAM role assigned to your kubernetes worker instances.
 
 [source,shell]
@@ -42,7 +42,7 @@ aws cloudformation create-stack \
   --capabilities CAPABILITY_NAMED_IAM \
   --template-body file://configs/aws-service-operator-role.yaml \
   --parameters \
-    ParameterKey=WorkerArn,ParameterValue=<K8S_WORKER_NODE_IAM_ROLE>    
+    ParameterKey=WorkerArn,ParameterValue=<K8S_WORKER_NODE_IAM_ROLE>
 
 Your resulting IAM role arn should look something like `arn:aws:iam::<ACCOUNT_ID>:role/aws-service-operator`
 
@@ -51,7 +51,7 @@ Your resulting IAM role arn should look something like `arn:aws:iam::<ACCOUNT_ID
 Before applying these resources make sure to replace the following placeholders with the approriate information in `configs/aws-service-operator.yaml`
 
 - `<ACCOUNT_ID>` - Your AWS Account ID
-- `<REGION>` - The AWS Region you're working in 
+- `<REGION>` - The AWS Region you're working in
 - `<CLUSTER_NAME>` - The name of your cluster
 - `<BUCKET_NAME>` - (optional) The operator stores certain things in s3 create a bucket or provide an existing bucket for the operator to use `i.e. aws s3 mb s3://foobar`
 
@@ -60,7 +60,7 @@ Before applying these resources make sure to replace the following placeholders 
 [source,shell]
 kubectl apply -f configs/aws-service-operator.yaml
 
-.2. Create the cloudformation templates (cft) used by the operator
+.2. Create the CloudFormation templates (cft) used by the operator
 [source,shell]
 kubectl apply -f examples/cloudformationtemplates
 
@@ -68,11 +68,11 @@ kubectl apply -f examples/cloudformationtemplates
 [source,shell]
 kubectl logs -f -n aws-service-operator deploy/aws-service-operator
 
-.4. Create an ecr repository with the operator
+.4. Create an ECR repository with the operator
 [source,yaml]
 kubectl apply -f examples/ecrrepository.yaml
 
-The operator will communicate directly with Cloudformation to create the ecr repository using
+The operator will communicate directly with CloudFormation to create the ECR repository using
 the parameters you have passed in. If you'd like to see the progress you can
 view the status directly via `kubectl`.
 
@@ -82,9 +82,9 @@ kubectl describe ecr example-repository-name
 
 == Removing everything
 
-If you would like to tear everything down - run the following commands. 
+If you would like to tear everything down - run the following commands.
 
-*IMPORTANT* this will not remove anything you created with the AWS cli (ecr repo for the operator itself, IAM roles etc.)
+*IMPORTANT* this will not remove anything you created with the AWS CLI (ECR repo for the operator itself, IAM roles etc.)
 
 [source,shell]
 kubectl delete ecr example-repository-name
