@@ -1,15 +1,10 @@
 package server
 
 import (
-	// "fmt"
-	// "github.com/aws/aws-sdk-go/aws"
-	// "github.com/aws/aws-sdk-go/aws/ec2metadata"
-	// "github.com/aws/aws-sdk-go/aws/session"
-
 	awsscheme "github.com/awslabs/aws-service-operator/pkg/client/clientset/versioned/scheme"
-	//awsclient "github.com/awslabs/aws-service-operator/pkg/client/clientset/versioned/typed/service-operator.aws/v1alpha1"
 	"github.com/awslabs/aws-service-operator/pkg/config"
 	opBase "github.com/awslabs/aws-service-operator/pkg/operators/base"
+	"github.com/sirupsen/logrus"
 	corev1 "k8s.io/api/core/v1"
 	"k8s.io/client-go/kubernetes/scheme"
 	typedcorev1 "k8s.io/client-go/kubernetes/typed/core/v1"
@@ -39,7 +34,8 @@ func (c *Server) Run(stopChan chan struct{}) {
 	config.Recorder = recorder
 
 	// start watching the aws operator resources
-	logger.Info("Watching the resources")
+	logger.WithFields(logrus.Fields{"resources": config.Resources}).Info("Watching")
+
 	operators := opBase.New(config) // TODO: remove context and Clientset
 	err := operators.Watch(corev1.NamespaceAll, stopChan)
 	if err != nil {
