@@ -31,15 +31,7 @@ required = ["k8s.io/code-generator/cmd/client-gen"]
   name = "github.com/golang/glog"
 
 [[constraint]]
-  branch = "master"
-  name = "github.com/christopherhein/operator-kit"
-
-[[constraint]]
   name = "k8s.io/api"
-  version = "kubernetes-1.11.3"
-
-[[constraint]]
-  name = "k8s.io/apiextensions-apiserver"
   version = "kubernetes-1.11.3"
 
 [[constraint]]

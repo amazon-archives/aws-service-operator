@@ -52,14 +52,6 @@
   revision = "fee8dd1f7c24da23508e26347694be0acce5631b"
 
 [[projects]]
-  branch = "master"
-  digest = "1:6750a96828487595e7012e8e403a68b443d63b0a4596be623346a22bf9d3d9e0"
-  name = "github.com/christopherhein/operator-kit"
-  packages = ["."]
-  pruneopts = ""
-  revision = "656879a55790116c7db2488cf0786378e21c27a8"
-
-[[projects]]
   digest = "1:56c130d885a4aacae1dd9c7b71cfe39912c7ebc1ff7d2b46083c8812996dc43b"
   name = "github.com/davecgh/go-spew"
   packages = ["spew"]
@@ -493,20 +485,6 @@
   version = "kubernetes-1.11.3"
 
 [[projects]]
-  digest = "1:f9f73d3b579f131a678448e39345e45f7e911f6ba75777a42df45e2e9995ad2b"
-  name = "k8s.io/apiextensions-apiserver"
-  packages = [
-    "pkg/apis/apiextensions",
-    "pkg/apis/apiextensions/v1beta1",
-    "pkg/client/clientset/clientset",
-    "pkg/client/clientset/clientset/scheme",
-    "pkg/client/clientset/clientset/typed/apiextensions/v1beta1",
-  ]
-  pruneopts = ""
-  revision = "b05d9bb7cc74a62c5daac9cef31894343e5d2c9b"
-  version = "kubernetes-1.11.3"
-
-[[projects]]
   digest = "1:36e48db24a383a02683a57b7a48d5c3e8937b1f5a71ccfb7e52ee5d77d796147"
   name = "k8s.io/apimachinery"
   packages = [
@@ -664,14 +642,6 @@
   pruneopts = ""
   revision = "9dfdf9be683f61f82cda12362c44c784e0778b56"
 
-[[projects]]
-  digest = "1:3d1deed8c48ccedf522fafc1b12b53f51ab9d343d989aacd8007fa9e4ae29cae"
-  name = "k8s.io/kubernetes"
-  packages = ["pkg/util/version"]
-  pruneopts = ""
-  revision = "a4529464e4629c21224b3d52edfe0ea91b072862"
-  version = "v1.11.3"
-
 [solve-meta]
   analyzer-name = "dep"
   analyzer-version = 1
@@ -684,7 +654,6 @@
     "github.com/aws/aws-sdk-go/service/sns",
     "github.com/aws/aws-sdk-go/service/sqs",
     "github.com/christopherhein/go-version",
-    "github.com/christopherhein/operator-kit",
     "github.com/golang/glog",
     "github.com/iancoleman/strcase",
     "github.com/mitchellh/go-homedir",
@@ -693,10 +662,9 @@
     "github.com/spf13/viper",
     "gopkg.in/yaml.v2",
     "k8s.io/api/core/v1",
-    "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1",
-    "k8s.io/apiextensions-apiserver/pkg/client/clientset/clientset",
     "k8s.io/apimachinery/pkg/api/errors",
     "k8s.io/apimachinery/pkg/apis/meta/v1",
+    "k8s.io/apimachinery/pkg/fields",
     "k8s.io/apimachinery/pkg/labels",
     "k8s.io/apimachinery/pkg/runtime",
     "k8s.io/apimachinery/pkg/runtime/schema",
