@@ -9,7 +9,6 @@ import (
 	awsclient "github.com/awslabs/aws-service-operator/pkg/client/clientset/versioned/typed/service-operator.aws/v1alpha1"
 	"github.com/awslabs/aws-service-operator/pkg/config"
 	"github.com/awslabs/aws-service-operator/pkg/helpers"
-	opkit "github.com/christopherhein/operator-kit"
 	"os"
 	"strings"
 )
@@ -71,10 +70,9 @@ func (m *MessageBody) IsComplete() bool {
 }
 
 // New will initialize the Queue object for watching
-func New(config *config.Config, context *opkit.Context, awsclientset awsclient.ServiceoperatorV1alpha1Interface, timeout int) *Queue {
+func New(config *config.Config, awsclientset awsclient.ServiceoperatorV1alpha1Interface, timeout int) *Queue {
 	return &Queue{
 		config:       config,
-		context:      context,
 		awsclientset: awsclientset,
 		timeout:      int64(timeout),
 	}

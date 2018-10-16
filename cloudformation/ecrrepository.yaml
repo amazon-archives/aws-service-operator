@@ -1,5 +1,5 @@
 AWSTemplateFormatVersion: 2010-09-09
-Description: 'AWS Operator - Amazon ECR Repository'
+Description: 'AWS Service Operator - Amazon ECR Repository'
 Parameters:
   Namespace:
     Description: >-

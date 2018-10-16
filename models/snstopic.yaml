@@ -1,4 +1,4 @@
-apiVersion: operator.aws/v1alpha1
+apiVersion: service-operator.aws/v1alpha1
 kind: ModelDefinition
 metadata:
   name: SNSResource
@@ -14,6 +14,7 @@ spec:
     - name: sns
     - name: topic
     - name: topics
+    scope: Namespaced
   body:
     schema:
       type: object

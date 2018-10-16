@@ -3,14 +3,12 @@ package queue
 import (
 	awsclient "github.com/awslabs/aws-service-operator/pkg/client/clientset/versioned/typed/service-operator.aws/v1alpha1"
 	"github.com/awslabs/aws-service-operator/pkg/config"
-	opkit "github.com/christopherhein/operator-kit"
 )
 
 // Queue wraps the config object for updating
 type Queue struct {
 	config       *config.Config
 	queueURL     string
-	context      *opkit.Context
 	awsclientset awsclient.ServiceoperatorV1alpha1Interface
 	timeout      int64
 }

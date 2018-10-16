@@ -1,0 +1,34 @@
+package base
+
+import (
+  "github.com/awslabs/aws-service-operator/pkg/config"
+  {{- range $index, $element := .Items}}
+  "github.com/awslabs/aws-service-operator/pkg/operators/{{$element.Spec.Resource.Name}}"
+  {{- end}}
+)
+
+type base struct {
+  config *config.Config
+}
+
+func New(
+  config *config.Config,
+) *base {
+  return &base{
+    config: config,
+  }
+}
+
+func (b *base) Watch(namespace string, stopCh chan struct{}) (err error) {
+  {{- range $index, $element := .Items}}
+  if b.config.Resources["{{$element.Spec.Resource.Name}}"] {
+    {{$element.Spec.Resource.Name}}operator := {{$element.Spec.Resource.Name}}.NewOperator(b.config)
+  	err = {{$element.Spec.Resource.Name}}operator.StartWatch(namespace, stopCh)
+  	if err != nil {
+  	  return err
+  	}
+  }
+	{{- end}}
+
+	return nil
+}

@@ -1,4 +1,4 @@
-apiVersion: operator.aws/v1alpha1
+apiVersion: service-operator.aws/v1alpha1
 kind: ModelDefinition
 metadata:
   name: SQSResource
@@ -14,6 +14,7 @@ spec:
     - name: sqs
     - name: queue
     - name: queues
+    scope: Namespaced
   body:
     schema:
       type: object

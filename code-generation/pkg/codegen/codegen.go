@@ -110,7 +110,7 @@ func (c *Codegen) Run() error {
 			}
 			models.Items = append(models.Items, parsedModel)
 
-			operatorPath := rootPath + "pkg/operator/" + parsedModel.Spec.Resource.Name
+			operatorPath := rootPath + "pkg/operators/" + parsedModel.Spec.Resource.Name
 			apiPath := rootPath + "pkg/apis/service-operator.aws/v1alpha1"
 
 			createDirIfNotExist(operatorPath)
@@ -122,7 +122,7 @@ func (c *Codegen) Run() error {
 			if (Customizations{}) == parsedModel.Spec.Customizations {
 				createFile(rootPath, "cft.go", "cft.go", operatorPath+"/", parsedModel)
 			}
-			createFile(rootPath, "controller.go", "controller.go", operatorPath+"/", parsedModel)
+			createFile(rootPath, "operator.go", "operator.go", operatorPath+"/", parsedModel)
 
 			createFile(rootPath, parsedModel.Spec.Resource.Name+".go", "types.go", apiPath+"/", parsedModel)
 
@@ -130,8 +130,12 @@ func (c *Codegen) Run() error {
 	}
 
 	helpersPath := rootPath + "pkg/helpers"
+	configPath := rootPath + "configs"
+	operatorsPath := rootPath + "pkg/operators/base"
 
 	createFile(rootPath, "template_functions.go", "template_functions.go", helpersPath+"/", models)
+	createFile(rootPath, "aws-service-operator.yaml", "aws-service-operator.yaml", configPath+"/", models)
+	createFile(rootPath, "base.go", "base.go", operatorsPath+"/", models)
 
 	return nil
 }
@@ -188,9 +192,12 @@ func createFile(rootPath string, fileName string, templateName string, path stri
 		return
 	}
 
-	formatted, err := format.Source(bf.Bytes())
-	if err != nil {
-		log.Fatalf("Error formatting resolved template: %+v", err)
+	formatted := bf.Bytes()
+	if templateName[len(templateName)-3:] == ".go" {
+		formatted, err = format.Source(bf.Bytes())
+		if err != nil {
+			log.Fatalf("Error formatting resolved template: %+v", err)
+		}
 	}
 
 	f, err := os.Create(path + fileName)

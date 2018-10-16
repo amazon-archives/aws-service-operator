@@ -1,5 +1,5 @@
 AWSTemplateFormatVersion: 2010-09-09
-Description: 'AWS Operator - Amazon S3 Bucket'
+Description: 'AWS Service Operator - Amazon S3 Bucket'
 Parameters:
   Namespace:
     Description: >-
@@ -90,13 +90,13 @@ Parameters:
     Default: "500.html"
 Mappings: {}
 Conditions:
-  UseLogging: !Equals 
+  UseLogging: !Equals
     - !Ref EnableLogging
     - 'true'
-  UseGlacierLifeCycle: !Equals 
+  UseGlacierLifeCycle: !Equals
     - !Ref EnableGlacierLifeCycle
     - 'true'
-  UseVersioning: !Equals 
+  UseVersioning: !Equals
     - !Ref EnableVersioning
     - 'true'
   UseAsStaticSite: !Equals
@@ -122,7 +122,7 @@ Resources:
             Transitions:
               - TransitionInDays: !Ref GlacierLifeCycleTransitionInDays
                 StorageClass: Glacier
-      LoggingConfiguration: !If 
+      LoggingConfiguration: !If
         - UseLogging
         - DestinationBucketName: !Ref LoggingBucket
           LogFilePrefix: !Ref LoggingPrefix
@@ -138,7 +138,7 @@ Resources:
           Value: !Ref ClusterName
         - Key: Heritage
           Value: operator.aws
-      VersioningConfiguration: !If 
+      VersioningConfiguration: !If
         - UseVersioning
         - Status: Enabled
         - !Ref 'AWS::NoValue'
@@ -171,7 +171,7 @@ Resources:
     DeletionPolicy: Retain
     Properties:
       AccessControl: LogDeliveryWrite
-      BucketName: !Join 
+      BucketName: !Join
         - ''
         - - !Ref BucketName
           - logging
@@ -180,7 +180,7 @@ Outputs:
     Value: !Ref S3bucket
     Description: Name of the sample Amazon S3 bucket.
   BucketArn:
-    Value: !GetAtt 
+    Value: !GetAtt
       - S3bucket
       - Arn
     Description: Name of the Amazon S3 bucket

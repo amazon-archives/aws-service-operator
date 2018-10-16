@@ -1,4 +1,4 @@
-apiVersion: operator.aws/v1alpha1
+apiVersion: service-operator.aws/v1alpha1
 kind: ModelDefinition
 metadata:
   name: SNSSubscriptionResource
@@ -12,6 +12,7 @@ spec:
     plural: snssubscriptions
     shortNames:
     - name: subscription
+    scope: Namespaced
   body:
     schema:
       type: object

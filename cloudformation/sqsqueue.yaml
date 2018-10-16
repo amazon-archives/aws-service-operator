@@ -1,5 +1,5 @@
 AWSTemplateFormatVersion: 2010-09-09
-Description: "AWS Operator - Amazon SQS Queue"
+Description: "AWS Service Operator - Amazon SQS Queue"
 Parameters:
   Namespace:
     Type: String

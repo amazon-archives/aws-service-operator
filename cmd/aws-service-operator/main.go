@@ -2,10 +2,11 @@ package main
 
 import (
 	"fmt"
-	homedir "github.com/mitchellh/go-homedir"
-
+	"github.com/aws/aws-sdk-go/aws"
+	"github.com/aws/aws-sdk-go/aws/ec2metadata"
+	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/awslabs/aws-service-operator/pkg/config"
-
+	homedir "github.com/mitchellh/go-homedir"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 	"os"
@@ -13,14 +14,14 @@ import (
 )
 
 var (
-	// cfgFile, kubeConfig, awsRegion all help support passed in flags into the server
-	cfgFile, kubeconfig, awsRegion, logLevel, logFile, resources, clusterName, bucket, accountID string
+	// cfgFile, masterURL, kubeConfig, awsRegion all help support passed in flags into the server
+	cfgFile, masterURL, kubeconfig, awsRegion, logLevel, logFile, resources, clusterName, bucket, accountID string
 
 	// rootCmd represents the base command when called without any subcommands
 	rootCmd = &cobra.Command{
 		Use:   "aws-operator",
 		Short: "AWS Operator manages your AWS Infrastructure using CRDs and Operators",
-		Long: `AWS Operator manages your AWS Infrastructure using CRDs and Operators. 
+		Long: `AWS Operator manages your AWS Infrastructure using CRDs and Operators.
 With a single manifest file you can now model both the application and the resource necessary to run it.`,
 		Run: func(c *cobra.Command, _ []string) {
 			c.Help()
@@ -39,16 +40,18 @@ func main() {
 
 func init() {
 	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "f", "Config file (default is $HOME/.aws-operator.yaml)")
+	rootCmd.PersistentFlags().StringVarP(&masterURL, "master-url", "u", "", "The address of the Kubernetes API server. Overrides any value in kubeconfig.")
 	rootCmd.PersistentFlags().StringVarP(&kubeconfig, "kubeconfig", "k", "", "Path to local kubeconfig file (mainly used for development)")
 	rootCmd.PersistentFlags().StringVarP(&awsRegion, "region", "r", "us-west-2", "AWS Region for resources to be created in")
 	rootCmd.PersistentFlags().StringVarP(&logLevel, "loglevel", "l", "Info", "Log level for the CLI")
 	rootCmd.PersistentFlags().StringVarP(&logFile, "logfile", "", "", "Log level for the CLI")
-	rootCmd.PersistentFlags().StringVarP(&resources, "resources", "", "s3bucket,dynamodb", "Comma delimited list of CRDs to deploy")
+	rootCmd.PersistentFlags().StringVarP(&resources, "resources", "", "cloudformationtemplates,dynamodb,ecrrepository,s3bucket,snssubscription,snstopic,sqsqueue", "Comma delimited list of CRDs to deploy")
 	rootCmd.PersistentFlags().StringVarP(&clusterName, "cluster-name", "i", "aws-operator", "Cluster name for the Application to run as, used to label the Cloudformation templated to avoid conflict")
 	rootCmd.PersistentFlags().StringVarP(&bucket, "bucket", "b", "aws-operator", "To configure the operator you need a base bucket to contain the resources")
 	rootCmd.PersistentFlags().StringVarP(&accountID, "account-id", "a", "", "AWS Account ID, this is used to configure outputs and operate on the proper account.")
 
 	viper.BindPFlag("config", rootCmd.PersistentFlags().Lookup("config"))
+	viper.BindPFlag("masterurl", rootCmd.PersistentFlags().Lookup("master-url"))
 	viper.BindPFlag("kubeconfig", rootCmd.PersistentFlags().Lookup("kubeconfig"))
 	viper.BindPFlag("region", rootCmd.PersistentFlags().Lookup("region"))
 	viper.BindPFlag("loglevel", rootCmd.PersistentFlags().Lookup("loglevel"))
@@ -83,22 +86,47 @@ func initConfig() {
 	}
 }
 
-func getConfig() (*config.Config, error) {
-	resourcesList := strings.Split(resources, ",")
-	config := &config.Config{
+func getConfig() (c *config.Config, err error) {
+	resourcesMap := map[string]bool{}
+	for _, r := range strings.Split(resources, ",") {
+		resourcesMap[r] = true
+	}
+
+	ec2Session, err := session.NewSession()
+	metadata := ec2metadata.New(ec2Session)
+	if awsRegion == "" {
+		awsRegion, err = metadata.Region()
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	sess, err := session.NewSession(&aws.Config{Region: aws.String(awsRegion)})
+	if err != nil {
+		return nil, err
+	}
+
+	c = &config.Config{
 		Region:     awsRegion,
 		Kubeconfig: kubeconfig,
+		MasterURL:  masterURL,
+		AWSSession: sess,
 		LoggingConfig: &config.LoggingConfig{
 			File:              logFile,
 			Level:             logLevel,
 			FullTimestamps:    true,
 			DisableTimestamps: false,
 		},
-		Resources:   resourcesList,
+		Resources:   resourcesMap,
 		ClusterName: clusterName,
 		Bucket:      bucket,
 		AccountID:   accountID,
 	}
 
-	return config, nil
+	err = c.CreateContext(masterURL, kubeconfig)
+	if err != nil {
+		return nil, err
+	}
+
+	return c, nil
 }
