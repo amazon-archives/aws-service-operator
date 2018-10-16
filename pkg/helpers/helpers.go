@@ -2,15 +2,17 @@ package helpers
 
 import (
 	"bytes"
-	"github.com/aws/aws-sdk-go/service/cloudformation"
-	awsclient "github.com/awslabs/aws-service-operator/pkg/client/clientset/versioned/typed/service-operator.aws/v1alpha1"
-	"github.com/awslabs/aws-service-operator/pkg/config"
-	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"reflect"
 	"regexp"
 	"strconv"
 	"strings"
 	"text/template"
+
+	"github.com/aws/aws-sdk-go/service/cloudformation"
+	awsclient "github.com/awslabs/aws-service-operator/pkg/client/clientset/versioned/typed/service-operator.aws/v1alpha1"
+	"github.com/awslabs/aws-service-operator/pkg/config"
+	"github.com/sirupsen/logrus"
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 
 // KubernetesResourceName returns the resource name for other components
@@ -101,5 +103,11 @@ func GetCloudFormationTemplate(config *config.Config, rType string, name string,
 		logger.WithError(err).Error("error getting cloudformation template returning fallback template")
 		return "https://s3-us-west-2.amazonaws.com/cloudkit-templates/" + rType + ".yaml"
 	}
+
+	logger.WithFields(logrus.Fields{
+		"namespace": cNamespace,
+		"name":      cName,
+		"url":       resource.Output.URL,
+	}).Info("found cloudformation template")
 	return resource.Output.URL
 }
