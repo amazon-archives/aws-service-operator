@@ -2,6 +2,8 @@ package cloudformationtemplate
 
 import (
 	"bytes"
+	"reflect"
+
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/s3"
@@ -9,7 +11,6 @@ import (
 	awsclient "github.com/awslabs/aws-service-operator/pkg/client/clientset/versioned/typed/service-operator.aws/v1alpha1"
 	"github.com/awslabs/aws-service-operator/pkg/config"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
-	"reflect"
 )
 
 // OnAdd will be fired when you add a new CFT
@@ -82,7 +83,7 @@ func updateOutput(config *config.Config, cft *awsV1alpha1.CloudFormationTemplate
 	resourceCopy := resource.DeepCopy()
 	resourceCopy.Status.ResourceStatus = status
 	resourceCopy.Status.ResourceStatusReason = reason
-	resourceCopy.Output.URL = "https://" + config.Bucket + ".s3-" + config.Region + ".amazonaws.com/" + cft.Data.Key
+	resourceCopy.Output.URL = "https://s3." + config.Region + ".amazonaws.com/" + config.Bucket + "/" + cft.Data.Key
 
 	_, err = clientSet.CloudFormationTemplates(cft.Namespace).Update(resourceCopy)
 	if err != nil {
