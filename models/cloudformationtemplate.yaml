@@ -16,6 +16,7 @@ spec:
     - name: cfn
     - name: cfns
     - name: cloudformation
+    scope: Namespaced
   body:
     schema:
       title: CloudFormationTemplate

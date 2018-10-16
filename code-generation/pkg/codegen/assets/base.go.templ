@@ -2,8 +2,6 @@ package base
 
 import (
   "github.com/awslabs/aws-service-operator/pkg/config"
-  opkit "github.com/christopherhein/operator-kit"
-  awsclient "github.com/awslabs/aws-service-operator/pkg/client/clientset/versioned/typed/service-operator.aws/v1alpha1"
   {{- range $index, $element := .Items}}
   "github.com/awslabs/aws-service-operator/pkg/operators/{{$element.Spec.Resource.Name}}"
   {{- end}}
@@ -11,29 +9,25 @@ import (
 
 type base struct {
   config *config.Config
-  context *opkit.Context
-  awsClientset awsclient.ServiceoperatorV1alpha1Interface
 }
 
 func New(
   config *config.Config,
-  context *opkit.Context,
-  awsClientset awsclient.ServiceoperatorV1alpha1Interface,
 ) *base {
   return &base{
     config: config,
-    context: context,
-    awsClientset: awsClientset,
   }
 }
 
 func (b *base) Watch(namespace string, stopCh chan struct{}) (err error) {
   {{- range $index, $element := .Items}}
-  {{$element.Spec.Resource.Name}}operator := {{$element.Spec.Resource.Name}}.NewOperator(b.config, b.context, b.awsClientset)
-	err = {{$element.Spec.Resource.Name}}operator.StartWatch(namespace, stopCh)
-	if err != nil {
-	  return err
-	}
+  if b.config.Resources["{{$element.Spec.Resource.Name}}"] {
+    {{$element.Spec.Resource.Name}}operator := {{$element.Spec.Resource.Name}}.NewOperator(b.config)
+  	err = {{$element.Spec.Resource.Name}}operator.StartWatch(namespace, stopCh)
+  	if err != nil {
+  	  return err
+  	}
+  }
 	{{- end}}
 
 	return nil

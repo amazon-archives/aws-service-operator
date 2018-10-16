@@ -13,6 +13,7 @@ spec:
     shortNames:
     - name: ecr
     - name: repository
+    scope: Namespaced
   body:
     schema:
       type: object

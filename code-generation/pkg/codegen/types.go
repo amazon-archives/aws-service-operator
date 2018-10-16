@@ -56,6 +56,7 @@ type SpecResource struct {
 	Name       string      `yaml:"name",json:"name"`
 	Plural     string      `yaml:"plural",json:"plural"`
 	Shortnames []Shortname `yaml:"shortNames",json:"shortNames"`
+	Scope      string      `yaml:"scope",json:"scope"`
 }
 
 // Shortname defines the shortnames the crd will listen to

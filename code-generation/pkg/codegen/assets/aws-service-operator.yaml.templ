@@ -26,7 +26,7 @@ items:
       - {{$elem.Name}}
       {{- end}}
       singular: {{$element.Spec.Resource.Plural}}
-    scope: Namespaced
+    scope: {{$element.Spec.Resource.Scope}}
     version: v1alpha1
 {{end}}
 - kind: ClusterRole

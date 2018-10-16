@@ -16,6 +16,7 @@ spec:
     - name: dynamo
     - name: dynamotable
     - name: dynamotables
+    scope: Namespaced
   body:
     schema:
       title: DynamoDB

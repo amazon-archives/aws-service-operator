@@ -31,7 +31,7 @@ func CreateExternalNameService(config *config.Config, resource interface{}, svcN
 		},
 	}
 
-	newService, err := config.Context.Clientset.CoreV1().Services(svcNamespace).Create(service)
+	newService, err := config.KubeClientset.CoreV1().Services(svcNamespace).Create(service)
 	if err != nil {
 		logger.WithError(err).Error("error creating service")
 	}

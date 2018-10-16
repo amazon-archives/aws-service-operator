@@ -9,8 +9,8 @@ import (
 	{{- if .Spec.IsCustomized}}
 	 metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"github.com/awslabs/aws-service-operator/pkg/helpers"
-	{{- end}}
 	"reflect"
+	{{- end}}
 
 	"github.com/awslabs/aws-service-operator/pkg/config"
 	{{- if .Spec.Queue}}
@@ -18,50 +18,27 @@ import (
     corev1 "k8s.io/api/core/v1"
     "github.com/iancoleman/strcase"
     "strings"
+		awsclient "github.com/awslabs/aws-service-operator/pkg/client/clientset/versioned/typed/service-operator.aws/v1alpha1"
 	{{- end}}
-	opkit "github.com/christopherhein/operator-kit"
-	apiextensionsv1beta1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
+	"github.com/awslabs/aws-service-operator/pkg/operator"
 	"k8s.io/client-go/tools/cache"
 
-	awsapi "github.com/awslabs/aws-service-operator/pkg/apis/service-operator.aws"
 	awsV1alpha1 "github.com/awslabs/aws-service-operator/pkg/apis/service-operator.aws/v1alpha1"
-	awsclient "github.com/awslabs/aws-service-operator/pkg/client/clientset/versioned/typed/service-operator.aws/v1alpha1"
 	{{- if .Spec.Customizations.Package}}
   "{{.Spec.Customizations.Package}}"
 	{{- end}}
 )
 
-// Resource is the object store definition
-var Resource = opkit.CustomResource{
-	Name:       "{{.Spec.Resource.Name}}",
-	Plural:     "{{.Spec.Resource.Plural}}",
-	Group:      awsapi.GroupName,
-	Version:    awsapi.Version,
-	Scope:      apiextensionsv1beta1.NamespaceScoped,
-	Kind:       reflect.TypeOf(awsV1alpha1.{{.Spec.Kind}}{}).Name(),
-	ShortNames: []string{
-{{- if .Spec.Resource.Shortnames -}}
-	{{- range .Spec.Resource.Shortnames }}
-		"{{.Name}}",
-	{{- end}}
-{{- end}}
-	},
-}
-
 // Operator represents a controller object for object store custom resources
 type Operator struct {
 	config       *config.Config
-	context      *opkit.Context
-	awsclientset awsclient.ServiceoperatorV1alpha1Interface
 	topicARN     string
 }
 
 // NewOperator create controller for watching object store custom resources created
-func NewOperator(config *config.Config, context *opkit.Context, awsclientset awsclient.ServiceoperatorV1alpha1Interface) *Operator {
+func NewOperator(config *config.Config) *Operator {
 	return &Operator{
 		config:       config,
-		context:      context,
-		awsclientset: awsclientset,
 	}
 }
 
@@ -73,14 +50,13 @@ func (c *Operator) StartWatch(namespace string, stopCh chan struct{}) error {
 		DeleteFunc: c.onDelete,
 	}
 	{{- if .Spec.Queue}}
-	queuectrl := queue.New(c.config, c.context, c.awsclientset, 1)
+	queuectrl := queue.New(c.config, c.config.AWSClientset, 1)
 	c.topicARN, _, _, _ = queuectrl.Register("{{.Spec.Resource.Name}}", &awsV1alpha1.{{.Spec.Kind}}{})
 	go queuectrl.StartWatch(queue.HandlerFunc(QueueUpdater), stopCh)
 	{{- end}}
 
-	restClient := c.awsclientset.RESTClient()
-	watcher := opkit.NewWatcher(Resource, namespace, resourceHandlers, restClient)
-	go watcher.Watch(&awsV1alpha1.{{.Spec.Kind}}{}, stopCh)
+	oper := operator.New("{{.Spec.Resource.Plural}}", namespace, resourceHandlers, c.config.AWSClientset.RESTClient())
+	go oper.Watch(&awsV1alpha1.{{.Spec.Kind}}{}, stopCh)
 
 	return nil
 }

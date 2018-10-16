@@ -26,7 +26,7 @@ func CreateConfigMap(config *config.Config, resource interface{}, svcName string
 		Data: cmData,
 	}
 
-	newConfigMap, err := config.Context.Clientset.CoreV1().ConfigMaps(svcNamespace).Create(configMap)
+	newConfigMap, err := config.KubeClientset.CoreV1().ConfigMaps(svcNamespace).Create(configMap)
 	if err != nil {
 		logger.WithError(err).Error("error creating configmap")
 	}

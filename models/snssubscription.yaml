@@ -12,6 +12,7 @@ spec:
     plural: snssubscriptions
     shortNames:
     - name: subscription
+    scope: Namespaced
   body:
     schema:
       type: object

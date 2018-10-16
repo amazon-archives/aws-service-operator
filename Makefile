@@ -1,5 +1,6 @@
 commitSHA := $(shell git describe --dirty --always)
 dateStr := $(shell date +%s)
+repo ?= github.com/awslab/aws-service-operator
 
 .PHONY: build
 build:
@@ -12,6 +13,10 @@ release:
 .PHONY: dev-release
 dev-release:
 	goreleaser --rm-dist --snapshot --skip-publish
+
+.PHONY: test
+test:
+	go test -v -cover -race $(repo)/...
 
 .PHONY: tag
 tag:
