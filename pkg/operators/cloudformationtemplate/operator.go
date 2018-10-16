@@ -6,50 +6,24 @@
 package cloudformationtemplate
 
 import (
-	"reflect"
-
 	"github.com/awslabs/aws-service-operator/pkg/config"
-	opkit "github.com/christopherhein/operator-kit"
-	apiextensionsv1beta1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
+	"github.com/awslabs/aws-service-operator/pkg/operator"
 	"k8s.io/client-go/tools/cache"
 
-	awsapi "github.com/awslabs/aws-service-operator/pkg/apis/service-operator.aws"
 	awsV1alpha1 "github.com/awslabs/aws-service-operator/pkg/apis/service-operator.aws/v1alpha1"
-	awsclient "github.com/awslabs/aws-service-operator/pkg/client/clientset/versioned/typed/service-operator.aws/v1alpha1"
 	"github.com/awslabs/aws-service-operator/pkg/customizations/cloudformationtemplate"
 )
 
-// Resource is the object store definition
-var Resource = opkit.CustomResource{
-	Name:    "cloudformationtemplate",
-	Plural:  "cloudformationtemplates",
-	Group:   awsapi.GroupName,
-	Version: awsapi.Version,
-	Scope:   apiextensionsv1beta1.NamespaceScoped,
-	Kind:    reflect.TypeOf(awsV1alpha1.CloudFormationTemplate{}).Name(),
-	ShortNames: []string{
-		"cft",
-		"cfts",
-		"cfn",
-		"cfns",
-		"cloudformation",
-	},
-}
-
 // Operator represents a controller object for object store custom resources
 type Operator struct {
-	config       *config.Config
-	context      *opkit.Context
-	awsclientset awsclient.ServiceoperatorV1alpha1Interface
-	topicARN     string
+	config   *config.Config
+	topicARN string
 }
 
 // NewOperator create controller for watching object store custom resources created
-func NewOperator(config *config.Config, context *opkit.Context, awsclientset awsclient.ServiceoperatorV1alpha1Interface) *Operator {
+func NewOperator(config *config.Config) *Operator {
 	return &Operator{
-		config:       config,
-		context:      context,
-		awsclientset: awsclientset,
+		config: config,
 	}
 }
 
@@ -61,9 +35,8 @@ func (c *Operator) StartWatch(namespace string, stopCh chan struct{}) error {
 		DeleteFunc: c.onDelete,
 	}
 
-	restClient := c.awsclientset.RESTClient()
-	watcher := opkit.NewWatcher(Resource, namespace, resourceHandlers, restClient)
-	go watcher.Watch(&awsV1alpha1.CloudFormationTemplate{}, stopCh)
+	oper := operator.New("cloudformationtemplates", namespace, resourceHandlers, c.config.AWSClientset.RESTClient())
+	go oper.Watch(&awsV1alpha1.CloudFormationTemplate{}, stopCh)
 
 	return nil
 }

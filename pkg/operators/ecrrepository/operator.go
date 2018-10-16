@@ -10,48 +10,28 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"reflect"
 
+	awsclient "github.com/awslabs/aws-service-operator/pkg/client/clientset/versioned/typed/service-operator.aws/v1alpha1"
 	"github.com/awslabs/aws-service-operator/pkg/config"
+	"github.com/awslabs/aws-service-operator/pkg/operator"
 	"github.com/awslabs/aws-service-operator/pkg/queue"
-	opkit "github.com/christopherhein/operator-kit"
 	"github.com/iancoleman/strcase"
 	corev1 "k8s.io/api/core/v1"
-	apiextensionsv1beta1 "k8s.io/apiextensions-apiserver/pkg/apis/apiextensions/v1beta1"
 	"k8s.io/client-go/tools/cache"
 	"strings"
 
-	awsapi "github.com/awslabs/aws-service-operator/pkg/apis/service-operator.aws"
 	awsV1alpha1 "github.com/awslabs/aws-service-operator/pkg/apis/service-operator.aws/v1alpha1"
-	awsclient "github.com/awslabs/aws-service-operator/pkg/client/clientset/versioned/typed/service-operator.aws/v1alpha1"
 )
-
-// Resource is the object store definition
-var Resource = opkit.CustomResource{
-	Name:    "ecrrepository",
-	Plural:  "ecrrepositories",
-	Group:   awsapi.GroupName,
-	Version: awsapi.Version,
-	Scope:   apiextensionsv1beta1.NamespaceScoped,
-	Kind:    reflect.TypeOf(awsV1alpha1.ECRRepository{}).Name(),
-	ShortNames: []string{
-		"ecr",
-		"repository",
-	},
-}
 
 // Operator represents a controller object for object store custom resources
 type Operator struct {
-	config       *config.Config
-	context      *opkit.Context
-	awsclientset awsclient.ServiceoperatorV1alpha1Interface
-	topicARN     string
+	config   *config.Config
+	topicARN string
 }
 
 // NewOperator create controller for watching object store custom resources created
-func NewOperator(config *config.Config, context *opkit.Context, awsclientset awsclient.ServiceoperatorV1alpha1Interface) *Operator {
+func NewOperator(config *config.Config) *Operator {
 	return &Operator{
-		config:       config,
-		context:      context,
-		awsclientset: awsclientset,
+		config: config,
 	}
 }
 
@@ -62,13 +42,12 @@ func (c *Operator) StartWatch(namespace string, stopCh chan struct{}) error {
 		UpdateFunc: c.onUpdate,
 		DeleteFunc: c.onDelete,
 	}
-	queuectrl := queue.New(c.config, c.context, c.awsclientset, 1)
+	queuectrl := queue.New(c.config, c.config.AWSClientset, 1)
 	c.topicARN, _, _, _ = queuectrl.Register("ecrrepository", &awsV1alpha1.ECRRepository{})
 	go queuectrl.StartWatch(queue.HandlerFunc(QueueUpdater), stopCh)
 
-	restClient := c.awsclientset.RESTClient()
-	watcher := opkit.NewWatcher(Resource, namespace, resourceHandlers, restClient)
-	go watcher.Watch(&awsV1alpha1.ECRRepository{}, stopCh)
+	oper := operator.New("ecrrepositories", namespace, resourceHandlers, c.config.AWSClientset.RESTClient())
+	go oper.Watch(&awsV1alpha1.ECRRepository{}, stopCh)
 
 	return nil
 }
