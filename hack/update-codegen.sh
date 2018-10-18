@@ -13,5 +13,5 @@ ${CODEGEN_PKG}/generate-groups.sh all \
   github.com/awslabs/aws-service-operator/pkg/client \
   github.com/awslabs/aws-service-operator/pkg/apis \
   "service-operator.aws:v1alpha1" \
-  --output-base "$(dirname ${BASH_SOURCE})/../../.." \
+  --output-base "${GOPATH}/src" \
   --go-header-file ${SCRIPT_ROOT}/hack/boilerplate.go.txt
