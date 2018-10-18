@@ -95,7 +95,7 @@ func GetCloudFormationTemplate(config *config.Config, rType string, name string,
 		cName = rType
 	}
 	if namespace == "" {
-		cNamespace = "default"
+		cNamespace = config.DefaultNamespace
 	}
 
 	resource, err := clientSet.CloudFormationTemplates(cNamespace).Get(cName, metav1.GetOptions{})

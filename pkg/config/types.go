@@ -2,6 +2,7 @@ package config
 
 import (
 	"fmt"
+
 	"github.com/aws/aws-sdk-go/aws/session"
 	awsclient "github.com/awslabs/aws-service-operator/pkg/client/clientset/versioned/typed/service-operator.aws/v1alpha1"
 	"github.com/sirupsen/logrus"
@@ -13,20 +14,21 @@ import (
 
 // Config defines the configuration for the operator
 type Config struct {
-	Region        string
-	Kubeconfig    string
-	MasterURL     string
-	AWSSession    *session.Session
-	AWSClientset  awsclient.ServiceoperatorV1alpha1Interface
-	KubeClientset kubernetes.Interface
-	RESTConfig    *rest.Config
-	LoggingConfig *LoggingConfig
-	Logger        *logrus.Entry
-	Resources     map[string]bool
-	ClusterName   string
-	Bucket        string
-	AccountID     string
-	Recorder      record.EventRecorder
+	Region           string
+	Kubeconfig       string
+	MasterURL        string
+	AWSSession       *session.Session
+	AWSClientset     awsclient.ServiceoperatorV1alpha1Interface
+	KubeClientset    kubernetes.Interface
+	RESTConfig       *rest.Config
+	LoggingConfig    *LoggingConfig
+	Logger           *logrus.Entry
+	Resources        map[string]bool
+	ClusterName      string
+	Bucket           string
+	AccountID        string
+	DefaultNamespace string
+	Recorder         record.EventRecorder
 }
 
 // LoggingConfig defines the attributes for the logger
