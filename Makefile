@@ -25,7 +25,7 @@ tag:
 
 .PHONY: install-aws-codegen
 install-aws-codegen:
-	go install -ldflags "-X main.commit=$(commitSHA) -X main.date=$(dateStr)" ./code-generation/cmd/aws-service-operator-codegen
+	${MAKE} -C code-generation install
 
 .PHONY: aws-codegen
 aws-codegen:
