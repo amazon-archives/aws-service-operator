@@ -17,6 +17,7 @@ import (
 var (
 	// cfgFile, masterURL, kubeConfig, awsRegion all help support passed in flags into the server
 	cfgFile, masterURL, kubeconfig, awsRegion, logLevel, logFile, resources, clusterName, bucket, accountID string
+	defaultNamespace                                                                                        string
 
 	// rootCmd represents the base command when called without any subcommands
 	rootCmd = &cobra.Command{
@@ -50,6 +51,7 @@ func init() {
 	rootCmd.PersistentFlags().StringVarP(&clusterName, "cluster-name", "i", "aws-operator", "Cluster name for the Application to run as, used to label the Cloudformation templated to avoid conflict")
 	rootCmd.PersistentFlags().StringVarP(&bucket, "bucket", "b", "aws-operator", "To configure the operator you need a base bucket to contain the resources")
 	rootCmd.PersistentFlags().StringVarP(&accountID, "account-id", "a", "", "AWS Account ID, this is used to configure outputs and operate on the proper account.")
+	rootCmd.PersistentFlags().StringVarP(&defaultNamespace, "default-namespace", "", "default", "The default namespace in which to look for CloudFormation templates")
 
 	viper.BindPFlag("config", rootCmd.PersistentFlags().Lookup("config"))
 	viper.BindPFlag("masterurl", rootCmd.PersistentFlags().Lookup("master-url"))
@@ -61,6 +63,7 @@ func init() {
 	viper.BindPFlag("clustername", rootCmd.PersistentFlags().Lookup("cluster-name"))
 	viper.BindPFlag("bucket", rootCmd.PersistentFlags().Lookup("bucket"))
 	viper.BindPFlag("accountid", rootCmd.PersistentFlags().Lookup("account-id"))
+	viper.BindPFlag("defaultnamespace", rootCmd.PersistentFlags().Lookup("default-namespace"))
 }
 
 // initConfig reads in config file and ENV variables if set.
@@ -118,10 +121,11 @@ func getConfig() (c *config.Config, err error) {
 			FullTimestamps:    true,
 			DisableTimestamps: false,
 		},
-		Resources:   resourcesMap,
-		ClusterName: clusterName,
-		Bucket:      bucket,
-		AccountID:   accountID,
+		Resources:        resourcesMap,
+		ClusterName:      clusterName,
+		Bucket:           bucket,
+		AccountID:        accountID,
+		DefaultNamespace: defaultNamespace,
 	}
 
 	err = c.CreateContext(masterURL, kubeconfig)
