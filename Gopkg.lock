@@ -45,6 +45,14 @@
 
 [[projects]]
   branch = "master"
+  digest = "1:c0bec5f9b98d0bc872ff5e834fac186b807b656683bd29cb82fb207a1513fabb"
+  name = "github.com/beorn7/perks"
+  packages = ["quantile"]
+  pruneopts = ""
+  revision = "3a771d992973f24aa725d07868b467d1ddfceafb"
+
+[[projects]]
+  branch = "master"
   digest = "1:61eda50b1c7785c6d876b3d31053a677313d5a85309668f29f7cb6d7ac0f0ab6"
   name = "github.com/christopherhein/go-version"
   packages = ["."]
@@ -240,6 +248,14 @@
   version = "v1.8.0"
 
 [[projects]]
+  digest = "1:63722a4b1e1717be7b98fc686e0b30d5e7f734b9e93d7dee86293b6deab7ea28"
+  name = "github.com/matttproud/golang_protobuf_extensions"
+  packages = ["pbutil"]
+  pruneopts = ""
+  revision = "c12348ce28de40eed0136aa2b644d0ee0650e56c"
+  version = "v1.0.1"
+
+[[projects]]
   branch = "master"
   digest = "1:99651e95333755cbe5c9768c1b80031300acca64a80870b40309202b32585a5a"
   name = "github.com/mitchellh/go-homedir"
@@ -294,6 +310,51 @@
   pruneopts = ""
   revision = "5f041e8faa004a95c88a202771f4cc3e991971e6"
   version = "v2.0.1"
+
+[[projects]]
+  digest = "1:f3e56d302f80d760e718743f89f4e7eaae532d4218ba330e979bd051f78de141"
+  name = "github.com/prometheus/client_golang"
+  packages = [
+    "prometheus",
+    "prometheus/internal",
+    "prometheus/promhttp",
+  ]
+  pruneopts = ""
+  revision = "1cafe34db7fdec6022e17e00e1c1ea501022f3e4"
+  version = "v0.9.0"
+
+[[projects]]
+  branch = "master"
+  digest = "1:185cf55b1f44a1bf243558901c3f06efa5c64ba62cfdcbb1bf7bbe8c3fb68561"
+  name = "github.com/prometheus/client_model"
+  packages = ["go"]
+  pruneopts = ""
+  revision = "5c3871d89910bfb32f5fcab2aa4b9ec68e65a99f"
+
+[[projects]]
+  branch = "master"
+  digest = "1:117e1e4f1ed83191a4a225d23488e14802ff8f91b3ed4ff0d229e8ea0faf0a88"
+  name = "github.com/prometheus/common"
+  packages = [
+    "expfmt",
+    "internal/bitbucket.org/ww/goautoneg",
+    "model",
+  ]
+  pruneopts = ""
+  revision = "7e9e6cabbd393fc208072eedef99188d0ce788b6"
+
+[[projects]]
+  branch = "master"
+  digest = "1:1f62ed2c173c42c1edad2e94e127318ea11b0d28c62590c82a8d2d3cde189afe"
+  name = "github.com/prometheus/procfs"
+  packages = [
+    ".",
+    "internal/util",
+    "nfs",
+    "xfs",
+  ]
+  pruneopts = ""
+  revision = "185b4288413d2a0dd0806f78c90dde719829e5ae"
 
 [[projects]]
   digest = "1:8cf46b6c18a91068d446e26b67512cf16f1540b45d90b28b9533706a127f0ca6"
@@ -654,9 +715,9 @@
     "github.com/aws/aws-sdk-go/service/sns",
     "github.com/aws/aws-sdk-go/service/sqs",
     "github.com/christopherhein/go-version",
-    "github.com/golang/glog",
     "github.com/iancoleman/strcase",
     "github.com/mitchellh/go-homedir",
+    "github.com/prometheus/client_golang/prometheus/promhttp",
     "github.com/sirupsen/logrus",
     "github.com/spf13/cobra",
     "github.com/spf13/viper",
