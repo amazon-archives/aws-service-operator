@@ -14,12 +14,13 @@ import (
 	{{- end}}
 
 	"github.com/awslabs/aws-service-operator/pkg/config"
-	{{- if .Spec.Queue}}
-    "github.com/awslabs/aws-service-operator/pkg/queue"
-    corev1 "k8s.io/api/core/v1"
-    "github.com/iancoleman/strcase"
-    "strings"
-		awsclient "github.com/awslabs/aws-service-operator/pkg/client/clientset/versioned/typed/service-operator.aws/v1alpha1"
+  "github.com/awslabs/aws-service-operator/pkg/queuemanager"
+  {{- if .Spec.Queue}}
+  corev1 "k8s.io/api/core/v1"
+  "github.com/iancoleman/strcase"
+  "strings"
+	awsclient "github.com/awslabs/aws-service-operator/pkg/client/clientset/versioned/typed/service-operator.aws/v1alpha1"
+	"github.com/awslabs/aws-service-operator/pkg/queue"
 	{{- end}}
 	"github.com/awslabs/aws-service-operator/pkg/operator"
 	"k8s.io/client-go/tools/cache"
@@ -34,12 +35,23 @@ import (
 type Operator struct {
 	config       *config.Config
 	topicARN     string
+	queueManager *queuemanager.QueueManager
 }
 
 // NewOperator create controller for watching object store custom resources created
-func NewOperator(config *config.Config) *Operator {
+func NewOperator(config *config.Config, queueManager *queuemanager.QueueManager) *Operator {
+	{{- if .Spec.Queue}}
+	queuectrl := queue.New(config, config.AWSClientset, 10)
+	topicARN, _ := queuectrl.Register("{{.Spec.Resource.Name}}")
+	queueManager.Add(topicARN, queuemanager.HandlerFunc(QueueUpdater))
+	{{- end}}
+
 	return &Operator{
 		config:       config,
+		{{- if .Spec.Queue}}
+		topicARN: topicARN,
+		{{- end}}
+		queueManager: queueManager,
 	}
 }
 
@@ -50,11 +62,6 @@ func (c *Operator) StartWatch(ctx context.Context, namespace string) {
 		UpdateFunc: c.onUpdate,
 		DeleteFunc: c.onDelete,
 	}
-	{{- if .Spec.Queue}}
-	queuectrl := queue.New(c.config, c.config.AWSClientset, 1)
-	c.topicARN, _, _, _ = queuectrl.Register("{{.Spec.Resource.Name}}", &awsV1alpha1.{{.Spec.Kind}}{})
-	go queuectrl.StartWatch(queue.HandlerFunc(QueueUpdater), ctx.Done())
-	{{- end}}
 
 	oper := operator.New("{{.Spec.Resource.Plural}}", namespace, resourceHandlers, c.config.AWSClientset.RESTClient())
 	oper.Watch(&awsV1alpha1.{{.Spec.Kind}}{}, ctx.Done())
@@ -62,7 +69,7 @@ func (c *Operator) StartWatch(ctx context.Context, namespace string) {
 
 {{- if .Spec.Queue}}
 // QueueUpdater will take the messages from the queue and process them
-func QueueUpdater(config *config.Config, msg *queue.MessageBody) error {
+func QueueUpdater(config *config.Config, msg *queuemanager.MessageBody) error {
 	logger := config.Logger
 	var name, namespace string
 	if msg.Updatable {
