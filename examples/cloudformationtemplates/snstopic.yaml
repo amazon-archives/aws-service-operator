@@ -6,7 +6,7 @@ data:
   key: snstopic.yaml
   template: |
     AWSTemplateFormatVersion: 2010-09-09
-    Description: 'AWS Operator - Amazon SNS Topic'
+    Description: 'AWS Service Operator - Amazon SNS Topic (aso-1otq2cgcp)'
     Parameters:
       Namespace:
         Description: >-

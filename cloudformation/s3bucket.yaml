@@ -1,5 +1,5 @@
 AWSTemplateFormatVersion: 2010-09-09
-Description: 'AWS Service Operator - Amazon S3 Bucket'
+Description: 'AWS Service Operator - Amazon S3 Bucket (aso-1otq2cgce)'
 Parameters:
   Namespace:
     Description: >-

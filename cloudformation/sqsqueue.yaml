@@ -1,5 +1,5 @@
 AWSTemplateFormatVersion: 2010-09-09
-Description: "AWS Service Operator - Amazon SQS Queue"
+Description: "AWS Service Operator - Amazon SQS Queue (aso-1otq2cgcu)"
 Parameters:
   Namespace:
     Type: String

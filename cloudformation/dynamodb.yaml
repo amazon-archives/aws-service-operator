@@ -1,5 +1,5 @@
 AWSTemplateFormatVersion: 2010-09-09
-Description: 'AWS Service Operator - Amazon DynamoDB'
+Description: 'AWS Service Operator - Amazon DynamoDB (aso-1otq2cgc4)'
 Parameters:
   Namespace:
     Description: >-
