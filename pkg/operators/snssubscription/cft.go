@@ -7,6 +7,7 @@ package snssubscription
 
 import (
 	"errors"
+
 	"github.com/aws/aws-sdk-go/aws"
 	"github.com/aws/aws-sdk-go/service/cloudformation"
 	awsV1alpha1 "github.com/awslabs/aws-service-operator/pkg/apis/service-operator.aws/v1alpha1"
@@ -66,11 +67,16 @@ func (s *Cloudformation) CreateStack() (output *cloudformation.CreateStackOutput
 	sess := s.config.AWSSession
 	svc := cloudformation.New(sess)
 
-	cftemplate := helpers.GetCloudFormationTemplate(s.config, "snssubscription", s.SNSSubscription.Spec.CloudFormationTemplateName, s.SNSSubscription.Spec.CloudFormationTemplateNamespace)
+	cftemplateURL := helpers.GetCloudFormationTemplate(s.config, "snssubscription", s.SNSSubscription.Spec.CloudFormationTemplateName, s.SNSSubscription.Spec.CloudFormationTemplateNamespace)
+
+	cftemplate, err := helpers.FetchAndProcessTemplate(cftemplateURL, s.SNSSubscription)
+	if err != nil {
+		return output, err
+	}
 
 	stackInputs := cloudformation.CreateStackInput{
-		StackName:   aws.String(s.StackName()),
-		TemplateURL: aws.String(cftemplate),
+		StackName:    aws.String(s.StackName()),
+		TemplateBody: cftemplate,
 		NotificationARNs: []*string{
 			aws.String(s.topicARN),
 		},

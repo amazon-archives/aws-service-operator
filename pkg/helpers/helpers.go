@@ -2,11 +2,15 @@ package helpers
 
 import (
 	"bytes"
+	"io/ioutil"
+	"net"
+	"net/http"
 	"reflect"
 	"regexp"
 	"strconv"
 	"strings"
 	"text/template"
+	"time"
 
 	"github.com/aws/aws-sdk-go/service/cloudformation"
 	awsclient "github.com/awslabs/aws-service-operator/pkg/client/clientset/versioned/typed/service-operator.aws/v1alpha1"
@@ -110,4 +114,38 @@ func GetCloudFormationTemplate(config *config.Config, rType string, name string,
 		"url":       resource.Output.URL,
 	}).Info("found cloudformation template")
 	return resource.Output.URL
+}
+
+// FetchAndProcessTemplate will fetch the template from the provided URL
+// and perform template substitution based on the contents of this object.
+func FetchAndProcessTemplate(templateURL string, data interface{}) (*string, error) {
+	// Fetch the URL into a string
+	var netTransport = &http.Transport{
+		Dial: (&net.Dialer{
+			Timeout: 5 * time.Second,
+		}).Dial,
+		TLSHandshakeTimeout: 5 * time.Second,
+	}
+	var netClient = &http.Client{
+		Timeout:   time.Second * 10,
+		Transport: netTransport,
+	}
+	response, err := netClient.Get(templateURL)
+	if err != nil {
+		return nil, err
+	}
+	defer response.Body.Close()
+
+	templateBody, err := ioutil.ReadAll(response.Body)
+	if err != nil {
+		return nil, err
+	}
+
+	// Perform template substitution
+	cfTemplate, err := Templatize(string(templateBody), data)
+	if err != nil {
+		return nil, err
+	}
+
+	return &cfTemplate, nil
 }
