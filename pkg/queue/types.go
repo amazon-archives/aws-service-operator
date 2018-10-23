@@ -39,26 +39,3 @@ type Condition struct {
 type ArnEquals struct {
 	AwsSourceArn string `json:"aws:SourceArn"`
 }
-
-// MessageBody will parse the message from the Body of SQS
-type MessageBody struct {
-	Type               string `json:"Type"`
-	TopicArn           string `json:"TopicArn"`
-	Message            string `json:"Message"`
-	ParsedMessage      map[string]string
-	Namespace          string
-	ResourceName       string
-	ResourceProperties ResourceProperties
-	Updatable          bool
-}
-
-// ResourceProperties will wrap the ResourceProperties object
-type ResourceProperties struct {
-	Tags []Tag `json:"Tags"`
-}
-
-// Tag represents a Tag
-type Tag struct {
-	Key   string `json:"Key"`
-	Value string `json:"Value"`
-}

@@ -17,6 +17,8 @@ type Config struct {
 	Region           string
 	Kubeconfig       string
 	MasterURL        string
+	QueueURL         string
+	QueueARN         string
 	AWSSession       *session.Session
 	AWSClientset     awsclient.ServiceoperatorV1alpha1Interface
 	KubeClientset    kubernetes.Interface
