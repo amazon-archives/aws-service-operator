@@ -1,13 +1,15 @@
 package main
 
 import (
+	"context"
+	"os"
+	"os/signal"
+	"syscall"
+
 	"github.com/awslabs/aws-service-operator/pkg/logger"
 	"github.com/awslabs/aws-service-operator/pkg/server"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
-	"os"
-	"os/signal"
-	"syscall"
 )
 
 var serverCmd = &cobra.Command{
@@ -26,21 +28,15 @@ var serverCmd = &cobra.Command{
 		}
 		config.Logger = logger
 
+		ctx, cancel := context.WithCancel(context.Background())
 		signalChan := make(chan os.Signal, 1)
-		stopChan := make(chan struct{})
 		signal.Notify(signalChan, syscall.SIGINT, syscall.SIGTERM)
 
-		server.New(config).Run(stopChan)
+		go server.New(config).Run(ctx)
 
-		for {
-			select {
-			case <-signalChan:
-				logger.Info("shutdown signal received, exiting...")
-				close(stopChan)
-				return
-			}
-		}
-
+		<-signalChan
+		logger.Info("shutdown signal received, exiting...")
+		cancel()
 	},
 }
 
