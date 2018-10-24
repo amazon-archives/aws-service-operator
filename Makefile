@@ -32,7 +32,7 @@ build-codegen:
 	${MAKE} -C code-generation rebuild
 
 .PHONY: aws-codegen
-aws-codegen: build-codegen
+aws-codegen:
 	./code-generation/aws-service-operator-codegen process
 
 .PHONY: k8s-codegen
@@ -43,4 +43,4 @@ k8s-codegen:
 codegen: aws-codegen k8s-codegen
 
 .PHONY: rebuild
-rebuild: codegen build
+rebuild: build-codegen codegen build
