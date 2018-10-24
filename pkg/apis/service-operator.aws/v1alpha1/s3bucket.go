@@ -32,6 +32,7 @@ type S3BucketSpec struct {
 	RollbackCount                   int             `json:"rollbackCount"`
 	Versioning                      bool            `json:"versioning"`
 	AccessControl                   string          `json:"accessControl"`
+	DeletionPolicy                  string          `json:"deletionPolicy"`
 	Logging                         S3BucketLogging `json:"logging"`
 	Website                         S3BucketWebsite `json:"website"`
 }

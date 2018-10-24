@@ -39,6 +39,13 @@ spec:
           Default Bucket ACL, each item can have it's own ACL as well.
         structKey: AccessControl
         templateKey: BucketAccessControl
+      - key: deletionPolicy
+        type: string
+        default: "Retain"
+        description: |
+          Deletion Policy to attempt. If the bucket is set to delete, but contents still exist, then deletion will fail.
+        structKey: DeletionPolicy
+        templateKey: BucketDeletionPolicy
       - key: logging
         type: object
         description: |
