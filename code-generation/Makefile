@@ -16,6 +16,7 @@ install-bindata:
 .PHONY: update-bindata
 update-bindata:
 	go generate ./pkg/codegen/
+	go fmt ./...
 
 .PHONY: rebuild
 rebuild: update-bindata build

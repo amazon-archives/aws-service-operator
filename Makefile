@@ -27,9 +27,13 @@ tag:
 install-aws-codegen:
 	${MAKE} -C code-generation install
 
+.PHONY: build-codegen
+build-codegen:
+	${MAKE} -C code-generation rebuild
+
 .PHONY: aws-codegen
-aws-codegen:
-	aws-service-operator-codegen process
+aws-codegen: build-codegen
+	./code-generation/aws-service-operator-codegen process
 
 .PHONY: k8s-codegen
 k8s-codegen:
