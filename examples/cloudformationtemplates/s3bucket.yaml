@@ -80,16 +80,43 @@ data:
           - BucketOwnerFullControl
           - AwsExecRead
         Default: "Private"
+      BucketDeletionPolicy:
+        Description: >-
+          Deletion policy to attempt. If the bucket is set to delete but not empty,
+          then delete will fail
+        Type: String
+        AllowedValues:
+          - Retain
+          - Delete
+        Default: Retain
+      EnableStaticSite:
+        Description: enable static site
+        Type: String
+        AllowedValues:
+          - 'true'
+          - 'false'
+        Default: 'false'
+      StaticSiteIndex:
+        Description: Index document for the S3 bucket static site
+        Type: String
+        Default: index.html
+      StaticSiteError:
+        Description: Error document for the S3 bucket static site
+        Type: String
+        Default: 500.html
     Mappings: {}
     Conditions:
-      UseLogging: !Equals 
+      UseLogging: !Equals
         - !Ref EnableLogging
         - 'true'
-      UseGlacierLifeCycle: !Equals 
+      UseGlacierLifeCycle: !Equals
         - !Ref EnableGlacierLifeCycle
         - 'true'
-      UseVersioning: !Equals 
+      UseVersioning: !Equals
         - !Ref EnableVersioning
+        - 'true'
+      UseAsStaticSite: !Equals
+        - !Ref EnableStaticSite
         - 'true'
     Resources:
       S3bucket:
@@ -97,6 +124,11 @@ data:
         Properties:
           BucketName: !Ref BucketName
           AccessControl: !Ref BucketAccessControl
+          WebsiteConfiguration: !If
+            - UseAsStaticSite
+            - IndexDocument: !Ref StaticSiteIndex
+              ErrorDocument: !Ref StaticSiteError
+            - !Ref 'AWS::NoValue'
           LifecycleConfiguration:
             Rules:
               - Id: GlacierRule
@@ -106,7 +138,7 @@ data:
                 Transitions:
                   - TransitionInDays: !Ref GlacierLifeCycleTransitionInDays
                     StorageClass: Glacier
-          LoggingConfiguration: !If 
+          LoggingConfiguration: !If
             - UseLogging
             - DestinationBucketName: !Ref LoggingBucket
               LogFilePrefix: !Ref LoggingPrefix
@@ -122,18 +154,35 @@ data:
               Value: !Ref ClusterName
             - Key: Heritage
               Value: operator.aws
-          VersioningConfiguration: !If 
+          VersioningConfiguration: !If
             - UseVersioning
             - Status: Enabled
             - !Ref 'AWS::NoValue'
-        DeletionPolicy: Retain
+        DeletionPolicy: !Ref BucketDeletionPolicy
+      WebsiteBucketPolicy:
+        Type: 'AWS::S3::BucketPolicy'
+        Condition: UseAsStaticSite
+        Properties:
+          Bucket: !Ref S3bucket
+          PolicyDocument:
+            Statement:
+              - Action:
+                  - 's3:GetObject'
+                Effect: Allow
+                Principal: '*'
+                Resource:
+                  'Fn::Join':
+                    - ''
+                    - - 'arn:aws:s3:::'
+                      - !Ref S3bucket
+                      - /*
       LoggingBucket:
         Condition: UseLogging
         Type: 'AWS::S3::Bucket'
         DeletionPolicy: Retain
         Properties:
           AccessControl: LogDeliveryWrite
-          BucketName: !Join 
+          BucketName: !Join
             - ''
             - - !Ref BucketName
               - logging
@@ -142,7 +191,12 @@ data:
         Value: !Ref S3bucket
         Description: Name of the sample Amazon S3 bucket.
       BucketArn:
-        Value: !GetAtt 
+        Value: !GetAtt
           - S3bucket
           - Arn
         Description: Name of the Amazon S3 bucket
+      WebsiteURL:
+        Value: !GetAtt
+          - S3bucket
+          - WebsiteURL
+        Description: URL of the bucket that was created
