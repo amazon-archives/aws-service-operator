@@ -1,6 +1,7 @@
 package base
 
 import (
+	"context"
 	"github.com/awslabs/aws-service-operator/pkg/config"
 	"github.com/awslabs/aws-service-operator/pkg/operators/cloudformationtemplate"
 	"github.com/awslabs/aws-service-operator/pkg/operators/dynamodb"
@@ -23,56 +24,35 @@ func New(
 	}
 }
 
-func (b *base) Watch(namespace string, stopCh chan struct{}) (err error) {
+func (b *base) Watch(ctx context.Context, namespace string) {
 	if b.config.Resources["cloudformationtemplate"] {
 		cloudformationtemplateoperator := cloudformationtemplate.NewOperator(b.config)
-		err = cloudformationtemplateoperator.StartWatch(namespace, stopCh)
-		if err != nil {
-			return err
-		}
+		go cloudformationtemplateoperator.StartWatch(ctx, namespace)
 	}
 	if b.config.Resources["dynamodb"] {
 		dynamodboperator := dynamodb.NewOperator(b.config)
-		err = dynamodboperator.StartWatch(namespace, stopCh)
-		if err != nil {
-			return err
-		}
+		go dynamodboperator.StartWatch(ctx, namespace)
 	}
 	if b.config.Resources["ecrrepository"] {
 		ecrrepositoryoperator := ecrrepository.NewOperator(b.config)
-		err = ecrrepositoryoperator.StartWatch(namespace, stopCh)
-		if err != nil {
-			return err
-		}
+		go ecrrepositoryoperator.StartWatch(ctx, namespace)
 	}
 	if b.config.Resources["s3bucket"] {
 		s3bucketoperator := s3bucket.NewOperator(b.config)
-		err = s3bucketoperator.StartWatch(namespace, stopCh)
-		if err != nil {
-			return err
-		}
+		go s3bucketoperator.StartWatch(ctx, namespace)
 	}
 	if b.config.Resources["snssubscription"] {
 		snssubscriptionoperator := snssubscription.NewOperator(b.config)
-		err = snssubscriptionoperator.StartWatch(namespace, stopCh)
-		if err != nil {
-			return err
-		}
+		go snssubscriptionoperator.StartWatch(ctx, namespace)
 	}
 	if b.config.Resources["snstopic"] {
 		snstopicoperator := snstopic.NewOperator(b.config)
-		err = snstopicoperator.StartWatch(namespace, stopCh)
-		if err != nil {
-			return err
-		}
+		go snstopicoperator.StartWatch(ctx, namespace)
 	}
 	if b.config.Resources["sqsqueue"] {
 		sqsqueueoperator := sqsqueue.NewOperator(b.config)
-		err = sqsqueueoperator.StartWatch(namespace, stopCh)
-		if err != nil {
-			return err
-		}
+		go sqsqueueoperator.StartWatch(ctx, namespace)
 	}
 
-	return nil
+	<-ctx.Done()
 }

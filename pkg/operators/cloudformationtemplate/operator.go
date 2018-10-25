@@ -6,6 +6,8 @@
 package cloudformationtemplate
 
 import (
+	"context"
+
 	"github.com/awslabs/aws-service-operator/pkg/config"
 	"github.com/awslabs/aws-service-operator/pkg/operator"
 	"k8s.io/client-go/tools/cache"
@@ -28,7 +30,7 @@ func NewOperator(config *config.Config) *Operator {
 }
 
 // StartWatch watches for instances of Object Store custom resources and acts on them
-func (c *Operator) StartWatch(namespace string, stopCh chan struct{}) error {
+func (c *Operator) StartWatch(ctx context.Context, namespace string) {
 	resourceHandlers := cache.ResourceEventHandlerFuncs{
 		AddFunc:    c.onAdd,
 		UpdateFunc: c.onUpdate,
@@ -36,9 +38,7 @@ func (c *Operator) StartWatch(namespace string, stopCh chan struct{}) error {
 	}
 
 	oper := operator.New("cloudformationtemplates", namespace, resourceHandlers, c.config.AWSClientset.RESTClient())
-	go oper.Watch(&awsV1alpha1.CloudFormationTemplate{}, stopCh)
-
-	return nil
+	oper.Watch(&awsV1alpha1.CloudFormationTemplate{}, ctx.Done())
 }
 
 func (c *Operator) onAdd(obj interface{}) {
