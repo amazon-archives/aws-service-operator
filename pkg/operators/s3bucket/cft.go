@@ -93,6 +93,12 @@ func (s *Cloudformation) CreateStack() (output *cloudformation.CreateStackOutput
 		return output, err
 	}
 	accessControl := helpers.CreateParam("BucketAccessControl", helpers.Stringify(accessControlValue))
+	deletionPolicyTemp := "{{.Obj.Spec.DeletionPolicy}}"
+	deletionPolicyValue, err := helpers.Templatize(deletionPolicyTemp, helpers.Data{Obj: s.S3Bucket, Config: s.config, Helpers: helpers.New()})
+	if err != nil {
+		return output, err
+	}
+	deletionPolicy := helpers.CreateParam("BucketDeletionPolicy", helpers.Stringify(deletionPolicyValue))
 	loggingenabledTemp := "{{.Obj.Spec.Logging.Enabled}}"
 	loggingenabledValue, err := helpers.Templatize(loggingenabledTemp, helpers.Data{Obj: s.S3Bucket, Config: s.config, Helpers: helpers.New()})
 	if err != nil {
@@ -132,6 +138,7 @@ func (s *Cloudformation) CreateStack() (output *cloudformation.CreateStackOutput
 	parameters = append(parameters, bucketName)
 	parameters = append(parameters, versioning)
 	parameters = append(parameters, accessControl)
+	parameters = append(parameters, deletionPolicy)
 	parameters = append(parameters, loggingenabled)
 	parameters = append(parameters, loggingprefix)
 	parameters = append(parameters, websiteenabled)
@@ -189,6 +196,12 @@ func (s *Cloudformation) UpdateStack(updated *awsV1alpha1.S3Bucket) (output *clo
 		return output, err
 	}
 	accessControl := helpers.CreateParam("BucketAccessControl", helpers.Stringify(accessControlValue))
+	deletionPolicyTemp := "{{.Obj.Spec.DeletionPolicy}}"
+	deletionPolicyValue, err := helpers.Templatize(deletionPolicyTemp, helpers.Data{Obj: updated, Config: s.config, Helpers: helpers.New()})
+	if err != nil {
+		return output, err
+	}
+	deletionPolicy := helpers.CreateParam("BucketDeletionPolicy", helpers.Stringify(deletionPolicyValue))
 	loggingenabledTemp := "{{.Obj.Spec.Logging.Enabled}}"
 	loggingenabledValue, err := helpers.Templatize(loggingenabledTemp, helpers.Data{Obj: updated, Config: s.config, Helpers: helpers.New()})
 	if err != nil {
@@ -228,6 +241,7 @@ func (s *Cloudformation) UpdateStack(updated *awsV1alpha1.S3Bucket) (output *clo
 	parameters = append(parameters, bucketName)
 	parameters = append(parameters, versioning)
 	parameters = append(parameters, accessControl)
+	parameters = append(parameters, deletionPolicy)
 	parameters = append(parameters, loggingenabled)
 	parameters = append(parameters, loggingprefix)
 	parameters = append(parameters, websiteenabled)
