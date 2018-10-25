@@ -6,6 +6,7 @@
 package snssubscription
 
 import (
+	"context"
 	"github.com/awslabs/aws-service-operator/pkg/helpers"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"reflect"
@@ -36,7 +37,7 @@ func NewOperator(config *config.Config) *Operator {
 }
 
 // StartWatch watches for instances of Object Store custom resources and acts on them
-func (c *Operator) StartWatch(namespace string, stopCh chan struct{}) error {
+func (c *Operator) StartWatch(ctx context.Context, namespace string) {
 	resourceHandlers := cache.ResourceEventHandlerFuncs{
 		AddFunc:    c.onAdd,
 		UpdateFunc: c.onUpdate,
@@ -44,12 +45,10 @@ func (c *Operator) StartWatch(namespace string, stopCh chan struct{}) error {
 	}
 	queuectrl := queue.New(c.config, c.config.AWSClientset, 1)
 	c.topicARN, _, _, _ = queuectrl.Register("snssubscription", &awsV1alpha1.SNSSubscription{})
-	go queuectrl.StartWatch(queue.HandlerFunc(QueueUpdater), stopCh)
+	go queuectrl.StartWatch(queue.HandlerFunc(QueueUpdater), ctx.Done())
 
 	oper := operator.New("snssubscriptions", namespace, resourceHandlers, c.config.AWSClientset.RESTClient())
-	go oper.Watch(&awsV1alpha1.SNSSubscription{}, stopCh)
-
-	return nil
+	oper.Watch(&awsV1alpha1.SNSSubscription{}, ctx.Done())
 }
 
 // QueueUpdater will take the messages from the queue and process them
