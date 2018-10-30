@@ -3,7 +3,8 @@
 Before start working on the AWS Service Operator please read the
 link:contributing.adoc[Contributing Guidelines].
 
-Make sure you first have all the dependencies installed.
+Make sure you first have all the dependencies installed. The source checkout
+should be under your $GOPATH/src directory.
 
 [source,shell]
 ----
@@ -18,7 +19,10 @@ running.
 
 [source,shell]
 ----
-go get -u github.com/christopherhein/aws-operator-codegen
+cd code-generation
+make install-bindata
+cd ..
+make install-aws-codegen
 ----
 
 After you have this installed you can run the following from the root of the
