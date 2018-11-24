@@ -18,7 +18,7 @@ running.
 
 [source,shell]
 ----
-go get -u github.com/christopherhein/aws-operator-codegen
+go get -u github.com/awslabs/aws-service-operator/code-generation/cmd/aws-service-operator-codegen
 ----
 
 After you have this installed you can run the following from the root of the

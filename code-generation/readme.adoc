@@ -11,7 +11,7 @@ This project is currently only available via `git` and `go`.
 
 [source,shell]
 ----
-go get -u github.com/christopherhein/aws-operator-codegen
+go get -u github.com/awslabs/aws-service-operator/code-generation/cmd/aws-service-operator-codegen
 ----
 
 == Usage
