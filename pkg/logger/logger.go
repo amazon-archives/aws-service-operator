@@ -2,14 +2,15 @@ package logger
 
 import (
 	"bufio"
-	"github.com/awslabs/aws-service-operator/pkg/config"
-	"github.com/sirupsen/logrus"
 	"os"
 	"strings"
+
+	"github.com/awslabs/aws-service-operator/pkg/config"
+	"github.com/sirupsen/logrus"
 )
 
 // Configure will setup the logger for all commands
-func Configure(config *config.LoggingConfig) (*logrus.Entry, error) {
+func Configure(config config.LoggingConfig) (*logrus.Entry, error) {
 	hostname, err := os.Hostname()
 	if err != nil {
 		return nil, err

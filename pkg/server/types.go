@@ -9,5 +9,5 @@ import (
 // Server defines the bas construct for the operator
 type Server struct {
 	http.ServeMux
-	Config *config.Config
+	Config config.Config
 }

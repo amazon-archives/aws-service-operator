@@ -15,7 +15,7 @@ import (
 )
 
 // New generates a new object
-func New(config *config.Config, {{.Spec.Resource.Name}} *awsV1alpha1.{{.Spec.Kind}}, topicARN string) *Cloudformation {
+func New(config config.Config, {{.Spec.Resource.Name}} *awsV1alpha1.{{.Spec.Kind}}, topicARN string) *Cloudformation {
 	return &Cloudformation{
 		{{.Spec.Kind}}: {{.Spec.Resource.Name}},
 		config:					config,
@@ -25,7 +25,7 @@ func New(config *config.Config, {{.Spec.Resource.Name}} *awsV1alpha1.{{.Spec.Kin
 
 // Cloudformation defines the {{.Spec.Resource.Name}} cfts
 type Cloudformation struct {
-	config         *config.Config
+	config         config.Config
 	{{.Spec.Kind}} *awsV1alpha1.{{.Spec.Kind}}
   topicARN       string
 }

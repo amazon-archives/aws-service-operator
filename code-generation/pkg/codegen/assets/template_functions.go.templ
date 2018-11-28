@@ -25,13 +25,13 @@ func New() Helpers {
 type Helpers struct {
   KubernetesResourceName func(string) (string)
 	{{- range $index, $element := .Items }}
-	Get{{$element.Spec.Kind}}ByName func(*config.Config, string, string) (interface{}, error)
+	Get{{$element.Spec.Kind}}ByName func(config.Config, string, string) (interface{}, error)
 	{{- end}}
 }
 
 {{- range $index, $element := .Items }}
 // Get{{$element.Spec.Kind}}ByName will find the resource by name
-func Get{{$element.Spec.Kind}}ByName(config *config.Config, name string, namespace string) (interface{}, error) {
+func Get{{$element.Spec.Kind}}ByName(config config.Config, name string, namespace string) (interface{}, error) {
 	logger := config.Logger
 	clientSet, _ := awsclient.NewForConfig(config.RESTConfig)
 	resource, err := clientSet.{{$element.Spec.PluralName}}(namespace).Get(name, metav1.GetOptions{})

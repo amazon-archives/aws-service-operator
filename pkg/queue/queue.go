@@ -15,7 +15,7 @@ import (
 )
 
 // New will initialize the Queue object for watching
-func New(config *config.Config, awsclientset awsclient.ServiceoperatorV1alpha1Interface, timeout int) *Queue {
+func New(config config.Config, awsclientset awsclient.ServiceoperatorV1alpha1Interface, timeout int) *Queue {
 	return &Queue{
 		config:       config,
 		awsclientset: awsclientset,
@@ -24,10 +24,9 @@ func New(config *config.Config, awsclientset awsclient.ServiceoperatorV1alpha1In
 }
 
 // RegisterQueue wkll create the Queue so it is accessible to SNS.
-func RegisterQueue(config *config.Config, name string) (queueURL, queueARN string, manager *queuemanager.QueueManager, err error) {
-	manager = queuemanager.New()
-	sqsSvc := sqs.New(config.AWSSession)
-	keyname := keyName(config.ClusterName, name)
+func RegisterQueue(awsSession *session.Session, clusterName, name string) (queueURL, queueARN string, err error) {
+	sqsSvc := sqs.New(awsSession)
+	keyname := keyName(clusterName, name)
 	queueInputs := sqs.CreateQueueInput{
 		QueueName: aws.String(keyname),
 		Attributes: map[string]*string{
@@ -37,7 +36,7 @@ func RegisterQueue(config *config.Config, name string) (queueURL, queueARN strin
 	}
 	sqsOutput, err := sqsSvc.CreateQueue(&queueInputs)
 	if err != nil {
-		return "", "", manager, err
+		return "", "", err
 	}
 	queueURL = *sqsOutput.QueueUrl
 
@@ -49,14 +48,14 @@ func RegisterQueue(config *config.Config, name string) (queueURL, queueARN strin
 	}
 	sqsQueueOutput, err := sqsSvc.GetQueueAttributes(&queueQueryInputs)
 	if err != nil {
-		return "", "", manager, err
+		return "", "", err
 	}
 	queueARN = *sqsQueueOutput.Attributes["QueueArn"]
-	return queueURL, queueARN, manager, nil
+	return queueURL, queueARN, nil
 }
 
 // Subscribe will listen to the global queue and distribute messages
-func Subscribe(config *config.Config, manager *queuemanager.QueueManager, ctx context.Context) {
+func Subscribe(config config.Config, manager *queuemanager.QueueManager, ctx context.Context) {
 	logger := config.Logger
 	sess, err := session.NewSession(&aws.Config{
 		Region: aws.String(config.Region),
@@ -101,7 +100,7 @@ func (q *Queue) Register(name string) (topicARN string, subARN string) {
 	return
 }
 
-func SetQueuePolicy(config *config.Config, manager *queuemanager.QueueManager) error {
+func SetQueuePolicy(config config.Config, manager *queuemanager.QueueManager) error {
 	sqsSvc := sqs.New(config.AWSSession)
 	topicARNs := manager.Keys()
 
@@ -151,7 +150,7 @@ func newPolicy(queueARN string, name string, topicARNs []string) Policy {
 	}
 }
 
-func process(config *config.Config, svc *sqs.SQS, manager *queuemanager.QueueManager, ctx context.Context) error {
+func process(config config.Config, svc *sqs.SQS, manager *queuemanager.QueueManager, ctx context.Context) error {
 	logger := config.Logger
 	for {
 		result, err := svc.ReceiveMessage(&sqs.ReceiveMessageInput{

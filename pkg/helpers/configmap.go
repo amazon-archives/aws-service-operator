@@ -7,7 +7,7 @@ import (
 )
 
 // CreateConfigMap will create a Kubernetes Servic Using ExternalName types
-func CreateConfigMap(config *config.Config, resource interface{}, svcName string, svcNamespace string, configMapTemplate map[string]string) string {
+func CreateConfigMap(config config.Config, resource interface{}, svcName string, svcNamespace string, configMapTemplate map[string]string) string {
 	logger := config.Logger
 	cmData := map[string]string{}
 	for key, value := range configMapTemplate {
