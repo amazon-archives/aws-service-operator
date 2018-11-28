@@ -6,7 +6,7 @@ data:
   key: snssubscription.yaml
   template: |
     AWSTemplateFormatVersion: 2010-09-09
-    Description: 'AWS Operator - Amazon SNS Subscription'
+    Description: 'AWS Service Operator - Amazon SNS Subscription (aso-1otq2cgcj)'
     Parameters:
       Namespace:
         Description: >-

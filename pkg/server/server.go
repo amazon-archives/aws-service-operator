@@ -8,6 +8,7 @@ import (
 	awsscheme "github.com/awslabs/aws-service-operator/pkg/client/clientset/versioned/scheme"
 	"github.com/awslabs/aws-service-operator/pkg/config"
 	opBase "github.com/awslabs/aws-service-operator/pkg/operators/base"
+	"github.com/awslabs/aws-service-operator/pkg/queue"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"github.com/sirupsen/logrus"
 	corev1 "k8s.io/api/core/v1"
@@ -56,11 +57,23 @@ func (c *Server) watchOperatorResources(errChan chan error, ctx context.Context)
 	recorder := eventBroadcaster.NewRecorder(scheme.Scheme, corev1.EventSource{Component: controllerName})
 	c.Config.Recorder = recorder
 
-	// start watching the aws operator resources
-	logger.WithFields(logrus.Fields{"resources": c.Config.Resources}).Info("Watching")
-	operators := opBase.New(c.Config) // TODO: remove context and Clientset
+	queueURL, queueARN, queueManager, err := queue.RegisterQueue(c.Config, "cloudformation")
+	if err != nil {
+		logger.WithError(err).Error("error reqistering queue")
+	}
+	c.Config.QueueURL = queueURL
+	c.Config.QueueARN = queueARN
 
+	operators := opBase.New(c.Config, queueManager)
+
+	err = queue.SetQueuePolicy(c.Config, queueManager)
+	if err != nil {
+		logger.WithError(err).Error("error setting queue policy")
+	}
+
+	logger.WithFields(logrus.Fields{"resources": c.Config.Resources}).Info("Watching")
 	go operators.Watch(ctx, corev1.NamespaceAll)
+	go queue.Subscribe(c.Config, queueManager, ctx)
 	<-ctx.Done()
 	c.Config.Logger.Info("operators stopped")
 }

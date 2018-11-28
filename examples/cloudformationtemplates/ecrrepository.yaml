@@ -6,7 +6,7 @@ data:
   key: ecrrepository.yaml
   template: |
     AWSTemplateFormatVersion: 2010-09-09
-    Description: 'AWS Operator - Amazon ECR Repository'
+    Description: 'AWS Service Operator - Amazon ECR Repository (aso-1otq2cgc9)'
     Parameters:
       Namespace:
         Description: >-

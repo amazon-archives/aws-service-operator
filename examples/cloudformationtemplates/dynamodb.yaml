@@ -6,7 +6,7 @@ data:
   key: dynamodb.yaml
   template: |
     AWSTemplateFormatVersion: 2010-09-09
-    Description: 'AWS Operator - Amazon DynamoDB'
+    Description: 'AWS Service Operator - Amazon DynamoDB (aso-1otq2cgc4)'
     Parameters:
       Namespace:
         Description: >-
@@ -70,7 +70,7 @@ data:
             -
               AttributeName: !Ref RangeAttributeName
               KeyType: "RANGE"
-          AttributeDefinitions: 
+          AttributeDefinitions:
             -
               AttributeName: !Ref HashAttributeName
               AttributeType: "S"
@@ -98,4 +98,3 @@ data:
       TableArn:
         Description: Arn of the DynamoDB Table
         Value: !GetAtt DynamoDBTable.Arn
-

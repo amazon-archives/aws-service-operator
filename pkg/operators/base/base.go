@@ -10,48 +10,59 @@ import (
 	"github.com/awslabs/aws-service-operator/pkg/operators/snssubscription"
 	"github.com/awslabs/aws-service-operator/pkg/operators/snstopic"
 	"github.com/awslabs/aws-service-operator/pkg/operators/sqsqueue"
+	"github.com/awslabs/aws-service-operator/pkg/queuemanager"
 )
 
 type base struct {
-	config *config.Config
+	config                 *config.Config
+	queueManager           *queuemanager.QueueManager
+	cloudformationtemplate *cloudformationtemplate.Operator
+	dynamodb               *dynamodb.Operator
+	ecrrepository          *ecrrepository.Operator
+	s3bucket               *s3bucket.Operator
+	snssubscription        *snssubscription.Operator
+	snstopic               *snstopic.Operator
+	sqsqueue               *sqsqueue.Operator
 }
 
 func New(
 	config *config.Config,
+	queueManager *queuemanager.QueueManager,
 ) *base {
 	return &base{
-		config: config,
+		config:                 config,
+		queueManager:           queueManager,
+		cloudformationtemplate: cloudformationtemplate.NewOperator(config, queueManager),
+		dynamodb:               dynamodb.NewOperator(config, queueManager),
+		ecrrepository:          ecrrepository.NewOperator(config, queueManager),
+		s3bucket:               s3bucket.NewOperator(config, queueManager),
+		snssubscription:        snssubscription.NewOperator(config, queueManager),
+		snstopic:               snstopic.NewOperator(config, queueManager),
+		sqsqueue:               sqsqueue.NewOperator(config, queueManager),
 	}
 }
 
 func (b *base) Watch(ctx context.Context, namespace string) {
 	if b.config.Resources["cloudformationtemplate"] {
-		cloudformationtemplateoperator := cloudformationtemplate.NewOperator(b.config)
-		go cloudformationtemplateoperator.StartWatch(ctx, namespace)
+		go b.cloudformationtemplate.StartWatch(ctx, namespace)
 	}
 	if b.config.Resources["dynamodb"] {
-		dynamodboperator := dynamodb.NewOperator(b.config)
-		go dynamodboperator.StartWatch(ctx, namespace)
+		go b.dynamodb.StartWatch(ctx, namespace)
 	}
 	if b.config.Resources["ecrrepository"] {
-		ecrrepositoryoperator := ecrrepository.NewOperator(b.config)
-		go ecrrepositoryoperator.StartWatch(ctx, namespace)
+		go b.ecrrepository.StartWatch(ctx, namespace)
 	}
 	if b.config.Resources["s3bucket"] {
-		s3bucketoperator := s3bucket.NewOperator(b.config)
-		go s3bucketoperator.StartWatch(ctx, namespace)
+		go b.s3bucket.StartWatch(ctx, namespace)
 	}
 	if b.config.Resources["snssubscription"] {
-		snssubscriptionoperator := snssubscription.NewOperator(b.config)
-		go snssubscriptionoperator.StartWatch(ctx, namespace)
+		go b.snssubscription.StartWatch(ctx, namespace)
 	}
 	if b.config.Resources["snstopic"] {
-		snstopicoperator := snstopic.NewOperator(b.config)
-		go snstopicoperator.StartWatch(ctx, namespace)
+		go b.snstopic.StartWatch(ctx, namespace)
 	}
 	if b.config.Resources["sqsqueue"] {
-		sqsqueueoperator := sqsqueue.NewOperator(b.config)
-		go sqsqueueoperator.StartWatch(ctx, namespace)
+		go b.sqsqueue.StartWatch(ctx, namespace)
 	}
 
 	<-ctx.Done()

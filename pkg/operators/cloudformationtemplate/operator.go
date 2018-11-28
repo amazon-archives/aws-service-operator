@@ -10,6 +10,7 @@ import (
 
 	"github.com/awslabs/aws-service-operator/pkg/config"
 	"github.com/awslabs/aws-service-operator/pkg/operator"
+	"github.com/awslabs/aws-service-operator/pkg/queuemanager"
 	"k8s.io/client-go/tools/cache"
 
 	awsV1alpha1 "github.com/awslabs/aws-service-operator/pkg/apis/service-operator.aws/v1alpha1"
@@ -18,14 +19,17 @@ import (
 
 // Operator represents a controller object for object store custom resources
 type Operator struct {
-	config   *config.Config
-	topicARN string
+	config       *config.Config
+	topicARN     string
+	queueManager *queuemanager.QueueManager
 }
 
 // NewOperator create controller for watching object store custom resources created
-func NewOperator(config *config.Config) *Operator {
+func NewOperator(config *config.Config, queueManager *queuemanager.QueueManager) *Operator {
+
 	return &Operator{
-		config: config,
+		config:       config,
+		queueManager: queueManager,
 	}
 }
 

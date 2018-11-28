@@ -15,6 +15,7 @@ import (
 	"github.com/awslabs/aws-service-operator/pkg/config"
 	"github.com/awslabs/aws-service-operator/pkg/operator"
 	"github.com/awslabs/aws-service-operator/pkg/queue"
+	"github.com/awslabs/aws-service-operator/pkg/queuemanager"
 	"github.com/iancoleman/strcase"
 	corev1 "k8s.io/api/core/v1"
 	"k8s.io/client-go/tools/cache"
@@ -25,14 +26,21 @@ import (
 
 // Operator represents a controller object for object store custom resources
 type Operator struct {
-	config   *config.Config
-	topicARN string
+	config       *config.Config
+	topicARN     string
+	queueManager *queuemanager.QueueManager
 }
 
 // NewOperator create controller for watching object store custom resources created
-func NewOperator(config *config.Config) *Operator {
+func NewOperator(config *config.Config, queueManager *queuemanager.QueueManager) *Operator {
+	queuectrl := queue.New(config, config.AWSClientset, 10)
+	topicARN, _ := queuectrl.Register("s3bucket")
+	queueManager.Add(topicARN, queuemanager.HandlerFunc(QueueUpdater))
+
 	return &Operator{
-		config: config,
+		config:       config,
+		topicARN:     topicARN,
+		queueManager: queueManager,
 	}
 }
 
@@ -43,16 +51,13 @@ func (c *Operator) StartWatch(ctx context.Context, namespace string) {
 		UpdateFunc: c.onUpdate,
 		DeleteFunc: c.onDelete,
 	}
-	queuectrl := queue.New(c.config, c.config.AWSClientset, 1)
-	c.topicARN, _, _, _ = queuectrl.Register("s3bucket", &awsV1alpha1.S3Bucket{})
-	go queuectrl.StartWatch(queue.HandlerFunc(QueueUpdater), ctx.Done())
 
 	oper := operator.New("s3buckets", namespace, resourceHandlers, c.config.AWSClientset.RESTClient())
 	oper.Watch(&awsV1alpha1.S3Bucket{}, ctx.Done())
 }
 
 // QueueUpdater will take the messages from the queue and process them
-func QueueUpdater(config *config.Config, msg *queue.MessageBody) error {
+func QueueUpdater(config *config.Config, msg *queuemanager.MessageBody) error {
 	logger := config.Logger
 	var name, namespace string
 	if msg.Updatable {
