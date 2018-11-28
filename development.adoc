@@ -19,9 +19,6 @@ running.
 
 [source,shell]
 ----
-cd code-generation
-make install-bindata
-cd ..
 make install-aws-codegen
 ----
 
@@ -30,26 +27,18 @@ project.
 
 [source,shell]
 ----
-aws-operator-codegen process
+make rebuild
 ----
 
 This takes the model files that are in `models/` and converts them into the
-operator code in `pkg/operator`
-
-Once you have run this you can then use the Kubernetes code generation libraries
-to auto generate the `pkg/client`.
-
-[source,shell]
-----
-./codegen.sh
-----
+operator code in `pkg/operator` following that it will run the Kubernetes code
+generation libraries to auto generate the `pkg/client`.
 
 After have made sure the codegen is run you can then build the package and
 run it against a remote cluster by passing in the `kubeconfig` file.
 
 ```bash
-make build && ./aws-operator server --kubeconfig ~/.kube/config --region
-us-west-2
+./aws-operator server --kubeconfig ~/.kube/config --region us-west-2
 ```
 
 == Writing Additional Operators
