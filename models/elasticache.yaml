@@ -1,0 +1,120 @@
+apiVersion: service-operator.aws/v1alpha1
+kind: ModelDefinition
+metadata:
+  name: ElastiCacheResource
+spec:
+  kind: ElastiCache
+  type: Spec 
+  queue: true
+  useCloudFormation: true
+  resource:
+    name: elasticache
+    plural: elasticaches
+    shortNames:
+    - name: ec
+    scope: Namespaced
+  body:
+    schema:
+      type: object
+      properties:
+      - key: elastiCacheClusterName
+        type: resourceName
+        description: |
+          ElastiCacheClusterName is the name of the Elasticache cluster to be created.
+        structKey: ElastiCacheClusterName
+        templateKey: ClusterName 
+      - key: AutoMinorVersionUpgrade
+        type: bool
+        description: |
+          Indicates that minor engine upgrades will be applied automatically to the cache cluster during the maintenance window.
+        structKey: AutoMinorVersionUpgrade
+        templateKey: AutoMinorVersionUpgrade
+      - key: CacheNodeType
+        type: string
+        description: |
+          The compute and memory capacity of nodes in a cache cluster.
+        structKey: CacheNodeType
+        templateKey: CacheNodeType
+      - key: CacheParameterGroupName
+        type: string
+        description: |
+          The name of the cache parameter group that is associated with this cache cluster.
+        structKey: CacheParameterGroupName
+        templateKey: CacheParameterGroupName
+      - key: CacheSubnetGroupName
+        type: string
+        description: |
+          The cache subnet group that you associate with a cache cluster.
+        structKey: CacheSubnetGroupName 
+        templateKey: CacheSubnetGroupName 
+      - key: Engine
+        type: string
+        description: |
+          The name of the cache engine to be used for this cache cluster, such as memcached or redis.
+        structKey: Engine
+        templateKey: Engine
+      - key: EngineVersion
+        type: string
+        description: |
+          The version of the cache engine to be used for this cluster.
+        structKey: EngineVersion
+        templateKey: EngineVersion
+      - key: NotificationTopicArn 
+        type: string
+        description: |
+          The Amazon Resource Name (ARN) of the Amazon Simple Notification Service (SNS) topic to which notifications will be sent. 
+        structKey: NotificationTopicArn 
+        templateKey: NotificationTopicArn
+      - key: NumCacheNodes
+        type: int
+        description: |
+          The number of cache nodes that the cache cluster should have.
+        structKey: NumCacheNodes
+        templateKey: NumCacheNodes
+      - key: Port
+        type: int
+        description: |
+          The port number on which each of the cache nodes will accept connections.
+        structKey: Port
+        templateKey: Port
+      - key: PreferredMaintenanceWindow
+        type: string
+        description: |
+          The weekly time range (in UTC) during which system maintenance can occur.
+        structKey: PreferredMaintenanceWindow
+        templateKey: PreferredMaintenanceWindow
+      - key: SnapshotWindow
+        type: string
+        description: |
+          For Redis cache clusters, the daily time range (in UTC) during which ElastiCache will begin taking a daily snapshot of your node group. For example, you can specify 05:00-09:00.
+        structKey: SnapshotWindow
+        templateKey: SnapshotWindow
+      - key: VpcSecurityGroupIds
+        type: string
+        description: |
+          FIX ME needs to be a list type, A list of VPC security group IDs. If your cache cluster isn't in a VPC, specify the CacheSecurityGroupNames property instead.
+        structKey: VpcSecurityGroupIds
+        templateKey: VpcSecurityGroupIds
+  output:
+    schema:
+      type: object
+      properties:
+      - key: RedisEndpointAddress
+        type: string
+        description: |
+          The DNS address of the configuration endpoint for the Redis cache cluster.
+        structKey: RedisEndpointAddress
+        templateKey: RedisEndpointAddress
+      - key: RedisEndpointPort
+        type: string
+        description: |
+          The port number of the configuration endpoint for the Redis cache cluster.
+        structKey: RedisEndpointPort
+        templateKey: RedisEndpointPort
+  additionalResources:
+    services:
+    - name: RedisEndpointAddressSvc
+      type: ExternalName
+      externalName: "{{ .Obj.Output.RedisEndpointAddress }}"
+      ports:
+      - port: 6379

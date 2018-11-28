@@ -88,7 +88,7 @@ func awsServiceOperatorYamlTempl() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "aws-service-operator.yaml.templ", size: 2651, mode: os.FileMode(436), modTime: time.Unix(1540275354, 0)}
+	info := bindataFileInfo{name: "aws-service-operator.yaml.templ", size: 2651, mode: os.FileMode(420), modTime: time.Unix(1543602919, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -108,7 +108,7 @@ func baseGoTempl() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "base.go.templ", size: 1100, mode: os.FileMode(436), modTime: time.Unix(1543370651, 0)}
+	info := bindataFileInfo{name: "base.go.templ", size: 1100, mode: os.FileMode(420), modTime: time.Unix(1543602919, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -128,7 +128,7 @@ func cftGoTempl() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "cft.go.templ", size: 9390, mode: os.FileMode(436), modTime: time.Unix(1538638943, 0)}
+	info := bindataFileInfo{name: "cft.go.templ", size: 9390, mode: os.FileMode(420), modTime: time.Unix(1543602919, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -148,7 +148,7 @@ func operatorGoTempl() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "operator.go.templ", size: 11595, mode: os.FileMode(436), modTime: time.Unix(1543370081, 0)}
+	info := bindataFileInfo{name: "operator.go.templ", size: 11595, mode: os.FileMode(420), modTime: time.Unix(1543602919, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -168,7 +168,7 @@ func template_functionsGoTempl() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "template_functions.go.templ", size: 1584, mode: os.FileMode(436), modTime: time.Unix(1538540481, 0)}
+	info := bindataFileInfo{name: "template_functions.go.templ", size: 1584, mode: os.FileMode(420), modTime: time.Unix(1543602919, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -188,7 +188,7 @@ func typesGoTempl() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "types.go.templ", size: 3173, mode: os.FileMode(436), modTime: time.Unix(1538540481, 0)}
+	info := bindataFileInfo{name: "types.go.templ", size: 3173, mode: os.FileMode(420), modTime: time.Unix(1543602919, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
@@ -246,11 +246,11 @@ func AssetNames() []string {
 // _bindata is a table, holding each asset generator, mapped to its name.
 var _bindata = map[string]func() (*asset, error){
 	"aws-service-operator.yaml.templ": awsServiceOperatorYamlTempl,
-	"base.go.templ": baseGoTempl,
-	"cft.go.templ": cftGoTempl,
-	"operator.go.templ": operatorGoTempl,
-	"template_functions.go.templ": template_functionsGoTempl,
-	"types.go.templ": typesGoTempl,
+	"base.go.templ":                   baseGoTempl,
+	"cft.go.templ":                    cftGoTempl,
+	"operator.go.templ":               operatorGoTempl,
+	"template_functions.go.templ":     template_functionsGoTempl,
+	"types.go.templ":                  typesGoTempl,
 }
 
 // AssetDir returns the file names below a certain
@@ -292,13 +292,14 @@ type bintree struct {
 	Func     func() (*asset, error)
 	Children map[string]*bintree
 }
+
 var _bintree = &bintree{nil, map[string]*bintree{
 	"aws-service-operator.yaml.templ": &bintree{awsServiceOperatorYamlTempl, map[string]*bintree{}},
-	"base.go.templ": &bintree{baseGoTempl, map[string]*bintree{}},
-	"cft.go.templ": &bintree{cftGoTempl, map[string]*bintree{}},
-	"operator.go.templ": &bintree{operatorGoTempl, map[string]*bintree{}},
-	"template_functions.go.templ": &bintree{template_functionsGoTempl, map[string]*bintree{}},
-	"types.go.templ": &bintree{typesGoTempl, map[string]*bintree{}},
+	"base.go.templ":                   &bintree{baseGoTempl, map[string]*bintree{}},
+	"cft.go.templ":                    &bintree{cftGoTempl, map[string]*bintree{}},
+	"operator.go.templ":               &bintree{operatorGoTempl, map[string]*bintree{}},
+	"template_functions.go.templ":     &bintree{template_functionsGoTempl, map[string]*bintree{}},
+	"types.go.templ":                  &bintree{typesGoTempl, map[string]*bintree{}},
 }}
 
 // RestoreAsset restores an asset under the given directory
@@ -347,4 +348,3 @@ func _filePath(dir, name string) string {
 	cannonicalName := strings.Replace(name, "\\", "/", -1)
 	return filepath.Join(append([]string{dir}, strings.Split(cannonicalName, "/")...)...)
 }
-
