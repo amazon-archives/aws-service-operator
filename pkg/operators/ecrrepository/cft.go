@@ -15,7 +15,7 @@ import (
 )
 
 // New generates a new object
-func New(config *config.Config, ecrrepository *awsV1alpha1.ECRRepository, topicARN string) *Cloudformation {
+func New(config config.Config, ecrrepository *awsV1alpha1.ECRRepository, topicARN string) *Cloudformation {
 	return &Cloudformation{
 		ECRRepository: ecrrepository,
 		config:        config,
@@ -25,7 +25,7 @@ func New(config *config.Config, ecrrepository *awsV1alpha1.ECRRepository, topicA
 
 // Cloudformation defines the ecrrepository cfts
 type Cloudformation struct {
-	config        *config.Config
+	config        config.Config
 	ECRRepository *awsV1alpha1.ECRRepository
 	topicARN      string
 }

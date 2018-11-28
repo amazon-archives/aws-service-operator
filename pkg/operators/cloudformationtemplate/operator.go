@@ -19,13 +19,13 @@ import (
 
 // Operator represents a controller object for object store custom resources
 type Operator struct {
-	config       *config.Config
+	config       config.Config
 	topicARN     string
 	queueManager *queuemanager.QueueManager
 }
 
 // NewOperator create controller for watching object store custom resources created
-func NewOperator(config *config.Config, queueManager *queuemanager.QueueManager) *Operator {
+func NewOperator(config config.Config, queueManager *queuemanager.QueueManager) *Operator {
 
 	return &Operator{
 		config:       config,
