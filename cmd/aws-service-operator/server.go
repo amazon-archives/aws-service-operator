@@ -6,7 +6,6 @@ import (
 	"os/signal"
 	"syscall"
 
-	"github.com/awslabs/aws-service-operator/pkg/logger"
 	"github.com/awslabs/aws-service-operator/pkg/server"
 	"github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
@@ -22,12 +21,6 @@ var serverCmd = &cobra.Command{
 			logrus.Fatalf("%s", err)
 		}
 
-		logger, err := logger.Configure(config.LoggingConfig)
-		if err != nil {
-			logrus.Fatalf("Failed to configure logging: '%s'" + err.Error())
-		}
-		config.Logger = logger
-
 		ctx, cancel := context.WithCancel(context.Background())
 		signalChan := make(chan os.Signal, 1)
 		signal.Notify(signalChan, syscall.SIGINT, syscall.SIGTERM)
@@ -35,7 +28,7 @@ var serverCmd = &cobra.Command{
 		go server.New(config).Run(ctx)
 
 		<-signalChan
-		logger.Info("shutdown signal received, exiting...")
+		config.Logger.Info("shutdown signal received, exiting...")
 		cancel()
 	},
 }

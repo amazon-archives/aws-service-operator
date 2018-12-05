@@ -5,22 +5,19 @@ import (
 	"fmt"
 	"net/http"
 
-	awsscheme "github.com/awslabs/aws-service-operator/pkg/client/clientset/versioned/scheme"
+	awsscheme "github.com/awslabs/aws-service-operator/pkg/apis/service-operator.aws/v1alpha1"
 	"github.com/awslabs/aws-service-operator/pkg/config"
 	opBase "github.com/awslabs/aws-service-operator/pkg/operators/base"
 	"github.com/awslabs/aws-service-operator/pkg/queue"
+	"github.com/awslabs/aws-service-operator/pkg/queuemanager"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"github.com/sirupsen/logrus"
 	corev1 "k8s.io/api/core/v1"
 	"k8s.io/client-go/kubernetes/scheme"
-	typedcorev1 "k8s.io/client-go/kubernetes/typed/core/v1"
-	"k8s.io/client-go/tools/record"
 )
 
-const controllerName = "aws-service-operator"
-
 // New creates a new server from a config
-func New(config *config.Config) *Server {
+func New(config config.Config) *Server {
 	return &Server{
 		Config: config,
 	}
@@ -51,22 +48,11 @@ func (c *Server) watchOperatorResources(errChan chan error, ctx context.Context)
 
 	logger.Info("getting kubernetes context")
 	awsscheme.AddToScheme(scheme.Scheme)
-	eventBroadcaster := record.NewBroadcaster()
-	eventBroadcaster.StartLogging(logger.Infof)
-	eventBroadcaster.StartRecordingToSink(&typedcorev1.EventSinkImpl{Interface: c.Config.KubeClientset.CoreV1().Events("")})
-	recorder := eventBroadcaster.NewRecorder(scheme.Scheme, corev1.EventSource{Component: controllerName})
-	c.Config.Recorder = recorder
 
-	queueURL, queueARN, queueManager, err := queue.RegisterQueue(c.Config, "cloudformation")
-	if err != nil {
-		logger.WithError(err).Error("error reqistering queue")
-	}
-	c.Config.QueueURL = queueURL
-	c.Config.QueueARN = queueARN
-
+	queueManager := queuemanager.New()
 	operators := opBase.New(c.Config, queueManager)
 
-	err = queue.SetQueuePolicy(c.Config, queueManager)
+	err := queue.SetQueuePolicy(c.Config, queueManager)
 	if err != nil {
 		logger.WithError(err).Error("error setting queue policy")
 	}

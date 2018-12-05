@@ -1,16 +1,17 @@
 package queuemanager
 
 import (
-	"github.com/awslabs/aws-service-operator/pkg/config"
 	"sync"
+
+	"github.com/awslabs/aws-service-operator/pkg/config"
 )
 
 // HandlerFunc allows you to define a custom function for when a message is stored
-type HandlerFunc func(config *config.Config, msg *MessageBody) error
+type HandlerFunc func(config config.Config, msg *MessageBody) error
 
 // Handler allows a custom function to be passed
 type Handler interface {
-	HandleMessage(config *config.Config, msg *MessageBody) error
+	HandleMessage(config config.Config, msg *MessageBody) error
 }
 
 // Queue Manager allows you to register topics and a handler function

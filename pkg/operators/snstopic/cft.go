@@ -15,7 +15,7 @@ import (
 )
 
 // New generates a new object
-func New(config *config.Config, snstopic *awsV1alpha1.SNSTopic, topicARN string) *Cloudformation {
+func New(config config.Config, snstopic *awsV1alpha1.SNSTopic, topicARN string) *Cloudformation {
 	return &Cloudformation{
 		SNSTopic: snstopic,
 		config:   config,
@@ -25,7 +25,7 @@ func New(config *config.Config, snstopic *awsV1alpha1.SNSTopic, topicARN string)
 
 // Cloudformation defines the snstopic cfts
 type Cloudformation struct {
-	config   *config.Config
+	config   config.Config
 	SNSTopic *awsV1alpha1.SNSTopic
 	topicARN string
 }

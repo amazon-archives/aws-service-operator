@@ -7,7 +7,7 @@ import (
 )
 
 // CreateExternalNameService will create a Kubernetes Servic Using ExternalName types
-func CreateExternalNameService(config *config.Config, resource interface{}, svcName string, svcNamespace string, externalNameTemplate string, svcPort int32) string {
+func CreateExternalNameService(config config.Config, resource interface{}, svcName string, svcNamespace string, externalNameTemplate string, svcPort int32) string {
 	logger := config.Logger
 
 	externalName, err := Templatize(externalNameTemplate, Data{Obj: resource, Config: config})

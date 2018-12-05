@@ -85,7 +85,7 @@ func Templatize(tempStr string, data interface{}) (resp string, err error) {
 }
 
 // GetCloudFormationTemplate will return the url to the CFT from the CFT resource
-func GetCloudFormationTemplate(config *config.Config, rType string, name string, namespace string) string {
+func GetCloudFormationTemplate(config config.Config, rType string, name string, namespace string) string {
 	logger := config.Logger
 	clientSet, _ := awsclient.NewForConfig(config.RESTConfig)
 

@@ -15,7 +15,7 @@ import (
 )
 
 // New generates a new object
-func New(config *config.Config, dynamodb *awsV1alpha1.DynamoDB, topicARN string) *Cloudformation {
+func New(config config.Config, dynamodb *awsV1alpha1.DynamoDB, topicARN string) *Cloudformation {
 	return &Cloudformation{
 		DynamoDB: dynamodb,
 		config:   config,
@@ -25,7 +25,7 @@ func New(config *config.Config, dynamodb *awsV1alpha1.DynamoDB, topicARN string)
 
 // Cloudformation defines the dynamodb cfts
 type Cloudformation struct {
-	config   *config.Config
+	config   config.Config
 	DynamoDB *awsV1alpha1.DynamoDB
 	topicARN string
 }

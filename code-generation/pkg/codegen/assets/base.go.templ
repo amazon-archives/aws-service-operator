@@ -10,7 +10,7 @@ import (
 )
 
 type base struct {
-  config *config.Config
+  config config.Config
   queueManager *queuemanager.QueueManager
   {{- range $index, $element := .Items}}
   {{$element.Spec.Resource.Name}} *{{$element.Spec.Resource.Name}}.Operator
@@ -18,7 +18,7 @@ type base struct {
 }
 
 func New(
-  config *config.Config,
+  config config.Config,
   queueManager *queuemanager.QueueManager,
 ) *base {
   return &base{

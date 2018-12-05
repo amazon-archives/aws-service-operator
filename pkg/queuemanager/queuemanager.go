@@ -2,9 +2,10 @@ package queuemanager
 
 import (
 	"encoding/json"
+	"strings"
+
 	"github.com/awslabs/aws-service-operator/pkg/config"
 	"github.com/awslabs/aws-service-operator/pkg/helpers"
-	"strings"
 )
 
 // New will return the QueueManager
@@ -43,7 +44,7 @@ func (q *QueueManager) Keys() []string {
 }
 
 // HandleMessage will stub the handler for processing messages
-func (f HandlerFunc) HandleMessage(config *config.Config, msg *MessageBody) error {
+func (f HandlerFunc) HandleMessage(config config.Config, msg *MessageBody) error {
 	return f(config, msg)
 }
 

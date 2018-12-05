@@ -26,13 +26,13 @@ import (
 
 // Operator represents a controller object for object store custom resources
 type Operator struct {
-	config       *config.Config
+	config       config.Config
 	topicARN     string
 	queueManager *queuemanager.QueueManager
 }
 
 // NewOperator create controller for watching object store custom resources created
-func NewOperator(config *config.Config, queueManager *queuemanager.QueueManager) *Operator {
+func NewOperator(config config.Config, queueManager *queuemanager.QueueManager) *Operator {
 	queuectrl := queue.New(config, config.AWSClientset, 10)
 	topicARN, _ := queuectrl.Register("s3bucket")
 	queueManager.Add(topicARN, queuemanager.HandlerFunc(QueueUpdater))
@@ -57,7 +57,7 @@ func (c *Operator) StartWatch(ctx context.Context, namespace string) {
 }
 
 // QueueUpdater will take the messages from the queue and process them
-func QueueUpdater(config *config.Config, msg *queuemanager.MessageBody) error {
+func QueueUpdater(config config.Config, msg *queuemanager.MessageBody) error {
 	logger := config.Logger
 	var name, namespace string
 	if msg.Updatable {
@@ -167,7 +167,7 @@ func (c *Operator) onDelete(obj interface{}) {
 
 	c.config.Logger.Infof("deleted s3bucket '%s'", s.Name)
 }
-func incrementRollbackCount(config *config.Config, name string, namespace string) error {
+func incrementRollbackCount(config config.Config, name string, namespace string) error {
 	logger := config.Logger
 	clientSet, _ := awsclient.NewForConfig(config.RESTConfig)
 	resource, err := clientSet.S3Buckets(namespace).Get(name, metav1.GetOptions{})
@@ -187,7 +187,7 @@ func incrementRollbackCount(config *config.Config, name string, namespace string
 	return nil
 }
 
-func updateStatus(config *config.Config, name string, namespace string, stackID string, status string, reason string) (*awsV1alpha1.S3Bucket, error) {
+func updateStatus(config config.Config, name string, namespace string, stackID string, status string, reason string) (*awsV1alpha1.S3Bucket, error) {
 	logger := config.Logger
 	clientSet, _ := awsclient.NewForConfig(config.RESTConfig)
 	resource, err := clientSet.S3Buckets(namespace).Get(name, metav1.GetOptions{})
@@ -227,7 +227,7 @@ func updateStatus(config *config.Config, name string, namespace string, stackID 
 	return resourceCopy, nil
 }
 
-func deleteStack(config *config.Config, name string, namespace string, stackID string) (*awsV1alpha1.S3Bucket, error) {
+func deleteStack(config config.Config, name string, namespace string, stackID string) (*awsV1alpha1.S3Bucket, error) {
 	logger := config.Logger
 	clientSet, _ := awsclient.NewForConfig(config.RESTConfig)
 	resource, err := clientSet.S3Buckets(namespace).Get(name, metav1.GetOptions{})
@@ -246,7 +246,7 @@ func deleteStack(config *config.Config, name string, namespace string, stackID s
 	return resource, err
 }
 
-func syncAdditionalResources(config *config.Config, s *awsV1alpha1.S3Bucket) (err error) {
+func syncAdditionalResources(config config.Config, s *awsV1alpha1.S3Bucket) (err error) {
 	clientSet, _ := awsclient.NewForConfig(config.RESTConfig)
 	resource, err := clientSet.S3Buckets(s.Namespace).Get(s.Name, metav1.GetOptions{})
 	if err != nil {
