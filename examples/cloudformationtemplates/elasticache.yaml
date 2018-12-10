@@ -81,7 +81,6 @@ data:
         Description: >-
           The Amazon EC2 Availability Zone in which the cache cluster is created.
         Type: String
-        Default: ""
       PreferredAvailabilityZones:
         Description: >-
           For Memcached cache clusters, the list of Availability Zones in which cache nodes are created. The number of Availability Zones listed must equal the number of cache nodes. For example, if you want to create three nodes in two different Availability Zones, you can specify ["us-east-1a", "us-east-1a", "us-east-1b"], which would create two nodes in us-east-1a and one node in us-east-1b. 
@@ -95,6 +94,18 @@ data:
         Description: >-
           A list of VPC security group IDs. If your cache cluster isn't in a VPC, specify the CacheSecurityGroupNames property instead.
         Type: List<AWS::EC2::SecurityGroup::Id>
+    Conditions:
+      HasKeyName:
+        Fn::Not:
+        - Fn::Equals:
+          - ''
+          - Ref: PreferredAvailabilityZones 
+        - Fn::Equals:
+          - ''
+          - Ref: PreferredAvailabilityZone 
+        - Fn::Equals:
+          - ''
+          - Ref: AZMode
     Resources:
       ElastiCacheCluster:
         Type: AWS::ElastiCache::CacheCluster
