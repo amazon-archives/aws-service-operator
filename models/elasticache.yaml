@@ -29,6 +29,12 @@ spec:
           Indicates that minor engine upgrades will be applied automatically to the cache cluster during the maintenance window.
         structKey: AutoMinorVersionUpgrade
         templateKey: AutoMinorVersionUpgrade
+      - key: AZMode
+        type: string
+        description: |
+          For Memcached cache clusters, indicates whether the nodes are created in a single Availability Zone or across multiple Availability Zones in the cluster's region.
+        structKey: AZMode
+        templateKey: AZMode
       - key: CacheNodeType
         type: string
         description: |
@@ -83,6 +89,18 @@ spec:
           The weekly time range (in UTC) during which system maintenance can occur.
         structKey: PreferredMaintenanceWindow
         templateKey: PreferredMaintenanceWindow
+      - key: PreferredAvailabilityZone
+        type: string
+        description: |
+          The Amazon EC2 Availability Zone in which the cache cluster is created.
+        structKey: PreferredAvailabilityZone
+        templateKey: PreferredAvailabilityZone
+      - key: PreferredAvailabilityZones
+        type: string
+        description: 
+          FIX ME needs to be a list type - For Memcached cache clusters, the list of Availability Zones in which cache nodes are created. The number of Availability Zones listed must equal the number of cache nodes. For example, if you want to create three nodes in two different Availability Zones, you can specify ["us-east-1a", "us-east-1a", "us-east-1b"], which would create two nodes in us-east-1a and one node in us-east-1b. 
+        structKey: PreferredAvailabilityZones
+        templateKey: PreferredAvailabilityZones
       - key: SnapshotWindow
         type: string
         description: |
@@ -92,7 +110,7 @@ spec:
       - key: VpcSecurityGroupIds
         type: string
         description: |
-          FIX ME needs to be a list type, A list of VPC security group IDs. If your cache cluster isn't in a VPC, specify the CacheSecurityGroupNames property instead.
+          FIX ME needs to be a list type - A list of VPC security group IDs. If your cache cluster isn't in a VPC, specify the CacheSecurityGroupNames property instead.
         structKey: VpcSecurityGroupIds
         templateKey: VpcSecurityGroupIds
   output:
@@ -111,9 +129,21 @@ spec:
           The port number of the configuration endpoint for the Redis cache cluster.
         structKey: RedisEndpointPort
         templateKey: RedisEndpointPort
+      - key: ConfigurationEndpoint
+        type: string
+        description: |
+          The DNS address of the configuration endpoint for the Memcached cache cluster.
+        structKey: ConfigurationEndpointAddress
+        templateKey: ConfigurationEndpointAddress
+      - key: ConfigurationEndpointPort
+        type: string
+        description: |
+          The port number of the configuration endpoint for the Memcached cache cluster.
+        structKey: ConfigurationEndpointPort
+        templateKey: ConfigurationEndpointPort
   additionalResources:
     services:
-    - name: RedisEndpointAddressSvc
+    - name: ElastiCacheAddressSvc
       type: ExternalName
       externalName: "{{ .Obj.Output.RedisEndpointAddress }}"
       ports:

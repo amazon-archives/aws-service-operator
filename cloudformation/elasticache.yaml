@@ -18,6 +18,11 @@ Parameters:
       Indicates that minor engine upgrades will be applied automatically to the cache cluster during the maintenance window.
     Type: String
     Default: false
+  AZMode:
+    Description: >-
+      For Memcached cache clusters, indicates whether the nodes are created in a single Availability Zone or across multiple Availability Zones in the cluster's region.
+    Type: String
+    Default: ""
   CacheNodeType:
     Description: >-
       The compute and memory capacity of nodes in a cache cluster.
@@ -65,6 +70,14 @@ Parameters:
       The weekly time range (in UTC) during which system maintenance can occur.
     Type: String
     Default: mon:05:00-mon:09:00
+  PreferredAvailabilityZone:
+    Description: >-
+      The Amazon EC2 Availability Zone in which the cache cluster is created.
+    Type: String
+  PreferredAvailabilityZones:
+    Description: >-
+      For Memcached cache clusters, the list of Availability Zones in which cache nodes are created. The number of Availability Zones listed must equal the number of cache nodes. For example, if you want to create three nodes in two different Availability Zones, you can specify ["us-east-1a", "us-east-1a", "us-east-1b"], which would create two nodes in us-east-1a and one node in us-east-1b. 
+    Type: List<AWS::EC2::SecurityGroup::Id> 
   SnapshotWindow:
     Description: >-
       For Redis cache clusters, the daily time range (in UTC) during which ElastiCache will begin taking a daily snapshot of your node group. For example, you can specify 05:00-09:00.
@@ -74,11 +87,28 @@ Parameters:
     Description: >-
       A list of VPC security group IDs. If your cache cluster isn't in a VPC, specify the CacheSecurityGroupNames property instead.
     Type: List<AWS::EC2::SecurityGroup::Id>
+Conditions:
+  HasKeyName:
+    Fn::Not:
+    - Fn::Equals:
+      - ''
+      - Ref: PreferredAvailabilityZones 
+    - Fn::Equals:
+      - ''
+      - Ref: PreferredAvailabilityZone 
+    - Fn::Equals:
+      - ''
+      - Ref: AZMode
 Resources:
   ElastiCacheCluster:
     Type: AWS::ElastiCache::CacheCluster
     Properties: 
       AutoMinorVersionUpgrade: !Ref AutoMinorVersionUpgrade
+      AZMode: 
+        Fn::If:
+          - HasKeyName
+          - Ref: AZMode
+          - Ref: AWS::NoValue
       CacheNodeType: !Ref CacheNodeType
       CacheParameterGroupName: !Ref CacheParameterGroupName
       CacheSubnetGroupName: !Ref CacheSubnetGroupName
@@ -87,6 +117,16 @@ Resources:
       EngineVersion: !Ref EngineVersion
       NumCacheNodes: !Ref NumCacheNodes
       Port: !Ref Port
+      PreferredAvailabilityZone: 
+            Fn::If:
+              - HasKeyName
+              - Ref: PreferredAvailabilityZone
+              - Ref: AWS::NoValue
+          PreferredAvailabilityZones: 
+            Fn::If:
+              - HasKeyName
+              - Ref: PreferredAvailabilityZones
+              - Ref: AWS::NoValue
       PreferredMaintenanceWindow: !Ref PreferredMaintenanceWindow
       SnapshotWindow: !Ref SnapshotWindow
       Tags:
@@ -100,7 +140,11 @@ Resources:
           Value: !Ref ClusterName
         - Key: Heritage
           Value: operator.aws
-      VpcSecurityGroupIds: !Ref VpcSecurityGroupIds
+      VpcSecurityGroupIds: 
+        Fn::If:
+          - HasKeyName
+          - Ref: VpcSecurityGroupIds
+          - Ref: AWS:NoValue
 Outputs:
   RedisEndpointAddress:
     Value: !GetAtt
@@ -112,3 +156,14 @@ Outputs:
       - ElastiCacheCluster
       - RedisEndpoint.Port
     Description: The port number of the configuration endpoint for the Redis cache cluster.
+  ConfigurationEndpointAddress:
+    Value: !GetAtt
+      - ElastiCacheCluster
+      - ConfigurationEndpoint.Address
+    Description: The DNS address of the configuration endpoint for the Memcached cache cluster. 
+  ConfigurationEndpointPort:
+    Value: !GetAtt 
+      - ElastiCacheCluster
+      - ConfigurationEndpoint.Port
+    Description: The port number of the configuration endpoint for the Memcached cache cluster.
+ 
