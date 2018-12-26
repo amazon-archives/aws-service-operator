@@ -98,7 +98,7 @@ spec:
       - key: PreferredAvailabilityZones
         type: string
         description: 
-          FIX ME needs to be a list type - For Memcached cache clusters, the list of Availability Zones in which cache nodes are created. The number of Availability Zones listed must equal the number of cache nodes. For example, if you want to create three nodes in two different Availability Zones, you can specify ["us-east-1a", "us-east-1a", "us-east-1b"], which would create two nodes in us-east-1a and one node in us-east-1b. 
+          For Memcached cache clusters, the comma seperated list of Availability Zones in which cache nodes are created. The number of Availability Zones listed must equal the number of cache nodes. For example, if you want to create three nodes in two different Availability Zones, you can specify ["us-east-1a", "us-east-1a", "us-east-1b"], which would create two nodes in us-east-1a and one node in us-east-1b. 
         structKey: PreferredAvailabilityZones
         templateKey: PreferredAvailabilityZones
       - key: SnapshotWindow
@@ -110,7 +110,7 @@ spec:
       - key: VpcSecurityGroupIds
         type: string
         description: |
-          FIX ME needs to be a list type - A list of VPC security group IDs. If your cache cluster isn't in a VPC, specify the CacheSecurityGroupNames property instead.
+          A comma seperated list of VPC security group IDs. If your cache cluster isn't in a VPC, specify the CacheSecurityGroupNames property instead.
         structKey: VpcSecurityGroupIds
         templateKey: VpcSecurityGroupIds
   output:
@@ -145,6 +145,6 @@ spec:
     services:
     - name: ElastiCacheAddressSvc
       type: ExternalName
-      externalName: "{{ .Obj.Output.RedisEndpointAddress }}"
+      externalName: "{{ if .Obj.Output.RedisEndpointAddress }}{{ .Obj.Output.RedisEndpointAddress }}{{ else }}{{ .Obj.Output.ConfigurationEndpointAddress }}{{end}}"
       ports:
-      - port: 6379
+      - port: "{{ if .Obj.Output.RedisEndpointPort }}{{ .Obj.Output.RedisEndpointPort }}{{ else }}{{ .Obj.Output.ConfigurationEndpointPort }}{{end}}"

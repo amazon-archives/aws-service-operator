@@ -209,6 +209,8 @@ func updateStatus(config *config.Config, name string, namespace string, stackID 
 		}
 		resourceCopy.Output.RedisEndpointAddress = outputs["RedisEndpointAddress"]
 		resourceCopy.Output.RedisEndpointPort = outputs["RedisEndpointPort"]
+		resourceCopy.Output.ConfigurationEndpointAddress = outputs["ConfigurationEndpointAddress"]
+		resourceCopy.Output.ConfigurationEndpointPort = outputs["ConfigurationEndpointPort"]
 	}
 
 	_, err = clientSet.ElastiCaches(namespace).Update(resourceCopy)
@@ -254,8 +256,8 @@ func syncAdditionalResources(config *config.Config, s *awsV1alpha1.ElastiCache) 
 	resource = resource.DeepCopy()
 
 	services := []string{}
-	RedisEndpointAddressSvc := helpers.CreateExternalNameService(config, s, s.Name, s.Namespace, "{{ .Obj.Output.RedisEndpointAddress }}", 6379)
-	services = append(services, RedisEndpointAddressSvc)
+	ElastiCacheAddressSvc := helpers.CreateExternalNameService(config, s, s.Name, s.Namespace, "{{ if .Obj.Output.RedisEndpointAddress }}{{ .Obj.Output.RedisEndpointAddress }}{{ else }}{{ .Obj.Output.ConfigurationEndpointAddress }}{{end}}", 6379)
+	services = append(services, ElastiCacheAddressSvc)
 	resource.AdditionalResources.Services = services
 
 	_, err = clientSet.ElastiCaches(s.Namespace).Update(resource)

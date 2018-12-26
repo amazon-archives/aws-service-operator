@@ -87,6 +87,12 @@ func (s *Cloudformation) CreateStack() (output *cloudformation.CreateStackOutput
 		return output, err
 	}
 	AutoMinorVersionUpgrade := helpers.CreateParam("AutoMinorVersionUpgrade", helpers.Stringify(AutoMinorVersionUpgradeValue))
+	AZModeTemp := "{{.Obj.Spec.AZMode}}"
+	AZModeValue, err := helpers.Templatize(AZModeTemp, helpers.Data{Obj: s.ElastiCache, Config: s.config, Helpers: helpers.New()})
+	if err != nil {
+		return output, err
+	}
+	AZMode := helpers.CreateParam("AZMode", helpers.Stringify(AZModeValue))
 	CacheNodeTypeTemp := "{{.Obj.Spec.CacheNodeType}}"
 	CacheNodeTypeValue, err := helpers.Templatize(CacheNodeTypeTemp, helpers.Data{Obj: s.ElastiCache, Config: s.config, Helpers: helpers.New()})
 	if err != nil {
@@ -141,6 +147,18 @@ func (s *Cloudformation) CreateStack() (output *cloudformation.CreateStackOutput
 		return output, err
 	}
 	PreferredMaintenanceWindow := helpers.CreateParam("PreferredMaintenanceWindow", helpers.Stringify(PreferredMaintenanceWindowValue))
+	PreferredAvailabilityZoneTemp := "{{.Obj.Spec.PreferredAvailabilityZone}}"
+	PreferredAvailabilityZoneValue, err := helpers.Templatize(PreferredAvailabilityZoneTemp, helpers.Data{Obj: s.ElastiCache, Config: s.config, Helpers: helpers.New()})
+	if err != nil {
+		return output, err
+	}
+	PreferredAvailabilityZone := helpers.CreateParam("PreferredAvailabilityZone", helpers.Stringify(PreferredAvailabilityZoneValue))
+	PreferredAvailabilityZonesTemp := "{{.Obj.Spec.PreferredAvailabilityZones}}"
+	PreferredAvailabilityZonesValue, err := helpers.Templatize(PreferredAvailabilityZonesTemp, helpers.Data{Obj: s.ElastiCache, Config: s.config, Helpers: helpers.New()})
+	if err != nil {
+		return output, err
+	}
+	PreferredAvailabilityZones := helpers.CreateParam("PreferredAvailabilityZones", helpers.Stringify(PreferredAvailabilityZonesValue))
 	SnapshotWindowTemp := "{{.Obj.Spec.SnapshotWindow}}"
 	SnapshotWindowValue, err := helpers.Templatize(SnapshotWindowTemp, helpers.Data{Obj: s.ElastiCache, Config: s.config, Helpers: helpers.New()})
 	if err != nil {
@@ -161,6 +179,7 @@ func (s *Cloudformation) CreateStack() (output *cloudformation.CreateStackOutput
 	parameters = append(parameters, clusterName)
 	parameters = append(parameters, elastiCacheClusterName)
 	parameters = append(parameters, AutoMinorVersionUpgrade)
+	parameters = append(parameters, AZMode)
 	parameters = append(parameters, CacheNodeType)
 	parameters = append(parameters, CacheParameterGroupName)
 	parameters = append(parameters, CacheSubnetGroupName)
@@ -170,6 +189,8 @@ func (s *Cloudformation) CreateStack() (output *cloudformation.CreateStackOutput
 	parameters = append(parameters, NumCacheNodes)
 	parameters = append(parameters, Port)
 	parameters = append(parameters, PreferredMaintenanceWindow)
+	parameters = append(parameters, PreferredAvailabilityZone)
+	parameters = append(parameters, PreferredAvailabilityZones)
 	parameters = append(parameters, SnapshotWindow)
 	parameters = append(parameters, VpcSecurityGroupIds)
 
@@ -218,6 +239,12 @@ func (s *Cloudformation) UpdateStack(updated *awsV1alpha1.ElastiCache) (output *
 		return output, err
 	}
 	AutoMinorVersionUpgrade := helpers.CreateParam("AutoMinorVersionUpgrade", helpers.Stringify(AutoMinorVersionUpgradeValue))
+	AZModeTemp := "{{.Obj.Spec.AZMode}}"
+	AZModeValue, err := helpers.Templatize(AZModeTemp, helpers.Data{Obj: updated, Config: s.config, Helpers: helpers.New()})
+	if err != nil {
+		return output, err
+	}
+	AZMode := helpers.CreateParam("AZMode", helpers.Stringify(AZModeValue))
 	CacheNodeTypeTemp := "{{.Obj.Spec.CacheNodeType}}"
 	CacheNodeTypeValue, err := helpers.Templatize(CacheNodeTypeTemp, helpers.Data{Obj: updated, Config: s.config, Helpers: helpers.New()})
 	if err != nil {
@@ -272,6 +299,18 @@ func (s *Cloudformation) UpdateStack(updated *awsV1alpha1.ElastiCache) (output *
 		return output, err
 	}
 	PreferredMaintenanceWindow := helpers.CreateParam("PreferredMaintenanceWindow", helpers.Stringify(PreferredMaintenanceWindowValue))
+	PreferredAvailabilityZoneTemp := "{{.Obj.Spec.PreferredAvailabilityZone}}"
+	PreferredAvailabilityZoneValue, err := helpers.Templatize(PreferredAvailabilityZoneTemp, helpers.Data{Obj: updated, Config: s.config, Helpers: helpers.New()})
+	if err != nil {
+		return output, err
+	}
+	PreferredAvailabilityZone := helpers.CreateParam("PreferredAvailabilityZone", helpers.Stringify(PreferredAvailabilityZoneValue))
+	PreferredAvailabilityZonesTemp := "{{.Obj.Spec.PreferredAvailabilityZones}}"
+	PreferredAvailabilityZonesValue, err := helpers.Templatize(PreferredAvailabilityZonesTemp, helpers.Data{Obj: updated, Config: s.config, Helpers: helpers.New()})
+	if err != nil {
+		return output, err
+	}
+	PreferredAvailabilityZones := helpers.CreateParam("PreferredAvailabilityZones", helpers.Stringify(PreferredAvailabilityZonesValue))
 	SnapshotWindowTemp := "{{.Obj.Spec.SnapshotWindow}}"
 	SnapshotWindowValue, err := helpers.Templatize(SnapshotWindowTemp, helpers.Data{Obj: updated, Config: s.config, Helpers: helpers.New()})
 	if err != nil {
@@ -292,6 +331,7 @@ func (s *Cloudformation) UpdateStack(updated *awsV1alpha1.ElastiCache) (output *
 	parameters = append(parameters, clusterName)
 	parameters = append(parameters, elastiCacheClusterName)
 	parameters = append(parameters, AutoMinorVersionUpgrade)
+	parameters = append(parameters, AZMode)
 	parameters = append(parameters, CacheNodeType)
 	parameters = append(parameters, CacheParameterGroupName)
 	parameters = append(parameters, CacheSubnetGroupName)
@@ -301,6 +341,8 @@ func (s *Cloudformation) UpdateStack(updated *awsV1alpha1.ElastiCache) (output *
 	parameters = append(parameters, NumCacheNodes)
 	parameters = append(parameters, Port)
 	parameters = append(parameters, PreferredMaintenanceWindow)
+	parameters = append(parameters, PreferredAvailabilityZone)
+	parameters = append(parameters, PreferredAvailabilityZones)
 	parameters = append(parameters, SnapshotWindow)
 	parameters = append(parameters, VpcSecurityGroupIds)
 

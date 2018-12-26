@@ -25,6 +25,7 @@ type ElastiCacheSpec struct {
 	CloudFormationTemplateNamespace string `json:"cloudFormationTemplateNamespace"`
 	RollbackCount                   int    `json:"rollbackCount"`
 	AutoMinorVersionUpgrade         bool   `json:"AutoMinorVersionUpgrade"`
+	AZMode                          string `json:"AZMode"`
 	CacheNodeType                   string `json:"CacheNodeType"`
 	CacheParameterGroupName         string `json:"CacheParameterGroupName"`
 	CacheSubnetGroupName            string `json:"CacheSubnetGroupName"`
@@ -34,14 +35,18 @@ type ElastiCacheSpec struct {
 	NumCacheNodes                   int    `json:"NumCacheNodes"`
 	Port                            int    `json:"Port"`
 	PreferredMaintenanceWindow      string `json:"PreferredMaintenanceWindow"`
+	PreferredAvailabilityZone       string `json:"PreferredAvailabilityZone"`
+	PreferredAvailabilityZones      string `json:"PreferredAvailabilityZones"`
 	SnapshotWindow                  string `json:"SnapshotWindow"`
 	VpcSecurityGroupIds             string `json:"VpcSecurityGroupIds"`
 }
 
 // ElastiCacheOutput defines the output resource for ElastiCache
 type ElastiCacheOutput struct {
-	RedisEndpointAddress string `json:"RedisEndpointAddress"`
-	RedisEndpointPort    string `json:"RedisEndpointPort"`
+	RedisEndpointAddress         string `json:"RedisEndpointAddress"`
+	RedisEndpointPort            string `json:"RedisEndpointPort"`
+	ConfigurationEndpointAddress string `json:"ConfigurationEndpoint"`
+	ConfigurationEndpointPort    string `json:"ConfigurationEndpointPort"`
 }
 
 // ElastiCacheStatus holds the status of the Cloudformation template
