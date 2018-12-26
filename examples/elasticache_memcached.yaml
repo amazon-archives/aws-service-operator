@@ -1,13 +1,13 @@
 apiVersion: service-operator.aws/v1alpha1
 kind: ElastiCache
 metadata:
-  name: elasticache8
+  name: ec-memcached
 spec:
   CacheSubnetGroupName: "loadtest-cluster-k8s"
-  VpcSecurityGroupIds: "sg-0581b94aa3c0db333"
+  VpcSecurityGroupIds: "sg-0581b94aa3c0db58c, sg-02b6d0034e8c2fa1b"
   AutoMinorVersionUpgrade: true
-  Engine: redis
-  EngineVersion: 5.0.0
+  Engine: memcached
+  EngineVersion: 1.5.10
   NumCacheNodes: 1
-  Port: 6379
+  Port: 11211
   CacheNodeType: "cache.m4.large"

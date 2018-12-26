@@ -1,0 +1,13 @@
+apiVersion: service-operator.aws/v1alpha1
+kind: ElastiCache
+metadata:
+  name: elasticache10
+spec:
+  CacheSubnetGroupName: "loadtest-cluster-k8s"
+  VpcSecurityGroupIds: "sg-0581b94aa3c0db58c, sg-02b6d0034e8c2fa1b"
+  AutoMinorVersionUpgrade: true
+  Engine: redis
+  EngineVersion: 5.0.0
+  NumCacheNodes: 1
+  Port: 6379
+  CacheNodeType: "cache.m4.large"

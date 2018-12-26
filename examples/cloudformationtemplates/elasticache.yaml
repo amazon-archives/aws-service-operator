@@ -29,7 +29,6 @@ data:
         Description: >-
           For Memcached cache clusters, indicates whether the nodes are created in a single Availability Zone or across multiple Availability Zones in the cluster's region.
         Type: String
-        Default: ""
       CacheNodeType:
         Description: >-
           The compute and memory capacity of nodes in a cache cluster.
@@ -84,7 +83,7 @@ data:
       PreferredAvailabilityZones:
         Description: >-
           For Memcached cache clusters, the list of Availability Zones in which cache nodes are created. The number of Availability Zones listed must equal the number of cache nodes. For example, if you want to create three nodes in two different Availability Zones, you can specify ["us-east-1a", "us-east-1a", "us-east-1b"], which would create two nodes in us-east-1a and one node in us-east-1b. 
-        Type: List<AWS::EC2::SecurityGroup::Id> 
+        Type: CommaDelimitedList
       SnapshotWindow:
         Description: >-
           For Redis cache clusters, the daily time range (in UTC) during which ElastiCache will begin taking a daily snapshot of your node group. For example, you can specify 05:00-09:00.
@@ -93,29 +92,27 @@ data:
       VpcSecurityGroupIds:
         Description: >-
           A list of VPC security group IDs. If your cache cluster isn't in a VPC, specify the CacheSecurityGroupNames property instead.
-        Type: List<AWS::EC2::SecurityGroup::Id>
+        Type: CommaDelimitedList
     Conditions:
-      HasKeyName:
-        Fn::Not:
-        - Fn::Equals:
-          - ''
-          - Ref: PreferredAvailabilityZones 
-        - Fn::Equals:
-          - ''
-          - Ref: PreferredAvailabilityZone 
-        - Fn::Equals:
-          - ''
-          - Ref: AZMode
+      IsRedis:
+        !Equals [!Ref Engine, "redis"]
+      IsMemcached:
+        !Equals [!Ref Engine, "memcached"]
+      HasAZMode:
+        !Not [!Equals [!Ref AZMode, ""]]
+      HasPreferredAvailabilityZones:
+        !Not [!Equals [!Select [0, !Ref PreferredAvailabilityZones], ""]]
+      HasPreferredAvailabilityZone:
+        !Not [!Equals [!Ref PreferredAvailabilityZone, ""]]
+      HasVpcSecurityGroupIds:
+        !Not [!Equals [!Select [0, !Ref VpcSecurityGroupIds], ""]]
     Resources:
       ElastiCacheCluster:
         Type: AWS::ElastiCache::CacheCluster
         Properties: 
           AutoMinorVersionUpgrade: !Ref AutoMinorVersionUpgrade
           AZMode: 
-            Fn::If:
-              - HasKeyName
-              - Ref: AZMode
-              - Ref: AWS::NoValue
+            !If [HasAZMode, !Ref AZMode, !Ref "AWS::NoValue"]
           CacheNodeType: !Ref CacheNodeType
           CacheParameterGroupName: !Ref CacheParameterGroupName
           CacheSubnetGroupName: !Ref CacheSubnetGroupName
@@ -125,15 +122,9 @@ data:
           NumCacheNodes: !Ref NumCacheNodes
           Port: !Ref Port
           PreferredAvailabilityZone: 
-            Fn::If:
-              - HasKeyName
-              - Ref: PreferredAvailabilityZone
-              - Ref: AWS::NoValue
-          PreferredAvailabilityZones: 
-            Fn::If:
-              - HasKeyName
-              - Ref: PreferredAvailabilityZones
-              - Ref: AWS::NoValue
+            !If [HasPreferredAvailabilityZone, !Ref PreferredAvailabilityZone, !Ref "AWS::NoValue"]
+          PreferredAvailabilityZones:
+            !If [HasPreferredAvailabilityZones, !Ref PreferredAvailabilityZones, !Ref "AWS::NoValue"]
           PreferredMaintenanceWindow: !Ref PreferredMaintenanceWindow
           SnapshotWindow: !Ref SnapshotWindow
           Tags:
@@ -148,18 +139,30 @@ data:
             - Key: Heritage
               Value: operator.aws
           VpcSecurityGroupIds: 
-            Fn::If:
-              - HasKeyName
-              - Ref: VpcSecurityGroupIds
-              - Ref: AWS:NoValue
+            !If [HasVpcSecurityGroupIds, !Ref VpcSecurityGroupIds, !Ref "AWS::NoValue"]
     Outputs:
       RedisEndpointAddress:
         Value: !GetAtt
           - ElastiCacheCluster
           - RedisEndpoint.Address
+        Condition: IsRedis
         Description: The DNS address of the configuration endpoint for the Redis cache cluster.
       RedisEndpointPort:
         Value: !GetAtt 
           - ElastiCacheCluster
           - RedisEndpoint.Port
+        Condition: IsRedis
         Description: The port number of the configuration endpoint for the Redis cache cluster.
+      ConfigurationEndpointAddress:
+        Value: !GetAtt
+          - ElastiCacheCluster
+          - ConfigurationEndpoint.Address
+        Condition: IsMemcached    
+        Description: The DNS address of the configuration endpoint for the Memcached cache cluster. 
+      ConfigurationEndpointPort:
+        Value: !GetAtt 
+          - ElastiCacheCluster
+          - ConfigurationEndpoint.Port
+        Condition: IsMemcached    
+        Description: The port number of the configuration endpoint for the Memcached cache cluster.
+    
