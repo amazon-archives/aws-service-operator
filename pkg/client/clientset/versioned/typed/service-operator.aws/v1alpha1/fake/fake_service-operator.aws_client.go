@@ -37,10 +37,6 @@ func (c *FakeServiceoperatorV1alpha1) ECRRepositories(namespace string) v1alpha1
 	return &FakeECRRepositories{c, namespace}
 }
 
-func (c *FakeServiceoperatorV1alpha1) ElastiCaches(namespace string) v1alpha1.ElastiCacheInterface {
-	return &FakeElastiCaches{c, namespace}
-}
-
 func (c *FakeServiceoperatorV1alpha1) S3Buckets(namespace string) v1alpha1.S3BucketInterface {
 	return &FakeS3Buckets{c, namespace}
 }

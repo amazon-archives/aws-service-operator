@@ -27,7 +27,6 @@ type ServiceoperatorV1alpha1Interface interface {
 	CloudFormationTemplatesGetter
 	DynamoDBsGetter
 	ECRRepositoriesGetter
-	ElastiCachesGetter
 	S3BucketsGetter
 	SNSSubscriptionsGetter
 	SNSTopicsGetter
@@ -49,10 +48,6 @@ func (c *ServiceoperatorV1alpha1Client) DynamoDBs(namespace string) DynamoDBInte
 
 func (c *ServiceoperatorV1alpha1Client) ECRRepositories(namespace string) ECRRepositoryInterface {
 	return newECRRepositories(c, namespace)
-}
-
-func (c *ServiceoperatorV1alpha1Client) ElastiCaches(namespace string) ElastiCacheInterface {
-	return newElastiCaches(c, namespace)
 }
 
 func (c *ServiceoperatorV1alpha1Client) S3Buckets(namespace string) S3BucketInterface {
