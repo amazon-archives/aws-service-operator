@@ -39,6 +39,14 @@ type ECRRepositoryListerExpansion interface{}
 // ECRRepositoryNamespaceLister.
 type ECRRepositoryNamespaceListerExpansion interface{}
 
+// ElastiCacheListerExpansion allows custom methods to be added to
+// ElastiCacheLister.
+type ElastiCacheListerExpansion interface{}
+
+// ElastiCacheNamespaceListerExpansion allows custom methods to be added to
+// ElastiCacheNamespaceLister.
+type ElastiCacheNamespaceListerExpansion interface{}
+
 // S3BucketListerExpansion allows custom methods to be added to
 // S3BucketLister.
 type S3BucketListerExpansion interface{}
