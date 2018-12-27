@@ -148,7 +148,7 @@ func operatorGoTempl() (*asset, error) {
 		return nil, err
 	}
 
-	info := bindataFileInfo{name: "operator.go.templ", size: 11595, mode: os.FileMode(420), modTime: time.Unix(1543602919, 0)}
+	info := bindataFileInfo{name: "operator.go.templ", size: 11595, mode: os.FileMode(420), modTime: time.Unix(1545869951, 0)}
 	a := &asset{bytes: bytes, info: info}
 	return a, nil
 }
