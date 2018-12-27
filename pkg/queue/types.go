@@ -7,7 +7,7 @@ import (
 
 // Queue wraps the config object for updating
 type Queue struct {
-	config       *config.Config
+	config       config.Config
 	queueURL     string
 	awsclientset awsclient.ServiceoperatorV1alpha1Interface
 	timeout      int64

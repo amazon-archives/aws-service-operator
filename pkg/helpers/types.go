@@ -6,5 +6,5 @@ import "github.com/awslabs/aws-service-operator/pkg/config"
 type Data struct {
 	Helpers Helpers
 	Obj     interface{}
-	Config  *config.Config
+	Config  config.Config
 }

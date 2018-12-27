@@ -40,7 +40,7 @@ type Helpers struct {
 }
 
 // GetCloudFormationTemplateByName will find the resource by name
-func GetCloudFormationTemplateByName(config *config.Config, name string, namespace string) (interface{}, error) {
+func GetCloudFormationTemplateByName(config config.Config, name string, namespace string) (interface{}, error) {
 	logger := config.Logger
 	clientSet, _ := awsclient.NewForConfig(config.RESTConfig)
 	resource, err := clientSet.CloudFormationTemplates(namespace).Get(name, metav1.GetOptions{})
@@ -53,7 +53,7 @@ func GetCloudFormationTemplateByName(config *config.Config, name string, namespa
 }
 
 // GetDynamoDBByName will find the resource by name
-func GetDynamoDBByName(config *config.Config, name string, namespace string) (interface{}, error) {
+func GetDynamoDBByName(config config.Config, name string, namespace string) (interface{}, error) {
 	logger := config.Logger
 	clientSet, _ := awsclient.NewForConfig(config.RESTConfig)
 	resource, err := clientSet.DynamoDBs(namespace).Get(name, metav1.GetOptions{})
@@ -66,7 +66,7 @@ func GetDynamoDBByName(config *config.Config, name string, namespace string) (in
 }
 
 // GetECRRepositoryByName will find the resource by name
-func GetECRRepositoryByName(config *config.Config, name string, namespace string) (interface{}, error) {
+func GetECRRepositoryByName(config config.Config, name string, namespace string) (interface{}, error) {
 	logger := config.Logger
 	clientSet, _ := awsclient.NewForConfig(config.RESTConfig)
 	resource, err := clientSet.ECRRepositories(namespace).Get(name, metav1.GetOptions{})
@@ -92,7 +92,7 @@ func GetElastiCacheByName(config *config.Config, name string, namespace string) 
 }
 
 // GetS3BucketByName will find the resource by name
-func GetS3BucketByName(config *config.Config, name string, namespace string) (interface{}, error) {
+func GetS3BucketByName(config config.Config, name string, namespace string) (interface{}, error) {
 	logger := config.Logger
 	clientSet, _ := awsclient.NewForConfig(config.RESTConfig)
 	resource, err := clientSet.S3Buckets(namespace).Get(name, metav1.GetOptions{})
@@ -105,7 +105,7 @@ func GetS3BucketByName(config *config.Config, name string, namespace string) (in
 }
 
 // GetSNSSubscriptionByName will find the resource by name
-func GetSNSSubscriptionByName(config *config.Config, name string, namespace string) (interface{}, error) {
+func GetSNSSubscriptionByName(config config.Config, name string, namespace string) (interface{}, error) {
 	logger := config.Logger
 	clientSet, _ := awsclient.NewForConfig(config.RESTConfig)
 	resource, err := clientSet.SNSSubscriptions(namespace).Get(name, metav1.GetOptions{})
@@ -118,7 +118,7 @@ func GetSNSSubscriptionByName(config *config.Config, name string, namespace stri
 }
 
 // GetSNSTopicByName will find the resource by name
-func GetSNSTopicByName(config *config.Config, name string, namespace string) (interface{}, error) {
+func GetSNSTopicByName(config config.Config, name string, namespace string) (interface{}, error) {
 	logger := config.Logger
 	clientSet, _ := awsclient.NewForConfig(config.RESTConfig)
 	resource, err := clientSet.SNSTopics(namespace).Get(name, metav1.GetOptions{})
@@ -131,7 +131,7 @@ func GetSNSTopicByName(config *config.Config, name string, namespace string) (in
 }
 
 // GetSQSQueueByName will find the resource by name
-func GetSQSQueueByName(config *config.Config, name string, namespace string) (interface{}, error) {
+func GetSQSQueueByName(config config.Config, name string, namespace string) (interface{}, error) {
 	logger := config.Logger
 	clientSet, _ := awsclient.NewForConfig(config.RESTConfig)
 	resource, err := clientSet.SQSQueues(namespace).Get(name, metav1.GetOptions{})

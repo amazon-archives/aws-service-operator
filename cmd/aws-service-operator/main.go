@@ -9,6 +9,9 @@ import (
 	"github.com/aws/aws-sdk-go/aws/ec2metadata"
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/awslabs/aws-service-operator/pkg/config"
+	"github.com/awslabs/aws-service-operator/pkg/logger"
+	"github.com/awslabs/aws-service-operator/pkg/queue"
+	goVersion "github.com/christopherhein/go-version"
 	homedir "github.com/mitchellh/go-homedir"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
@@ -90,7 +93,14 @@ func initConfig() {
 	}
 }
 
-func getConfig() (c *config.Config, err error) {
+func getConfig() (c config.Config, err error) {
+	loggingConfig := config.LoggingConfig{
+		File:              logFile,
+		Level:             logLevel,
+		FullTimestamps:    true,
+		DisableTimestamps: false,
+	}
+
 	resourcesMap := map[string]bool{}
 	for _, r := range strings.Split(resources, ",") {
 		resourcesMap[r] = true
@@ -101,37 +111,49 @@ func getConfig() (c *config.Config, err error) {
 	if awsRegion == "" {
 		awsRegion, err = metadata.Region()
 		if err != nil {
-			return nil, err
+			return c, err
 		}
 	}
 
 	sess, err := session.NewSession(&aws.Config{Region: aws.String(awsRegion)})
 	if err != nil {
-		return nil, err
+		return c, err
 	}
 
-	c = &config.Config{
-		Region:     awsRegion,
-		Kubeconfig: kubeconfig,
-		MasterURL:  masterURL,
-		AWSSession: sess,
-		LoggingConfig: &config.LoggingConfig{
-			File:              logFile,
-			Level:             logLevel,
-			FullTimestamps:    true,
-			DisableTimestamps: false,
-		},
+	awsclientset, kubeclientset, restconfig, err := config.CreateContext(masterURL, kubeconfig)
+	if err != nil {
+		return c, err
+	}
+
+	logger, err := logger.Configure(loggingConfig)
+	if err != nil {
+		return c, err
+	}
+
+	queueURL, queueARN, err := queue.RegisterQueue(sess, clusterName, "cloudformation")
+	if err != nil {
+		return c, err
+	}
+
+	c = config.Config{
+		Region:           awsRegion,
+		Kubeconfig:       kubeconfig,
+		MasterURL:        masterURL,
+		Logger:           logger,
+		Version:          goVersion.New(version, commit, date),
+		AWSSession:       sess,
+		LoggingConfig:    loggingConfig,
+		AWSClientset:     awsclientset,
+		KubeClientset:    kubeclientset,
+		RESTConfig:       restconfig,
+		Recorder:         config.CreateRecorder(logger, kubeclientset),
 		Resources:        resourcesMap,
 		ClusterName:      clusterName,
 		Bucket:           bucket,
 		AccountID:        accountID,
 		DefaultNamespace: defaultNamespace,
+		QueueURL:         queueURL,
+		QueueARN:         queueARN,
 	}
-
-	err = c.CreateContext(masterURL, kubeconfig)
-	if err != nil {
-		return nil, err
-	}
-
 	return c, nil
 }

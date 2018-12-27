@@ -15,7 +15,7 @@ import (
 )
 
 type base struct {
-	config                 *config.Config
+	config                 config.Config
 	queueManager           *queuemanager.QueueManager
 	cloudformationtemplate *cloudformationtemplate.Operator
 	dynamodb               *dynamodb.Operator
@@ -28,7 +28,7 @@ type base struct {
 }
 
 func New(
-	config *config.Config,
+	config config.Config,
 	queueManager *queuemanager.QueueManager,
 ) *base {
 	return &base{

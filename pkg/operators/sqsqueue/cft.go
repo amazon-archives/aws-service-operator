@@ -15,7 +15,7 @@ import (
 )
 
 // New generates a new object
-func New(config *config.Config, sqsqueue *awsV1alpha1.SQSQueue, topicARN string) *Cloudformation {
+func New(config config.Config, sqsqueue *awsV1alpha1.SQSQueue, topicARN string) *Cloudformation {
 	return &Cloudformation{
 		SQSQueue: sqsqueue,
 		config:   config,
@@ -25,7 +25,7 @@ func New(config *config.Config, sqsqueue *awsV1alpha1.SQSQueue, topicARN string)
 
 // Cloudformation defines the sqsqueue cfts
 type Cloudformation struct {
-	config   *config.Config
+	config   config.Config
 	SQSQueue *awsV1alpha1.SQSQueue
 	topicARN string
 }
