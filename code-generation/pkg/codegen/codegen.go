@@ -196,7 +196,7 @@ func createFile(rootPath string, fileName string, templateName string, path stri
 	if templateName[len(templateName)-3:] == ".go" {
 		formatted, err = format.Source(bf.Bytes())
 		if err != nil {
-			log.Fatalf("Error formatting resolved template: %+v", err)
+			log.Fatalf("Error formatting resolved template %s: %+v", templateName, err)
 		}
 	}
 
