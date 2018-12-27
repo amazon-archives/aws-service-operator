@@ -294,7 +294,7 @@ func syncAdditionalResources(config config.Config, s *awsV1alpha1.{{.Spec.Kind}}
 	{{ if .Spec.AdditionalResources.Services }}services := []string{}{{end}}
 	{{- range $resource := .Spec.AdditionalResources.Services }}
 	{{- if eq $resource.Type "ExternalName"}}
-	{{$resource.Name}} := helpers.CreateExternalNameService(config, s, s.Name, s.Namespace, "{{$resource.ExternalName}}", {{(index $resource.Ports 0).Port}})
+	{{$resource.Name}} := helpers.CreateExternalNameService(config, s, s.Name, s.Namespace, "{{$resource.ExternalName}}", "{{(index $resource.Ports 0).Port}}")
 	services = append(services, {{$resource.Name}})
 	{{- end}}
 	{{- end}}

@@ -1,0 +1,168 @@
+apiVersion: service-operator.aws/v1alpha1
+kind: CloudFormationTemplate
+metadata:
+  name: elasticache
+data:
+  key: elasticache.yaml
+  template: |
+    AWSTemplateFormatVersion: "2010-09-09"
+    Description: 'AWS Operator - Amazon Elasticache Cluster'
+    Parameters:
+      Namespace:
+        Description: >-
+          This is the namespace for the Kubernetes object.
+        Type: String
+      ResourceVersion:
+        Type: String
+        Description: >-
+          This is the resource version for the Kubernetes object.
+      ResourceName:
+        Description: >-
+          This is the resource name for the Kubernetes object
+        Type: String
+      AutoMinorVersionUpgrade:
+        Description: >-
+          Indicates that minor engine upgrades will be applied automatically to the cache cluster during the maintenance window.
+        Type: String
+        Default: false
+      AZMode:
+        Description: >-
+          For Memcached cache clusters, indicates whether the nodes are created in a single Availability Zone or across multiple Availability Zones in the cluster's region.
+        Type: String
+      CacheNodeType:
+        Description: >-
+          The compute and memory capacity of nodes in a cache cluster.
+          https://docs.aws.amazon.com/AmazonElastiCache/latest/mem-ug/CacheNodes.SupportedTypes.html
+        Type: String
+        Default: cache.m5.large
+      CacheParameterGroupName:
+        Description: >-
+          The name of the cache parameter group that is associated with this cache cluster.
+        Type: String
+      CacheSubnetGroupName:
+        Description: >-
+          The cache subnet group that you associate with a cache cluster. 
+          "Required: Conditional. If you specified the VpcSecurityGroupIds property, you must specify this property."
+        Type: String
+      ClusterName:
+        Description: >-
+          This is the cluster name for the operator
+        Type: String
+      Engine:
+        Description: >-
+          The name of the cache engine to be used for this cache cluster, such as memcached or redis.
+        Type: String
+        Default: "redis"
+      EngineVersion:
+        Description: >-
+          The version of the cache engine to be used for this cluster.
+        Type: String
+        Default: "5.0.0"
+      NotificationTopicArn:
+        Description: >-
+          The Amazon Resource Name (ARN) of the Amazon Simple Notification Service (SNS) topic to which notifications will be sent.
+        Type: String
+      NumCacheNodes:
+        Description: >-
+          The number of cache nodes that the cache cluster should have.
+        Type: Number
+        Default: "1"
+      Port:
+        Description: >-
+          The port number on which each of the cache nodes will accept connections.
+        Type: Number
+      PreferredMaintenanceWindow:
+        Description: >-
+          The weekly time range (in UTC) during which system maintenance can occur.
+        Type: String
+        Default: mon:05:00-mon:09:00
+      PreferredAvailabilityZone:
+        Description: >-
+          The Amazon EC2 Availability Zone in which the cache cluster is created.
+        Type: String
+      PreferredAvailabilityZones:
+        Description: >-
+          For Memcached cache clusters, the list of Availability Zones in which cache nodes are created. The number of Availability Zones listed must equal the number of cache nodes. For example, if you want to create three nodes in two different Availability Zones, you can specify ["us-east-1a", "us-east-1a", "us-east-1b"], which would create two nodes in us-east-1a and one node in us-east-1b. 
+        Type: CommaDelimitedList
+      SnapshotWindow:
+        Description: >-
+          For Redis cache clusters, the daily time range (in UTC) during which ElastiCache will begin taking a daily snapshot of your node group. For example, you can specify 05:00-09:00.
+        Type: String
+        Default: "05:00-09:00"
+      VpcSecurityGroupIds:
+        Description: >-
+          A list of VPC security group IDs. If your cache cluster isn't in a VPC, specify the CacheSecurityGroupNames property instead.
+        Type: CommaDelimitedList
+    Conditions:
+      IsRedis:
+        !Equals [!Ref Engine, "redis"]
+      IsMemcached:
+        !Equals [!Ref Engine, "memcached"]
+      HasAZMode:
+        !Not [!Equals [!Ref AZMode, ""]]
+      HasPreferredAvailabilityZones:
+        !Not [!Equals [!Select [0, !Ref PreferredAvailabilityZones], ""]]
+      HasPreferredAvailabilityZone:
+        !Not [!Equals [!Ref PreferredAvailabilityZone, ""]]
+      HasVpcSecurityGroupIds:
+        !Not [!Equals [!Select [0, !Ref VpcSecurityGroupIds], ""]]
+    Resources:
+      ElastiCacheCluster:
+        Type: AWS::ElastiCache::CacheCluster
+        Properties: 
+          AutoMinorVersionUpgrade: !Ref AutoMinorVersionUpgrade
+          AZMode: 
+            !If [HasAZMode, !Ref AZMode, !Ref "AWS::NoValue"]
+          CacheNodeType: !Ref CacheNodeType
+          CacheParameterGroupName: !Ref CacheParameterGroupName
+          CacheSubnetGroupName: !Ref CacheSubnetGroupName
+          ClusterName: !Ref ClusterName
+          Engine: !Ref Engine
+          EngineVersion: !Ref EngineVersion
+          NumCacheNodes: !Ref NumCacheNodes
+          Port: !Ref Port
+          PreferredAvailabilityZone: 
+            !If [HasPreferredAvailabilityZone, !Ref PreferredAvailabilityZone, !Ref "AWS::NoValue"]
+          PreferredAvailabilityZones:
+            !If [HasPreferredAvailabilityZones, !Ref PreferredAvailabilityZones, !Ref "AWS::NoValue"]
+          PreferredMaintenanceWindow: !Ref PreferredMaintenanceWindow
+          SnapshotWindow: !Ref SnapshotWindow
+          Tags:
+            - Key: Namespace
+              Value: !Ref Namespace
+            - Key: ResourceVersion
+              Value: !Ref ResourceVersion
+            - Key: ResourceName
+              Value: !Ref ResourceName
+            - Key: ClusterName
+              Value: !Ref ClusterName
+            - Key: Heritage
+              Value: operator.aws
+          VpcSecurityGroupIds: 
+            !If [HasVpcSecurityGroupIds, !Ref VpcSecurityGroupIds, !Ref "AWS::NoValue"]
+    Outputs:
+      RedisEndpointAddress:
+        Value: !GetAtt
+          - ElastiCacheCluster
+          - RedisEndpoint.Address
+        Condition: IsRedis
+        Description: The DNS address of the configuration endpoint for the Redis cache cluster.
+      RedisEndpointPort:
+        Value: !GetAtt 
+          - ElastiCacheCluster
+          - RedisEndpoint.Port
+        Condition: IsRedis
+        Description: The port number of the configuration endpoint for the Redis cache cluster.
+      ConfigurationEndpointAddress:
+        Value: !GetAtt
+          - ElastiCacheCluster
+          - ConfigurationEndpoint.Address
+        Condition: IsMemcached    
+        Description: The DNS address of the configuration endpoint for the Memcached cache cluster. 
+      ConfigurationEndpointPort:
+        Value: !GetAtt 
+          - ElastiCacheCluster
+          - ConfigurationEndpoint.Port
+        Condition: IsMemcached    
+        Description: The port number of the configuration endpoint for the Memcached cache cluster.
+    
