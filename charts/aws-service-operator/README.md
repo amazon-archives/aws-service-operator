@@ -24,6 +24,7 @@ The following table lists the configurable parameters of the aws-service-operato
 | `image.repository`        | Container image repository             | `awsserviceoperator/aws-service-operator`          |
 | `image.tag`               | Container image tag                    | `v0.0.1-alpha2`                                    |
 | `image.pullPolicy`        | Container pull policy                  | `IfNotPresent`                                     |
+| `image.pullSecret`        | Container pull secret (secret created not by this chart) | ``                               |
 | `operator.accountId`      | AWS Account ID to operator on          | `""`                                               |
 | `operator.bucket`         | Base bucket to store resources in      | `aws-operator`                                     |
 | `operator.clusterName`    | Used to label generated CF templates   | `aws-operator`                                     |
