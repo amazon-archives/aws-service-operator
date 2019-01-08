@@ -5,6 +5,7 @@ image:
   repository: awsserviceoperator/aws-service-operator
   tag: v0.0.1-alpha2
   pullPolicy: IfNotPresent
+  #pullSecret: your-k8-secet-to-use (not deployed by chart, but you can reference existing one)
 
 ## App config
 operator:
