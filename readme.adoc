@@ -90,3 +90,8 @@ If you would like to tear everything down - run the following commands.
 kubectl delete ecr example-repository-name
 kubectl get crd | grep ".operator.aws" | awk '{print $1}' | xargs kubectl delete crd
 kubectl delete -f configs/aws-service-operator.yaml
+
+= FAQ
+
+What is the difference between aws-service-operator (this project) and link:https://github.com/awslabs/aws-servicebroker[aws-servicebroker]?::
+  The operator approach is based on an active component that can react to changes and eventually will also support day 2 operations. See link:https://github.com/awslabs/aws-service-operator/issues/137[Issue #137] for more details, pull requests are most welcome.
