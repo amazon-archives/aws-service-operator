@@ -3,7 +3,7 @@
 // If you'd like the change anything about this file make edits to the .templ
 // file in the pkg/codegen/assets directory.
 
-package s3bucket
+package elasticache
 
 import (
 	"context"
@@ -34,7 +34,7 @@ type Operator struct {
 // NewOperator create controller for watching object store custom resources created
 func NewOperator(config config.Config, queueManager *queuemanager.QueueManager) *Operator {
 	queuectrl := queue.New(config, config.AWSClientset, 10)
-	topicARN, _ := queuectrl.Register("s3bucket")
+	topicARN, _ := queuectrl.Register("elasticache")
 	queueManager.Add(topicARN, queuemanager.HandlerFunc(QueueUpdater))
 
 	return &Operator{
@@ -52,8 +52,8 @@ func (c *Operator) StartWatch(ctx context.Context, namespace string) {
 		DeleteFunc: c.onDelete,
 	}
 
-	oper := operator.New("s3buckets", namespace, resourceHandlers, c.config.AWSClientset.RESTClient())
-	oper.Watch(&awsV1alpha1.S3Bucket{}, ctx.Done())
+	oper := operator.New("elasticaches", namespace, resourceHandlers, c.config.AWSClientset.RESTClient())
+	oper.Watch(&awsV1alpha1.ElastiCache{}, ctx.Done())
 }
 
 // QueueUpdater will take the messages from the queue and process them
@@ -65,9 +65,9 @@ func QueueUpdater(config config.Config, msg *queuemanager.MessageBody) error {
 		namespace = msg.Namespace
 	} else {
 		clientSet, _ := awsclient.NewForConfig(config.RESTConfig)
-		resources, err := clientSet.S3Buckets("").List(metav1.ListOptions{})
+		resources, err := clientSet.ElastiCaches("").List(metav1.ListOptions{})
 		if err != nil {
-			logger.WithError(err).Error("error getting s3buckets")
+			logger.WithError(err).Error("error getting elasticaches")
 			return err
 		}
 		for _, resource := range resources.Items {
@@ -114,15 +114,15 @@ func QueueUpdater(config config.Config, msg *queuemanager.MessageBody) error {
 }
 
 func (c *Operator) onAdd(obj interface{}) {
-	s := obj.(*awsV1alpha1.S3Bucket).DeepCopy()
+	s := obj.(*awsV1alpha1.ElastiCache).DeepCopy()
 	if s.Status.ResourceStatus == "" || s.Status.ResourceStatus == "DELETE_COMPLETE" {
 		cft := New(c.config, s, c.topicARN)
 		output, err := cft.CreateStack()
 		if err != nil {
-			c.config.Logger.WithError(err).Errorf("error creating s3bucket '%s'", s.Name)
+			c.config.Logger.WithError(err).Errorf("error creating elasticache '%s'", s.Name)
 			return
 		}
-		c.config.Logger.Infof("added s3bucket '%s' with stackID '%s'", s.Name, string(*output.StackId))
+		c.config.Logger.Infof("added elasticache '%s' with stackID '%s'", s.Name, string(*output.StackId))
 		c.config.Logger.Infof("view at https://console.aws.amazon.com/cloudformation/home?#/stack/detail?stackId=%s", string(*output.StackId))
 
 		_, err = updateStatus(c.config, s.Name, s.Namespace, string(*output.StackId), "CREATE_IN_PROGRESS", "")
@@ -133,8 +133,8 @@ func (c *Operator) onAdd(obj interface{}) {
 }
 
 func (c *Operator) onUpdate(oldObj, newObj interface{}) {
-	oo := oldObj.(*awsV1alpha1.S3Bucket).DeepCopy()
-	no := newObj.(*awsV1alpha1.S3Bucket).DeepCopy()
+	oo := oldObj.(*awsV1alpha1.ElastiCache).DeepCopy()
+	no := newObj.(*awsV1alpha1.ElastiCache).DeepCopy()
 
 	if no.Status.ResourceStatus == "DELETE_COMPLETE" {
 		c.onAdd(no)
@@ -143,10 +143,10 @@ func (c *Operator) onUpdate(oldObj, newObj interface{}) {
 		cft := New(c.config, oo, c.topicARN)
 		output, err := cft.UpdateStack(no)
 		if err != nil {
-			c.config.Logger.WithError(err).Errorf("error updating s3bucket '%s' with new params %+v and old %+v", no.Name, no, oo)
+			c.config.Logger.WithError(err).Errorf("error updating elasticache '%s' with new params %+v and old %+v", no.Name, no, oo)
 			return
 		}
-		c.config.Logger.Infof("updated s3bucket '%s' with params '%s'", no.Name, string(*output.StackId))
+		c.config.Logger.Infof("updated elasticache '%s' with params '%s'", no.Name, string(*output.StackId))
 		c.config.Logger.Infof("view at https://console.aws.amazon.com/cloudformation/home?#/stack/detail?stackId=%s", string(*output.StackId))
 
 		_, err = updateStatus(c.config, oo.Name, oo.Namespace, string(*output.StackId), "UPDATE_IN_PROGRESS", "")
@@ -157,29 +157,29 @@ func (c *Operator) onUpdate(oldObj, newObj interface{}) {
 }
 
 func (c *Operator) onDelete(obj interface{}) {
-	s := obj.(*awsV1alpha1.S3Bucket).DeepCopy()
+	s := obj.(*awsV1alpha1.ElastiCache).DeepCopy()
 	cft := New(c.config, s, c.topicARN)
 	err := cft.DeleteStack()
 	if err != nil {
-		c.config.Logger.WithError(err).Errorf("error deleting s3bucket '%s'", s.Name)
+		c.config.Logger.WithError(err).Errorf("error deleting elasticache '%s'", s.Name)
 		return
 	}
 
-	c.config.Logger.Infof("deleted s3bucket '%s'", s.Name)
+	c.config.Logger.Infof("deleted elasticache '%s'", s.Name)
 }
 func incrementRollbackCount(config config.Config, name string, namespace string) error {
 	logger := config.Logger
 	clientSet, _ := awsclient.NewForConfig(config.RESTConfig)
-	resource, err := clientSet.S3Buckets(namespace).Get(name, metav1.GetOptions{})
+	resource, err := clientSet.ElastiCaches(namespace).Get(name, metav1.GetOptions{})
 	if err != nil {
-		logger.WithError(err).Error("error getting s3buckets")
+		logger.WithError(err).Error("error getting elasticaches")
 		return err
 	}
 
 	resourceCopy := resource.DeepCopy()
 	resourceCopy.Spec.RollbackCount = resourceCopy.Spec.RollbackCount + 1
 
-	_, err = clientSet.S3Buckets(namespace).Update(resourceCopy)
+	_, err = clientSet.ElastiCaches(namespace).Update(resourceCopy)
 	if err != nil {
 		logger.WithError(err).Error("error updating resource")
 		return err
@@ -187,12 +187,12 @@ func incrementRollbackCount(config config.Config, name string, namespace string)
 	return nil
 }
 
-func updateStatus(config config.Config, name string, namespace string, stackID string, status string, reason string) (*awsV1alpha1.S3Bucket, error) {
+func updateStatus(config config.Config, name string, namespace string, stackID string, status string, reason string) (*awsV1alpha1.ElastiCache, error) {
 	logger := config.Logger
 	clientSet, _ := awsclient.NewForConfig(config.RESTConfig)
-	resource, err := clientSet.S3Buckets(namespace).Get(name, metav1.GetOptions{})
+	resource, err := clientSet.ElastiCaches(namespace).Get(name, metav1.GetOptions{})
 	if err != nil {
-		logger.WithError(err).Error("error getting s3buckets")
+		logger.WithError(err).Error("error getting elasticaches")
 		return nil, err
 	}
 
@@ -207,12 +207,13 @@ func updateStatus(config config.Config, name string, namespace string, stackID s
 		if err != nil {
 			logger.WithError(err).Error("error getting outputs")
 		}
-		resourceCopy.Output.BucketName = outputs["BucketName"]
-		resourceCopy.Output.BucketARN = outputs["BucketArn"]
-		resourceCopy.Output.WebsiteURL = outputs["WebsiteURL"]
+		resourceCopy.Output.RedisEndpointAddress = outputs["RedisEndpointAddress"]
+		resourceCopy.Output.RedisEndpointPort = outputs["RedisEndpointPort"]
+		resourceCopy.Output.ConfigurationEndpointAddress = outputs["ConfigurationEndpointAddress"]
+		resourceCopy.Output.ConfigurationEndpointPort = outputs["ConfigurationEndpointPort"]
 	}
 
-	_, err = clientSet.S3Buckets(namespace).Update(resourceCopy)
+	_, err = clientSet.ElastiCaches(namespace).Update(resourceCopy)
 	if err != nil {
 		logger.WithError(err).Error("error updating resource")
 		return nil, err
@@ -227,12 +228,12 @@ func updateStatus(config config.Config, name string, namespace string, stackID s
 	return resourceCopy, nil
 }
 
-func deleteStack(config config.Config, name string, namespace string, stackID string) (*awsV1alpha1.S3Bucket, error) {
+func deleteStack(config config.Config, name string, namespace string, stackID string) (*awsV1alpha1.ElastiCache, error) {
 	logger := config.Logger
 	clientSet, _ := awsclient.NewForConfig(config.RESTConfig)
-	resource, err := clientSet.S3Buckets(namespace).Get(name, metav1.GetOptions{})
+	resource, err := clientSet.ElastiCaches(namespace).Get(name, metav1.GetOptions{})
 	if err != nil {
-		logger.WithError(err).Error("error getting s3buckets")
+		logger.WithError(err).Error("error getting elasticaches")
 		return nil, err
 	}
 
@@ -246,33 +247,20 @@ func deleteStack(config config.Config, name string, namespace string, stackID st
 	return resource, err
 }
 
-func syncAdditionalResources(config config.Config, s *awsV1alpha1.S3Bucket) (err error) {
+func syncAdditionalResources(config config.Config, s *awsV1alpha1.ElastiCache) (err error) {
 	clientSet, _ := awsclient.NewForConfig(config.RESTConfig)
-	resource, err := clientSet.S3Buckets(s.Namespace).Get(s.Name, metav1.GetOptions{})
+	resource, err := clientSet.ElastiCaches(s.Namespace).Get(s.Name, metav1.GetOptions{})
 	if err != nil {
 		return err
 	}
 	resource = resource.DeepCopy()
 
 	services := []string{}
-	s3BucketSvc := helpers.CreateExternalNameService(config, s, s.Name, s.Namespace, "{{.Obj.Name}}.s3-{{.Config.Region}}.amazonaws.com", "443")
-	services = append(services, s3BucketSvc)
+	ElastiCacheAddressSvc := helpers.CreateExternalNameService(config, s, s.Name, s.Namespace, "{{ if .Obj.Output.RedisEndpointAddress }}{{ .Obj.Output.RedisEndpointAddress }}{{ else }}{{ .Obj.Output.ConfigurationEndpointAddress }}{{end}}", "{{ if .Obj.Output.RedisEndpointPort }}{{ .Obj.Output.RedisEndpointPort }}{{ else }}{{ .Obj.Output.ConfigurationEndpointPort }}{{end}}")
+	services = append(services, ElastiCacheAddressSvc)
 	resource.AdditionalResources.Services = services
 
-	configmaps := []string{}
-	s3BucketCMData := map[string]string{
-		"bucketName":  "{{.Obj.Name}}",
-		"bucketARN":   "{{.Obj.Output.BucketARN}}",
-		"serviceName": "{{call .Helpers.KubernetesResourceName .Obj.Name}}",
-		"region":      "{{.Config.Region}}",
-		"bucketURL":   "{{.Obj.Name}}.s3-{{.Config.Region}}.amazonaws.com",
-		"websiteURL":  "{{.Obj.Output.WebsiteURL}}",
-	}
-	s3BucketCM := helpers.CreateConfigMap(config, s, s.Name, s.Namespace, s3BucketCMData)
-	configmaps = append(configmaps, s3BucketCM)
-	resource.AdditionalResources.ConfigMaps = configmaps
-
-	_, err = clientSet.S3Buckets(s.Namespace).Update(resource)
+	_, err = clientSet.ElastiCaches(s.Namespace).Update(resource)
 	if err != nil {
 		return err
 	}

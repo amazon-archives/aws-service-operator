@@ -47,7 +47,8 @@ Resources:
                     "cloudformation:*",
                     "ecr:*",
                     "dynamodb:*",
-                    "s3:*"
+                    "s3:*",
+                    "elasticache:*"
                   ],
                   "Resource": "*"
                 }

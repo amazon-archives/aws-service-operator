@@ -91,6 +91,10 @@ kubectl delete ecr example-repository-name
 kubectl get crd | grep ".operator.aws" | awk '{print $1}' | xargs kubectl delete crd
 kubectl delete -f configs/aws-service-operator.yaml
 
+== Developer Docs
+
+[Here](development.adoc)
+
 = FAQ
 
 What is the difference between aws-service-operator (this project) and link:https://github.com/awslabs/aws-servicebroker[aws-servicebroker]?::

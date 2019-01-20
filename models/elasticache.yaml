@@ -1,0 +1,150 @@
+apiVersion: service-operator.aws/v1alpha1
+kind: ModelDefinition
+metadata:
+  name: ElastiCacheResource
+spec:
+  kind: ElastiCache
+  type: Spec 
+  queue: true
+  useCloudFormation: true
+  resource:
+    name: elasticache
+    plural: elasticaches
+    shortNames:
+    - name: ec
+    scope: Namespaced
+  body:
+    schema:
+      type: object
+      properties:
+      - key: elastiCacheClusterName
+        type: resourceName
+        description: |
+          ElastiCacheClusterName is the name of the Elasticache cluster to be created.
+        structKey: ElastiCacheClusterName
+        templateKey: ClusterName 
+      - key: autoMinorVersionUpgrade
+        type: bool
+        description: |
+          Indicates that minor engine upgrades will be applied automatically to the cache cluster during the maintenance window.
+        structKey: AutoMinorVersionUpgrade
+        templateKey: AutoMinorVersionUpgrade
+      - key: azMode
+        type: string
+        description: |
+          For Memcached cache clusters, indicates whether the nodes are created in a single Availability Zone or across multiple Availability Zones in the cluster's region.
+        structKey: AZMode
+        templateKey: AZMode
+      - key: cacheNodeType
+        type: string
+        description: |
+          The compute and memory capacity of nodes in a cache cluster.
+        structKey: CacheNodeType
+        templateKey: CacheNodeType
+      - key: cacheParameterGroupName
+        type: string
+        description: |
+          The name of the cache parameter group that is associated with this cache cluster.
+        structKey: CacheParameterGroupName
+        templateKey: CacheParameterGroupName
+      - key: cacheSubnetGroupName
+        type: string
+        description: |
+          The cache subnet group that you associate with a cache cluster.
+        structKey: CacheSubnetGroupName 
+        templateKey: CacheSubnetGroupName 
+      - key: engine
+        type: string
+        description: |
+          The name of the cache engine to be used for this cache cluster, such as memcached or redis.
+        structKey: Engine
+        templateKey: Engine
+      - key: engineVersion
+        type: string
+        description: |
+          The version of the cache engine to be used for this cluster.
+        structKey: EngineVersion
+        templateKey: EngineVersion
+      - key: notificationTopicArn 
+        type: string
+        description: |
+          The Amazon Resource Name (ARN) of the Amazon Simple Notification Service (SNS) topic to which notifications will be sent. 
+        structKey: NotificationTopicArn 
+        templateKey: NotificationTopicArn
+      - key: numCacheNodes
+        type: int
+        description: |
+          The number of cache nodes that the cache cluster should have.
+        structKey: NumCacheNodes
+        templateKey: NumCacheNodes
+      - key: port
+        type: int
+        description: |
+          The port number on which each of the cache nodes will accept connections.
+        structKey: Port
+        templateKey: Port
+      - key: preferredMaintenanceWindow
+        type: string
+        description: |
+          The weekly time range (in UTC) during which system maintenance can occur.
+        structKey: PreferredMaintenanceWindow
+        templateKey: PreferredMaintenanceWindow
+      - key: preferredAvailabilityZone
+        type: string
+        description: |
+          The Amazon EC2 Availability Zone in which the cache cluster is created.
+        structKey: PreferredAvailabilityZone
+        templateKey: PreferredAvailabilityZone
+      - key: preferredAvailabilityZones
+        type: string
+        description: 
+          For Memcached cache clusters, the comma seperated list of Availability Zones in which cache nodes are created. The number of Availability Zones listed must equal the number of cache nodes. For example, if you want to create three nodes in two different Availability Zones, you can specify ["us-east-1a", "us-east-1a", "us-east-1b"], which would create two nodes in us-east-1a and one node in us-east-1b. 
+        structKey: PreferredAvailabilityZones
+        templateKey: PreferredAvailabilityZones
+      - key: snapshotWindow
+        type: string
+        description: |
+          For Redis cache clusters, the daily time range (in UTC) during which ElastiCache will begin taking a daily snapshot of your node group. For example, you can specify 05:00-09:00.
+        structKey: SnapshotWindow
+        templateKey: SnapshotWindow
+      - key: vpcSecurityGroupIds
+        type: string
+        description: |
+          A comma seperated list of VPC security group IDs. If your cache cluster isn't in a VPC, specify the CacheSecurityGroupNames property instead.
+        structKey: VpcSecurityGroupIds
+        templateKey: VpcSecurityGroupIds
+  output:
+    schema:
+      type: object
+      properties:
+      - key: redisEndpointAddress
+        type: string
+        description: |
+          The DNS address of the configuration endpoint for the Redis cache cluster.
+        structKey: RedisEndpointAddress
+        templateKey: RedisEndpointAddress
+      - key: redisEndpointPort
+        type: string
+        description: |
+          The port number of the configuration endpoint for the Redis cache cluster.
+        structKey: RedisEndpointPort
+        templateKey: RedisEndpointPort
+      - key: configurationEndpoint
+        type: string
+        description: |
+          The DNS address of the configuration endpoint for the Memcached cache cluster.
+        structKey: ConfigurationEndpointAddress
+        templateKey: ConfigurationEndpointAddress
+      - key: configurationEndpointPort
+        type: string
+        description: |
+          The port number of the configuration endpoint for the Memcached cache cluster.
+        structKey: ConfigurationEndpointPort
+        templateKey: ConfigurationEndpointPort
+  additionalResources:
+    services:
+    - name: elastiCacheAddressSvc
+      type: ExternalName
+      externalName: "{{ if .Obj.Output.RedisEndpointAddress }}{{ .Obj.Output.RedisEndpointAddress }}{{ else }}{{ .Obj.Output.ConfigurationEndpointAddress }}{{end}}"
+      ports:
+      - port: "{{ if .Obj.Output.RedisEndpointPort }}{{ .Obj.Output.RedisEndpointPort }}{{ else }}{{ .Obj.Output.ConfigurationEndpointPort }}{{end}}"
