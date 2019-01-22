@@ -3,7 +3,7 @@
 # Declare variables to be passed into your templates.
 image:
   repository: awsserviceoperator/aws-service-operator
-  tag: v0.0.1-alpha2
+  tag: v0.0.1-alpha3
   pullPolicy: IfNotPresent
   #pullSecret: your-k8-secet-to-use (not deployed by chart, but you can reference existing one)
 
