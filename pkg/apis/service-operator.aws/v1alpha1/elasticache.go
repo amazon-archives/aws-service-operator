@@ -24,29 +24,29 @@ type ElastiCacheSpec struct {
 	CloudFormationTemplateName      string `json:"cloudFormationTemplateName"`
 	CloudFormationTemplateNamespace string `json:"cloudFormationTemplateNamespace"`
 	RollbackCount                   int    `json:"rollbackCount"`
-	AutoMinorVersionUpgrade         bool   `json:"AutoMinorVersionUpgrade"`
-	AZMode                          string `json:"AZMode"`
-	CacheNodeType                   string `json:"CacheNodeType"`
-	CacheParameterGroupName         string `json:"CacheParameterGroupName"`
-	CacheSubnetGroupName            string `json:"CacheSubnetGroupName"`
-	Engine                          string `json:"Engine"`
-	EngineVersion                   string `json:"EngineVersion"`
-	NotificationTopicArn            string `json:"NotificationTopicArn"`
-	NumCacheNodes                   int    `json:"NumCacheNodes"`
-	Port                            int    `json:"Port"`
-	PreferredMaintenanceWindow      string `json:"PreferredMaintenanceWindow"`
-	PreferredAvailabilityZone       string `json:"PreferredAvailabilityZone"`
-	PreferredAvailabilityZones      string `json:"PreferredAvailabilityZones"`
-	SnapshotWindow                  string `json:"SnapshotWindow"`
-	VpcSecurityGroupIds             string `json:"VpcSecurityGroupIds"`
+	AutoMinorVersionUpgrade         bool   `json:"autoMinorVersionUpgrade"`
+	AZMode                          string `json:"azMode"`
+	CacheNodeType                   string `json:"cacheNodeType"`
+	CacheParameterGroupName         string `json:"cacheParameterGroupName"`
+	CacheSubnetGroupName            string `json:"cacheSubnetGroupName"`
+	Engine                          string `json:"engine"`
+	EngineVersion                   string `json:"engineVersion"`
+	NotificationTopicArn            string `json:"notificationTopicArn"`
+	NumCacheNodes                   int    `json:"numCacheNodes"`
+	Port                            int    `json:"port"`
+	PreferredMaintenanceWindow      string `json:"preferredMaintenanceWindow"`
+	PreferredAvailabilityZone       string `json:"preferredAvailabilityZone"`
+	PreferredAvailabilityZones      string `json:"preferredAvailabilityZones"`
+	SnapshotWindow                  string `json:"snapshotWindow"`
+	VpcSecurityGroupIds             string `json:"vpcSecurityGroupIds"`
 }
 
 // ElastiCacheOutput defines the output resource for ElastiCache
 type ElastiCacheOutput struct {
-	RedisEndpointAddress         string `json:"RedisEndpointAddress"`
-	RedisEndpointPort            string `json:"RedisEndpointPort"`
-	ConfigurationEndpointAddress string `json:"ConfigurationEndpoint"`
-	ConfigurationEndpointPort    string `json:"ConfigurationEndpointPort"`
+	RedisEndpointAddress         string `json:"redisEndpointAddress"`
+	RedisEndpointPort            string `json:"redisEndpointPort"`
+	ConfigurationEndpointAddress string `json:"configurationEndpoint"`
+	ConfigurationEndpointPort    string `json:"configurationEndpointPort"`
 }
 
 // ElastiCacheStatus holds the status of the Cloudformation template
