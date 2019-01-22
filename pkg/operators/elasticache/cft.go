@@ -81,96 +81,96 @@ func (s *Cloudformation) CreateStack() (output *cloudformation.CreateStackOutput
 	namespace := helpers.CreateParam("Namespace", s.ElastiCache.Namespace)
 	clusterName := helpers.CreateParam("ClusterName", s.config.ClusterName)
 	elastiCacheClusterName := helpers.CreateParam("ClusterName", helpers.Stringify(s.ElastiCache.Name))
-	AutoMinorVersionUpgradeTemp := "{{.Obj.Spec.AutoMinorVersionUpgrade}}"
-	AutoMinorVersionUpgradeValue, err := helpers.Templatize(AutoMinorVersionUpgradeTemp, helpers.Data{Obj: s.ElastiCache, Config: s.config, Helpers: helpers.New()})
+	autoMinorVersionUpgradeTemp := "{{.Obj.Spec.AutoMinorVersionUpgrade}}"
+	autoMinorVersionUpgradeValue, err := helpers.Templatize(autoMinorVersionUpgradeTemp, helpers.Data{Obj: s.ElastiCache, Config: s.config, Helpers: helpers.New()})
 	if err != nil {
 		return output, err
 	}
-	AutoMinorVersionUpgrade := helpers.CreateParam("AutoMinorVersionUpgrade", helpers.Stringify(AutoMinorVersionUpgradeValue))
-	AZModeTemp := "{{.Obj.Spec.AZMode}}"
-	AZModeValue, err := helpers.Templatize(AZModeTemp, helpers.Data{Obj: s.ElastiCache, Config: s.config, Helpers: helpers.New()})
+	autoMinorVersionUpgrade := helpers.CreateParam("AutoMinorVersionUpgrade", helpers.Stringify(autoMinorVersionUpgradeValue))
+	azModeTemp := "{{.Obj.Spec.AZMode}}"
+	azModeValue, err := helpers.Templatize(azModeTemp, helpers.Data{Obj: s.ElastiCache, Config: s.config, Helpers: helpers.New()})
 	if err != nil {
 		return output, err
 	}
-	AZMode := helpers.CreateParam("AZMode", helpers.Stringify(AZModeValue))
-	CacheNodeTypeTemp := "{{.Obj.Spec.CacheNodeType}}"
-	CacheNodeTypeValue, err := helpers.Templatize(CacheNodeTypeTemp, helpers.Data{Obj: s.ElastiCache, Config: s.config, Helpers: helpers.New()})
+	azMode := helpers.CreateParam("AZMode", helpers.Stringify(azModeValue))
+	cacheNodeTypeTemp := "{{.Obj.Spec.CacheNodeType}}"
+	cacheNodeTypeValue, err := helpers.Templatize(cacheNodeTypeTemp, helpers.Data{Obj: s.ElastiCache, Config: s.config, Helpers: helpers.New()})
 	if err != nil {
 		return output, err
 	}
-	CacheNodeType := helpers.CreateParam("CacheNodeType", helpers.Stringify(CacheNodeTypeValue))
-	CacheParameterGroupNameTemp := "{{.Obj.Spec.CacheParameterGroupName}}"
-	CacheParameterGroupNameValue, err := helpers.Templatize(CacheParameterGroupNameTemp, helpers.Data{Obj: s.ElastiCache, Config: s.config, Helpers: helpers.New()})
+	cacheNodeType := helpers.CreateParam("CacheNodeType", helpers.Stringify(cacheNodeTypeValue))
+	cacheParameterGroupNameTemp := "{{.Obj.Spec.CacheParameterGroupName}}"
+	cacheParameterGroupNameValue, err := helpers.Templatize(cacheParameterGroupNameTemp, helpers.Data{Obj: s.ElastiCache, Config: s.config, Helpers: helpers.New()})
 	if err != nil {
 		return output, err
 	}
-	CacheParameterGroupName := helpers.CreateParam("CacheParameterGroupName", helpers.Stringify(CacheParameterGroupNameValue))
-	CacheSubnetGroupNameTemp := "{{.Obj.Spec.CacheSubnetGroupName}}"
-	CacheSubnetGroupNameValue, err := helpers.Templatize(CacheSubnetGroupNameTemp, helpers.Data{Obj: s.ElastiCache, Config: s.config, Helpers: helpers.New()})
+	cacheParameterGroupName := helpers.CreateParam("CacheParameterGroupName", helpers.Stringify(cacheParameterGroupNameValue))
+	cacheSubnetGroupNameTemp := "{{.Obj.Spec.CacheSubnetGroupName}}"
+	cacheSubnetGroupNameValue, err := helpers.Templatize(cacheSubnetGroupNameTemp, helpers.Data{Obj: s.ElastiCache, Config: s.config, Helpers: helpers.New()})
 	if err != nil {
 		return output, err
 	}
-	CacheSubnetGroupName := helpers.CreateParam("CacheSubnetGroupName", helpers.Stringify(CacheSubnetGroupNameValue))
-	EngineTemp := "{{.Obj.Spec.Engine}}"
-	EngineValue, err := helpers.Templatize(EngineTemp, helpers.Data{Obj: s.ElastiCache, Config: s.config, Helpers: helpers.New()})
+	cacheSubnetGroupName := helpers.CreateParam("CacheSubnetGroupName", helpers.Stringify(cacheSubnetGroupNameValue))
+	engineTemp := "{{.Obj.Spec.Engine}}"
+	engineValue, err := helpers.Templatize(engineTemp, helpers.Data{Obj: s.ElastiCache, Config: s.config, Helpers: helpers.New()})
 	if err != nil {
 		return output, err
 	}
-	Engine := helpers.CreateParam("Engine", helpers.Stringify(EngineValue))
-	EngineVersionTemp := "{{.Obj.Spec.EngineVersion}}"
-	EngineVersionValue, err := helpers.Templatize(EngineVersionTemp, helpers.Data{Obj: s.ElastiCache, Config: s.config, Helpers: helpers.New()})
+	engine := helpers.CreateParam("Engine", helpers.Stringify(engineValue))
+	engineVersionTemp := "{{.Obj.Spec.EngineVersion}}"
+	engineVersionValue, err := helpers.Templatize(engineVersionTemp, helpers.Data{Obj: s.ElastiCache, Config: s.config, Helpers: helpers.New()})
 	if err != nil {
 		return output, err
 	}
-	EngineVersion := helpers.CreateParam("EngineVersion", helpers.Stringify(EngineVersionValue))
-	NotificationTopicArnTemp := "{{.Obj.Spec.NotificationTopicArn}}"
-	NotificationTopicArnValue, err := helpers.Templatize(NotificationTopicArnTemp, helpers.Data{Obj: s.ElastiCache, Config: s.config, Helpers: helpers.New()})
+	engineVersion := helpers.CreateParam("EngineVersion", helpers.Stringify(engineVersionValue))
+	notificationTopicArnTemp := "{{.Obj.Spec.NotificationTopicArn}}"
+	notificationTopicArnValue, err := helpers.Templatize(notificationTopicArnTemp, helpers.Data{Obj: s.ElastiCache, Config: s.config, Helpers: helpers.New()})
 	if err != nil {
 		return output, err
 	}
-	NotificationTopicArn := helpers.CreateParam("NotificationTopicArn", helpers.Stringify(NotificationTopicArnValue))
-	NumCacheNodesTemp := "{{.Obj.Spec.NumCacheNodes}}"
-	NumCacheNodesValue, err := helpers.Templatize(NumCacheNodesTemp, helpers.Data{Obj: s.ElastiCache, Config: s.config, Helpers: helpers.New()})
+	notificationTopicArn := helpers.CreateParam("NotificationTopicArn", helpers.Stringify(notificationTopicArnValue))
+	numCacheNodesTemp := "{{.Obj.Spec.NumCacheNodes}}"
+	numCacheNodesValue, err := helpers.Templatize(numCacheNodesTemp, helpers.Data{Obj: s.ElastiCache, Config: s.config, Helpers: helpers.New()})
 	if err != nil {
 		return output, err
 	}
-	NumCacheNodes := helpers.CreateParam("NumCacheNodes", helpers.Stringify(NumCacheNodesValue))
-	PortTemp := "{{.Obj.Spec.Port}}"
-	PortValue, err := helpers.Templatize(PortTemp, helpers.Data{Obj: s.ElastiCache, Config: s.config, Helpers: helpers.New()})
+	numCacheNodes := helpers.CreateParam("NumCacheNodes", helpers.Stringify(numCacheNodesValue))
+	portTemp := "{{.Obj.Spec.Port}}"
+	portValue, err := helpers.Templatize(portTemp, helpers.Data{Obj: s.ElastiCache, Config: s.config, Helpers: helpers.New()})
 	if err != nil {
 		return output, err
 	}
-	Port := helpers.CreateParam("Port", helpers.Stringify(PortValue))
-	PreferredMaintenanceWindowTemp := "{{.Obj.Spec.PreferredMaintenanceWindow}}"
-	PreferredMaintenanceWindowValue, err := helpers.Templatize(PreferredMaintenanceWindowTemp, helpers.Data{Obj: s.ElastiCache, Config: s.config, Helpers: helpers.New()})
+	port := helpers.CreateParam("Port", helpers.Stringify(portValue))
+	preferredMaintenanceWindowTemp := "{{.Obj.Spec.PreferredMaintenanceWindow}}"
+	preferredMaintenanceWindowValue, err := helpers.Templatize(preferredMaintenanceWindowTemp, helpers.Data{Obj: s.ElastiCache, Config: s.config, Helpers: helpers.New()})
 	if err != nil {
 		return output, err
 	}
-	PreferredMaintenanceWindow := helpers.CreateParam("PreferredMaintenanceWindow", helpers.Stringify(PreferredMaintenanceWindowValue))
-	PreferredAvailabilityZoneTemp := "{{.Obj.Spec.PreferredAvailabilityZone}}"
-	PreferredAvailabilityZoneValue, err := helpers.Templatize(PreferredAvailabilityZoneTemp, helpers.Data{Obj: s.ElastiCache, Config: s.config, Helpers: helpers.New()})
+	preferredMaintenanceWindow := helpers.CreateParam("PreferredMaintenanceWindow", helpers.Stringify(preferredMaintenanceWindowValue))
+	preferredAvailabilityZoneTemp := "{{.Obj.Spec.PreferredAvailabilityZone}}"
+	preferredAvailabilityZoneValue, err := helpers.Templatize(preferredAvailabilityZoneTemp, helpers.Data{Obj: s.ElastiCache, Config: s.config, Helpers: helpers.New()})
 	if err != nil {
 		return output, err
 	}
-	PreferredAvailabilityZone := helpers.CreateParam("PreferredAvailabilityZone", helpers.Stringify(PreferredAvailabilityZoneValue))
-	PreferredAvailabilityZonesTemp := "{{.Obj.Spec.PreferredAvailabilityZones}}"
-	PreferredAvailabilityZonesValue, err := helpers.Templatize(PreferredAvailabilityZonesTemp, helpers.Data{Obj: s.ElastiCache, Config: s.config, Helpers: helpers.New()})
+	preferredAvailabilityZone := helpers.CreateParam("PreferredAvailabilityZone", helpers.Stringify(preferredAvailabilityZoneValue))
+	preferredAvailabilityZonesTemp := "{{.Obj.Spec.PreferredAvailabilityZones}}"
+	preferredAvailabilityZonesValue, err := helpers.Templatize(preferredAvailabilityZonesTemp, helpers.Data{Obj: s.ElastiCache, Config: s.config, Helpers: helpers.New()})
 	if err != nil {
 		return output, err
 	}
-	PreferredAvailabilityZones := helpers.CreateParam("PreferredAvailabilityZones", helpers.Stringify(PreferredAvailabilityZonesValue))
-	SnapshotWindowTemp := "{{.Obj.Spec.SnapshotWindow}}"
-	SnapshotWindowValue, err := helpers.Templatize(SnapshotWindowTemp, helpers.Data{Obj: s.ElastiCache, Config: s.config, Helpers: helpers.New()})
+	preferredAvailabilityZones := helpers.CreateParam("PreferredAvailabilityZones", helpers.Stringify(preferredAvailabilityZonesValue))
+	snapshotWindowTemp := "{{.Obj.Spec.SnapshotWindow}}"
+	snapshotWindowValue, err := helpers.Templatize(snapshotWindowTemp, helpers.Data{Obj: s.ElastiCache, Config: s.config, Helpers: helpers.New()})
 	if err != nil {
 		return output, err
 	}
-	SnapshotWindow := helpers.CreateParam("SnapshotWindow", helpers.Stringify(SnapshotWindowValue))
-	VpcSecurityGroupIdsTemp := "{{.Obj.Spec.VpcSecurityGroupIds}}"
-	VpcSecurityGroupIdsValue, err := helpers.Templatize(VpcSecurityGroupIdsTemp, helpers.Data{Obj: s.ElastiCache, Config: s.config, Helpers: helpers.New()})
+	snapshotWindow := helpers.CreateParam("SnapshotWindow", helpers.Stringify(snapshotWindowValue))
+	vpcSecurityGroupIdsTemp := "{{.Obj.Spec.VpcSecurityGroupIds}}"
+	vpcSecurityGroupIdsValue, err := helpers.Templatize(vpcSecurityGroupIdsTemp, helpers.Data{Obj: s.ElastiCache, Config: s.config, Helpers: helpers.New()})
 	if err != nil {
 		return output, err
 	}
-	VpcSecurityGroupIds := helpers.CreateParam("VpcSecurityGroupIds", helpers.Stringify(VpcSecurityGroupIdsValue))
+	vpcSecurityGroupIds := helpers.CreateParam("VpcSecurityGroupIds", helpers.Stringify(vpcSecurityGroupIdsValue))
 
 	parameters := []*cloudformation.Parameter{}
 	parameters = append(parameters, resourceName)
@@ -178,21 +178,21 @@ func (s *Cloudformation) CreateStack() (output *cloudformation.CreateStackOutput
 	parameters = append(parameters, namespace)
 	parameters = append(parameters, clusterName)
 	parameters = append(parameters, elastiCacheClusterName)
-	parameters = append(parameters, AutoMinorVersionUpgrade)
-	parameters = append(parameters, AZMode)
-	parameters = append(parameters, CacheNodeType)
-	parameters = append(parameters, CacheParameterGroupName)
-	parameters = append(parameters, CacheSubnetGroupName)
-	parameters = append(parameters, Engine)
-	parameters = append(parameters, EngineVersion)
-	parameters = append(parameters, NotificationTopicArn)
-	parameters = append(parameters, NumCacheNodes)
-	parameters = append(parameters, Port)
-	parameters = append(parameters, PreferredMaintenanceWindow)
-	parameters = append(parameters, PreferredAvailabilityZone)
-	parameters = append(parameters, PreferredAvailabilityZones)
-	parameters = append(parameters, SnapshotWindow)
-	parameters = append(parameters, VpcSecurityGroupIds)
+	parameters = append(parameters, autoMinorVersionUpgrade)
+	parameters = append(parameters, azMode)
+	parameters = append(parameters, cacheNodeType)
+	parameters = append(parameters, cacheParameterGroupName)
+	parameters = append(parameters, cacheSubnetGroupName)
+	parameters = append(parameters, engine)
+	parameters = append(parameters, engineVersion)
+	parameters = append(parameters, notificationTopicArn)
+	parameters = append(parameters, numCacheNodes)
+	parameters = append(parameters, port)
+	parameters = append(parameters, preferredMaintenanceWindow)
+	parameters = append(parameters, preferredAvailabilityZone)
+	parameters = append(parameters, preferredAvailabilityZones)
+	parameters = append(parameters, snapshotWindow)
+	parameters = append(parameters, vpcSecurityGroupIds)
 
 	stackInputs.SetParameters(parameters)
 
@@ -233,96 +233,96 @@ func (s *Cloudformation) UpdateStack(updated *awsV1alpha1.ElastiCache) (output *
 	namespace := helpers.CreateParam("Namespace", s.ElastiCache.Namespace)
 	clusterName := helpers.CreateParam("ClusterName", s.config.ClusterName)
 	elastiCacheClusterName := helpers.CreateParam("ClusterName", helpers.Stringify(s.ElastiCache.Name))
-	AutoMinorVersionUpgradeTemp := "{{.Obj.Spec.AutoMinorVersionUpgrade}}"
-	AutoMinorVersionUpgradeValue, err := helpers.Templatize(AutoMinorVersionUpgradeTemp, helpers.Data{Obj: updated, Config: s.config, Helpers: helpers.New()})
+	autoMinorVersionUpgradeTemp := "{{.Obj.Spec.AutoMinorVersionUpgrade}}"
+	autoMinorVersionUpgradeValue, err := helpers.Templatize(autoMinorVersionUpgradeTemp, helpers.Data{Obj: updated, Config: s.config, Helpers: helpers.New()})
 	if err != nil {
 		return output, err
 	}
-	AutoMinorVersionUpgrade := helpers.CreateParam("AutoMinorVersionUpgrade", helpers.Stringify(AutoMinorVersionUpgradeValue))
-	AZModeTemp := "{{.Obj.Spec.AZMode}}"
-	AZModeValue, err := helpers.Templatize(AZModeTemp, helpers.Data{Obj: updated, Config: s.config, Helpers: helpers.New()})
+	autoMinorVersionUpgrade := helpers.CreateParam("AutoMinorVersionUpgrade", helpers.Stringify(autoMinorVersionUpgradeValue))
+	azModeTemp := "{{.Obj.Spec.AZMode}}"
+	azModeValue, err := helpers.Templatize(azModeTemp, helpers.Data{Obj: updated, Config: s.config, Helpers: helpers.New()})
 	if err != nil {
 		return output, err
 	}
-	AZMode := helpers.CreateParam("AZMode", helpers.Stringify(AZModeValue))
-	CacheNodeTypeTemp := "{{.Obj.Spec.CacheNodeType}}"
-	CacheNodeTypeValue, err := helpers.Templatize(CacheNodeTypeTemp, helpers.Data{Obj: updated, Config: s.config, Helpers: helpers.New()})
+	azMode := helpers.CreateParam("AZMode", helpers.Stringify(azModeValue))
+	cacheNodeTypeTemp := "{{.Obj.Spec.CacheNodeType}}"
+	cacheNodeTypeValue, err := helpers.Templatize(cacheNodeTypeTemp, helpers.Data{Obj: updated, Config: s.config, Helpers: helpers.New()})
 	if err != nil {
 		return output, err
 	}
-	CacheNodeType := helpers.CreateParam("CacheNodeType", helpers.Stringify(CacheNodeTypeValue))
-	CacheParameterGroupNameTemp := "{{.Obj.Spec.CacheParameterGroupName}}"
-	CacheParameterGroupNameValue, err := helpers.Templatize(CacheParameterGroupNameTemp, helpers.Data{Obj: updated, Config: s.config, Helpers: helpers.New()})
+	cacheNodeType := helpers.CreateParam("CacheNodeType", helpers.Stringify(cacheNodeTypeValue))
+	cacheParameterGroupNameTemp := "{{.Obj.Spec.CacheParameterGroupName}}"
+	cacheParameterGroupNameValue, err := helpers.Templatize(cacheParameterGroupNameTemp, helpers.Data{Obj: updated, Config: s.config, Helpers: helpers.New()})
 	if err != nil {
 		return output, err
 	}
-	CacheParameterGroupName := helpers.CreateParam("CacheParameterGroupName", helpers.Stringify(CacheParameterGroupNameValue))
-	CacheSubnetGroupNameTemp := "{{.Obj.Spec.CacheSubnetGroupName}}"
-	CacheSubnetGroupNameValue, err := helpers.Templatize(CacheSubnetGroupNameTemp, helpers.Data{Obj: updated, Config: s.config, Helpers: helpers.New()})
+	cacheParameterGroupName := helpers.CreateParam("CacheParameterGroupName", helpers.Stringify(cacheParameterGroupNameValue))
+	cacheSubnetGroupNameTemp := "{{.Obj.Spec.CacheSubnetGroupName}}"
+	cacheSubnetGroupNameValue, err := helpers.Templatize(cacheSubnetGroupNameTemp, helpers.Data{Obj: updated, Config: s.config, Helpers: helpers.New()})
 	if err != nil {
 		return output, err
 	}
-	CacheSubnetGroupName := helpers.CreateParam("CacheSubnetGroupName", helpers.Stringify(CacheSubnetGroupNameValue))
-	EngineTemp := "{{.Obj.Spec.Engine}}"
-	EngineValue, err := helpers.Templatize(EngineTemp, helpers.Data{Obj: updated, Config: s.config, Helpers: helpers.New()})
+	cacheSubnetGroupName := helpers.CreateParam("CacheSubnetGroupName", helpers.Stringify(cacheSubnetGroupNameValue))
+	engineTemp := "{{.Obj.Spec.Engine}}"
+	engineValue, err := helpers.Templatize(engineTemp, helpers.Data{Obj: updated, Config: s.config, Helpers: helpers.New()})
 	if err != nil {
 		return output, err
 	}
-	Engine := helpers.CreateParam("Engine", helpers.Stringify(EngineValue))
-	EngineVersionTemp := "{{.Obj.Spec.EngineVersion}}"
-	EngineVersionValue, err := helpers.Templatize(EngineVersionTemp, helpers.Data{Obj: updated, Config: s.config, Helpers: helpers.New()})
+	engine := helpers.CreateParam("Engine", helpers.Stringify(engineValue))
+	engineVersionTemp := "{{.Obj.Spec.EngineVersion}}"
+	engineVersionValue, err := helpers.Templatize(engineVersionTemp, helpers.Data{Obj: updated, Config: s.config, Helpers: helpers.New()})
 	if err != nil {
 		return output, err
 	}
-	EngineVersion := helpers.CreateParam("EngineVersion", helpers.Stringify(EngineVersionValue))
-	NotificationTopicArnTemp := "{{.Obj.Spec.NotificationTopicArn}}"
-	NotificationTopicArnValue, err := helpers.Templatize(NotificationTopicArnTemp, helpers.Data{Obj: updated, Config: s.config, Helpers: helpers.New()})
+	engineVersion := helpers.CreateParam("EngineVersion", helpers.Stringify(engineVersionValue))
+	notificationTopicArnTemp := "{{.Obj.Spec.NotificationTopicArn}}"
+	notificationTopicArnValue, err := helpers.Templatize(notificationTopicArnTemp, helpers.Data{Obj: updated, Config: s.config, Helpers: helpers.New()})
 	if err != nil {
 		return output, err
 	}
-	NotificationTopicArn := helpers.CreateParam("NotificationTopicArn", helpers.Stringify(NotificationTopicArnValue))
-	NumCacheNodesTemp := "{{.Obj.Spec.NumCacheNodes}}"
-	NumCacheNodesValue, err := helpers.Templatize(NumCacheNodesTemp, helpers.Data{Obj: updated, Config: s.config, Helpers: helpers.New()})
+	notificationTopicArn := helpers.CreateParam("NotificationTopicArn", helpers.Stringify(notificationTopicArnValue))
+	numCacheNodesTemp := "{{.Obj.Spec.NumCacheNodes}}"
+	numCacheNodesValue, err := helpers.Templatize(numCacheNodesTemp, helpers.Data{Obj: updated, Config: s.config, Helpers: helpers.New()})
 	if err != nil {
 		return output, err
 	}
-	NumCacheNodes := helpers.CreateParam("NumCacheNodes", helpers.Stringify(NumCacheNodesValue))
-	PortTemp := "{{.Obj.Spec.Port}}"
-	PortValue, err := helpers.Templatize(PortTemp, helpers.Data{Obj: updated, Config: s.config, Helpers: helpers.New()})
+	numCacheNodes := helpers.CreateParam("NumCacheNodes", helpers.Stringify(numCacheNodesValue))
+	portTemp := "{{.Obj.Spec.Port}}"
+	portValue, err := helpers.Templatize(portTemp, helpers.Data{Obj: updated, Config: s.config, Helpers: helpers.New()})
 	if err != nil {
 		return output, err
 	}
-	Port := helpers.CreateParam("Port", helpers.Stringify(PortValue))
-	PreferredMaintenanceWindowTemp := "{{.Obj.Spec.PreferredMaintenanceWindow}}"
-	PreferredMaintenanceWindowValue, err := helpers.Templatize(PreferredMaintenanceWindowTemp, helpers.Data{Obj: updated, Config: s.config, Helpers: helpers.New()})
+	port := helpers.CreateParam("Port", helpers.Stringify(portValue))
+	preferredMaintenanceWindowTemp := "{{.Obj.Spec.PreferredMaintenanceWindow}}"
+	preferredMaintenanceWindowValue, err := helpers.Templatize(preferredMaintenanceWindowTemp, helpers.Data{Obj: updated, Config: s.config, Helpers: helpers.New()})
 	if err != nil {
 		return output, err
 	}
-	PreferredMaintenanceWindow := helpers.CreateParam("PreferredMaintenanceWindow", helpers.Stringify(PreferredMaintenanceWindowValue))
-	PreferredAvailabilityZoneTemp := "{{.Obj.Spec.PreferredAvailabilityZone}}"
-	PreferredAvailabilityZoneValue, err := helpers.Templatize(PreferredAvailabilityZoneTemp, helpers.Data{Obj: updated, Config: s.config, Helpers: helpers.New()})
+	preferredMaintenanceWindow := helpers.CreateParam("PreferredMaintenanceWindow", helpers.Stringify(preferredMaintenanceWindowValue))
+	preferredAvailabilityZoneTemp := "{{.Obj.Spec.PreferredAvailabilityZone}}"
+	preferredAvailabilityZoneValue, err := helpers.Templatize(preferredAvailabilityZoneTemp, helpers.Data{Obj: updated, Config: s.config, Helpers: helpers.New()})
 	if err != nil {
 		return output, err
 	}
-	PreferredAvailabilityZone := helpers.CreateParam("PreferredAvailabilityZone", helpers.Stringify(PreferredAvailabilityZoneValue))
-	PreferredAvailabilityZonesTemp := "{{.Obj.Spec.PreferredAvailabilityZones}}"
-	PreferredAvailabilityZonesValue, err := helpers.Templatize(PreferredAvailabilityZonesTemp, helpers.Data{Obj: updated, Config: s.config, Helpers: helpers.New()})
+	preferredAvailabilityZone := helpers.CreateParam("PreferredAvailabilityZone", helpers.Stringify(preferredAvailabilityZoneValue))
+	preferredAvailabilityZonesTemp := "{{.Obj.Spec.PreferredAvailabilityZones}}"
+	preferredAvailabilityZonesValue, err := helpers.Templatize(preferredAvailabilityZonesTemp, helpers.Data{Obj: updated, Config: s.config, Helpers: helpers.New()})
 	if err != nil {
 		return output, err
 	}
-	PreferredAvailabilityZones := helpers.CreateParam("PreferredAvailabilityZones", helpers.Stringify(PreferredAvailabilityZonesValue))
-	SnapshotWindowTemp := "{{.Obj.Spec.SnapshotWindow}}"
-	SnapshotWindowValue, err := helpers.Templatize(SnapshotWindowTemp, helpers.Data{Obj: updated, Config: s.config, Helpers: helpers.New()})
+	preferredAvailabilityZones := helpers.CreateParam("PreferredAvailabilityZones", helpers.Stringify(preferredAvailabilityZonesValue))
+	snapshotWindowTemp := "{{.Obj.Spec.SnapshotWindow}}"
+	snapshotWindowValue, err := helpers.Templatize(snapshotWindowTemp, helpers.Data{Obj: updated, Config: s.config, Helpers: helpers.New()})
 	if err != nil {
 		return output, err
 	}
-	SnapshotWindow := helpers.CreateParam("SnapshotWindow", helpers.Stringify(SnapshotWindowValue))
-	VpcSecurityGroupIdsTemp := "{{.Obj.Spec.VpcSecurityGroupIds}}"
-	VpcSecurityGroupIdsValue, err := helpers.Templatize(VpcSecurityGroupIdsTemp, helpers.Data{Obj: updated, Config: s.config, Helpers: helpers.New()})
+	snapshotWindow := helpers.CreateParam("SnapshotWindow", helpers.Stringify(snapshotWindowValue))
+	vpcSecurityGroupIdsTemp := "{{.Obj.Spec.VpcSecurityGroupIds}}"
+	vpcSecurityGroupIdsValue, err := helpers.Templatize(vpcSecurityGroupIdsTemp, helpers.Data{Obj: updated, Config: s.config, Helpers: helpers.New()})
 	if err != nil {
 		return output, err
 	}
-	VpcSecurityGroupIds := helpers.CreateParam("VpcSecurityGroupIds", helpers.Stringify(VpcSecurityGroupIdsValue))
+	vpcSecurityGroupIds := helpers.CreateParam("VpcSecurityGroupIds", helpers.Stringify(vpcSecurityGroupIdsValue))
 
 	parameters := []*cloudformation.Parameter{}
 	parameters = append(parameters, resourceName)
@@ -330,21 +330,21 @@ func (s *Cloudformation) UpdateStack(updated *awsV1alpha1.ElastiCache) (output *
 	parameters = append(parameters, namespace)
 	parameters = append(parameters, clusterName)
 	parameters = append(parameters, elastiCacheClusterName)
-	parameters = append(parameters, AutoMinorVersionUpgrade)
-	parameters = append(parameters, AZMode)
-	parameters = append(parameters, CacheNodeType)
-	parameters = append(parameters, CacheParameterGroupName)
-	parameters = append(parameters, CacheSubnetGroupName)
-	parameters = append(parameters, Engine)
-	parameters = append(parameters, EngineVersion)
-	parameters = append(parameters, NotificationTopicArn)
-	parameters = append(parameters, NumCacheNodes)
-	parameters = append(parameters, Port)
-	parameters = append(parameters, PreferredMaintenanceWindow)
-	parameters = append(parameters, PreferredAvailabilityZone)
-	parameters = append(parameters, PreferredAvailabilityZones)
-	parameters = append(parameters, SnapshotWindow)
-	parameters = append(parameters, VpcSecurityGroupIds)
+	parameters = append(parameters, autoMinorVersionUpgrade)
+	parameters = append(parameters, azMode)
+	parameters = append(parameters, cacheNodeType)
+	parameters = append(parameters, cacheParameterGroupName)
+	parameters = append(parameters, cacheSubnetGroupName)
+	parameters = append(parameters, engine)
+	parameters = append(parameters, engineVersion)
+	parameters = append(parameters, notificationTopicArn)
+	parameters = append(parameters, numCacheNodes)
+	parameters = append(parameters, port)
+	parameters = append(parameters, preferredMaintenanceWindow)
+	parameters = append(parameters, preferredAvailabilityZone)
+	parameters = append(parameters, preferredAvailabilityZones)
+	parameters = append(parameters, snapshotWindow)
+	parameters = append(parameters, vpcSecurityGroupIds)
 
 	stackInputs.SetParameters(parameters)
 

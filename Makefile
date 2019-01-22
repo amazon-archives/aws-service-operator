@@ -21,7 +21,7 @@ test:
 .PHONY: tag
 tag:
 	git tag -a ${VERSION} -s
-	git push origin --tags
+	git push awslabs --tags
 
 .PHONY: install-aws-codegen
 install-aws-codegen:

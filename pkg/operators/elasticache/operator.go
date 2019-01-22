@@ -256,8 +256,8 @@ func syncAdditionalResources(config config.Config, s *awsV1alpha1.ElastiCache) (
 	resource = resource.DeepCopy()
 
 	services := []string{}
-	ElastiCacheAddressSvc := helpers.CreateExternalNameService(config, s, s.Name, s.Namespace, "{{ if .Obj.Output.RedisEndpointAddress }}{{ .Obj.Output.RedisEndpointAddress }}{{ else }}{{ .Obj.Output.ConfigurationEndpointAddress }}{{end}}", "{{ if .Obj.Output.RedisEndpointPort }}{{ .Obj.Output.RedisEndpointPort }}{{ else }}{{ .Obj.Output.ConfigurationEndpointPort }}{{end}}")
-	services = append(services, ElastiCacheAddressSvc)
+	elastiCacheAddressSvc := helpers.CreateExternalNameService(config, s, s.Name, s.Namespace, "{{ if .Obj.Output.RedisEndpointAddress }}{{ .Obj.Output.RedisEndpointAddress }}{{ else }}{{ .Obj.Output.ConfigurationEndpointAddress }}{{end}}", "{{ if .Obj.Output.RedisEndpointPort }}{{ .Obj.Output.RedisEndpointPort }}{{ else }}{{ .Obj.Output.ConfigurationEndpointPort }}{{end}}")
+	services = append(services, elastiCacheAddressSvc)
 	resource.AdditionalResources.Services = services
 
 	_, err = clientSet.ElastiCaches(s.Namespace).Update(resource)
