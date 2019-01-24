@@ -22,7 +22,7 @@ The following table lists the configurable parameters of the aws-service-operato
 | Parameter                 | Description                            | Default                                            |
 | ------------------------- | -------------------------------------- | -------------------------------------------------- |
 | `image.repository`        | Container image repository             | `awsserviceoperator/aws-service-operator`          |
-| `image.tag`               | Container image tag                    | `v0.0.1-alpha3`                                    |
+| `image.tag`               | Container image tag                    | `v0.0.1-alpha4`                                    |
 | `image.pullPolicy`        | Container pull policy                  | `IfNotPresent`                                     |
 | `image.pullSecret`        | Container pull secret (secret created not by this chart) | ``                               |
 | `operator.accountId`      | AWS Account ID to operator on          | `""`                                               |
