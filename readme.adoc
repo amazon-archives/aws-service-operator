@@ -93,7 +93,7 @@ kubectl delete -f configs/aws-service-operator.yaml
 
 == Developer Docs
 
-[Here](development.adoc)
+link:development.adoc[Here]
 
 = FAQ
 
