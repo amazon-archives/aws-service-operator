@@ -53,6 +53,7 @@ type SQSQueueStatus struct {
 
 // SQSQueueAdditionalResources holds the additional resources
 type SQSQueueAdditionalResources struct {
+	ConfigMaps []string `json:"configMaps"`
 }
 
 // +k8s:deepcopy-gen:interfaces=k8s.io/apimachinery/pkg/runtime.Object

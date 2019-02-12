@@ -116,3 +116,19 @@ spec:
           Name newly created SQS Queue
         structKey: DeadLetterQueueName
         templateKey: DeadLetterQueueName
+  additionalResources:
+    configMaps:
+    - name: SQSQueueCM
+      data:
+      - key: queueARN
+        value: "{{.Obj.Output.QueueARN}}"
+      - key: queueName
+        value: "{{.Obj.Output.QueueName}}"
+      - key: queueURL
+        value: "{{.Obj.Output.QueueURL}}"
+      - key: deadLetterQueueURL
+        value: "{{.Obj.Output.DeadLetterQueueURL}}"
+      - key: deadLetterQueueARN
+        value: "{{.Obj.Output.DeadLetterQueueARN}}"
+      - key: deadLetterQueueName
+        value: "{{.Obj.Output.DeadLetterQueueName}}"
