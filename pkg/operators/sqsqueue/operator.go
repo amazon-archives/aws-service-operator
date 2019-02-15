@@ -257,6 +257,19 @@ func syncAdditionalResources(config config.Config, s *awsV1alpha1.SQSQueue) (err
 	}
 	resource = resource.DeepCopy()
 
+	configmaps := []string{}
+	SQSQueueCMData := map[string]string{
+		"queueARN":            "{{.Obj.Output.QueueARN}}",
+		"queueName":           "{{.Obj.Output.QueueName}}",
+		"queueURL":            "{{.Obj.Output.QueueURL}}",
+		"deadLetterQueueURL":  "{{.Obj.Output.DeadLetterQueueURL}}",
+		"deadLetterQueueARN":  "{{.Obj.Output.DeadLetterQueueARN}}",
+		"deadLetterQueueName": "{{.Obj.Output.DeadLetterQueueName}}",
+	}
+	SQSQueueCM := helpers.CreateConfigMap(config, s, s.Name, s.Namespace, SQSQueueCMData)
+	configmaps = append(configmaps, SQSQueueCM)
+	resource.AdditionalResources.ConfigMaps = configmaps
+
 	_, err = clientSet.SQSQueues(s.Namespace).Update(resource)
 	if err != nil {
 		return err
