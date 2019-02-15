@@ -116,7 +116,10 @@ data:
         Condition: CreateDeadLetterQueue
         Type: 'AWS::SQS::Queue'
         Properties:
-          FifoQueue: !Ref FifoQueue
+          FifoQueue: !If
+            - IsFifo
+            - 'true'
+            - !Ref AWS::NoValue
     Outputs:
       QueueURL:
         Description: URL of newly created SQS Queue
