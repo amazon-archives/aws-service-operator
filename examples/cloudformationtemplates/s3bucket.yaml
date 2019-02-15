@@ -163,12 +163,13 @@ data:
               - "s3:GetObject"
               Effect: Allow
               Principal: "*"
-              Resource: !Join:
-                - ""
-                -
-                  - "arn:aws:s3:::"
-                  - !Ref S3bucket
-                    - "/*
+              Resource:
+                Fn::Join:
+                  - ""
+                  -
+                    - "arn:aws:s3:::"
+                    - !Ref S3bucket
+                    - "/*"
 
       LoggingBucket:
         Condition: UseLogging
