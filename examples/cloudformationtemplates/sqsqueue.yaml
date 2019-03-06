@@ -93,6 +93,7 @@ data:
       SQSQueue:
         Type: 'AWS::SQS::Queue'
         Properties:
+          QueueName: !Ref ResourceName
           ContentBasedDeduplication: !If
             - IsFifo
             - !Ref ContentBasedDeduplication
