@@ -27,7 +27,7 @@ items:
       - cfn
       - cfns
       - cloudformation
-      singular: cloudformationtemplates
+      singular: cloudformationtemplate
     scope: Namespaced
     version: v1alpha1
 
@@ -47,7 +47,7 @@ items:
       - dynamo
       - dynamotable
       - dynamotables
-      singular: dynamodbs
+      singular: dynamodb
     scope: Namespaced
     version: v1alpha1
 
@@ -64,7 +64,7 @@ items:
       shortNames:
       - ecr
       - repository
-      singular: ecrrepositories
+      singular: ecrrepository
     scope: Namespaced
     version: v1alpha1
 
@@ -80,7 +80,7 @@ items:
       plural: elasticaches
       shortNames:
       - ec
-      singular: elasticaches
+      singular: elasticache
     scope: Namespaced
     version: v1alpha1
 
@@ -98,7 +98,7 @@ items:
       - s3
       - bucket
       - buckets
-      singular: s3buckets
+      singular: s3bucket
     scope: Namespaced
     version: v1alpha1
 
@@ -114,7 +114,7 @@ items:
       plural: snssubscriptions
       shortNames:
       - subscription
-      singular: snssubscriptions
+      singular: snssubscription
     scope: Namespaced
     version: v1alpha1
 
@@ -132,7 +132,7 @@ items:
       - sns
       - topic
       - topics
-      singular: snstopics
+      singular: snstopic
     scope: Namespaced
     version: v1alpha1
 
@@ -150,7 +150,7 @@ items:
       - sqs
       - queue
       - queues
-      singular: sqsqueues
+      singular: sqsqueue
     scope: Namespaced
     version: v1alpha1
 
