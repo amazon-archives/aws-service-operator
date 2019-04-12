@@ -74,6 +74,9 @@ func (s *Cloudformation) CreateStack() (output *cloudformation.CreateStackOutput
 		NotificationARNs: []*string{
 			aws.String(s.topicARN),
 		},
+		Capabilities: []*string{
+			aws.String("CAPABILITY_IAM"),
+		},
 	}
 
 	resourceName := helpers.CreateParam("ResourceName", s.ElastiCache.Name)
@@ -225,6 +228,9 @@ func (s *Cloudformation) UpdateStack(updated *awsV1alpha1.ElastiCache) (output *
 		TemplateURL: aws.String(cftemplate),
 		NotificationARNs: []*string{
 			aws.String(s.topicARN),
+		},
+		Capabilities: []*string{
+			aws.String("CAPABILITY_IAM"),
 		},
 	}
 

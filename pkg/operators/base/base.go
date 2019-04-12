@@ -6,6 +6,7 @@ import (
 	"github.com/awslabs/aws-service-operator/pkg/operators/cloudformationtemplate"
 	"github.com/awslabs/aws-service-operator/pkg/operators/dynamodb"
 	"github.com/awslabs/aws-service-operator/pkg/operators/ecrrepository"
+	"github.com/awslabs/aws-service-operator/pkg/operators/eksnodegroup"
 	"github.com/awslabs/aws-service-operator/pkg/operators/elasticache"
 	"github.com/awslabs/aws-service-operator/pkg/operators/s3bucket"
 	"github.com/awslabs/aws-service-operator/pkg/operators/snssubscription"
@@ -20,6 +21,7 @@ type base struct {
 	cloudformationtemplate *cloudformationtemplate.Operator
 	dynamodb               *dynamodb.Operator
 	ecrrepository          *ecrrepository.Operator
+	eksnodegroup           *eksnodegroup.Operator
 	elasticache            *elasticache.Operator
 	s3bucket               *s3bucket.Operator
 	snssubscription        *snssubscription.Operator
@@ -37,6 +39,7 @@ func New(
 		cloudformationtemplate: cloudformationtemplate.NewOperator(config, queueManager),
 		dynamodb:               dynamodb.NewOperator(config, queueManager),
 		ecrrepository:          ecrrepository.NewOperator(config, queueManager),
+		eksnodegroup:           eksnodegroup.NewOperator(config, queueManager),
 		elasticache:            elasticache.NewOperator(config, queueManager),
 		s3bucket:               s3bucket.NewOperator(config, queueManager),
 		snssubscription:        snssubscription.NewOperator(config, queueManager),
@@ -54,6 +57,9 @@ func (b *base) Watch(ctx context.Context, namespace string) {
 	}
 	if b.config.Resources["ecrrepository"] {
 		go b.ecrrepository.StartWatch(ctx, namespace)
+	}
+	if b.config.Resources["eksnodegroup"] {
+		go b.eksnodegroup.StartWatch(ctx, namespace)
 	}
 	if b.config.Resources["elasticache"] {
 		go b.elasticache.StartWatch(ctx, namespace)

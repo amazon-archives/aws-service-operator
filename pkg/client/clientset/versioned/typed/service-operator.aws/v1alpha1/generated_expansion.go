@@ -21,6 +21,8 @@ type DynamoDBExpansion interface{}
 
 type ECRRepositoryExpansion interface{}
 
+type EKSNodeGroupExpansion interface{}
+
 type ElastiCacheExpansion interface{}
 
 type S3BucketExpansion interface{}
