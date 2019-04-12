@@ -1,0 +1,145 @@
+apiVersion: service-operator.aws/v1alpha1
+kind: ModelDefinition
+metadata:
+  name: EKSNodeGroupResource
+spec:
+  kind: EKSNodeGroup
+  type: Spec # can be Spec or Data
+  queue: true
+  useCloudFormation: true
+  resource:
+    name: eksnodegroup
+    plural: eksnodegroups
+    shortNames:
+    - name: nodegroups
+    - name: nodegroup
+    - name: eksnodes
+    - name: eksnode
+    - name: ngs
+    - name: ng
+    scope: Namespaced
+  body:
+    schema:
+      title: EKSNodeGroup
+      type: object
+      properties:
+      - key: nodeGroupName
+        type: resourceName
+        description: |
+          NodeGroupName is the name of the EKS Node Group to be created.
+        structKey: NodeGroupName
+        templateKey: NodeGroupName
+      - key: node
+        type: object
+        description: |
+          Node contains all the configuration for the nodes.
+        structKey: Node
+        templateKey: Node
+        properties:
+        - key: imageID
+          type: string
+          description: |
+            Image ID is the AMI ID
+          structKey: NodeImageId
+          templateKey: NodeImageId
+        - key: keyName
+          type: string
+          description: |
+            The EC2 Key Pair to allow SSH access to the instances
+          structKey: KeyName
+          templateKey: KeyName
+        - key: instanceType
+          type: string
+          description: |
+            Instance type for the node group.
+          structKey: NodeInstanceType
+          templateKey: NodeInstanceType
+        - key: volumeSize
+          type: int
+          description: |
+            Node volume size
+          structKey: NodeVolumeSize
+          templateKey: NodeVolumeSize
+        - key: bootstrapArguments
+          type: string
+          description: |
+            Arguments to pass to the bootstrap script. See files/bootstrap.sh in https://github.com/awslabs/amazon-eks-ami
+          structKey: BootstrapArguments
+          templateKey: BootstrapArguments
+      - key: autoScalingGroup
+        type: object
+        description: |
+          AutoScalingGroup contains all the ASG configs.
+        structKey: AutoScalingGroup
+        templateKey: AutoScalingGroup
+        properties:
+        - key: minSize
+          type: int
+          description: |
+            Minimum size of Node Group ASG.
+          structKey: NodeAutoScalingGroupMinSize
+          templateKey: NodeAutoScalingGroupMinSize
+        - key: maxSize
+          type: int
+          description: |
+            Minimum size of Node Group ASG.
+          structKey: NodeAutoScalingGroupMaxSize
+          templateKey: NodeAutoScalingGroupMaxSize
+        - key: desiredCapacity
+          type: int
+          description: |
+            Desired capacity of Node Group ASG.
+          structKey: NodeAutoScalingGroupDesiredCapacity
+          templateKey: NodeAutoScalingGroupDesiredCapacity
+      - key: networking
+        type: object
+        description: |
+          Networking configurations.
+        structKey: Networking
+        templateKey: Networking
+        properties:
+        - key: controlPlaneSecurityGroup
+          type: string
+          description: |
+            The security group of the cluster control plane.
+          structKey: ClusterControlPlaneSecurityGroup
+          templateKey: ClusterControlPlaneSecurityGroup
+        - key: vpcID
+          type: string
+          description: |
+            The VPC of the worker instances
+          structKey: VpcId
+          templateKey: VpcId
+        - key: subnets
+          type: string
+          description: |
+            The subnets where workers can be created.
+          structKey: Subnets
+          templateKey: Subnets
+
+
+  output:
+    schema:
+      type: object
+      properties:
+      - key: nodeInstanceRole
+        type: string
+        description: |
+          The node instance role
+        structKey: NodeInstanceRole
+        templateKey: NodeInstanceRole
+      - key: nodeSecurityGroup
+        type: string
+        description: |
+          The security group for the node group
+        structKey: NodeSecurityGroup
+        templateKey: NodeSecurityGroup
+
+  additionalResources:
+    configMaps:
+    - name: eksNodeGroupCM
+      data:
+      - key: nodeInstanceRole
+        value: "{{.Obj.Output.NodeInstanceRole}}"
+      - key: nodeSecurityGroup
+        value: "{{.Obj.Output.NodeSecurityGroup}}"

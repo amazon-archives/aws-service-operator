@@ -1,0 +1,20 @@
+apiVersion: service-operator.aws/v1alpha1
+kind: EKSNodeGroup
+metadata:
+  name: example-eks-nodegroup
+spec:
+  clusterName: "<cluster-name>"
+  node:
+    imageID: ami-XXXXX
+    instanceType: m5.large
+    volumeSize: 20
+    # bootstrapArguments: ""
+    keyName: ""
+  autoScalingGroup:
+    minSize: 2
+    maxSize: 4
+    desiredCapacity: 3
+  networking:
+    controlPlaneSecurityGroup: sg-XXXXX
+    vpcID: vpc-XXXXX
+    subnets: subnet-XXXXX,subnet-XXXXX,subnet-XXXXX
