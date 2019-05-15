@@ -65,7 +65,8 @@ func QueueUpdater(config config.Config, msg *queuemanager.MessageBody) error {
 		namespace = msg.Namespace
 	} else {
 		clientSet, _ := awsclient.NewForConfig(config.RESTConfig)
-		resources, err := clientSet.S3Buckets("").List(metav1.ListOptions{})
+
+		resources, err := clientSet.S3Buckets(config.K8sNamespace).List(metav1.ListOptions{})
 		if err != nil {
 			logger.WithError(err).Error("error getting s3buckets")
 			return err

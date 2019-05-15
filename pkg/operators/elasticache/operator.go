@@ -65,7 +65,8 @@ func QueueUpdater(config config.Config, msg *queuemanager.MessageBody) error {
 		namespace = msg.Namespace
 	} else {
 		clientSet, _ := awsclient.NewForConfig(config.RESTConfig)
-		resources, err := clientSet.ElastiCaches("").List(metav1.ListOptions{})
+
+		resources, err := clientSet.ElastiCaches(config.K8sNamespace).List(metav1.ListOptions{})
 		if err != nil {
 			logger.WithError(err).Error("error getting elasticaches")
 			return err
