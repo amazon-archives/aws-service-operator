@@ -57,8 +57,9 @@ func (c *Server) watchOperatorResources(errChan chan error, ctx context.Context)
 		logger.WithError(err).Error("error setting queue policy")
 	}
 
-	logger.WithFields(logrus.Fields{"resources": c.Config.Resources}).Info("Watching")
-	go operators.Watch(ctx, corev1.NamespaceAll)
+	k8sNamespaceToWatch := c.Config.K8sNamespace
+	logger.WithFields(logrus.Fields{"resources": c.Config.Resources, "in namespace": k8sNamespaceToWatch}).Info("Watching")
+	go operators.Watch(ctx, k8sNamespaceToWatch)
 	go queue.Subscribe(c.Config, queueManager, ctx)
 	<-ctx.Done()
 	c.Config.Logger.Info("operators stopped")

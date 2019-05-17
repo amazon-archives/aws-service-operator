@@ -37,6 +37,7 @@ type Config struct {
 	Bucket           string
 	AccountID        string
 	DefaultNamespace string
+	K8sNamespace     string
 	Recorder         record.EventRecorder
 }
 

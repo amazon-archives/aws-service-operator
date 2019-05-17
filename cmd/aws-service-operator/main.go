@@ -15,14 +15,14 @@ import (
 	homedir "github.com/mitchellh/go-homedir"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
-        
-        _ "k8s.io/client-go/plugin/pkg/client/auth/gcp"
+
+	_ "k8s.io/client-go/plugin/pkg/client/auth/gcp"
 )
 
 var (
 	// cfgFile, masterURL, kubeConfig, awsRegion all help support passed in flags into the server
-	cfgFile, masterURL, kubeconfig, awsRegion, logLevel, logFile, resources, clusterName, bucket, accountID string
-	defaultNamespace                                                                                        string
+	cfgFile, masterURL, kubeconfig, awsRegion, logLevel, logFile, resources, clusterName, bucket, accountID, k8sNamespace string
+	defaultNamespace                                                                                                      string
 
 	// rootCmd represents the base command when called without any subcommands
 	rootCmd = &cobra.Command{
@@ -56,6 +56,7 @@ func init() {
 	rootCmd.PersistentFlags().StringVarP(&clusterName, "cluster-name", "i", "aws-operator", "Cluster name for the Application to run as, used to label the Cloudformation templated to avoid conflict")
 	rootCmd.PersistentFlags().StringVarP(&bucket, "bucket", "b", "aws-operator", "To configure the operator you need a base bucket to contain the resources")
 	rootCmd.PersistentFlags().StringVarP(&accountID, "account-id", "a", "", "AWS Account ID, this is used to configure outputs and operate on the proper account.")
+	rootCmd.PersistentFlags().StringVarP(&k8sNamespace, "k8s-namespace", "", "", "Namespace to scope k8s API queries to. If left blank will default to all namespaces")
 	rootCmd.PersistentFlags().StringVarP(&defaultNamespace, "default-namespace", "", "default", "The default namespace in which to look for CloudFormation templates")
 
 	viper.BindPFlag("config", rootCmd.PersistentFlags().Lookup("config"))
@@ -154,6 +155,7 @@ func getConfig() (c config.Config, err error) {
 		Bucket:           bucket,
 		AccountID:        accountID,
 		DefaultNamespace: defaultNamespace,
+		K8sNamespace:     k8sNamespace,
 		QueueURL:         queueURL,
 		QueueARN:         queueARN,
 	}
