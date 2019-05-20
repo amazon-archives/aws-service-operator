@@ -12,7 +12,6 @@ import (
 	"github.com/awslabs/aws-service-operator/pkg/queuemanager"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
 	"github.com/sirupsen/logrus"
-	corev1 "k8s.io/api/core/v1"
 	"k8s.io/client-go/kubernetes/scheme"
 )
 
