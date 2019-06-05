@@ -34,7 +34,7 @@ create a Kubernetes `Service` for access within the cluster.
 
 === Create an IAM role for the `aws-service-operator`
 
- The `K8S_WORKER_NODE_IAM_ROLE` is the IAM role assigned to your kubernetes worker instances.
+ The `K8S_WORKER_NODE_IAM_ROLE_ARN` is the IAM role arn assigned to your kubernetes worker instances.
 
 [source,shell]
 aws cloudformation create-stack \
@@ -42,7 +42,7 @@ aws cloudformation create-stack \
   --capabilities CAPABILITY_NAMED_IAM \
   --template-body file://configs/aws-service-operator-role.yaml \
   --parameters \
-    ParameterKey=WorkerArn,ParameterValue=<K8S_WORKER_NODE_IAM_ROLE>
+    ParameterKey=WorkerArn,ParameterValue=<K8S_WORKER_NODE_IAM_ROLE_ARN>
 
 Your resulting IAM role arn should look something like `arn:aws:iam::<ACCOUNT_ID>:role/aws-service-operator`
 
