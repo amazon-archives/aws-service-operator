@@ -1,0 +1,118 @@
+---
+apiVersion: models.awsoperator.io/v1alpha1
+kind: ModelFile
+metadata:
+  name: ssm-association-resource
+  creationTimestamp: '2019-06-13T16:59:30-07:00'
+  resourceVersion: 3.3.0
+spec:
+  resource:
+    kind: Association
+    scope: Namespaced
+    apiGroup:
+      apiVersion: ssm.awsoperator.io/v1alpha1
+      group: ssm
+      region: us-east-1
+      domain: awsoperator.io
+      versions:
+      - name: v1alpha1
+        served: true
+        storage: true
+    names:
+      singular: association
+      plural: associations
+      shortNames: []
+  openAPIV3Schema:
+    properties:
+      spec:
+        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ssm-association.html
+        type: object
+        customAttributes: {}
+        required:
+        - name
+        properties:
+          associationName:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ssm-association.html#cfn-ssm-association-associationname
+            type: string
+            customAttributes:
+              template: AssociationName
+              immutable: false
+          documentVersion:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ssm-association.html#cfn-ssm-association-documentversion
+            type: string
+            customAttributes:
+              template: DocumentVersion
+              immutable: false
+          instanceRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ssm-association.html#cfn-ssm-association-instanceid
+            type: string
+            customAttributes:
+              template: InstanceId
+              immutable: true
+          name:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ssm-association.html#cfn-ssm-association-name
+            type: string
+            customAttributes:
+              template: Name
+              immutable: true
+          outputLocation:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ssm-association.html#cfn-ssm-association-outputlocation
+            type: object
+            customAttributes:
+              immutable: false
+            required: []
+            properties:
+              s3Location:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ssm-association-instanceassociationoutputlocation.html#cfn-ssm-association-instanceassociationoutputlocation-s3location
+                type: object
+                customAttributes:
+                  immutable: false
+                required: []
+                properties:
+                  outputS3BucketName:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ssm-association-s3outputlocation.html#cfn-ssm-association-s3outputlocation-outputs3bucketname
+                    type: string
+                    customAttributes:
+                      template: OutputS3BucketName
+                      immutable: false
+                  outputS3KeyPrefix:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ssm-association-s3outputlocation.html#cfn-ssm-association-s3outputlocation-outputs3keyprefix
+                    type: string
+                    customAttributes:
+                      template: OutputS3KeyPrefix
+                      immutable: false
+          parameters:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ssm-association.html#cfn-ssm-association-parameters
+            type: json
+            customAttributes:
+              template: Parameters
+              immutable: false
+          scheduleExpression:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ssm-association.html#cfn-ssm-association-scheduleexpression
+            type: string
+            customAttributes:
+              template: ScheduleExpression
+              immutable: false
+          targets:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ssm-association.html#cfn-ssm-association-targets
+            type: array
+            customAttributes:
+              template: Targets
+              immutable: true
+            items:
+              type: object
+              properties:
+                key:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ssm-association-target.html#cfn-ssm-association-target-key
+                  type: string
+                  customAttributes:
+                    template: Key
+                    immutable: true
+                values:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ssm-association-target.html#cfn-ssm-association-target-values
+                  type: array
+                  customAttributes:
+                    template: Values
+                    immutable: true
+                  items:
+                    type: string

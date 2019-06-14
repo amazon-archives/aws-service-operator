@@ -1,0 +1,71 @@
+---
+apiVersion: models.awsoperator.io/v1alpha1
+kind: ModelFile
+metadata:
+  name: lambda-permission-resource
+  creationTimestamp: '2019-06-13T16:59:29-07:00'
+  resourceVersion: 3.3.0
+spec:
+  resource:
+    kind: Permission
+    scope: Namespaced
+    apiGroup:
+      apiVersion: lambda.awsoperator.io/v1alpha1
+      group: lambda
+      region: us-east-1
+      domain: awsoperator.io
+      versions:
+      - name: v1alpha1
+        served: true
+        storage: true
+    names:
+      singular: permission
+      plural: permissions
+      shortNames: []
+  openAPIV3Schema:
+    properties:
+      spec:
+        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-lambda-permission.html
+        type: object
+        customAttributes: {}
+        required:
+        - action
+        - functionName
+        - principal
+        properties:
+          action:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-lambda-permission.html#cfn-lambda-permission-action
+            type: string
+            customAttributes:
+              template: Action
+              immutable: true
+          eventSourceToken:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-lambda-permission.html#cfn-lambda-permission-eventsourcetoken
+            type: string
+            customAttributes:
+              template: EventSourceToken
+              immutable: true
+          functionName:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-lambda-permission.html#cfn-lambda-permission-functionname
+            type: string
+            customAttributes:
+              template: FunctionName
+              immutable: true
+          principal:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-lambda-permission.html#cfn-lambda-permission-principal
+            type: string
+            customAttributes:
+              template: Principal
+              immutable: true
+          sourceAccount:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-lambda-permission.html#cfn-lambda-permission-sourceaccount
+            type: string
+            customAttributes:
+              template: SourceAccount
+              immutable: true
+          sourceRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-lambda-permission.html#cfn-lambda-permission-sourcearn
+            type: string
+            customAttributes:
+              template: SourceArn
+              immutable: true

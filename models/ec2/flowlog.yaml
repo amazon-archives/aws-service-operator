@@ -1,0 +1,88 @@
+---
+apiVersion: models.awsoperator.io/v1alpha1
+kind: ModelFile
+metadata:
+  name: ec2-flowlog-resource
+  creationTimestamp: '2019-06-13T16:59:29-07:00'
+  resourceVersion: 3.3.0
+spec:
+  resource:
+    kind: FlowLog
+    scope: Namespaced
+    apiGroup:
+      apiVersion: ec2.awsoperator.io/v1alpha1
+      group: ec2
+      region: us-east-1
+      domain: awsoperator.io
+      versions:
+      - name: v1alpha1
+        served: true
+        storage: true
+    names:
+      singular: flowlog
+      plural: flowlogs
+      shortNames: []
+  openAPIV3Schema:
+    properties:
+      spec:
+        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-flowlog.html
+        type: object
+        customAttributes: {}
+        required:
+        - resourceId
+        - resourceType
+        - trafficType
+        properties:
+          deliverLogsPermissionRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-flowlog.html#cfn-ec2-flowlog-deliverlogspermissionarn
+            type: string
+            customAttributes:
+              template: DeliverLogsPermissionArn
+              immutable: true
+          logDestination:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-flowlog.html#cfn-ec2-flowlog-logdestination
+            type: string
+            customAttributes:
+              template: LogDestination
+              immutable: true
+          logDestinationType:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-flowlog.html#cfn-ec2-flowlog-logdestinationtype
+            type: string
+            customAttributes:
+              template: LogDestinationType
+              immutable: true
+            enum:
+            - cloud-watch-logs
+            - s3
+          logGroupName:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-flowlog.html#cfn-ec2-flowlog-loggroupname
+            type: string
+            customAttributes:
+              template: LogGroupName
+              immutable: true
+          resourceRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-flowlog.html#cfn-ec2-flowlog-resourceid
+            type: string
+            customAttributes:
+              template: ResourceId
+              immutable: true
+          resourceType:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-flowlog.html#cfn-ec2-flowlog-resourcetype
+            type: string
+            customAttributes:
+              template: ResourceType
+              immutable: true
+            enum:
+            - NetworkInterface
+            - Subnet
+            - VPC
+          trafficType:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-flowlog.html#cfn-ec2-flowlog-traffictype
+            type: string
+            customAttributes:
+              template: TrafficType
+              immutable: true
+            enum:
+            - ACCEPT
+            - ALL
+            - REJECT

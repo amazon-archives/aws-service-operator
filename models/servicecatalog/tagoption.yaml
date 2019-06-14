@@ -1,0 +1,52 @@
+---
+apiVersion: models.awsoperator.io/v1alpha1
+kind: ModelFile
+metadata:
+  name: servicecatalog-tagoption-resource
+  creationTimestamp: '2019-06-13T16:59:30-07:00'
+  resourceVersion: 3.3.0
+spec:
+  resource:
+    kind: TagOption
+    scope: Namespaced
+    apiGroup:
+      apiVersion: servicecatalog.awsoperator.io/v1alpha1
+      group: servicecatalog
+      region: us-east-1
+      domain: awsoperator.io
+      versions:
+      - name: v1alpha1
+        served: true
+        storage: true
+    names:
+      singular: tagoption
+      plural: tagoptions
+      shortNames: []
+  openAPIV3Schema:
+    properties:
+      spec:
+        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-servicecatalog-tagoption.html
+        type: object
+        customAttributes: {}
+        required:
+        - key
+        - value
+        properties:
+          active:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-servicecatalog-tagoption.html#cfn-servicecatalog-tagoption-active
+            type: boolean
+            customAttributes:
+              template: Active
+              immutable: false
+          key:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-servicecatalog-tagoption.html#cfn-servicecatalog-tagoption-key
+            type: string
+            customAttributes:
+              template: Key
+              immutable: true
+          value:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-servicecatalog-tagoption.html#cfn-servicecatalog-tagoption-value
+            type: string
+            customAttributes:
+              template: Value
+              immutable: true

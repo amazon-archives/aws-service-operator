@@ -1,0 +1,54 @@
+---
+apiVersion: models.awsoperator.io/v1alpha1
+kind: ModelFile
+metadata:
+  name: kinesisanalyticsv2-applicationcloudwatchloggingoption-resource
+  creationTimestamp: '2019-06-13T16:59:29-07:00'
+  resourceVersion: 3.3.0
+spec:
+  resource:
+    kind: ApplicationCloudWatchLoggingOption
+    scope: Namespaced
+    apiGroup:
+      apiVersion: kinesisanalyticsv2.awsoperator.io/v1alpha1
+      group: kinesisanalyticsv2
+      region: us-east-1
+      domain: awsoperator.io
+      versions:
+      - name: v1alpha1
+        served: true
+        storage: true
+    names:
+      singular: applicationcloudwatchloggingoption
+      plural: applicationcloudwatchloggingoptions
+      shortNames: []
+  openAPIV3Schema:
+    properties:
+      spec:
+        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-kinesisanalyticsv2-applicationcloudwatchloggingoption.html
+        type: object
+        customAttributes: {}
+        required:
+        - applicationName
+        - cloudWatchLoggingOption
+        properties:
+          applicationName:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-kinesisanalyticsv2-applicationcloudwatchloggingoption.html#cfn-kinesisanalyticsv2-applicationcloudwatchloggingoption-applicationname
+            type: string
+            customAttributes:
+              template: ApplicationName
+              immutable: true
+          cloudWatchLoggingOption:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-kinesisanalyticsv2-applicationcloudwatchloggingoption.html#cfn-kinesisanalyticsv2-applicationcloudwatchloggingoption-cloudwatchloggingoption
+            type: object
+            customAttributes:
+              immutable: false
+            required:
+            - logStreamARN
+            properties:
+              logStreamARN:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisanalyticsv2-applicationcloudwatchloggingoption-cloudwatchloggingoption.html#cfn-kinesisanalyticsv2-applicationcloudwatchloggingoption-cloudwatchloggingoption-logstreamarn
+                type: string
+                customAttributes:
+                  template: LogStreamARN
+                  immutable: false

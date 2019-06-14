@@ -1,0 +1,1214 @@
+---
+apiVersion: models.awsoperator.io/v1alpha1
+kind: ModelFile
+metadata:
+  name: kinesisfirehose-deliverystream-resource
+  creationTimestamp: '2019-06-13T16:59:29-07:00'
+  resourceVersion: 3.3.0
+spec:
+  resource:
+    kind: DeliveryStream
+    scope: Namespaced
+    apiGroup:
+      apiVersion: kinesisfirehose.awsoperator.io/v1alpha1
+      group: kinesisfirehose
+      region: us-east-1
+      domain: awsoperator.io
+      versions:
+      - name: v1alpha1
+        served: true
+        storage: true
+    names:
+      singular: deliverystream
+      plural: deliverystreams
+      shortNames: []
+  openAPIV3Schema:
+    properties:
+      spec:
+        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-kinesisfirehose-deliverystream.html
+        type: object
+        customAttributes: {}
+        required: []
+        properties:
+          deliveryStreamName:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-kinesisfirehose-deliverystream.html#cfn-kinesisfirehose-deliverystream-deliverystreamname
+            type: string
+            customAttributes:
+              template: DeliveryStreamName
+              resourceName: true
+              immutable: true
+          deliveryStreamType:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-kinesisfirehose-deliverystream.html#cfn-kinesisfirehose-deliverystream-deliverystreamtype
+            type: string
+            customAttributes:
+              template: DeliveryStreamType
+              immutable: true
+          elasticsearchDestinationConfiguration:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-kinesisfirehose-deliverystream.html#cfn-kinesisfirehose-deliverystream-elasticsearchdestinationconfiguration
+            type: object
+            customAttributes:
+              immutable: false
+            required:
+            - bufferingHints
+            - domainARN
+            - indexName
+            - indexRotationPeriod
+            - retryOptions
+            - roleARN
+            - s3BackupMode
+            - s3Configuration
+            - typeName
+            properties:
+              bufferingHints:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-elasticsearchdestinationconfiguration.html#cfn-kinesisfirehose-deliverystream-elasticsearchdestinationconfiguration-bufferinghints
+                type: object
+                customAttributes:
+                  immutable: false
+                required:
+                - intervalInSeconds
+                - sizeInMBs
+                properties:
+                  intervalInSeconds:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-elasticsearchbufferinghints.html#cfn-kinesisfirehose-deliverystream-elasticsearchbufferinghints-intervalinseconds
+                    type: integer
+                    format: int32
+                    customAttributes:
+                      template: IntervalInSeconds
+                      immutable: false
+                  sizeInMBs:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-elasticsearchbufferinghints.html#cfn-kinesisfirehose-deliverystream-elasticsearchbufferinghints-sizeinmbs
+                    type: integer
+                    format: int32
+                    customAttributes:
+                      template: SizeInMBs
+                      immutable: false
+              cloudWatchLoggingOptions:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-elasticsearchdestinationconfiguration.html#cfn-kinesisfirehose-deliverystream-elasticsearchdestinationconfiguration-cloudwatchloggingoptions
+                type: object
+                customAttributes:
+                  immutable: false
+                required: []
+                properties:
+                  enabled:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-cloudwatchloggingoptions.html#cfn-kinesisfirehose-deliverystream-cloudwatchloggingoptions-enabled
+                    type: boolean
+                    customAttributes:
+                      template: Enabled
+                      immutable: false
+                  logGroupName:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-cloudwatchloggingoptions.html#cfn-kinesisfirehose-deliverystream-cloudwatchloggingoptions-loggroupname
+                    type: string
+                    customAttributes:
+                      template: LogGroupName
+                      immutable: false
+                  logStreamName:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-cloudwatchloggingoptions.html#cfn-kinesisfirehose-deliverystream-cloudwatchloggingoptions-logstreamname
+                    type: string
+                    customAttributes:
+                      template: LogStreamName
+                      immutable: false
+              domainARN:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-elasticsearchdestinationconfiguration.html#cfn-kinesisfirehose-deliverystream-elasticsearchdestinationconfiguration-domainarn
+                type: string
+                customAttributes:
+                  template: DomainARN
+                  immutable: false
+              indexName:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-elasticsearchdestinationconfiguration.html#cfn-kinesisfirehose-deliverystream-elasticsearchdestinationconfiguration-indexname
+                type: string
+                customAttributes:
+                  template: IndexName
+                  immutable: false
+              indexRotationPeriod:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-elasticsearchdestinationconfiguration.html#cfn-kinesisfirehose-deliverystream-elasticsearchdestinationconfiguration-indexrotationperiod
+                type: string
+                customAttributes:
+                  template: IndexRotationPeriod
+                  immutable: false
+              processingConfiguration:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-elasticsearchdestinationconfiguration.html#cfn-kinesisfirehose-deliverystream-elasticsearchdestinationconfiguration-processingconfiguration
+                type: object
+                customAttributes:
+                  immutable: false
+                required: []
+                properties:
+                  enabled:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-processingconfiguration.html#cfn-kinesisfirehose-deliverystream-processingconfiguration-enabled
+                    type: boolean
+                    customAttributes:
+                      template: Enabled
+                      immutable: false
+                  processors:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-processingconfiguration.html#cfn-kinesisfirehose-deliverystream-processingconfiguration-processors
+                    type: array
+                    customAttributes:
+                      template: Processors
+                      immutable: false
+                    items:
+                      type: object
+                      properties:
+                        parameters:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-processor.html#cfn-kinesisfirehose-deliverystream-processor-parameters
+                          type: array
+                          customAttributes:
+                            template: Parameters
+                            immutable: false
+                          items:
+                            type: object
+                            properties:
+                              parameterName:
+                                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-processorparameter.html#cfn-kinesisfirehose-deliverystream-processorparameter-parametername
+                                type: string
+                                customAttributes:
+                                  template: ParameterName
+                                  immutable: false
+                              parameterValue:
+                                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-processorparameter.html#cfn-kinesisfirehose-deliverystream-processorparameter-parametervalue
+                                type: string
+                                customAttributes:
+                                  template: ParameterValue
+                                  immutable: false
+                        type:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-processor.html#cfn-kinesisfirehose-deliverystream-processor-type
+                          type: string
+                          customAttributes:
+                            template: Type
+                            immutable: false
+              retryOptions:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-elasticsearchdestinationconfiguration.html#cfn-kinesisfirehose-deliverystream-elasticsearchdestinationconfiguration-retryoptions
+                type: object
+                customAttributes:
+                  immutable: false
+                required:
+                - durationInSeconds
+                properties:
+                  durationInSeconds:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-elasticsearchretryoptions.html#cfn-kinesisfirehose-deliverystream-elasticsearchretryoptions-durationinseconds
+                    type: integer
+                    format: int32
+                    customAttributes:
+                      template: DurationInSeconds
+                      immutable: false
+              roleARN:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-elasticsearchdestinationconfiguration.html#cfn-kinesisfirehose-deliverystream-elasticsearchdestinationconfiguration-rolearn
+                type: string
+                customAttributes:
+                  template: RoleARN
+                  immutable: false
+              s3BackupMode:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-elasticsearchdestinationconfiguration.html#cfn-kinesisfirehose-deliverystream-elasticsearchdestinationconfiguration-s3backupmode
+                type: string
+                customAttributes:
+                  template: S3BackupMode
+                  immutable: false
+              s3Configuration:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-elasticsearchdestinationconfiguration.html#cfn-kinesisfirehose-deliverystream-elasticsearchdestinationconfiguration-s3configuration
+                type: object
+                customAttributes:
+                  immutable: false
+                required:
+                - bucketARN
+                - bufferingHints
+                - compressionFormat
+                - roleARN
+                properties:
+                  bucketARN:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-s3destinationconfiguration.html#cfn-kinesisfirehose-deliverystream-s3destinationconfiguration-bucketarn
+                    type: string
+                    customAttributes:
+                      template: BucketARN
+                      immutable: false
+                  bufferingHints:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-s3destinationconfiguration.html#cfn-kinesisfirehose-deliverystream-s3destinationconfiguration-bufferinghints
+                    type: object
+                    customAttributes:
+                      immutable: false
+                    required:
+                    - intervalInSeconds
+                    - sizeInMBs
+                    properties:
+                      intervalInSeconds:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-bufferinghints.html#cfn-kinesisfirehose-deliverystream-bufferinghints-intervalinseconds
+                        type: integer
+                        format: int32
+                        customAttributes:
+                          template: IntervalInSeconds
+                          immutable: false
+                      sizeInMBs:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-bufferinghints.html#cfn-kinesisfirehose-deliverystream-bufferinghints-sizeinmbs
+                        type: integer
+                        format: int32
+                        customAttributes:
+                          template: SizeInMBs
+                          immutable: false
+                  cloudWatchLoggingOptions:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-s3destinationconfiguration.html#cfn-kinesisfirehose-deliverystream-s3destinationconfiguration-cloudwatchloggingoptions
+                    type: object
+                    customAttributes:
+                      immutable: false
+                    required: []
+                    properties:
+                      enabled:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-cloudwatchloggingoptions.html#cfn-kinesisfirehose-deliverystream-cloudwatchloggingoptions-enabled
+                        type: boolean
+                        customAttributes:
+                          template: Enabled
+                          immutable: false
+                      logGroupName:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-cloudwatchloggingoptions.html#cfn-kinesisfirehose-deliverystream-cloudwatchloggingoptions-loggroupname
+                        type: string
+                        customAttributes:
+                          template: LogGroupName
+                          immutable: false
+                      logStreamName:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-cloudwatchloggingoptions.html#cfn-kinesisfirehose-deliverystream-cloudwatchloggingoptions-logstreamname
+                        type: string
+                        customAttributes:
+                          template: LogStreamName
+                          immutable: false
+                  compressionFormat:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-s3destinationconfiguration.html#cfn-kinesisfirehose-deliverystream-s3destinationconfiguration-compressionformat
+                    type: string
+                    customAttributes:
+                      template: CompressionFormat
+                      immutable: false
+                  encryptionConfiguration:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-s3destinationconfiguration.html#cfn-kinesisfirehose-deliverystream-s3destinationconfiguration-encryptionconfiguration
+                    type: object
+                    customAttributes:
+                      immutable: false
+                    required: []
+                    properties:
+                      kMSEncryptionConfig:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-encryptionconfiguration.html#cfn-kinesisfirehose-deliverystream-encryptionconfiguration-kmsencryptionconfig
+                        type: object
+                        customAttributes:
+                          immutable: false
+                        required:
+                        - aWSKMSKeyARN
+                        properties:
+                          aWSKMSKeyARN:
+                            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-kmsencryptionconfig.html#cfn-kinesisfirehose-deliverystream-kmsencryptionconfig-awskmskeyarn
+                            type: string
+                            customAttributes:
+                              template: AWSKMSKeyARN
+                              immutable: false
+                      noEncryptionConfig:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-encryptionconfiguration.html#cfn-kinesisfirehose-deliverystream-encryptionconfiguration-noencryptionconfig
+                        type: string
+                        customAttributes:
+                          template: NoEncryptionConfig
+                          immutable: false
+                  prefix:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-s3destinationconfiguration.html#cfn-kinesisfirehose-deliverystream-s3destinationconfiguration-prefix
+                    type: string
+                    customAttributes:
+                      template: Prefix
+                      immutable: false
+                  roleARN:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-s3destinationconfiguration.html#cfn-kinesisfirehose-deliverystream-s3destinationconfiguration-rolearn
+                    type: string
+                    customAttributes:
+                      template: RoleARN
+                      immutable: false
+              typeName:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-elasticsearchdestinationconfiguration.html#cfn-kinesisfirehose-deliverystream-elasticsearchdestinationconfiguration-typename
+                type: string
+                customAttributes:
+                  template: TypeName
+                  immutable: false
+          extendedS3DestinationConfiguration:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-kinesisfirehose-deliverystream.html#cfn-kinesisfirehose-deliverystream-extendeds3destinationconfiguration
+            type: object
+            customAttributes:
+              immutable: false
+            required:
+            - bucketARN
+            - bufferingHints
+            - compressionFormat
+            - prefix
+            - roleARN
+            properties:
+              bucketARN:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-extendeds3destinationconfiguration.html#cfn-kinesisfirehose-deliverystream-extendeds3destinationconfiguration-bucketarn
+                type: string
+                customAttributes:
+                  template: BucketARN
+                  immutable: false
+              bufferingHints:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-extendeds3destinationconfiguration.html#cfn-kinesisfirehose-deliverystream-extendeds3destinationconfiguration-bufferinghints
+                type: object
+                customAttributes:
+                  immutable: false
+                required:
+                - intervalInSeconds
+                - sizeInMBs
+                properties:
+                  intervalInSeconds:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-bufferinghints.html#cfn-kinesisfirehose-deliverystream-bufferinghints-intervalinseconds
+                    type: integer
+                    format: int32
+                    customAttributes:
+                      template: IntervalInSeconds
+                      immutable: false
+                  sizeInMBs:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-bufferinghints.html#cfn-kinesisfirehose-deliverystream-bufferinghints-sizeinmbs
+                    type: integer
+                    format: int32
+                    customAttributes:
+                      template: SizeInMBs
+                      immutable: false
+              cloudWatchLoggingOptions:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-extendeds3destinationconfiguration.html#cfn-kinesisfirehose-deliverystream-extendeds3destinationconfiguration-cloudwatchloggingoptions
+                type: object
+                customAttributes:
+                  immutable: false
+                required: []
+                properties:
+                  enabled:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-cloudwatchloggingoptions.html#cfn-kinesisfirehose-deliverystream-cloudwatchloggingoptions-enabled
+                    type: boolean
+                    customAttributes:
+                      template: Enabled
+                      immutable: false
+                  logGroupName:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-cloudwatchloggingoptions.html#cfn-kinesisfirehose-deliverystream-cloudwatchloggingoptions-loggroupname
+                    type: string
+                    customAttributes:
+                      template: LogGroupName
+                      immutable: false
+                  logStreamName:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-cloudwatchloggingoptions.html#cfn-kinesisfirehose-deliverystream-cloudwatchloggingoptions-logstreamname
+                    type: string
+                    customAttributes:
+                      template: LogStreamName
+                      immutable: false
+              compressionFormat:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-extendeds3destinationconfiguration.html#cfn-kinesisfirehose-deliverystream-extendeds3destinationconfiguration-compressionformat
+                type: string
+                customAttributes:
+                  template: CompressionFormat
+                  immutable: false
+              encryptionConfiguration:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-extendeds3destinationconfiguration.html#cfn-kinesisfirehose-deliverystream-extendeds3destinationconfiguration-encryptionconfiguration
+                type: object
+                customAttributes:
+                  immutable: false
+                required: []
+                properties:
+                  kMSEncryptionConfig:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-encryptionconfiguration.html#cfn-kinesisfirehose-deliverystream-encryptionconfiguration-kmsencryptionconfig
+                    type: object
+                    customAttributes:
+                      immutable: false
+                    required:
+                    - aWSKMSKeyARN
+                    properties:
+                      aWSKMSKeyARN:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-kmsencryptionconfig.html#cfn-kinesisfirehose-deliverystream-kmsencryptionconfig-awskmskeyarn
+                        type: string
+                        customAttributes:
+                          template: AWSKMSKeyARN
+                          immutable: false
+                  noEncryptionConfig:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-encryptionconfiguration.html#cfn-kinesisfirehose-deliverystream-encryptionconfiguration-noencryptionconfig
+                    type: string
+                    customAttributes:
+                      template: NoEncryptionConfig
+                      immutable: false
+              prefix:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-extendeds3destinationconfiguration.html#cfn-kinesisfirehose-deliverystream-extendeds3destinationconfiguration-prefix
+                type: string
+                customAttributes:
+                  template: Prefix
+                  immutable: false
+              processingConfiguration:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-extendeds3destinationconfiguration.html#cfn-kinesisfirehose-deliverystream-extendeds3destinationconfiguration-processingconfiguration
+                type: object
+                customAttributes:
+                  immutable: false
+                required: []
+                properties:
+                  enabled:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-processingconfiguration.html#cfn-kinesisfirehose-deliverystream-processingconfiguration-enabled
+                    type: boolean
+                    customAttributes:
+                      template: Enabled
+                      immutable: false
+                  processors:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-processingconfiguration.html#cfn-kinesisfirehose-deliverystream-processingconfiguration-processors
+                    type: array
+                    customAttributes:
+                      template: Processors
+                      immutable: false
+                    items:
+                      type: object
+                      properties:
+                        parameters:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-processor.html#cfn-kinesisfirehose-deliverystream-processor-parameters
+                          type: array
+                          customAttributes:
+                            template: Parameters
+                            immutable: false
+                          items:
+                            type: object
+                            properties:
+                              parameterName:
+                                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-processorparameter.html#cfn-kinesisfirehose-deliverystream-processorparameter-parametername
+                                type: string
+                                customAttributes:
+                                  template: ParameterName
+                                  immutable: false
+                              parameterValue:
+                                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-processorparameter.html#cfn-kinesisfirehose-deliverystream-processorparameter-parametervalue
+                                type: string
+                                customAttributes:
+                                  template: ParameterValue
+                                  immutable: false
+                        type:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-processor.html#cfn-kinesisfirehose-deliverystream-processor-type
+                          type: string
+                          customAttributes:
+                            template: Type
+                            immutable: false
+              roleARN:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-extendeds3destinationconfiguration.html#cfn-kinesisfirehose-deliverystream-extendeds3destinationconfiguration-rolearn
+                type: string
+                customAttributes:
+                  template: RoleARN
+                  immutable: false
+              s3BackupConfiguration:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-extendeds3destinationconfiguration.html#cfn-kinesisfirehose-deliverystream-extendeds3destinationconfiguration-s3backupconfiguration
+                type: object
+                customAttributes:
+                  immutable: false
+                required:
+                - bucketARN
+                - bufferingHints
+                - compressionFormat
+                - roleARN
+                properties:
+                  bucketARN:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-s3destinationconfiguration.html#cfn-kinesisfirehose-deliverystream-s3destinationconfiguration-bucketarn
+                    type: string
+                    customAttributes:
+                      template: BucketARN
+                      immutable: false
+                  bufferingHints:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-s3destinationconfiguration.html#cfn-kinesisfirehose-deliverystream-s3destinationconfiguration-bufferinghints
+                    type: object
+                    customAttributes:
+                      immutable: false
+                    required:
+                    - intervalInSeconds
+                    - sizeInMBs
+                    properties:
+                      intervalInSeconds:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-bufferinghints.html#cfn-kinesisfirehose-deliverystream-bufferinghints-intervalinseconds
+                        type: integer
+                        format: int32
+                        customAttributes:
+                          template: IntervalInSeconds
+                          immutable: false
+                      sizeInMBs:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-bufferinghints.html#cfn-kinesisfirehose-deliverystream-bufferinghints-sizeinmbs
+                        type: integer
+                        format: int32
+                        customAttributes:
+                          template: SizeInMBs
+                          immutable: false
+                  cloudWatchLoggingOptions:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-s3destinationconfiguration.html#cfn-kinesisfirehose-deliverystream-s3destinationconfiguration-cloudwatchloggingoptions
+                    type: object
+                    customAttributes:
+                      immutable: false
+                    required: []
+                    properties:
+                      enabled:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-cloudwatchloggingoptions.html#cfn-kinesisfirehose-deliverystream-cloudwatchloggingoptions-enabled
+                        type: boolean
+                        customAttributes:
+                          template: Enabled
+                          immutable: false
+                      logGroupName:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-cloudwatchloggingoptions.html#cfn-kinesisfirehose-deliverystream-cloudwatchloggingoptions-loggroupname
+                        type: string
+                        customAttributes:
+                          template: LogGroupName
+                          immutable: false
+                      logStreamName:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-cloudwatchloggingoptions.html#cfn-kinesisfirehose-deliverystream-cloudwatchloggingoptions-logstreamname
+                        type: string
+                        customAttributes:
+                          template: LogStreamName
+                          immutable: false
+                  compressionFormat:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-s3destinationconfiguration.html#cfn-kinesisfirehose-deliverystream-s3destinationconfiguration-compressionformat
+                    type: string
+                    customAttributes:
+                      template: CompressionFormat
+                      immutable: false
+                  encryptionConfiguration:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-s3destinationconfiguration.html#cfn-kinesisfirehose-deliverystream-s3destinationconfiguration-encryptionconfiguration
+                    type: object
+                    customAttributes:
+                      immutable: false
+                    required: []
+                    properties:
+                      kMSEncryptionConfig:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-encryptionconfiguration.html#cfn-kinesisfirehose-deliverystream-encryptionconfiguration-kmsencryptionconfig
+                        type: object
+                        customAttributes:
+                          immutable: false
+                        required:
+                        - aWSKMSKeyARN
+                        properties:
+                          aWSKMSKeyARN:
+                            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-kmsencryptionconfig.html#cfn-kinesisfirehose-deliverystream-kmsencryptionconfig-awskmskeyarn
+                            type: string
+                            customAttributes:
+                              template: AWSKMSKeyARN
+                              immutable: false
+                      noEncryptionConfig:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-encryptionconfiguration.html#cfn-kinesisfirehose-deliverystream-encryptionconfiguration-noencryptionconfig
+                        type: string
+                        customAttributes:
+                          template: NoEncryptionConfig
+                          immutable: false
+                  prefix:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-s3destinationconfiguration.html#cfn-kinesisfirehose-deliverystream-s3destinationconfiguration-prefix
+                    type: string
+                    customAttributes:
+                      template: Prefix
+                      immutable: false
+                  roleARN:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-s3destinationconfiguration.html#cfn-kinesisfirehose-deliverystream-s3destinationconfiguration-rolearn
+                    type: string
+                    customAttributes:
+                      template: RoleARN
+                      immutable: false
+              s3BackupMode:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-extendeds3destinationconfiguration.html#cfn-kinesisfirehose-deliverystream-extendeds3destinationconfiguration-s3backupmode
+                type: string
+                customAttributes:
+                  template: S3BackupMode
+                  immutable: false
+          kinesisStreamSourceConfiguration:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-kinesisfirehose-deliverystream.html#cfn-kinesisfirehose-deliverystream-kinesisstreamsourceconfiguration
+            type: object
+            customAttributes:
+              immutable: false
+            required:
+            - kinesisStreamARN
+            - roleARN
+            properties:
+              kinesisStreamARN:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-kinesisstreamsourceconfiguration.html#cfn-kinesisfirehose-deliverystream-kinesisstreamsourceconfiguration-kinesisstreamarn
+                type: string
+                customAttributes:
+                  template: KinesisStreamARN
+                  immutable: false
+              roleARN:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-kinesisstreamsourceconfiguration.html#cfn-kinesisfirehose-deliverystream-kinesisstreamsourceconfiguration-rolearn
+                type: string
+                customAttributes:
+                  template: RoleARN
+                  immutable: false
+          redshiftDestinationConfiguration:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-kinesisfirehose-deliverystream.html#cfn-kinesisfirehose-deliverystream-redshiftdestinationconfiguration
+            type: object
+            customAttributes:
+              immutable: false
+            required:
+            - clusterJDBCURL
+            - copyCommand
+            - password
+            - roleARN
+            - s3Configuration
+            - username
+            properties:
+              cloudWatchLoggingOptions:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-redshiftdestinationconfiguration.html#cfn-kinesisfirehose-deliverystream-redshiftdestinationconfiguration-cloudwatchloggingoptions
+                type: object
+                customAttributes:
+                  immutable: false
+                required: []
+                properties:
+                  enabled:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-cloudwatchloggingoptions.html#cfn-kinesisfirehose-deliverystream-cloudwatchloggingoptions-enabled
+                    type: boolean
+                    customAttributes:
+                      template: Enabled
+                      immutable: false
+                  logGroupName:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-cloudwatchloggingoptions.html#cfn-kinesisfirehose-deliverystream-cloudwatchloggingoptions-loggroupname
+                    type: string
+                    customAttributes:
+                      template: LogGroupName
+                      immutable: false
+                  logStreamName:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-cloudwatchloggingoptions.html#cfn-kinesisfirehose-deliverystream-cloudwatchloggingoptions-logstreamname
+                    type: string
+                    customAttributes:
+                      template: LogStreamName
+                      immutable: false
+              clusterJDBCURL:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-redshiftdestinationconfiguration.html#cfn-kinesisfirehose-deliverystream-redshiftdestinationconfiguration-clusterjdbcurl
+                type: string
+                customAttributes:
+                  template: ClusterJDBCURL
+                  immutable: false
+              copyCommand:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-redshiftdestinationconfiguration.html#cfn-kinesisfirehose-deliverystream-redshiftdestinationconfiguration-copycommand
+                type: object
+                customAttributes:
+                  immutable: false
+                required:
+                - dataTableName
+                properties:
+                  copyOptions:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-copycommand.html#cfn-kinesisfirehose-deliverystream-copycommand-copyoptions
+                    type: string
+                    customAttributes:
+                      template: CopyOptions
+                      immutable: false
+                  dataTableColumns:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-copycommand.html#cfn-kinesisfirehose-deliverystream-copycommand-datatablecolumns
+                    type: string
+                    customAttributes:
+                      template: DataTableColumns
+                      immutable: false
+                  dataTableName:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-copycommand.html#cfn-kinesisfirehose-deliverystream-copycommand-datatablename
+                    type: string
+                    customAttributes:
+                      template: DataTableName
+                      immutable: false
+              password:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-redshiftdestinationconfiguration.html#cfn-kinesisfirehose-deliverystream-redshiftdestinationconfiguration-password
+                type: string
+                customAttributes:
+                  template: Password
+                  immutable: false
+              processingConfiguration:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-redshiftdestinationconfiguration.html#cfn-kinesisfirehose-deliverystream-redshiftdestinationconfiguration-processingconfiguration
+                type: object
+                customAttributes:
+                  immutable: false
+                required: []
+                properties:
+                  enabled:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-processingconfiguration.html#cfn-kinesisfirehose-deliverystream-processingconfiguration-enabled
+                    type: boolean
+                    customAttributes:
+                      template: Enabled
+                      immutable: false
+                  processors:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-processingconfiguration.html#cfn-kinesisfirehose-deliverystream-processingconfiguration-processors
+                    type: array
+                    customAttributes:
+                      template: Processors
+                      immutable: false
+                    items:
+                      type: object
+                      properties:
+                        parameters:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-processor.html#cfn-kinesisfirehose-deliverystream-processor-parameters
+                          type: array
+                          customAttributes:
+                            template: Parameters
+                            immutable: false
+                          items:
+                            type: object
+                            properties:
+                              parameterName:
+                                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-processorparameter.html#cfn-kinesisfirehose-deliverystream-processorparameter-parametername
+                                type: string
+                                customAttributes:
+                                  template: ParameterName
+                                  immutable: false
+                              parameterValue:
+                                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-processorparameter.html#cfn-kinesisfirehose-deliverystream-processorparameter-parametervalue
+                                type: string
+                                customAttributes:
+                                  template: ParameterValue
+                                  immutable: false
+                        type:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-processor.html#cfn-kinesisfirehose-deliverystream-processor-type
+                          type: string
+                          customAttributes:
+                            template: Type
+                            immutable: false
+              roleARN:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-redshiftdestinationconfiguration.html#cfn-kinesisfirehose-deliverystream-redshiftdestinationconfiguration-rolearn
+                type: string
+                customAttributes:
+                  template: RoleARN
+                  immutable: false
+              s3Configuration:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-redshiftdestinationconfiguration.html#cfn-kinesisfirehose-deliverystream-redshiftdestinationconfiguration-s3configuration
+                type: object
+                customAttributes:
+                  immutable: false
+                required:
+                - bucketARN
+                - bufferingHints
+                - compressionFormat
+                - roleARN
+                properties:
+                  bucketARN:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-s3destinationconfiguration.html#cfn-kinesisfirehose-deliverystream-s3destinationconfiguration-bucketarn
+                    type: string
+                    customAttributes:
+                      template: BucketARN
+                      immutable: false
+                  bufferingHints:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-s3destinationconfiguration.html#cfn-kinesisfirehose-deliverystream-s3destinationconfiguration-bufferinghints
+                    type: object
+                    customAttributes:
+                      immutable: false
+                    required:
+                    - intervalInSeconds
+                    - sizeInMBs
+                    properties:
+                      intervalInSeconds:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-bufferinghints.html#cfn-kinesisfirehose-deliverystream-bufferinghints-intervalinseconds
+                        type: integer
+                        format: int32
+                        customAttributes:
+                          template: IntervalInSeconds
+                          immutable: false
+                      sizeInMBs:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-bufferinghints.html#cfn-kinesisfirehose-deliverystream-bufferinghints-sizeinmbs
+                        type: integer
+                        format: int32
+                        customAttributes:
+                          template: SizeInMBs
+                          immutable: false
+                  cloudWatchLoggingOptions:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-s3destinationconfiguration.html#cfn-kinesisfirehose-deliverystream-s3destinationconfiguration-cloudwatchloggingoptions
+                    type: object
+                    customAttributes:
+                      immutable: false
+                    required: []
+                    properties:
+                      enabled:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-cloudwatchloggingoptions.html#cfn-kinesisfirehose-deliverystream-cloudwatchloggingoptions-enabled
+                        type: boolean
+                        customAttributes:
+                          template: Enabled
+                          immutable: false
+                      logGroupName:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-cloudwatchloggingoptions.html#cfn-kinesisfirehose-deliverystream-cloudwatchloggingoptions-loggroupname
+                        type: string
+                        customAttributes:
+                          template: LogGroupName
+                          immutable: false
+                      logStreamName:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-cloudwatchloggingoptions.html#cfn-kinesisfirehose-deliverystream-cloudwatchloggingoptions-logstreamname
+                        type: string
+                        customAttributes:
+                          template: LogStreamName
+                          immutable: false
+                  compressionFormat:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-s3destinationconfiguration.html#cfn-kinesisfirehose-deliverystream-s3destinationconfiguration-compressionformat
+                    type: string
+                    customAttributes:
+                      template: CompressionFormat
+                      immutable: false
+                  encryptionConfiguration:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-s3destinationconfiguration.html#cfn-kinesisfirehose-deliverystream-s3destinationconfiguration-encryptionconfiguration
+                    type: object
+                    customAttributes:
+                      immutable: false
+                    required: []
+                    properties:
+                      kMSEncryptionConfig:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-encryptionconfiguration.html#cfn-kinesisfirehose-deliverystream-encryptionconfiguration-kmsencryptionconfig
+                        type: object
+                        customAttributes:
+                          immutable: false
+                        required:
+                        - aWSKMSKeyARN
+                        properties:
+                          aWSKMSKeyARN:
+                            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-kmsencryptionconfig.html#cfn-kinesisfirehose-deliverystream-kmsencryptionconfig-awskmskeyarn
+                            type: string
+                            customAttributes:
+                              template: AWSKMSKeyARN
+                              immutable: false
+                      noEncryptionConfig:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-encryptionconfiguration.html#cfn-kinesisfirehose-deliverystream-encryptionconfiguration-noencryptionconfig
+                        type: string
+                        customAttributes:
+                          template: NoEncryptionConfig
+                          immutable: false
+                  prefix:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-s3destinationconfiguration.html#cfn-kinesisfirehose-deliverystream-s3destinationconfiguration-prefix
+                    type: string
+                    customAttributes:
+                      template: Prefix
+                      immutable: false
+                  roleARN:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-s3destinationconfiguration.html#cfn-kinesisfirehose-deliverystream-s3destinationconfiguration-rolearn
+                    type: string
+                    customAttributes:
+                      template: RoleARN
+                      immutable: false
+              username:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-redshiftdestinationconfiguration.html#cfn-kinesisfirehose-deliverystream-redshiftdestinationconfiguration-username
+                type: string
+                customAttributes:
+                  template: Username
+                  immutable: false
+          s3DestinationConfiguration:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-kinesisfirehose-deliverystream.html#cfn-kinesisfirehose-deliverystream-s3destinationconfiguration
+            type: object
+            customAttributes:
+              immutable: false
+            required:
+            - bucketARN
+            - bufferingHints
+            - compressionFormat
+            - roleARN
+            properties:
+              bucketARN:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-s3destinationconfiguration.html#cfn-kinesisfirehose-deliverystream-s3destinationconfiguration-bucketarn
+                type: string
+                customAttributes:
+                  template: BucketARN
+                  immutable: false
+              bufferingHints:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-s3destinationconfiguration.html#cfn-kinesisfirehose-deliverystream-s3destinationconfiguration-bufferinghints
+                type: object
+                customAttributes:
+                  immutable: false
+                required:
+                - intervalInSeconds
+                - sizeInMBs
+                properties:
+                  intervalInSeconds:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-bufferinghints.html#cfn-kinesisfirehose-deliverystream-bufferinghints-intervalinseconds
+                    type: integer
+                    format: int32
+                    customAttributes:
+                      template: IntervalInSeconds
+                      immutable: false
+                  sizeInMBs:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-bufferinghints.html#cfn-kinesisfirehose-deliverystream-bufferinghints-sizeinmbs
+                    type: integer
+                    format: int32
+                    customAttributes:
+                      template: SizeInMBs
+                      immutable: false
+              cloudWatchLoggingOptions:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-s3destinationconfiguration.html#cfn-kinesisfirehose-deliverystream-s3destinationconfiguration-cloudwatchloggingoptions
+                type: object
+                customAttributes:
+                  immutable: false
+                required: []
+                properties:
+                  enabled:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-cloudwatchloggingoptions.html#cfn-kinesisfirehose-deliverystream-cloudwatchloggingoptions-enabled
+                    type: boolean
+                    customAttributes:
+                      template: Enabled
+                      immutable: false
+                  logGroupName:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-cloudwatchloggingoptions.html#cfn-kinesisfirehose-deliverystream-cloudwatchloggingoptions-loggroupname
+                    type: string
+                    customAttributes:
+                      template: LogGroupName
+                      immutable: false
+                  logStreamName:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-cloudwatchloggingoptions.html#cfn-kinesisfirehose-deliverystream-cloudwatchloggingoptions-logstreamname
+                    type: string
+                    customAttributes:
+                      template: LogStreamName
+                      immutable: false
+              compressionFormat:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-s3destinationconfiguration.html#cfn-kinesisfirehose-deliverystream-s3destinationconfiguration-compressionformat
+                type: string
+                customAttributes:
+                  template: CompressionFormat
+                  immutable: false
+              encryptionConfiguration:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-s3destinationconfiguration.html#cfn-kinesisfirehose-deliverystream-s3destinationconfiguration-encryptionconfiguration
+                type: object
+                customAttributes:
+                  immutable: false
+                required: []
+                properties:
+                  kMSEncryptionConfig:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-encryptionconfiguration.html#cfn-kinesisfirehose-deliverystream-encryptionconfiguration-kmsencryptionconfig
+                    type: object
+                    customAttributes:
+                      immutable: false
+                    required:
+                    - aWSKMSKeyARN
+                    properties:
+                      aWSKMSKeyARN:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-kmsencryptionconfig.html#cfn-kinesisfirehose-deliverystream-kmsencryptionconfig-awskmskeyarn
+                        type: string
+                        customAttributes:
+                          template: AWSKMSKeyARN
+                          immutable: false
+                  noEncryptionConfig:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-encryptionconfiguration.html#cfn-kinesisfirehose-deliverystream-encryptionconfiguration-noencryptionconfig
+                    type: string
+                    customAttributes:
+                      template: NoEncryptionConfig
+                      immutable: false
+              prefix:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-s3destinationconfiguration.html#cfn-kinesisfirehose-deliverystream-s3destinationconfiguration-prefix
+                type: string
+                customAttributes:
+                  template: Prefix
+                  immutable: false
+              roleARN:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-s3destinationconfiguration.html#cfn-kinesisfirehose-deliverystream-s3destinationconfiguration-rolearn
+                type: string
+                customAttributes:
+                  template: RoleARN
+                  immutable: false
+          splunkDestinationConfiguration:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-kinesisfirehose-deliverystream.html#cfn-kinesisfirehose-deliverystream-splunkdestinationconfiguration
+            type: object
+            customAttributes:
+              immutable: false
+            required:
+            - hECEndpoint
+            - hECEndpointType
+            - hECToken
+            - s3Configuration
+            properties:
+              cloudWatchLoggingOptions:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-splunkdestinationconfiguration.html#cfn-kinesisfirehose-deliverystream-splunkdestinationconfiguration-cloudwatchloggingoptions
+                type: object
+                customAttributes:
+                  immutable: false
+                required: []
+                properties:
+                  enabled:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-cloudwatchloggingoptions.html#cfn-kinesisfirehose-deliverystream-cloudwatchloggingoptions-enabled
+                    type: boolean
+                    customAttributes:
+                      template: Enabled
+                      immutable: false
+                  logGroupName:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-cloudwatchloggingoptions.html#cfn-kinesisfirehose-deliverystream-cloudwatchloggingoptions-loggroupname
+                    type: string
+                    customAttributes:
+                      template: LogGroupName
+                      immutable: false
+                  logStreamName:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-cloudwatchloggingoptions.html#cfn-kinesisfirehose-deliverystream-cloudwatchloggingoptions-logstreamname
+                    type: string
+                    customAttributes:
+                      template: LogStreamName
+                      immutable: false
+              hECAcknowledgmentTimeoutInSeconds:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-splunkdestinationconfiguration.html#cfn-kinesisfirehose-deliverystream-splunkdestinationconfiguration-hecacknowledgmenttimeoutinseconds
+                type: integer
+                format: int32
+                customAttributes:
+                  template: HECAcknowledgmentTimeoutInSeconds
+                  immutable: false
+              hECEndpoint:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-splunkdestinationconfiguration.html#cfn-kinesisfirehose-deliverystream-splunkdestinationconfiguration-hecendpoint
+                type: string
+                customAttributes:
+                  template: HECEndpoint
+                  immutable: false
+              hECEndpointType:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-splunkdestinationconfiguration.html#cfn-kinesisfirehose-deliverystream-splunkdestinationconfiguration-hecendpointtype
+                type: string
+                customAttributes:
+                  template: HECEndpointType
+                  immutable: false
+              hECToken:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-splunkdestinationconfiguration.html#cfn-kinesisfirehose-deliverystream-splunkdestinationconfiguration-hectoken
+                type: string
+                customAttributes:
+                  template: HECToken
+                  immutable: false
+              processingConfiguration:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-splunkdestinationconfiguration.html#cfn-kinesisfirehose-deliverystream-splunkdestinationconfiguration-processingconfiguration
+                type: object
+                customAttributes:
+                  immutable: false
+                required: []
+                properties:
+                  enabled:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-processingconfiguration.html#cfn-kinesisfirehose-deliverystream-processingconfiguration-enabled
+                    type: boolean
+                    customAttributes:
+                      template: Enabled
+                      immutable: false
+                  processors:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-processingconfiguration.html#cfn-kinesisfirehose-deliverystream-processingconfiguration-processors
+                    type: array
+                    customAttributes:
+                      template: Processors
+                      immutable: false
+                    items:
+                      type: object
+                      properties:
+                        parameters:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-processor.html#cfn-kinesisfirehose-deliverystream-processor-parameters
+                          type: array
+                          customAttributes:
+                            template: Parameters
+                            immutable: false
+                          items:
+                            type: object
+                            properties:
+                              parameterName:
+                                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-processorparameter.html#cfn-kinesisfirehose-deliverystream-processorparameter-parametername
+                                type: string
+                                customAttributes:
+                                  template: ParameterName
+                                  immutable: false
+                              parameterValue:
+                                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-processorparameter.html#cfn-kinesisfirehose-deliverystream-processorparameter-parametervalue
+                                type: string
+                                customAttributes:
+                                  template: ParameterValue
+                                  immutable: false
+                        type:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-processor.html#cfn-kinesisfirehose-deliverystream-processor-type
+                          type: string
+                          customAttributes:
+                            template: Type
+                            immutable: false
+              retryOptions:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-splunkdestinationconfiguration.html#cfn-kinesisfirehose-deliverystream-splunkdestinationconfiguration-retryoptions
+                type: object
+                customAttributes:
+                  immutable: false
+                required:
+                - durationInSeconds
+                properties:
+                  durationInSeconds:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-splunkretryoptions.html#cfn-kinesisfirehose-deliverystream-splunkretryoptions-durationinseconds
+                    type: integer
+                    format: int32
+                    customAttributes:
+                      template: DurationInSeconds
+                      immutable: false
+              s3BackupMode:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-splunkdestinationconfiguration.html#cfn-kinesisfirehose-deliverystream-splunkdestinationconfiguration-s3backupmode
+                type: string
+                customAttributes:
+                  template: S3BackupMode
+                  immutable: false
+              s3Configuration:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-splunkdestinationconfiguration.html#cfn-kinesisfirehose-deliverystream-splunkdestinationconfiguration-s3configuration
+                type: object
+                customAttributes:
+                  immutable: false
+                required:
+                - bucketARN
+                - bufferingHints
+                - compressionFormat
+                - roleARN
+                properties:
+                  bucketARN:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-s3destinationconfiguration.html#cfn-kinesisfirehose-deliverystream-s3destinationconfiguration-bucketarn
+                    type: string
+                    customAttributes:
+                      template: BucketARN
+                      immutable: false
+                  bufferingHints:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-s3destinationconfiguration.html#cfn-kinesisfirehose-deliverystream-s3destinationconfiguration-bufferinghints
+                    type: object
+                    customAttributes:
+                      immutable: false
+                    required:
+                    - intervalInSeconds
+                    - sizeInMBs
+                    properties:
+                      intervalInSeconds:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-bufferinghints.html#cfn-kinesisfirehose-deliverystream-bufferinghints-intervalinseconds
+                        type: integer
+                        format: int32
+                        customAttributes:
+                          template: IntervalInSeconds
+                          immutable: false
+                      sizeInMBs:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-bufferinghints.html#cfn-kinesisfirehose-deliverystream-bufferinghints-sizeinmbs
+                        type: integer
+                        format: int32
+                        customAttributes:
+                          template: SizeInMBs
+                          immutable: false
+                  cloudWatchLoggingOptions:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-s3destinationconfiguration.html#cfn-kinesisfirehose-deliverystream-s3destinationconfiguration-cloudwatchloggingoptions
+                    type: object
+                    customAttributes:
+                      immutable: false
+                    required: []
+                    properties:
+                      enabled:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-cloudwatchloggingoptions.html#cfn-kinesisfirehose-deliverystream-cloudwatchloggingoptions-enabled
+                        type: boolean
+                        customAttributes:
+                          template: Enabled
+                          immutable: false
+                      logGroupName:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-cloudwatchloggingoptions.html#cfn-kinesisfirehose-deliverystream-cloudwatchloggingoptions-loggroupname
+                        type: string
+                        customAttributes:
+                          template: LogGroupName
+                          immutable: false
+                      logStreamName:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-cloudwatchloggingoptions.html#cfn-kinesisfirehose-deliverystream-cloudwatchloggingoptions-logstreamname
+                        type: string
+                        customAttributes:
+                          template: LogStreamName
+                          immutable: false
+                  compressionFormat:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-s3destinationconfiguration.html#cfn-kinesisfirehose-deliverystream-s3destinationconfiguration-compressionformat
+                    type: string
+                    customAttributes:
+                      template: CompressionFormat
+                      immutable: false
+                  encryptionConfiguration:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-s3destinationconfiguration.html#cfn-kinesisfirehose-deliverystream-s3destinationconfiguration-encryptionconfiguration
+                    type: object
+                    customAttributes:
+                      immutable: false
+                    required: []
+                    properties:
+                      kMSEncryptionConfig:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-encryptionconfiguration.html#cfn-kinesisfirehose-deliverystream-encryptionconfiguration-kmsencryptionconfig
+                        type: object
+                        customAttributes:
+                          immutable: false
+                        required:
+                        - aWSKMSKeyARN
+                        properties:
+                          aWSKMSKeyARN:
+                            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-kmsencryptionconfig.html#cfn-kinesisfirehose-deliverystream-kmsencryptionconfig-awskmskeyarn
+                            type: string
+                            customAttributes:
+                              template: AWSKMSKeyARN
+                              immutable: false
+                      noEncryptionConfig:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-encryptionconfiguration.html#cfn-kinesisfirehose-deliverystream-encryptionconfiguration-noencryptionconfig
+                        type: string
+                        customAttributes:
+                          template: NoEncryptionConfig
+                          immutable: false
+                  prefix:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-s3destinationconfiguration.html#cfn-kinesisfirehose-deliverystream-s3destinationconfiguration-prefix
+                    type: string
+                    customAttributes:
+                      template: Prefix
+                      immutable: false
+                  roleARN:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisfirehose-deliverystream-s3destinationconfiguration.html#cfn-kinesisfirehose-deliverystream-s3destinationconfiguration-rolearn
+                    type: string
+                    customAttributes:
+                      template: RoleARN
+                      immutable: false

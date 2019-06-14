@@ -1,0 +1,125 @@
+---
+apiVersion: models.awsoperator.io/v1alpha1
+kind: ModelFile
+metadata:
+  name: sqs-queue-resource
+  creationTimestamp: '2019-06-13T16:59:30-07:00'
+  resourceVersion: 3.3.0
+spec:
+  resource:
+    kind: Queue
+    scope: Namespaced
+    apiGroup:
+      apiVersion: sqs.awsoperator.io/v1alpha1
+      group: sqs
+      region: us-east-1
+      domain: awsoperator.io
+      versions:
+      - name: v1alpha1
+        served: true
+        storage: true
+    names:
+      singular: queue
+      plural: queues
+      shortNames: []
+  openAPIV3Schema:
+    properties:
+      spec:
+        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sqs-queues.html
+        type: object
+        customAttributes: {}
+        required: []
+        properties:
+          contentBasedDeduplication:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sqs-queues.html#aws-sqs-queue-contentbaseddeduplication
+            type: boolean
+            customAttributes:
+              template: ContentBasedDeduplication
+              immutable: false
+          delaySeconds:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sqs-queues.html#aws-sqs-queue-delayseconds
+            type: integer
+            format: int32
+            customAttributes:
+              template: DelaySeconds
+              immutable: false
+          fifoQueue:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sqs-queues.html#aws-sqs-queue-fifoqueue
+            type: boolean
+            customAttributes:
+              template: FifoQueue
+              immutable: true
+          kmsDataKeyReusePeriodSeconds:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sqs-queues.html#aws-sqs-queue-kmsdatakeyreuseperiodseconds
+            type: integer
+            format: int32
+            customAttributes:
+              template: KmsDataKeyReusePeriodSeconds
+              immutable: false
+          kmsMasterKeyRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sqs-queues.html#aws-sqs-queue-kmsmasterkeyid
+            type: string
+            customAttributes:
+              template: KmsMasterKeyId
+              immutable: false
+          maximumMessageSize:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sqs-queues.html#aws-sqs-queue-maxmesgsize
+            type: integer
+            format: int32
+            customAttributes:
+              template: MaximumMessageSize
+              immutable: false
+          messageRetentionPeriod:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sqs-queues.html#aws-sqs-queue-msgretentionperiod
+            type: integer
+            format: int32
+            customAttributes:
+              template: MessageRetentionPeriod
+              immutable: false
+          queueName:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sqs-queues.html#aws-sqs-queue-name
+            type: string
+            customAttributes:
+              template: QueueName
+              resourceName: true
+              immutable: true
+          receiveMessageWaitTimeSeconds:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sqs-queues.html#aws-sqs-queue-receivemsgwaittime
+            type: integer
+            format: int32
+            customAttributes:
+              template: ReceiveMessageWaitTimeSeconds
+              immutable: false
+          redrivePolicy:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sqs-queues.html#aws-sqs-queue-redrive
+            customAttributes:
+              template: RedrivePolicy
+              immutable: false
+          tags:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sqs-queues.html#cfn-sqs-queue-tags
+            type: array
+            customAttributes:
+              template: Tags
+              immutable: false
+            items:
+              type: object
+              properties:
+                key:
+                  description: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-resource-tags.html#cfn-resource-tags-key
+                  type: string
+                  customAttributes:
+                    template: Key
+                    immutable: false
+                value:
+                  description: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-resource-tags.html#cfn-resource-tags-value
+                  type: string
+                  customAttributes:
+                    template: Value
+                    immutable: false
+          visibilityTimeout:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sqs-queues.html#aws-sqs-queue-visiblitytimeout
+            type: integer
+            format: int32
+            customAttributes:
+              template: VisibilityTimeout
+              immutable: false

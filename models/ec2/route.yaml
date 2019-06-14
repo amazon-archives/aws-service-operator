@@ -1,0 +1,87 @@
+---
+apiVersion: models.awsoperator.io/v1alpha1
+kind: ModelFile
+metadata:
+  name: ec2-route-resource
+  creationTimestamp: '2019-06-13T16:59:29-07:00'
+  resourceVersion: 3.3.0
+spec:
+  resource:
+    kind: Route
+    scope: Namespaced
+    apiGroup:
+      apiVersion: ec2.awsoperator.io/v1alpha1
+      group: ec2
+      region: us-east-1
+      domain: awsoperator.io
+      versions:
+      - name: v1alpha1
+        served: true
+        storage: true
+    names:
+      singular: route
+      plural: routes
+      shortNames: []
+  openAPIV3Schema:
+    properties:
+      spec:
+        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-route.html
+        type: object
+        customAttributes: {}
+        required:
+        - routeTableId
+        properties:
+          destinationCidrBlock:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-route.html#cfn-ec2-route-destinationcidrblock
+            type: string
+            customAttributes:
+              template: DestinationCidrBlock
+              immutable: true
+          destinationIpv6CidrBlock:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-route.html#cfn-ec2-route-destinationipv6cidrblock
+            type: string
+            customAttributes:
+              template: DestinationIpv6CidrBlock
+              immutable: false
+          egressOnlyInternetGatewayRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-route.html#cfn-ec2-route-egressonlyinternetgatewayid
+            type: string
+            customAttributes:
+              template: EgressOnlyInternetGatewayId
+              immutable: false
+          gatewayRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-route.html#cfn-ec2-route-gatewayid
+            type: string
+            customAttributes:
+              template: GatewayId
+              immutable: false
+          instanceRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-route.html#cfn-ec2-route-instanceid
+            type: string
+            customAttributes:
+              template: InstanceId
+              immutable: false
+          natGatewayRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-route.html#cfn-ec2-route-natgatewayid
+            type: string
+            customAttributes:
+              template: NatGatewayId
+              immutable: false
+          networkInterfaceRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-route.html#cfn-ec2-route-networkinterfaceid
+            type: string
+            customAttributes:
+              template: NetworkInterfaceId
+              immutable: false
+          routeTableRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-route.html#cfn-ec2-route-routetableid
+            type: string
+            customAttributes:
+              template: RouteTableId
+              immutable: true
+          vpcPeeringConnectionRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-route.html#cfn-ec2-route-vpcpeeringconnectionid
+            type: string
+            customAttributes:
+              template: VpcPeeringConnectionId
+              immutable: false

@@ -1,0 +1,63 @@
+---
+apiVersion: models.awsoperator.io/v1alpha1
+kind: ModelFile
+metadata:
+  name: ecr-repository-resource
+  creationTimestamp: '2019-06-13T16:59:29-07:00'
+  resourceVersion: 3.3.0
+spec:
+  resource:
+    kind: Repository
+    scope: Namespaced
+    apiGroup:
+      apiVersion: ecr.awsoperator.io/v1alpha1
+      group: ecr
+      region: us-east-1
+      domain: awsoperator.io
+      versions:
+      - name: v1alpha1
+        served: true
+        storage: true
+    names:
+      singular: repository
+      plural: repositories
+      shortNames: []
+  openAPIV3Schema:
+    properties:
+      spec:
+        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ecr-repository.html
+        type: object
+        customAttributes: {}
+        required: []
+        properties:
+          lifecyclePolicy:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ecr-repository.html#cfn-ecr-repository-lifecyclepolicy
+            type: object
+            customAttributes:
+              immutable: false
+            required: []
+            properties:
+              lifecyclePolicyText:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecr-repository-lifecyclepolicy.html#cfn-ecr-repository-lifecyclepolicy-lifecyclepolicytext
+                type: string
+                customAttributes:
+                  template: LifecyclePolicyText
+                  immutable: false
+              registryRef:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecr-repository-lifecyclepolicy.html#cfn-ecr-repository-lifecyclepolicy-registryid
+                type: string
+                customAttributes:
+                  template: RegistryId
+                  immutable: false
+          repositoryName:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ecr-repository.html#cfn-ecr-repository-repositoryname
+            type: string
+            customAttributes:
+              template: RepositoryName
+              resourceName: true
+              immutable: true
+          repositoryPolicyText:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ecr-repository.html#cfn-ecr-repository-repositorypolicytext
+            customAttributes:
+              template: RepositoryPolicyText
+              immutable: false

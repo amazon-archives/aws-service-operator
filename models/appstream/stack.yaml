@@ -1,0 +1,167 @@
+---
+apiVersion: models.awsoperator.io/v1alpha1
+kind: ModelFile
+metadata:
+  name: appstream-stack-resource
+  creationTimestamp: '2019-06-13T16:59:28-07:00'
+  resourceVersion: 3.3.0
+spec:
+  resource:
+    kind: Stack
+    scope: Namespaced
+    apiGroup:
+      apiVersion: appstream.awsoperator.io/v1alpha1
+      group: appstream
+      region: us-east-1
+      domain: awsoperator.io
+      versions:
+      - name: v1alpha1
+        served: true
+        storage: true
+    names:
+      singular: stack
+      plural: stacks
+      shortNames: []
+  openAPIV3Schema:
+    properties:
+      spec:
+        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-appstream-stack.html
+        type: object
+        customAttributes: {}
+        required: []
+        properties:
+          applicationSettings:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-appstream-stack.html#cfn-appstream-stack-applicationsettings
+            type: object
+            customAttributes:
+              immutable: false
+            required:
+            - enabled
+            properties:
+              enabled:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-appstream-stack-applicationsettings.html#cfn-appstream-stack-applicationsettings-enabled
+                type: boolean
+                customAttributes:
+                  template: Enabled
+                  immutable: false
+              settingsGroup:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-appstream-stack-applicationsettings.html#cfn-appstream-stack-applicationsettings-settingsgroup
+                type: string
+                customAttributes:
+                  template: SettingsGroup
+                  immutable: false
+          attributesToDelete:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-appstream-stack.html#cfn-appstream-stack-attributestodelete
+            type: array
+            customAttributes:
+              template: AttributesToDelete
+              immutable: false
+            items:
+              type: string
+          deleteStorageConnectors:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-appstream-stack.html#cfn-appstream-stack-deletestorageconnectors
+            type: boolean
+            customAttributes:
+              template: DeleteStorageConnectors
+              immutable: false
+          description:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-appstream-stack.html#cfn-appstream-stack-description
+            type: string
+            customAttributes:
+              template: Description
+              immutable: false
+          displayName:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-appstream-stack.html#cfn-appstream-stack-displayname
+            type: string
+            customAttributes:
+              template: DisplayName
+              immutable: false
+          feedbackURL:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-appstream-stack.html#cfn-appstream-stack-feedbackurl
+            type: string
+            customAttributes:
+              template: FeedbackURL
+              immutable: false
+          name:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-appstream-stack.html#cfn-appstream-stack-name
+            type: string
+            customAttributes:
+              template: Name
+              immutable: true
+          redirectURL:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-appstream-stack.html#cfn-appstream-stack-redirecturl
+            type: string
+            customAttributes:
+              template: RedirectURL
+              immutable: false
+          storageConnectors:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-appstream-stack.html#cfn-appstream-stack-storageconnectors
+            type: array
+            customAttributes:
+              template: StorageConnectors
+              immutable: false
+            items:
+              type: object
+              properties:
+                connectorType:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-appstream-stack-storageconnector.html#cfn-appstream-stack-storageconnector-connectortype
+                  type: string
+                  customAttributes:
+                    template: ConnectorType
+                    immutable: false
+                domains:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-appstream-stack-storageconnector.html#cfn-appstream-stack-storageconnector-domains
+                  type: array
+                  customAttributes:
+                    template: Domains
+                    immutable: false
+                  items:
+                    type: string
+                resourceentifierRef:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-appstream-stack-storageconnector.html#cfn-appstream-stack-storageconnector-resourceidentifier
+                  type: string
+                  customAttributes:
+                    template: ResourceIdentifier
+                    immutable: false
+          tags:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-appstream-stack.html#cfn-appstream-stack-tags
+            type: array
+            customAttributes:
+              template: Tags
+              immutable: false
+            items:
+              type: object
+              properties:
+                key:
+                  description: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-resource-tags.html#cfn-resource-tags-key
+                  type: string
+                  customAttributes:
+                    template: Key
+                    immutable: false
+                value:
+                  description: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-resource-tags.html#cfn-resource-tags-value
+                  type: string
+                  customAttributes:
+                    template: Value
+                    immutable: false
+          userSettings:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-appstream-stack.html#cfn-appstream-stack-usersettings
+            type: array
+            customAttributes:
+              template: UserSettings
+              immutable: false
+            items:
+              type: object
+              properties:
+                action:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-appstream-stack-usersetting.html#cfn-appstream-stack-usersetting-action
+                  type: string
+                  customAttributes:
+                    template: Action
+                    immutable: false
+                permission:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-appstream-stack-usersetting.html#cfn-appstream-stack-usersetting-permission
+                  type: string
+                  customAttributes:
+                    template: Permission
+                    immutable: false

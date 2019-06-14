@@ -1,0 +1,268 @@
+---
+apiVersion: models.awsoperator.io/v1alpha1
+kind: ModelFile
+metadata:
+  name: budgets-budget-resource
+  creationTimestamp: '2019-06-13T16:59:28-07:00'
+  resourceVersion: 3.3.0
+spec:
+  resource:
+    kind: Budget
+    scope: Namespaced
+    apiGroup:
+      apiVersion: budgets.awsoperator.io/v1alpha1
+      group: budgets
+      region: us-east-1
+      domain: awsoperator.io
+      versions:
+      - name: v1alpha1
+        served: true
+        storage: true
+    names:
+      singular: budget
+      plural: budgets
+      shortNames: []
+  openAPIV3Schema:
+    properties:
+      spec:
+        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-budgets-budget.html
+        type: object
+        customAttributes: {}
+        required:
+        - budget
+        properties:
+          budget:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-budgets-budget.html#cfn-budgets-budget-budget
+            type: object
+            customAttributes:
+              immutable: false
+            required:
+            - budgetType
+            - timeUnit
+            properties:
+              budgetLimit:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-budgets-budget-budgetdata.html#cfn-budgets-budget-budgetdata-budgetlimit
+                type: object
+                customAttributes:
+                  immutable: false
+                required:
+                - amount
+                - unit
+                properties:
+                  amount:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-budgets-budget-spend.html#cfn-budgets-budget-spend-amount
+                    type: integer
+                    format: double
+                    customAttributes:
+                      template: Amount
+                      immutable: false
+                  unit:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-budgets-budget-spend.html#cfn-budgets-budget-spend-unit
+                    type: string
+                    customAttributes:
+                      template: Unit
+                      immutable: false
+              budgetName:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-budgets-budget-budgetdata.html#cfn-budgets-budget-budgetdata-budgetname
+                type: string
+                customAttributes:
+                  template: BudgetName
+                  resourceName: true
+                  immutable: true
+              budgetType:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-budgets-budget-budgetdata.html#cfn-budgets-budget-budgetdata-budgettype
+                type: string
+                customAttributes:
+                  template: BudgetType
+                  immutable: false
+                enum:
+                - COST
+                - RI_COVERAGE
+                - RI_UTILIZATION
+                - USAGE
+              costFilters:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-budgets-budget-budgetdata.html#cfn-budgets-budget-budgetdata-costfilters
+                customAttributes:
+                  template: CostFilters
+                  immutable: false
+              costTypes:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-budgets-budget-budgetdata.html#cfn-budgets-budget-budgetdata-costtypes
+                type: object
+                customAttributes:
+                  immutable: false
+                required: []
+                properties:
+                  includeCredit:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-budgets-budget-costtypes.html#cfn-budgets-budget-costtypes-includecredit
+                    type: boolean
+                    customAttributes:
+                      template: IncludeCredit
+                      immutable: false
+                  includeDiscount:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-budgets-budget-costtypes.html#cfn-budgets-budget-costtypes-includediscount
+                    type: boolean
+                    customAttributes:
+                      template: IncludeDiscount
+                      immutable: false
+                  includeOtherSubscription:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-budgets-budget-costtypes.html#cfn-budgets-budget-costtypes-includeothersubscription
+                    type: boolean
+                    customAttributes:
+                      template: IncludeOtherSubscription
+                      immutable: false
+                  includeRecurring:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-budgets-budget-costtypes.html#cfn-budgets-budget-costtypes-includerecurring
+                    type: boolean
+                    customAttributes:
+                      template: IncludeRecurring
+                      immutable: false
+                  includeRefund:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-budgets-budget-costtypes.html#cfn-budgets-budget-costtypes-includerefund
+                    type: boolean
+                    customAttributes:
+                      template: IncludeRefund
+                      immutable: false
+                  includeSubscription:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-budgets-budget-costtypes.html#cfn-budgets-budget-costtypes-includesubscription
+                    type: boolean
+                    customAttributes:
+                      template: IncludeSubscription
+                      immutable: false
+                  includeSupport:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-budgets-budget-costtypes.html#cfn-budgets-budget-costtypes-includesupport
+                    type: boolean
+                    customAttributes:
+                      template: IncludeSupport
+                      immutable: false
+                  includeTax:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-budgets-budget-costtypes.html#cfn-budgets-budget-costtypes-includetax
+                    type: boolean
+                    customAttributes:
+                      template: IncludeTax
+                      immutable: false
+                  includeUpfront:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-budgets-budget-costtypes.html#cfn-budgets-budget-costtypes-includeupfront
+                    type: boolean
+                    customAttributes:
+                      template: IncludeUpfront
+                      immutable: false
+                  useAmortized:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-budgets-budget-costtypes.html#cfn-budgets-budget-costtypes-useamortized
+                    type: boolean
+                    customAttributes:
+                      template: UseAmortized
+                      immutable: false
+                  useBlended:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-budgets-budget-costtypes.html#cfn-budgets-budget-costtypes-useblended
+                    type: boolean
+                    customAttributes:
+                      template: UseBlended
+                      immutable: false
+              timePeriod:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-budgets-budget-budgetdata.html#cfn-budgets-budget-budgetdata-timeperiod
+                type: object
+                customAttributes:
+                  immutable: false
+                required: []
+                properties:
+                  end:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-budgets-budget-timeperiod.html#cfn-budgets-budget-timeperiod-end
+                    type: string
+                    customAttributes:
+                      template: End
+                      immutable: false
+                  start:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-budgets-budget-timeperiod.html#cfn-budgets-budget-timeperiod-start
+                    type: string
+                    customAttributes:
+                      template: Start
+                      immutable: false
+              timeUnit:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-budgets-budget-budgetdata.html#cfn-budgets-budget-budgetdata-timeunit
+                type: string
+                customAttributes:
+                  template: TimeUnit
+                  immutable: false
+                enum:
+                - ANNUALLY
+                - DAILY
+                - MONTHLY
+                - QUARTERLY
+          notificationsWithSubscribers:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-budgets-budget.html#cfn-budgets-budget-notificationswithsubscribers
+            type: array
+            customAttributes:
+              template: NotificationsWithSubscribers
+              immutable: true
+            items:
+              type: object
+              properties:
+                notification:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-budgets-budget-notificationwithsubscribers.html#cfn-budgets-budget-notificationwithsubscribers-notification
+                  type: object
+                  customAttributes:
+                    immutable: false
+                  required:
+                  - comparisonOperator
+                  - notificationType
+                  - threshold
+                  properties:
+                    comparisonOperator:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-budgets-budget-notification.html#cfn-budgets-budget-notification-comparisonoperator
+                      type: string
+                      customAttributes:
+                        template: ComparisonOperator
+                        immutable: false
+                      enum:
+                      - EQUAL_TO
+                      - GREATER_THAN
+                      - LESS_THAN
+                    notificationType:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-budgets-budget-notification.html#cfn-budgets-budget-notification-notificationtype
+                      type: string
+                      customAttributes:
+                        template: NotificationType
+                        immutable: false
+                      enum:
+                      - ACTUAL
+                      - FORECASTED
+                    threshold:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-budgets-budget-notification.html#cfn-budgets-budget-notification-threshold
+                      type: integer
+                      format: double
+                      customAttributes:
+                        template: Threshold
+                        immutable: false
+                    thresholdType:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-budgets-budget-notification.html#cfn-budgets-budget-notification-thresholdtype
+                      type: string
+                      customAttributes:
+                        template: ThresholdType
+                        immutable: false
+                      enum:
+                      - ABSOLUTE_VALUE
+                      - PERCENTAGE
+                subscribers:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-budgets-budget-notificationwithsubscribers.html#cfn-budgets-budget-notificationwithsubscribers-subscribers
+                  type: array
+                  customAttributes:
+                    template: Subscribers
+                    immutable: false
+                  items:
+                    type: object
+                    properties:
+                      address:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-budgets-budget-subscriber.html#cfn-budgets-budget-subscriber-address
+                        type: string
+                        customAttributes:
+                          template: Address
+                          immutable: false
+                      subscriptionType:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-budgets-budget-subscriber.html#cfn-budgets-budget-subscriber-subscriptiontype
+                        type: string
+                        customAttributes:
+                          template: SubscriptionType
+                          immutable: false
+                        enum:
+                        - EMAIL
+                        - SNS

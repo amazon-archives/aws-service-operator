@@ -1,0 +1,22 @@
+= AWS Service Operator
+Chris Hein <heichris@amazon.com>
+v1, 2019-01-04
+:toc: 
+:imagesdir: images/
+:source-language: golang
+
+link:readme.adoc[AWS Service Operator]
+
+This guide will help you with deploying the AWS Service Operator. It's composed
+of multiple parts with links out to all the different resources we support.
+
+== Links
+
+=== Developer
+
+* link:getting-started.adoc[Getting Started]
+* link:resources.adoc[Resources]
+
+=== Contributing
+
+* link:architecture.adoc[Architecture]

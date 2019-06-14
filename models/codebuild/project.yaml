@@ -1,0 +1,692 @@
+---
+apiVersion: models.awsoperator.io/v1alpha1
+kind: ModelFile
+metadata:
+  name: codebuild-project-resource
+  creationTimestamp: '2019-06-13T16:59:28-07:00'
+  resourceVersion: 3.3.0
+spec:
+  resource:
+    kind: Project
+    scope: Namespaced
+    apiGroup:
+      apiVersion: codebuild.awsoperator.io/v1alpha1
+      group: codebuild
+      region: us-east-1
+      domain: awsoperator.io
+      versions:
+      - name: v1alpha1
+        served: true
+        storage: true
+    names:
+      singular: project
+      plural: projects
+      shortNames: []
+  openAPIV3Schema:
+    properties:
+      spec:
+        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-codebuild-project.html
+        type: object
+        customAttributes: {}
+        required:
+        - artifacts
+        - environment
+        - serviceRole
+        - source
+        properties:
+          artifacts:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-codebuild-project.html#cfn-codebuild-project-artifacts
+            type: object
+            customAttributes:
+              immutable: false
+            required:
+            - type
+            properties:
+              artifactentifierRef:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codebuild-project-artifacts.html#cfn-codebuild-project-artifacts-artifactidentifier
+                type: string
+                customAttributes:
+                  template: ArtifactIdentifier
+                  immutable: false
+              encryptionDisabled:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codebuild-project-artifacts.html#cfn-codebuild-project-artifacts-encryptiondisabled
+                type: boolean
+                customAttributes:
+                  template: EncryptionDisabled
+                  immutable: false
+              location:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codebuild-project-artifacts.html#cfn-codebuild-project-artifacts-location
+                type: string
+                customAttributes:
+                  template: Location
+                  immutable: false
+              name:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codebuild-project-artifacts.html#cfn-codebuild-project-artifacts-name
+                type: string
+                customAttributes:
+                  template: Name
+                  immutable: false
+              namespaceType:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codebuild-project-artifacts.html#cfn-codebuild-project-artifacts-namespacetype
+                type: string
+                customAttributes:
+                  template: NamespaceType
+                  immutable: false
+              overrideArtifactName:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codebuild-project-artifacts.html#cfn-codebuild-project-artifacts-overrideartifactname
+                type: boolean
+                customAttributes:
+                  template: OverrideArtifactName
+                  immutable: false
+              packaging:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codebuild-project-artifacts.html#cfn-codebuild-project-artifacts-packaging
+                type: string
+                customAttributes:
+                  template: Packaging
+                  immutable: false
+                enum: &2
+                - NONE
+                - ZIP
+              path:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codebuild-project-artifacts.html#cfn-codebuild-project-artifacts-path
+                type: string
+                customAttributes:
+                  template: Path
+                  immutable: false
+              type:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codebuild-project-artifacts.html#cfn-codebuild-project-artifacts-type
+                type: string
+                customAttributes:
+                  template: Type
+                  immutable: false
+                enum: &3
+                - CODEPIPELINE
+                - NO_ARTIFACTS
+                - S3
+          badgeEnabled:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-codebuild-project.html#cfn-codebuild-project-badgeenabled
+            type: boolean
+            customAttributes:
+              template: BadgeEnabled
+              immutable: false
+          cache:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-codebuild-project.html#cfn-codebuild-project-cache
+            type: object
+            customAttributes:
+              immutable: false
+            required:
+            - type
+            properties:
+              location:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codebuild-project-projectcache.html#cfn-codebuild-project-projectcache-location
+                type: string
+                customAttributes:
+                  template: Location
+                  immutable: false
+              modes:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codebuild-project-projectcache.html#cfn-codebuild-project-projectcache-modes
+                type: array
+                customAttributes:
+                  template: Modes
+                  immutable: false
+                items:
+                  type: string
+              type:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codebuild-project-projectcache.html#cfn-codebuild-project-projectcache-type
+                type: string
+                customAttributes:
+                  template: Type
+                  immutable: false
+                enum:
+                - LOCAL
+                - NO_CACHE
+                - S3
+          description:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-codebuild-project.html#cfn-codebuild-project-description
+            type: string
+            customAttributes:
+              template: Description
+              immutable: false
+          encryptionKey:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-codebuild-project.html#cfn-codebuild-project-encryptionkey
+            type: string
+            customAttributes:
+              template: EncryptionKey
+              immutable: false
+          environment:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-codebuild-project.html#cfn-codebuild-project-environment
+            type: object
+            customAttributes:
+              immutable: false
+            required:
+            - computeType
+            - image
+            - type
+            properties:
+              certificate:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codebuild-project-environment.html#cfn-codebuild-project-environment-certificate
+                type: string
+                customAttributes:
+                  template: Certificate
+                  immutable: false
+              computeType:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codebuild-project-environment.html#cfn-codebuild-project-environment-computetype
+                type: string
+                customAttributes:
+                  template: ComputeType
+                  immutable: false
+                enum:
+                - BUILD_GENERAL1_LARGE
+                - BUILD_GENERAL1_MEDIUM
+                - BUILD_GENERAL1_SMALL
+              environmentVariables:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codebuild-project-environment.html#cfn-codebuild-project-environment-environmentvariables
+                type: array
+                customAttributes:
+                  template: EnvironmentVariables
+                  immutable: false
+                items:
+                  type: object
+                  properties:
+                    name:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codebuild-project-environmentvariable.html#cfn-codebuild-project-environmentvariable-name
+                      type: string
+                      customAttributes:
+                        template: Name
+                        immutable: false
+                    type:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codebuild-project-environmentvariable.html#cfn-codebuild-project-environmentvariable-type
+                      type: string
+                      customAttributes:
+                        template: Type
+                        immutable: false
+                    value:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codebuild-project-environmentvariable.html#cfn-codebuild-project-environmentvariable-value
+                      type: string
+                      customAttributes:
+                        template: Value
+                        immutable: false
+              image:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codebuild-project-environment.html#cfn-codebuild-project-environment-image
+                type: string
+                customAttributes:
+                  template: Image
+                  immutable: false
+              imagePullCredentialsType:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codebuild-project-environment.html#cfn-codebuild-project-environment-imagepullcredentialstype
+                type: string
+                customAttributes:
+                  template: ImagePullCredentialsType
+                  immutable: false
+                enum:
+                - CODEBUILD
+                - SERVICE_ROLE
+              privilegedMode:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codebuild-project-environment.html#cfn-codebuild-project-environment-privilegedmode
+                type: boolean
+                customAttributes:
+                  template: PrivilegedMode
+                  immutable: false
+              registryCredential:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codebuild-project-environment.html#cfn-codebuild-project-environment-registrycredential
+                type: object
+                customAttributes:
+                  immutable: false
+                required:
+                - credential
+                - credentialProvider
+                properties:
+                  credential:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codebuild-project-registrycredential.html#cfn-codebuild-project-registrycredential-credential
+                    type: string
+                    customAttributes:
+                      template: Credential
+                      immutable: false
+                  credentialProvider:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codebuild-project-registrycredential.html#cfn-codebuild-project-registrycredential-credentialprovider
+                    type: string
+                    customAttributes:
+                      template: CredentialProvider
+                      immutable: false
+              type:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codebuild-project-environment.html#cfn-codebuild-project-environment-type
+                type: string
+                customAttributes:
+                  template: Type
+                  immutable: false
+                enum:
+                - LINUX_CONTAINER
+                - WINDOWS_CONTAINER
+          logsConfig:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-codebuild-project.html#cfn-codebuild-project-logsconfig
+            type: object
+            customAttributes:
+              immutable: false
+            required: []
+            properties:
+              cloudWatchLogs:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codebuild-project-logsconfig.html#cfn-codebuild-project-logsconfig-cloudwatchlogs
+                type: object
+                customAttributes:
+                  immutable: false
+                required:
+                - status
+                properties:
+                  groupName:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codebuild-project-cloudwatchlogsconfig.html#cfn-codebuild-project-cloudwatchlogsconfig-groupname
+                    type: string
+                    customAttributes:
+                      template: GroupName
+                      immutable: false
+                  status:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codebuild-project-cloudwatchlogsconfig.html#cfn-codebuild-project-cloudwatchlogsconfig-status
+                    type: string
+                    customAttributes:
+                      template: Status
+                      immutable: false
+                    enum: &1
+                    - DISABLED
+                    - ENABLED
+                  streamName:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codebuild-project-cloudwatchlogsconfig.html#cfn-codebuild-project-cloudwatchlogsconfig-streamname
+                    type: string
+                    customAttributes:
+                      template: StreamName
+                      immutable: false
+              s3Logs:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codebuild-project-logsconfig.html#cfn-codebuild-project-logsconfig-s3logs
+                type: object
+                customAttributes:
+                  immutable: false
+                required:
+                - status
+                properties:
+                  encryptionDisabled:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codebuild-project-s3logsconfig.html#cfn-codebuild-project-s3logsconfig-encryptiondisabled
+                    type: boolean
+                    customAttributes:
+                      template: EncryptionDisabled
+                      immutable: false
+                  location:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codebuild-project-s3logsconfig.html#cfn-codebuild-project-s3logsconfig-location
+                    type: string
+                    customAttributes:
+                      template: Location
+                      immutable: false
+                  status:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codebuild-project-s3logsconfig.html#cfn-codebuild-project-s3logsconfig-status
+                    type: string
+                    customAttributes:
+                      template: Status
+                      immutable: false
+                    enum: *1
+          name:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-codebuild-project.html#cfn-codebuild-project-name
+            type: string
+            customAttributes:
+              template: Name
+              immutable: true
+          queuedTimeoutInMinutes:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-codebuild-project.html#cfn-codebuild-project-queuedtimeoutinminutes
+            type: integer
+            format: int32
+            customAttributes:
+              template: QueuedTimeoutInMinutes
+              immutable: false
+          secondaryArtifacts:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-codebuild-project.html#cfn-codebuild-project-secondaryartifacts
+            type: array
+            customAttributes:
+              template: SecondaryArtifacts
+              immutable: false
+            items:
+              type: object
+              properties:
+                artifactentifierRef:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codebuild-project-artifacts.html#cfn-codebuild-project-artifacts-artifactidentifier
+                  type: string
+                  customAttributes:
+                    template: ArtifactIdentifier
+                    immutable: false
+                encryptionDisabled:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codebuild-project-artifacts.html#cfn-codebuild-project-artifacts-encryptiondisabled
+                  type: boolean
+                  customAttributes:
+                    template: EncryptionDisabled
+                    immutable: false
+                location:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codebuild-project-artifacts.html#cfn-codebuild-project-artifacts-location
+                  type: string
+                  customAttributes:
+                    template: Location
+                    immutable: false
+                name:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codebuild-project-artifacts.html#cfn-codebuild-project-artifacts-name
+                  type: string
+                  customAttributes:
+                    template: Name
+                    immutable: false
+                namespaceType:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codebuild-project-artifacts.html#cfn-codebuild-project-artifacts-namespacetype
+                  type: string
+                  customAttributes:
+                    template: NamespaceType
+                    immutable: false
+                overrideArtifactName:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codebuild-project-artifacts.html#cfn-codebuild-project-artifacts-overrideartifactname
+                  type: boolean
+                  customAttributes:
+                    template: OverrideArtifactName
+                    immutable: false
+                packaging:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codebuild-project-artifacts.html#cfn-codebuild-project-artifacts-packaging
+                  type: string
+                  customAttributes:
+                    template: Packaging
+                    immutable: false
+                  enum: *2
+                path:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codebuild-project-artifacts.html#cfn-codebuild-project-artifacts-path
+                  type: string
+                  customAttributes:
+                    template: Path
+                    immutable: false
+                type:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codebuild-project-artifacts.html#cfn-codebuild-project-artifacts-type
+                  type: string
+                  customAttributes:
+                    template: Type
+                    immutable: false
+                  enum: *3
+          secondarySourceVersions:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-codebuild-project.html#cfn-codebuild-project-secondarysourceversions
+            type: array
+            customAttributes:
+              template: SecondarySourceVersions
+              immutable: false
+            items:
+              type: object
+              properties:
+                sourceentifierRef:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codebuild-project-projectsourceversion.html#cfn-codebuild-project-projectsourceversion-sourceidentifier
+                  type: string
+                  customAttributes:
+                    template: SourceIdentifier
+                    immutable: false
+                sourceVersion:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codebuild-project-projectsourceversion.html#cfn-codebuild-project-projectsourceversion-sourceversion
+                  type: string
+                  customAttributes:
+                    template: SourceVersion
+                    immutable: false
+          secondarySources:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-codebuild-project.html#cfn-codebuild-project-secondarysources
+            type: array
+            customAttributes:
+              template: SecondarySources
+              immutable: false
+            items:
+              type: object
+              properties:
+                auth:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codebuild-project-source.html#cfn-codebuild-project-source-auth
+                  type: object
+                  customAttributes:
+                    immutable: false
+                  required:
+                  - type
+                  properties:
+                    resource:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codebuild-project-sourceauth.html#cfn-codebuild-project-sourceauth-resource
+                      type: string
+                      customAttributes:
+                        template: Resource
+                        immutable: false
+                    type:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codebuild-project-sourceauth.html#cfn-codebuild-project-sourceauth-type
+                      type: string
+                      customAttributes:
+                        template: Type
+                        immutable: false
+                buildSpec:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codebuild-project-source.html#cfn-codebuild-project-source-buildspec
+                  type: string
+                  customAttributes:
+                    template: BuildSpec
+                    immutable: false
+                gitCloneDepth:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codebuild-project-source.html#cfn-codebuild-project-source-gitclonedepth
+                  type: integer
+                  format: int32
+                  customAttributes:
+                    template: GitCloneDepth
+                    immutable: false
+                gitSubmodulesConfig:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codebuild-project-source.html#cfn-codebuild-project-source-gitsubmodulesconfig
+                  type: object
+                  customAttributes:
+                    immutable: false
+                  required:
+                  - fetchSubmodules
+                  properties:
+                    fetchSubmodules:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codebuild-project-gitsubmodulesconfig.html#cfn-codebuild-project-gitsubmodulesconfig-fetchsubmodules
+                      type: boolean
+                      customAttributes:
+                        template: FetchSubmodules
+                        immutable: false
+                insecureSsl:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codebuild-project-source.html#cfn-codebuild-project-source-insecuressl
+                  type: boolean
+                  customAttributes:
+                    template: InsecureSsl
+                    immutable: false
+                location:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codebuild-project-source.html#cfn-codebuild-project-source-location
+                  type: string
+                  customAttributes:
+                    template: Location
+                    immutable: false
+                reportBuildStatus:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codebuild-project-source.html#cfn-codebuild-project-source-reportbuildstatus
+                  type: boolean
+                  customAttributes:
+                    template: ReportBuildStatus
+                    immutable: false
+                sourceentifierRef:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codebuild-project-source.html#cfn-codebuild-project-source-sourceidentifier
+                  type: string
+                  customAttributes:
+                    template: SourceIdentifier
+                    immutable: false
+                type:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codebuild-project-source.html#cfn-codebuild-project-source-type
+                  type: string
+                  customAttributes:
+                    template: Type
+                    immutable: false
+                  enum: &4
+                  - BITBUCKET
+                  - CODECOMMIT
+                  - CODEPIPELINE
+                  - GITHUB
+                  - GITHUB_ENTERPRISE
+                  - NO_SOURCE
+                  - S3
+          serviceRole:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-codebuild-project.html#cfn-codebuild-project-servicerole
+            type: string
+            customAttributes:
+              template: ServiceRole
+              immutable: false
+          source:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-codebuild-project.html#cfn-codebuild-project-source
+            type: object
+            customAttributes:
+              immutable: false
+            required:
+            - type
+            properties:
+              auth:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codebuild-project-source.html#cfn-codebuild-project-source-auth
+                type: object
+                customAttributes:
+                  immutable: false
+                required:
+                - type
+                properties:
+                  resource:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codebuild-project-sourceauth.html#cfn-codebuild-project-sourceauth-resource
+                    type: string
+                    customAttributes:
+                      template: Resource
+                      immutable: false
+                  type:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codebuild-project-sourceauth.html#cfn-codebuild-project-sourceauth-type
+                    type: string
+                    customAttributes:
+                      template: Type
+                      immutable: false
+              buildSpec:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codebuild-project-source.html#cfn-codebuild-project-source-buildspec
+                type: string
+                customAttributes:
+                  template: BuildSpec
+                  immutable: false
+              gitCloneDepth:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codebuild-project-source.html#cfn-codebuild-project-source-gitclonedepth
+                type: integer
+                format: int32
+                customAttributes:
+                  template: GitCloneDepth
+                  immutable: false
+              gitSubmodulesConfig:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codebuild-project-source.html#cfn-codebuild-project-source-gitsubmodulesconfig
+                type: object
+                customAttributes:
+                  immutable: false
+                required:
+                - fetchSubmodules
+                properties:
+                  fetchSubmodules:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codebuild-project-gitsubmodulesconfig.html#cfn-codebuild-project-gitsubmodulesconfig-fetchsubmodules
+                    type: boolean
+                    customAttributes:
+                      template: FetchSubmodules
+                      immutable: false
+              insecureSsl:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codebuild-project-source.html#cfn-codebuild-project-source-insecuressl
+                type: boolean
+                customAttributes:
+                  template: InsecureSsl
+                  immutable: false
+              location:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codebuild-project-source.html#cfn-codebuild-project-source-location
+                type: string
+                customAttributes:
+                  template: Location
+                  immutable: false
+              reportBuildStatus:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codebuild-project-source.html#cfn-codebuild-project-source-reportbuildstatus
+                type: boolean
+                customAttributes:
+                  template: ReportBuildStatus
+                  immutable: false
+              sourceentifierRef:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codebuild-project-source.html#cfn-codebuild-project-source-sourceidentifier
+                type: string
+                customAttributes:
+                  template: SourceIdentifier
+                  immutable: false
+              type:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codebuild-project-source.html#cfn-codebuild-project-source-type
+                type: string
+                customAttributes:
+                  template: Type
+                  immutable: false
+                enum: *4
+          sourceVersion:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-codebuild-project.html#cfn-codebuild-project-sourceversion
+            type: string
+            customAttributes:
+              template: SourceVersion
+              immutable: false
+          tags:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-codebuild-project.html#cfn-codebuild-project-tags
+            type: array
+            customAttributes:
+              template: Tags
+              immutable: false
+            items:
+              type: object
+              properties:
+                key:
+                  description: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-resource-tags.html#cfn-resource-tags-key
+                  type: string
+                  customAttributes:
+                    template: Key
+                    immutable: false
+                value:
+                  description: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-resource-tags.html#cfn-resource-tags-value
+                  type: string
+                  customAttributes:
+                    template: Value
+                    immutable: false
+          timeoutInMinutes:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-codebuild-project.html#cfn-codebuild-project-timeoutinminutes
+            type: integer
+            format: int32
+            customAttributes:
+              template: TimeoutInMinutes
+              immutable: false
+          triggers:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-codebuild-project.html#cfn-codebuild-project-triggers
+            type: object
+            customAttributes:
+              immutable: false
+            required: []
+            properties:
+              filterGroups:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codebuild-project-projecttriggers.html#cfn-codebuild-project-projecttriggers-filtergroups
+                type: array
+                customAttributes:
+                  template: FilterGroups
+                  immutable: false
+                items:
+                  type: object
+                  properties: {}
+              webhook:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codebuild-project-projecttriggers.html#cfn-codebuild-project-projecttriggers-webhook
+                type: boolean
+                customAttributes:
+                  template: Webhook
+                  immutable: false
+          vpcConfig:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-codebuild-project.html#cfn-codebuild-project-vpcconfig
+            type: object
+            customAttributes:
+              immutable: false
+            required: []
+            properties:
+              securityGroupRef:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codebuild-project-vpcconfig.html#cfn-codebuild-project-vpcconfig-securitygroupids
+                type: array
+                customAttributes:
+                  template: SecurityGroupIds
+                  immutable: false
+                items:
+                  type: string
+              subnets:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codebuild-project-vpcconfig.html#cfn-codebuild-project-vpcconfig-subnets
+                type: array
+                customAttributes:
+                  template: Subnets
+                  immutable: false
+                items:
+                  type: string
+              vpcRef:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codebuild-project-vpcconfig.html#cfn-codebuild-project-vpcconfig-vpcid
+                type: string
+                customAttributes:
+                  template: VpcId
+                  immutable: false

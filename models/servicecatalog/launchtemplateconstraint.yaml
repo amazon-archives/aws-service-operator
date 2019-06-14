@@ -1,0 +1,65 @@
+---
+apiVersion: models.awsoperator.io/v1alpha1
+kind: ModelFile
+metadata:
+  name: servicecatalog-launchtemplateconstraint-resource
+  creationTimestamp: '2019-06-13T16:59:30-07:00'
+  resourceVersion: 3.3.0
+spec:
+  resource:
+    kind: LaunchTemplateConstraint
+    scope: Namespaced
+    apiGroup:
+      apiVersion: servicecatalog.awsoperator.io/v1alpha1
+      group: servicecatalog
+      region: us-east-1
+      domain: awsoperator.io
+      versions:
+      - name: v1alpha1
+        served: true
+        storage: true
+    names:
+      singular: launchtemplateconstraint
+      plural: launchtemplateconstraints
+      shortNames: []
+  openAPIV3Schema:
+    properties:
+      spec:
+        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-servicecatalog-launchtemplateconstraint.html
+        type: object
+        customAttributes: {}
+        required:
+        - portfolioId
+        - productId
+        - rules
+        properties:
+          acceptLanguage:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-servicecatalog-launchtemplateconstraint.html#cfn-servicecatalog-launchtemplateconstraint-acceptlanguage
+            type: string
+            customAttributes:
+              template: AcceptLanguage
+              immutable: false
+          description:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-servicecatalog-launchtemplateconstraint.html#cfn-servicecatalog-launchtemplateconstraint-description
+            type: string
+            customAttributes:
+              template: Description
+              immutable: false
+          portfolioRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-servicecatalog-launchtemplateconstraint.html#cfn-servicecatalog-launchtemplateconstraint-portfolioid
+            type: string
+            customAttributes:
+              template: PortfolioId
+              immutable: true
+          productRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-servicecatalog-launchtemplateconstraint.html#cfn-servicecatalog-launchtemplateconstraint-productid
+            type: string
+            customAttributes:
+              template: ProductId
+              immutable: true
+          rules:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-servicecatalog-launchtemplateconstraint.html#cfn-servicecatalog-launchtemplateconstraint-rules
+            type: string
+            customAttributes:
+              template: Rules
+              immutable: false

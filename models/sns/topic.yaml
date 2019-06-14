@@ -1,0 +1,72 @@
+---
+apiVersion: models.awsoperator.io/v1alpha1
+kind: ModelFile
+metadata:
+  name: sns-topic-resource
+  creationTimestamp: '2019-06-13T16:59:30-07:00'
+  resourceVersion: 3.3.0
+spec:
+  resource:
+    kind: Topic
+    scope: Namespaced
+    apiGroup:
+      apiVersion: sns.awsoperator.io/v1alpha1
+      group: sns
+      region: us-east-1
+      domain: awsoperator.io
+      versions:
+      - name: v1alpha1
+        served: true
+        storage: true
+    names:
+      singular: topic
+      plural: topics
+      shortNames: []
+  openAPIV3Schema:
+    properties:
+      spec:
+        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sns-topic.html
+        type: object
+        customAttributes: {}
+        required: []
+        properties:
+          displayName:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sns-topic.html#cfn-sns-topic-displayname
+            type: string
+            customAttributes:
+              template: DisplayName
+              immutable: false
+          kmsMasterKeyRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sns-topic.html#cfn-sns-topic-kmsmasterkeyid
+            type: string
+            customAttributes:
+              template: KmsMasterKeyId
+              immutable: false
+          subscription:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sns-topic.html#cfn-sns-topic-subscription
+            type: array
+            customAttributes:
+              template: Subscription
+              immutable: false
+            items:
+              type: object
+              properties:
+                endpoint:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sns-subscription.html#cfn-sns-topic-subscription-endpoint
+                  type: string
+                  customAttributes:
+                    template: Endpoint
+                    immutable: true
+                protocol:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sns-subscription.html#cfn-sns-topic-subscription-protocol
+                  type: string
+                  customAttributes:
+                    template: Protocol
+                    immutable: true
+          topicName:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sns-topic.html#cfn-sns-topic-topicname
+            type: string
+            customAttributes:
+              template: TopicName
+              resourceName: true
+              immutable: true

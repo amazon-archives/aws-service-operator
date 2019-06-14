@@ -1,0 +1,183 @@
+---
+apiVersion: models.awsoperator.io/v1alpha1
+kind: ModelFile
+metadata:
+  name: elasticache-cachecluster-resource
+  creationTimestamp: '2019-06-13T16:59:29-07:00'
+  resourceVersion: 3.3.0
+spec:
+  resource:
+    kind: CacheCluster
+    scope: Namespaced
+    apiGroup:
+      apiVersion: elasticache.awsoperator.io/v1alpha1
+      group: elasticache
+      region: us-east-1
+      domain: awsoperator.io
+      versions:
+      - name: v1alpha1
+        served: true
+        storage: true
+    names:
+      singular: cachecluster
+      plural: cacheclusters
+      shortNames: []
+  openAPIV3Schema:
+    properties:
+      spec:
+        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticache-cache-cluster.html
+        type: object
+        customAttributes: {}
+        required:
+        - cacheNodeType
+        - engine
+        - numCacheNodes
+        properties:
+          aZMode:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticache-cache-cluster.html#cfn-elasticache-cachecluster-azmode
+            type: string
+            customAttributes:
+              template: AZMode
+          autoMinorVersionUpgrade:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticache-cache-cluster.html#cfn-elasticache-cachecluster-autominorversionupgrade
+            type: boolean
+            customAttributes:
+              template: AutoMinorVersionUpgrade
+              immutable: false
+          cacheNodeType:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticache-cache-cluster.html#cfn-elasticache-cachecluster-cachenodetype
+            type: string
+            customAttributes:
+              template: CacheNodeType
+              immutable: false
+          cacheParameterGroupName:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticache-cache-cluster.html#cfn-elasticache-cachecluster-cacheparametergroupname
+            type: string
+            customAttributes:
+              template: CacheParameterGroupName
+              immutable: false
+          cacheSecurityGroupNames:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticache-cache-cluster.html#cfn-elasticache-cachecluster-cachesecuritygroupnames
+            type: array
+            customAttributes:
+              template: CacheSecurityGroupNames
+              immutable: false
+            items:
+              type: string
+          cacheSubnetGroupName:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticache-cache-cluster.html#cfn-elasticache-cachecluster-cachesubnetgroupname
+            type: string
+            customAttributes:
+              template: CacheSubnetGroupName
+              immutable: true
+          clusterName:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticache-cache-cluster.html#cfn-elasticache-cachecluster-clustername
+            type: string
+            customAttributes:
+              template: ClusterName
+              immutable: true
+          engine:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticache-cache-cluster.html#cfn-elasticache-cachecluster-engine
+            type: string
+            customAttributes:
+              template: Engine
+              immutable: true
+          engineVersion:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticache-cache-cluster.html#cfn-elasticache-cachecluster-engineversion
+            type: string
+            customAttributes:
+              template: EngineVersion
+              immutable: false
+          notificationTopicRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticache-cache-cluster.html#cfn-elasticache-cachecluster-notificationtopicarn
+            type: string
+            customAttributes:
+              template: NotificationTopicArn
+              immutable: false
+          numCacheNodes:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticache-cache-cluster.html#cfn-elasticache-cachecluster-numcachenodes
+            type: integer
+            format: int32
+            customAttributes:
+              template: NumCacheNodes
+          port:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticache-cache-cluster.html#cfn-elasticache-cachecluster-port
+            type: integer
+            format: int32
+            customAttributes:
+              template: Port
+              immutable: true
+          preferredAvailabilityZone:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticache-cache-cluster.html#cfn-elasticache-cachecluster-preferredavailabilityzone
+            type: string
+            customAttributes:
+              template: PreferredAvailabilityZone
+          preferredAvailabilityZones:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticache-cache-cluster.html#cfn-elasticache-cachecluster-preferredavailabilityzones
+            type: array
+            customAttributes:
+              template: PreferredAvailabilityZones
+            items:
+              type: string
+          preferredMaintenanceWindow:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticache-cache-cluster.html#cfn-elasticache-cachecluster-preferredmaintenancewindow
+            type: string
+            customAttributes:
+              template: PreferredMaintenanceWindow
+              immutable: false
+          snapshotRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticache-cache-cluster.html#cfn-elasticache-cachecluster-snapshotarns
+            type: array
+            customAttributes:
+              template: SnapshotArns
+              immutable: true
+            items:
+              type: string
+          snapshotName:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticache-cache-cluster.html#cfn-elasticache-cachecluster-snapshotname
+            type: string
+            customAttributes:
+              template: SnapshotName
+              immutable: true
+          snapshotRetentionLimit:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticache-cache-cluster.html#cfn-elasticache-cachecluster-snapshotretentionlimit
+            type: integer
+            format: int32
+            customAttributes:
+              template: SnapshotRetentionLimit
+              immutable: false
+          snapshotWindow:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticache-cache-cluster.html#cfn-elasticache-cachecluster-snapshotwindow
+            type: string
+            customAttributes:
+              template: SnapshotWindow
+              immutable: false
+          tags:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticache-cache-cluster.html#cfn-elasticache-cachecluster-tags
+            type: array
+            customAttributes:
+              template: Tags
+              immutable: false
+            items:
+              type: object
+              properties:
+                key:
+                  description: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-resource-tags.html#cfn-resource-tags-key
+                  type: string
+                  customAttributes:
+                    template: Key
+                    immutable: false
+                value:
+                  description: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-resource-tags.html#cfn-resource-tags-value
+                  type: string
+                  customAttributes:
+                    template: Value
+                    immutable: false
+          vpcSecurityGroupRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticache-cache-cluster.html#cfn-elasticache-cachecluster-vpcsecuritygroupids
+            type: array
+            customAttributes:
+              template: VpcSecurityGroupIds
+              immutable: false
+            items:
+              type: string

@@ -1,0 +1,205 @@
+---
+apiVersion: models.awsoperator.io/v1alpha1
+kind: ModelFile
+metadata:
+  name: emr-instancefleetconfig-resource
+  creationTimestamp: '2019-06-13T16:59:29-07:00'
+  resourceVersion: 3.3.0
+spec:
+  resource:
+    kind: InstanceFleetConfig
+    scope: Namespaced
+    apiGroup:
+      apiVersion: emr.awsoperator.io/v1alpha1
+      group: emr
+      region: us-east-1
+      domain: awsoperator.io
+      versions:
+      - name: v1alpha1
+        served: true
+        storage: true
+    names:
+      singular: instancefleetconfig
+      plural: instancefleetconfigs
+      shortNames: []
+  openAPIV3Schema:
+    properties:
+      spec:
+        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticmapreduce-instancefleetconfig.html
+        type: object
+        customAttributes: {}
+        required:
+        - clusterId
+        - instanceFleetType
+        properties:
+          clusterRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticmapreduce-instancefleetconfig.html#cfn-elasticmapreduce-instancefleetconfig-clusterid
+            type: string
+            customAttributes:
+              template: ClusterId
+              immutable: true
+          instanceFleetType:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticmapreduce-instancefleetconfig.html#cfn-elasticmapreduce-instancefleetconfig-instancefleettype
+            type: string
+            customAttributes:
+              template: InstanceFleetType
+              immutable: true
+          instanceTypeConfigs:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticmapreduce-instancefleetconfig.html#cfn-elasticmapreduce-instancefleetconfig-instancetypeconfigs
+            type: array
+            customAttributes:
+              template: InstanceTypeConfigs
+              immutable: true
+            items:
+              type: object
+              properties:
+                bidPrice:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-instancefleetconfig-instancetypeconfig.html#cfn-elasticmapreduce-instancefleetconfig-instancetypeconfig-bidprice
+                  type: string
+                  customAttributes:
+                    template: BidPrice
+                    immutable: true
+                bidPriceAsPercentageOfOnDemandPrice:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-instancefleetconfig-instancetypeconfig.html#cfn-elasticmapreduce-instancefleetconfig-instancetypeconfig-bidpriceaspercentageofondemandprice
+                  type: integer
+                  format: double
+                  customAttributes:
+                    template: BidPriceAsPercentageOfOnDemandPrice
+                    immutable: true
+                configurations:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-instancefleetconfig-instancetypeconfig.html#cfn-elasticmapreduce-instancefleetconfig-instancetypeconfig-configurations
+                  type: array
+                  customAttributes:
+                    template: Configurations
+                    immutable: true
+                  items:
+                    type: object
+                    properties: {}
+                ebsConfiguration:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-instancefleetconfig-instancetypeconfig.html#cfn-elasticmapreduce-instancefleetconfig-instancetypeconfig-ebsconfiguration
+                  type: object
+                  customAttributes:
+                    immutable: true
+                  required: []
+                  properties:
+                    ebsBlockDeviceConfigs:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-instancefleetconfig-ebsconfiguration.html#cfn-elasticmapreduce-instancefleetconfig-ebsconfiguration-ebsblockdeviceconfigs
+                      type: array
+                      customAttributes:
+                        template: EbsBlockDeviceConfigs
+                        immutable: true
+                      items:
+                        type: object
+                        properties:
+                          volumeSpecification:
+                            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-instancefleetconfig-ebsblockdeviceconfig.html#cfn-elasticmapreduce-instancefleetconfig-ebsblockdeviceconfig-volumespecification
+                            type: object
+                            customAttributes:
+                              immutable: true
+                            required:
+                            - sizeInGB
+                            - volumeType
+                            properties:
+                              iops:
+                                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-instancefleetconfig-volumespecification.html#cfn-elasticmapreduce-instancefleetconfig-volumespecification-iops
+                                type: integer
+                                format: int32
+                                customAttributes:
+                                  template: Iops
+                                  immutable: true
+                              sizeInGB:
+                                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-instancefleetconfig-volumespecification.html#cfn-elasticmapreduce-instancefleetconfig-volumespecification-sizeingb
+                                type: integer
+                                format: int32
+                                customAttributes:
+                                  template: SizeInGB
+                                  immutable: true
+                              volumeType:
+                                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-instancefleetconfig-volumespecification.html#cfn-elasticmapreduce-instancefleetconfig-volumespecification-volumetype
+                                type: string
+                                customAttributes:
+                                  template: VolumeType
+                                  immutable: true
+                          volumesPerInstance:
+                            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-instancefleetconfig-ebsblockdeviceconfig.html#cfn-elasticmapreduce-instancefleetconfig-ebsblockdeviceconfig-volumesperinstance
+                            type: integer
+                            format: int32
+                            customAttributes:
+                              template: VolumesPerInstance
+                              immutable: true
+                    ebsOptimized:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-instancefleetconfig-ebsconfiguration.html#cfn-elasticmapreduce-instancefleetconfig-ebsconfiguration-ebsoptimized
+                      type: boolean
+                      customAttributes:
+                        template: EbsOptimized
+                        immutable: true
+                instanceType:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-instancefleetconfig-instancetypeconfig.html#cfn-elasticmapreduce-instancefleetconfig-instancetypeconfig-instancetype
+                  type: string
+                  customAttributes:
+                    template: InstanceType
+                    immutable: true
+                weightedCapacity:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-instancefleetconfig-instancetypeconfig.html#cfn-elasticmapreduce-instancefleetconfig-instancetypeconfig-weightedcapacity
+                  type: integer
+                  format: int32
+                  customAttributes:
+                    template: WeightedCapacity
+                    immutable: true
+          launchSpecifications:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticmapreduce-instancefleetconfig.html#cfn-elasticmapreduce-instancefleetconfig-launchspecifications
+            type: object
+            customAttributes:
+              immutable: true
+            required:
+            - spotSpecification
+            properties:
+              spotSpecification:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-instancefleetconfig-instancefleetprovisioningspecifications.html#cfn-elasticmapreduce-instancefleetconfig-instancefleetprovisioningspecifications-spotspecification
+                type: object
+                customAttributes:
+                  immutable: false
+                required:
+                - timeoutAction
+                - timeoutDurationMinutes
+                properties:
+                  blockDurationMinutes:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-instancefleetconfig-spotprovisioningspecification.html#cfn-elasticmapreduce-instancefleetconfig-spotprovisioningspecification-blockdurationminutes
+                    type: integer
+                    format: int32
+                    customAttributes:
+                      template: BlockDurationMinutes
+                      immutable: false
+                  timeoutAction:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-instancefleetconfig-spotprovisioningspecification.html#cfn-elasticmapreduce-instancefleetconfig-spotprovisioningspecification-timeoutaction
+                    type: string
+                    customAttributes:
+                      template: TimeoutAction
+                      immutable: false
+                  timeoutDurationMinutes:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-instancefleetconfig-spotprovisioningspecification.html#cfn-elasticmapreduce-instancefleetconfig-spotprovisioningspecification-timeoutdurationminutes
+                    type: integer
+                    format: int32
+                    customAttributes:
+                      template: TimeoutDurationMinutes
+                      immutable: false
+          name:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticmapreduce-instancefleetconfig.html#cfn-elasticmapreduce-instancefleetconfig-name
+            type: string
+            customAttributes:
+              template: Name
+              immutable: true
+          targetOnDemandCapacity:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticmapreduce-instancefleetconfig.html#cfn-elasticmapreduce-instancefleetconfig-targetondemandcapacity
+            type: integer
+            format: int32
+            customAttributes:
+              template: TargetOnDemandCapacity
+              immutable: false
+          targetSpotCapacity:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticmapreduce-instancefleetconfig.html#cfn-elasticmapreduce-instancefleetconfig-targetspotcapacity
+            type: integer
+            format: int32
+            customAttributes:
+              template: TargetSpotCapacity
+              immutable: false

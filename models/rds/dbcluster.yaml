@@ -1,0 +1,241 @@
+---
+apiVersion: models.awsoperator.io/v1alpha1
+kind: ModelFile
+metadata:
+  name: rds-dbcluster-resource
+  creationTimestamp: '2019-06-13T16:59:29-07:00'
+  resourceVersion: 3.3.0
+spec:
+  resource:
+    kind: DBCluster
+    scope: Namespaced
+    apiGroup:
+      apiVersion: rds.awsoperator.io/v1alpha1
+      group: rds
+      region: us-east-1
+      domain: awsoperator.io
+      versions:
+      - name: v1alpha1
+        served: true
+        storage: true
+    names:
+      singular: dbcluster
+      plural: dbclusters
+      shortNames: []
+  openAPIV3Schema:
+    properties:
+      spec:
+        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbcluster.html
+        type: object
+        customAttributes: {}
+        required:
+        - engine
+        properties:
+          availabilityZones:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbcluster.html#cfn-rds-dbcluster-availabilityzones
+            type: array
+            customAttributes:
+              template: AvailabilityZones
+              immutable: true
+            items:
+              type: string
+          backtrackWindow:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbcluster.html#cfn-rds-dbcluster-backtrackwindow
+            type: integer
+            format: int64
+            customAttributes:
+              template: BacktrackWindow
+              immutable: false
+          backupRetentionPeriod:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbcluster.html#cfn-rds-dbcluster-backuprententionperiod
+            type: integer
+            format: int32
+            customAttributes:
+              template: BackupRetentionPeriod
+              immutable: false
+          dBClusterentifierRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbcluster.html#cfn-rds-dbcluster-dbclusteridentifier
+            type: string
+            customAttributes:
+              template: DBClusterIdentifier
+              immutable: true
+          dBClusterParameterGroupName:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbcluster.html#cfn-rds-dbcluster-dbclusterparametergroupname
+            type: string
+            customAttributes:
+              template: DBClusterParameterGroupName
+              immutable: false
+          dBSubnetGroupName:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbcluster.html#cfn-rds-dbcluster-dbsubnetgroupname
+            type: string
+            customAttributes:
+              template: DBSubnetGroupName
+              immutable: true
+          databaseName:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbcluster.html#cfn-rds-dbcluster-databasename
+            type: string
+            customAttributes:
+              template: DatabaseName
+              immutable: true
+          deletionProtection:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbcluster.html#cfn-rds-dbcluster-deletionprotection
+            type: boolean
+            customAttributes:
+              template: DeletionProtection
+              immutable: false
+          enableCloudwatchLogsExports:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbcluster.html#cfn-rds-dbcluster-enablecloudwatchlogsexports
+            type: array
+            customAttributes:
+              template: EnableCloudwatchLogsExports
+              immutable: false
+            items:
+              type: string
+          enableIAMDatabaseAuthentication:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbcluster.html#cfn-rds-dbcluster-enableiamdatabaseauthentication
+            type: boolean
+            customAttributes:
+              template: EnableIAMDatabaseAuthentication
+              immutable: false
+          engine:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbcluster.html#cfn-rds-dbcluster-engine
+            type: string
+            customAttributes:
+              template: Engine
+              immutable: true
+          engineMode:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbcluster.html#cfn-rds-dbcluster-enginemode
+            type: string
+            customAttributes:
+              template: EngineMode
+              immutable: true
+          engineVersion:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbcluster.html#cfn-rds-dbcluster-engineversion
+            type: string
+            customAttributes:
+              template: EngineVersion
+              immutable: true
+          kmsKeyRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbcluster.html#cfn-rds-dbcluster-kmskeyid
+            type: string
+            customAttributes:
+              template: KmsKeyId
+              immutable: true
+          masterUserPassword:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbcluster.html#cfn-rds-dbcluster-masteruserpassword
+            type: string
+            customAttributes:
+              template: MasterUserPassword
+              immutable: false
+          masterUsername:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbcluster.html#cfn-rds-dbcluster-masterusername
+            type: string
+            customAttributes:
+              template: MasterUsername
+              immutable: true
+          port:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbcluster.html#cfn-rds-dbcluster-port
+            type: integer
+            format: int32
+            customAttributes:
+              template: Port
+              immutable: false
+          preferredBackupWindow:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbcluster.html#cfn-rds-dbcluster-preferredbackupwindow
+            type: string
+            customAttributes:
+              template: PreferredBackupWindow
+              immutable: false
+          preferredMaintenanceWindow:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbcluster.html#cfn-rds-dbcluster-preferredmaintenancewindow
+            type: string
+            customAttributes:
+              template: PreferredMaintenanceWindow
+              immutable: false
+          replicationSourceentifierRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbcluster.html#cfn-rds-dbcluster-replicationsourceidentifier
+            type: string
+            customAttributes:
+              template: ReplicationSourceIdentifier
+              immutable: false
+          scalingConfiguration:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbcluster.html#cfn-rds-dbcluster-scalingconfiguration
+            type: object
+            customAttributes:
+              immutable: false
+            required: []
+            properties:
+              autoPause:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-dbcluster-scalingconfiguration.html#cfn-rds-dbcluster-scalingconfiguration-autopause
+                type: boolean
+                customAttributes:
+                  template: AutoPause
+                  immutable: false
+              maxCapacity:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-dbcluster-scalingconfiguration.html#cfn-rds-dbcluster-scalingconfiguration-maxcapacity
+                type: integer
+                format: int32
+                customAttributes:
+                  template: MaxCapacity
+                  immutable: false
+              minCapacity:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-dbcluster-scalingconfiguration.html#cfn-rds-dbcluster-scalingconfiguration-mincapacity
+                type: integer
+                format: int32
+                customAttributes:
+                  template: MinCapacity
+                  immutable: false
+              secondsUntilAutoPause:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-dbcluster-scalingconfiguration.html#cfn-rds-dbcluster-scalingconfiguration-secondsuntilautopause
+                type: integer
+                format: int32
+                customAttributes:
+                  template: SecondsUntilAutoPause
+                  immutable: false
+          snapshotentifierRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbcluster.html#cfn-rds-dbcluster-snapshotidentifier
+            type: string
+            customAttributes:
+              template: SnapshotIdentifier
+              immutable: true
+          sourceRegion:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbcluster.html#cfn-rds-dbcluster-sourceregion
+            type: string
+            customAttributes:
+              template: SourceRegion
+              immutable: true
+          storageEncrypted:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbcluster.html#cfn-rds-dbcluster-storageencrypted
+            type: boolean
+            customAttributes:
+              template: StorageEncrypted
+              immutable: true
+          tags:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbcluster.html#cfn-rds-dbcluster-tags
+            type: array
+            customAttributes:
+              template: Tags
+              immutable: false
+            items:
+              type: object
+              properties:
+                key:
+                  description: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-resource-tags.html#cfn-resource-tags-key
+                  type: string
+                  customAttributes:
+                    template: Key
+                    immutable: false
+                value:
+                  description: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-resource-tags.html#cfn-resource-tags-value
+                  type: string
+                  customAttributes:
+                    template: Value
+                    immutable: false
+          vpcSecurityGroupRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-dbcluster.html#cfn-rds-dbcluster-vpcsecuritygroupids
+            type: array
+            customAttributes:
+              template: VpcSecurityGroupIds
+              immutable: false
+            items:
+              type: string

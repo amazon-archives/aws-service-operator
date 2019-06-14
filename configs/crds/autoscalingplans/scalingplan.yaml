@@ -1,0 +1,376 @@
+---
+apiVersion: apiextensions.k8s.io/v1beta1
+kind: CustomResourceDefinition
+metadata:
+  name: scalingplans.autoscalingplans.awsoperator.io
+spec:
+  group: autoscalingplans.awsoperator.io
+  versions:
+  - name: v1alpha1
+    served: true
+    storage: true
+  scope: Namespaced
+  names:
+    plural: scalingplans
+    singular: scalingplan
+    kind: ScalingPlan
+    shortNames: []
+    categories:
+    - aws
+    - autoscalingplans
+  additionalPrinterColumns:
+  - name: Status
+    type: string
+    description: Status for the AWS CloudFormation stack.
+    JSONPath: ".status.reason"
+  - name: Message
+    type: string
+    description: Message accompanying it's current stack status.
+    JSONPath: ".status.message"
+    priority: 1
+  - name: Created At
+    type: date
+    description: When the resource was created
+    JSONPath: ".metadata.creationTimestamp"
+  subresources:
+    status: {}
+  validation:
+    openAPIV3Schema:
+      properties:
+        spec:
+          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-autoscalingplans-scalingplan.html
+          type: object
+          required:
+          - applicationSource
+          - scalingInstructions
+          properties:
+            applicationSource:
+              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-autoscalingplans-scalingplan.html#cfn-autoscalingplans-scalingplan-applicationsource
+              type: object
+              required: []
+              properties:
+                cloudFormationStackARN:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-autoscalingplans-scalingplan-applicationsource.html#cfn-autoscalingplans-scalingplan-applicationsource-cloudformationstackarn
+                  type: string
+                tagFilters:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-autoscalingplans-scalingplan-applicationsource.html#cfn-autoscalingplans-scalingplan-applicationsource-tagfilters
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      key:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-autoscalingplans-scalingplan-tagfilter.html#cfn-autoscalingplans-scalingplan-tagfilter-key
+                        type: string
+                        customAttributes:
+                          template: Key
+                          immutable: false
+                      values:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-autoscalingplans-scalingplan-tagfilter.html#cfn-autoscalingplans-scalingplan-tagfilter-values
+                        type: array
+                        customAttributes:
+                          template: Values
+                          immutable: false
+                        items:
+                          type: string
+            scalingInstructions:
+              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-autoscalingplans-scalingplan.html#cfn-autoscalingplans-scalingplan-scalinginstructions
+              type: array
+              items:
+                type: object
+                properties:
+                  customizedLoadMetricSpecification:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-autoscalingplans-scalingplan-scalinginstruction.html#cfn-autoscalingplans-scalingplan-scalinginstruction-customizedloadmetricspecification
+                    type: object
+                    customAttributes:
+                      immutable: false
+                    required:
+                    - metricName
+                    - namespace
+                    - statistic
+                    properties:
+                      dimensions:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-autoscalingplans-scalingplan-customizedloadmetricspecification.html#cfn-autoscalingplans-scalingplan-customizedloadmetricspecification-dimensions
+                        type: array
+                        customAttributes:
+                          template: Dimensions
+                          immutable: false
+                        items:
+                          type: object
+                          properties:
+                            name:
+                              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-autoscalingplans-scalingplan-metricdimension.html#cfn-autoscalingplans-scalingplan-metricdimension-name
+                              type: string
+                              customAttributes:
+                                template: Name
+                                immutable: false
+                            value:
+                              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-autoscalingplans-scalingplan-metricdimension.html#cfn-autoscalingplans-scalingplan-metricdimension-value
+                              type: string
+                              customAttributes:
+                                template: Value
+                                immutable: false
+                      metricName:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-autoscalingplans-scalingplan-customizedloadmetricspecification.html#cfn-autoscalingplans-scalingplan-customizedloadmetricspecification-metricname
+                        type: string
+                        customAttributes:
+                          template: MetricName
+                          immutable: false
+                      namespace:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-autoscalingplans-scalingplan-customizedloadmetricspecification.html#cfn-autoscalingplans-scalingplan-customizedloadmetricspecification-namespace
+                        type: string
+                        customAttributes:
+                          template: Namespace
+                          immutable: false
+                      statistic:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-autoscalingplans-scalingplan-customizedloadmetricspecification.html#cfn-autoscalingplans-scalingplan-customizedloadmetricspecification-statistic
+                        type: string
+                        customAttributes:
+                          template: Statistic
+                          immutable: false
+                      unit:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-autoscalingplans-scalingplan-customizedloadmetricspecification.html#cfn-autoscalingplans-scalingplan-customizedloadmetricspecification-unit
+                        type: string
+                        customAttributes:
+                          template: Unit
+                          immutable: false
+                  disableDynamicScaling:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-autoscalingplans-scalingplan-scalinginstruction.html#cfn-autoscalingplans-scalingplan-scalinginstruction-disabledynamicscaling
+                    type: boolean
+                    customAttributes:
+                      template: DisableDynamicScaling
+                      immutable: false
+                  maxCapacity:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-autoscalingplans-scalingplan-scalinginstruction.html#cfn-autoscalingplans-scalingplan-scalinginstruction-maxcapacity
+                    type: integer
+                    format: int32
+                    customAttributes:
+                      template: MaxCapacity
+                      immutable: false
+                  minCapacity:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-autoscalingplans-scalingplan-scalinginstruction.html#cfn-autoscalingplans-scalingplan-scalinginstruction-mincapacity
+                    type: integer
+                    format: int32
+                    customAttributes:
+                      template: MinCapacity
+                      immutable: false
+                  predefinedLoadMetricSpecification:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-autoscalingplans-scalingplan-scalinginstruction.html#cfn-autoscalingplans-scalingplan-scalinginstruction-predefinedloadmetricspecification
+                    type: object
+                    customAttributes:
+                      immutable: false
+                    required:
+                    - predefinedLoadMetricType
+                    properties:
+                      predefinedLoadMetricType:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-autoscalingplans-scalingplan-predefinedloadmetricspecification.html#cfn-autoscalingplans-scalingplan-predefinedloadmetricspecification-predefinedloadmetrictype
+                        type: string
+                        customAttributes:
+                          template: PredefinedLoadMetricType
+                          immutable: false
+                      resourceLabel:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-autoscalingplans-scalingplan-predefinedloadmetricspecification.html#cfn-autoscalingplans-scalingplan-predefinedloadmetricspecification-resourcelabel
+                        type: string
+                        customAttributes:
+                          template: ResourceLabel
+                          immutable: false
+                  predictiveScalingMaxCapacityBehavior:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-autoscalingplans-scalingplan-scalinginstruction.html#cfn-autoscalingplans-scalingplan-scalinginstruction-predictivescalingmaxcapacitybehavior
+                    type: string
+                    customAttributes:
+                      template: PredictiveScalingMaxCapacityBehavior
+                      immutable: false
+                    enum:
+                    - SetForecastCapacityToMaxCapacity
+                    - SetMaxCapacityToForecastCapacity
+                    - SetMaxCapacityAboveForecastCapacity
+                  predictiveScalingMaxCapacityBuffer:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-autoscalingplans-scalingplan-scalinginstruction.html#cfn-autoscalingplans-scalingplan-scalinginstruction-predictivescalingmaxcapacitybuffer
+                    type: integer
+                    format: int32
+                    customAttributes:
+                      template: PredictiveScalingMaxCapacityBuffer
+                      immutable: false
+                  predictiveScalingMode:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-autoscalingplans-scalingplan-scalinginstruction.html#cfn-autoscalingplans-scalingplan-scalinginstruction-predictivescalingmode
+                    type: string
+                    customAttributes:
+                      template: PredictiveScalingMode
+                      immutable: false
+                    enum:
+                    - ForecastAndScale
+                    - ForecastOnly
+                  resourceRef:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-autoscalingplans-scalingplan-scalinginstruction.html#cfn-autoscalingplans-scalingplan-scalinginstruction-resourceid
+                    type: string
+                    customAttributes:
+                      template: ResourceId
+                      immutable: false
+                  scalableDimension:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-autoscalingplans-scalingplan-scalinginstruction.html#cfn-autoscalingplans-scalingplan-scalinginstruction-scalabledimension
+                    type: string
+                    customAttributes:
+                      template: ScalableDimension
+                      immutable: false
+                    enum:
+                    - autoscaling:autoScalingGroup:DesiredCapacity
+                    - ecs:service:DesiredCount
+                    - ec2:spot-fleet-request:TargetCapacity
+                    - dynamodb:table:ReadCapacityUnits
+                    - dynamodb:table:WriteCapacityUnits
+                    - dynamodb:index:ReadCapacityUnits
+                    - dynamodb:index:WriteCapacityUnits
+                    - rds:cluster:ReadReplicaCount
+                  scalingPolicyUpdateBehavior:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-autoscalingplans-scalingplan-scalinginstruction.html#cfn-autoscalingplans-scalingplan-scalinginstruction-scalingpolicyupdatebehavior
+                    type: string
+                    customAttributes:
+                      template: ScalingPolicyUpdateBehavior
+                      immutable: false
+                  scheduledActionBufferTime:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-autoscalingplans-scalingplan-scalinginstruction.html#cfn-autoscalingplans-scalingplan-scalinginstruction-scheduledactionbuffertime
+                    type: integer
+                    format: int32
+                    customAttributes:
+                      template: ScheduledActionBufferTime
+                      immutable: false
+                  serviceNamespace:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-autoscalingplans-scalingplan-scalinginstruction.html#cfn-autoscalingplans-scalingplan-scalinginstruction-servicenamespace
+                    type: string
+                    customAttributes:
+                      template: ServiceNamespace
+                      immutable: false
+                    enum:
+                    - autoscaling
+                    - dynamodb
+                    - ecs
+                    - ec2
+                    - rds
+                  targetTrackingConfigurations:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-autoscalingplans-scalingplan-scalinginstruction.html#cfn-autoscalingplans-scalingplan-scalinginstruction-targettrackingconfigurations
+                    type: array
+                    customAttributes:
+                      template: TargetTrackingConfigurations
+                      immutable: false
+                    items:
+                      type: object
+                      properties:
+                        customizedScalingMetricSpecification:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-autoscalingplans-scalingplan-targettrackingconfiguration.html#cfn-autoscalingplans-scalingplan-targettrackingconfiguration-customizedscalingmetricspecification
+                          type: object
+                          customAttributes:
+                            immutable: false
+                          required:
+                          - metricName
+                          - namespace
+                          - statistic
+                          properties:
+                            dimensions:
+                              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-autoscalingplans-scalingplan-customizedscalingmetricspecification.html#cfn-autoscalingplans-scalingplan-customizedscalingmetricspecification-dimensions
+                              type: array
+                              customAttributes:
+                                template: Dimensions
+                                immutable: false
+                              items:
+                                type: object
+                                properties:
+                                  name:
+                                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-autoscalingplans-scalingplan-metricdimension.html#cfn-autoscalingplans-scalingplan-metricdimension-name
+                                    type: string
+                                    customAttributes:
+                                      template: Name
+                                      immutable: false
+                                  value:
+                                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-autoscalingplans-scalingplan-metricdimension.html#cfn-autoscalingplans-scalingplan-metricdimension-value
+                                    type: string
+                                    customAttributes:
+                                      template: Value
+                                      immutable: false
+                            metricName:
+                              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-autoscalingplans-scalingplan-customizedscalingmetricspecification.html#cfn-autoscalingplans-scalingplan-customizedscalingmetricspecification-metricname
+                              type: string
+                              customAttributes:
+                                template: MetricName
+                                immutable: false
+                            namespace:
+                              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-autoscalingplans-scalingplan-customizedscalingmetricspecification.html#cfn-autoscalingplans-scalingplan-customizedscalingmetricspecification-namespace
+                              type: string
+                              customAttributes:
+                                template: Namespace
+                                immutable: false
+                            statistic:
+                              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-autoscalingplans-scalingplan-customizedscalingmetricspecification.html#cfn-autoscalingplans-scalingplan-customizedscalingmetricspecification-statistic
+                              type: string
+                              customAttributes:
+                                template: Statistic
+                                immutable: false
+                              enum:
+                              - Average
+                              - Minimum
+                              - Maximum
+                              - SampleCount
+                              - Sum
+                            unit:
+                              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-autoscalingplans-scalingplan-customizedscalingmetricspecification.html#cfn-autoscalingplans-scalingplan-customizedscalingmetricspecification-unit
+                              type: string
+                              customAttributes:
+                                template: Unit
+                                immutable: false
+                        disableScaleIn:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-autoscalingplans-scalingplan-targettrackingconfiguration.html#cfn-autoscalingplans-scalingplan-targettrackingconfiguration-disablescalein
+                          type: boolean
+                          customAttributes:
+                            template: DisableScaleIn
+                            immutable: false
+                        estimatedInstanceWarmup:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-autoscalingplans-scalingplan-targettrackingconfiguration.html#cfn-autoscalingplans-scalingplan-targettrackingconfiguration-estimatedinstancewarmup
+                          type: integer
+                          format: int32
+                          customAttributes:
+                            template: EstimatedInstanceWarmup
+                            immutable: false
+                        predefinedScalingMetricSpecification:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-autoscalingplans-scalingplan-targettrackingconfiguration.html#cfn-autoscalingplans-scalingplan-targettrackingconfiguration-predefinedscalingmetricspecification
+                          type: object
+                          customAttributes:
+                            immutable: false
+                          required:
+                          - predefinedScalingMetricType
+                          properties:
+                            predefinedScalingMetricType:
+                              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-autoscalingplans-scalingplan-predefinedscalingmetricspecification.html#cfn-autoscalingplans-scalingplan-predefinedscalingmetricspecification-predefinedscalingmetrictype
+                              type: string
+                              customAttributes:
+                                template: PredefinedScalingMetricType
+                                immutable: false
+                              enum:
+                              - ALBRequestCountPerTarget
+                              - ASGAverageCPUUtilization
+                              - ASGAverageNetworkIn
+                              - ASGAverageNetworkOut
+                            resourceLabel:
+                              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-autoscalingplans-scalingplan-predefinedscalingmetricspecification.html#cfn-autoscalingplans-scalingplan-predefinedscalingmetricspecification-resourcelabel
+                              type: string
+                              customAttributes:
+                                template: ResourceLabel
+                                immutable: false
+                        scaleInCooldown:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-autoscalingplans-scalingplan-targettrackingconfiguration.html#cfn-autoscalingplans-scalingplan-targettrackingconfiguration-scaleincooldown
+                          type: integer
+                          format: int32
+                          customAttributes:
+                            template: ScaleInCooldown
+                            immutable: false
+                        scaleOutCooldown:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-autoscalingplans-scalingplan-targettrackingconfiguration.html#cfn-autoscalingplans-scalingplan-targettrackingconfiguration-scaleoutcooldown
+                          type: integer
+                          format: int32
+                          customAttributes:
+                            template: ScaleOutCooldown
+                            immutable: false
+                        targetValue:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-autoscalingplans-scalingplan-targettrackingconfiguration.html#cfn-autoscalingplans-scalingplan-targettrackingconfiguration-targetvalue
+                          type: integer
+                          format: double
+                          customAttributes:
+                            template: TargetValue
+                            immutable: false

@@ -1,0 +1,127 @@
+= Getting Started
+Chris Hein <heichris@amazon.com>
+v1, 2019-01-04
+:toc: right
+:imagesdir: images/
+:source-language: golang
+
+link:readme.adoc[AWS Service Operator] > link:getting-started.adoc[{doctitle}]
+
+Throughout the document you will be walked through how to deploy the AWS Service
+Operator to your Kubernetes cluster, then deploy a Amazon DynamoDB table with
+cooresponding application which composes the services.
+
+== Getting Started
+
+To get started you will need a Kubernetes cluster <1.10, if you don't already
+have one consider using Amazon Elastic Container Service for Kubernetes (EKS).
+With this cluster we're going to need to deploy the AWS Service Operator.
+
+[source,shell]
+----
+kubectl apply -f {manifest-link}
+----
+
+=== Config Files
+
+If you'd like to forgo using CLI flags for managing the Operator you can pass a
+config file into the CLI which will declare everything necessary. This makes it
+simple to add and remove resources and configure different parts of the
+operator.
+
+[source,yaml]
+----
+apiVersion: config.awsoperator.io/v1alpha1
+kind: Config
+clustername: aws-service-operator
+loglevel: 1
+kubernetes:
+  url:
+  kubeconfig:
+aws:
+  region: us-west-2
+  accessKeyId: XXX
+  secretAccessKey: XXX
+  accountId: XXX
+resources:
+- apigateway
+- apigatewayv2
+- applicationautoscaling
+- appstream
+- appsync
+- ask
+- athena
+- autoscaling
+- autoscalingplans
+- batch
+- budgets
+- certificatemanager
+- cloud9
+- cloudformation
+- cloudfront
+- cloudtrail
+- cloudwatch
+- codebuild
+- codecommit
+- codedeploy
+- codepipeline
+- cognito
+- config
+- datapipeline
+- dax
+- directoryservice
+- dlm
+- dms
+- docdb
+- dynamodb
+- ec2
+- ecr
+- ecs
+- efs
+- eks
+- elasticache
+- elasticbeanstalk
+- elasticloadbalancing
+- elasticloadbalancingv2
+- elasticsearch
+- emr
+- events
+- fsx
+- gamelift
+- glue
+- guardduty
+- iam
+- inspector
+- iot
+- iot1click
+- iotanalytics
+- kinesis
+- kinesisanalytics
+- kinesisanalyticsv2
+- kinesisfirehose
+- kms
+- lambda
+- logs
+- mq
+- neptune
+- opsworks
+- opsworkscm
+- rds
+- redshift
+- route53
+- route53resolver
+- s3
+- sagemaker
+- sdb
+- secretsmanager
+- servicecatalog
+- servicediscovery
+- ses
+- sns
+- sqs
+- ssm
+- stepfunctions
+- waf
+- wafregional
+- workspaces
+----

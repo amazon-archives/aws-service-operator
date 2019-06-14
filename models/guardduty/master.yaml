@@ -1,0 +1,52 @@
+---
+apiVersion: models.awsoperator.io/v1alpha1
+kind: ModelFile
+metadata:
+  name: guardduty-master-resource
+  creationTimestamp: '2019-06-13T16:59:29-07:00'
+  resourceVersion: 3.3.0
+spec:
+  resource:
+    kind: Master
+    scope: Namespaced
+    apiGroup:
+      apiVersion: guardduty.awsoperator.io/v1alpha1
+      group: guardduty
+      region: us-east-1
+      domain: awsoperator.io
+      versions:
+      - name: v1alpha1
+        served: true
+        storage: true
+    names:
+      singular: master
+      plural: masters
+      shortNames: []
+  openAPIV3Schema:
+    properties:
+      spec:
+        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-guardduty-master.html
+        type: object
+        customAttributes: {}
+        required:
+        - detectorId
+        - masterId
+        properties:
+          detectorRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-guardduty-master.html#cfn-guardduty-master-detectorid
+            type: string
+            customAttributes:
+              template: DetectorId
+              immutable: true
+          invitationRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-guardduty-master.html#cfn-guardduty-master-invitationid
+            type: string
+            customAttributes:
+              template: InvitationId
+              immutable: true
+          masterRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-guardduty-master.html#cfn-guardduty-master-masterid
+            type: string
+            customAttributes:
+              template: MasterId
+              immutable: true

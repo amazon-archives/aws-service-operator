@@ -1,0 +1,268 @@
+---
+apiVersion: models.awsoperator.io/v1alpha1
+kind: ModelFile
+metadata:
+  name: elasticache-replicationgroup-resource
+  creationTimestamp: '2019-06-13T16:59:29-07:00'
+  resourceVersion: 3.3.0
+spec:
+  resource:
+    kind: ReplicationGroup
+    scope: Namespaced
+    apiGroup:
+      apiVersion: elasticache.awsoperator.io/v1alpha1
+      group: elasticache
+      region: us-east-1
+      domain: awsoperator.io
+      versions:
+      - name: v1alpha1
+        served: true
+        storage: true
+    names:
+      singular: replicationgroup
+      plural: replicationgroups
+      shortNames: []
+  openAPIV3Schema:
+    properties:
+      spec:
+        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticache-replicationgroup.html
+        type: object
+        customAttributes: {}
+        required:
+        - replicationGroupDescription
+        properties:
+          atRestEncryptionEnabled:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticache-replicationgroup.html#cfn-elasticache-replicationgroup-atrestencryptionenabled
+            type: boolean
+            customAttributes:
+              template: AtRestEncryptionEnabled
+              immutable: true
+          authToken:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticache-replicationgroup.html#cfn-elasticache-replicationgroup-authtoken
+            type: string
+            customAttributes:
+              template: AuthToken
+              immutable: true
+          autoMinorVersionUpgrade:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticache-replicationgroup.html#cfn-elasticache-replicationgroup-autominorversionupgrade
+            type: boolean
+            customAttributes:
+              template: AutoMinorVersionUpgrade
+              immutable: false
+          automaticFailoverEnabled:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticache-replicationgroup.html#cfn-elasticache-replicationgroup-automaticfailoverenabled
+            type: boolean
+            customAttributes:
+              template: AutomaticFailoverEnabled
+              immutable: false
+          cacheNodeType:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticache-replicationgroup.html#cfn-elasticache-replicationgroup-cachenodetype
+            type: string
+            customAttributes:
+              template: CacheNodeType
+              immutable: false
+          cacheParameterGroupName:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticache-replicationgroup.html#cfn-elasticache-replicationgroup-cacheparametergroupname
+            type: string
+            customAttributes:
+              template: CacheParameterGroupName
+              immutable: false
+          cacheSecurityGroupNames:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticache-replicationgroup.html#cfn-elasticache-replicationgroup-cachesecuritygroupnames
+            type: array
+            customAttributes:
+              template: CacheSecurityGroupNames
+              immutable: false
+            items:
+              type: string
+          cacheSubnetGroupName:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticache-replicationgroup.html#cfn-elasticache-replicationgroup-cachesubnetgroupname
+            type: string
+            customAttributes:
+              template: CacheSubnetGroupName
+              immutable: true
+          engine:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticache-replicationgroup.html#cfn-elasticache-replicationgroup-engine
+            type: string
+            customAttributes:
+              template: Engine
+              immutable: true
+          engineVersion:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticache-replicationgroup.html#cfn-elasticache-replicationgroup-engineversion
+            type: string
+            customAttributes:
+              template: EngineVersion
+              immutable: false
+          nodeGroupConfiguration:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticache-replicationgroup.html#cfn-elasticache-replicationgroup-nodegroupconfiguration
+            type: array
+            customAttributes:
+              template: NodeGroupConfiguration
+            items:
+              type: object
+              properties:
+                nodeGroupRef:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticache-replicationgroup-nodegroupconfiguration.html#cfn-elasticache-replicationgroup-nodegroupconfiguration-nodegroupid
+                  type: string
+                  customAttributes:
+                    template: NodeGroupId
+                primaryAvailabilityZone:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticache-replicationgroup-nodegroupconfiguration.html#cfn-elasticache-replicationgroup-nodegroupconfiguration-primaryavailabilityzone
+                  type: string
+                  customAttributes:
+                    template: PrimaryAvailabilityZone
+                    immutable: true
+                replicaAvailabilityZones:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticache-replicationgroup-nodegroupconfiguration.html#cfn-elasticache-replicationgroup-nodegroupconfiguration-replicaavailabilityzones
+                  type: array
+                  customAttributes:
+                    template: ReplicaAvailabilityZones
+                    immutable: true
+                  items:
+                    type: string
+                replicaCount:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticache-replicationgroup-nodegroupconfiguration.html#cfn-elasticache-replicationgroup-nodegroupconfiguration-replicacount
+                  type: integer
+                  format: int32
+                  customAttributes:
+                    template: ReplicaCount
+                    immutable: true
+                slots:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticache-replicationgroup-nodegroupconfiguration.html#cfn-elasticache-replicationgroup-nodegroupconfiguration-slots
+                  type: string
+                  customAttributes:
+                    template: Slots
+                    immutable: true
+          notificationTopicRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticache-replicationgroup.html#cfn-elasticache-replicationgroup-notificationtopicarn
+            type: string
+            customAttributes:
+              template: NotificationTopicArn
+              immutable: false
+          numCacheClusters:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticache-replicationgroup.html#cfn-elasticache-replicationgroup-numcacheclusters
+            type: integer
+            format: int32
+            customAttributes:
+              template: NumCacheClusters
+              immutable: false
+          numNodeGroups:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticache-replicationgroup.html#cfn-elasticache-replicationgroup-numnodegroups
+            type: integer
+            format: int32
+            customAttributes:
+              template: NumNodeGroups
+          port:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticache-replicationgroup.html#cfn-elasticache-replicationgroup-port
+            type: integer
+            format: int32
+            customAttributes:
+              template: Port
+              immutable: true
+          preferredCacheClusterAZs:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticache-replicationgroup.html#cfn-elasticache-replicationgroup-preferredcacheclusterazs
+            type: array
+            customAttributes:
+              template: PreferredCacheClusterAZs
+              immutable: true
+            items:
+              type: string
+          preferredMaintenanceWindow:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticache-replicationgroup.html#cfn-elasticache-replicationgroup-preferredmaintenancewindow
+            type: string
+            customAttributes:
+              template: PreferredMaintenanceWindow
+              immutable: false
+          primaryClusterRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticache-replicationgroup.html#cfn-elasticache-replicationgroup-primaryclusterid
+            type: string
+            customAttributes:
+              template: PrimaryClusterId
+              immutable: false
+          replicasPerNodeGroup:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticache-replicationgroup.html#cfn-elasticache-replicationgroup-replicaspernodegroup
+            type: integer
+            format: int32
+            customAttributes:
+              template: ReplicasPerNodeGroup
+              immutable: true
+          replicationGroupDescription:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticache-replicationgroup.html#cfn-elasticache-replicationgroup-replicationgroupdescription
+            type: string
+            customAttributes:
+              template: ReplicationGroupDescription
+              immutable: false
+          replicationGroupRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticache-replicationgroup.html#cfn-elasticache-replicationgroup-replicationgroupid
+            type: string
+            customAttributes:
+              template: ReplicationGroupId
+              immutable: true
+          securityGroupRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticache-replicationgroup.html#cfn-elasticache-replicationgroup-securitygroupids
+            type: array
+            customAttributes:
+              template: SecurityGroupIds
+              immutable: false
+            items:
+              type: string
+          snapshotRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticache-replicationgroup.html#cfn-elasticache-replicationgroup-snapshotarns
+            type: array
+            customAttributes:
+              template: SnapshotArns
+              immutable: true
+            items:
+              type: string
+          snapshotName:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticache-replicationgroup.html#cfn-elasticache-replicationgroup-snapshotname
+            type: string
+            customAttributes:
+              template: SnapshotName
+              immutable: true
+          snapshotRetentionLimit:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticache-replicationgroup.html#cfn-elasticache-replicationgroup-snapshotretentionlimit
+            type: integer
+            format: int32
+            customAttributes:
+              template: SnapshotRetentionLimit
+              immutable: false
+          snapshotWindow:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticache-replicationgroup.html#cfn-elasticache-replicationgroup-snapshotwindow
+            type: string
+            customAttributes:
+              template: SnapshotWindow
+              immutable: false
+          snapshottingClusterRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticache-replicationgroup.html#cfn-elasticache-replicationgroup-snapshottingclusterid
+            type: string
+            customAttributes:
+              template: SnapshottingClusterId
+              immutable: false
+          tags:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticache-replicationgroup.html#cfn-elasticache-replicationgroup-tags
+            type: array
+            customAttributes:
+              template: Tags
+              immutable: false
+            items:
+              type: object
+              properties:
+                key:
+                  description: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-resource-tags.html#cfn-resource-tags-key
+                  type: string
+                  customAttributes:
+                    template: Key
+                    immutable: false
+                value:
+                  description: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-resource-tags.html#cfn-resource-tags-value
+                  type: string
+                  customAttributes:
+                    template: Value
+                    immutable: false
+          transitEncryptionEnabled:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticache-replicationgroup.html#cfn-elasticache-replicationgroup-transitencryptionenabled
+            type: boolean
+            customAttributes:
+              template: TransitEncryptionEnabled
+              immutable: true

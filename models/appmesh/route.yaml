@@ -1,0 +1,173 @@
+---
+apiVersion: models.awsoperator.io/v1alpha1
+kind: ModelFile
+metadata:
+  name: appmesh-route-resource
+  creationTimestamp: '2019-06-13T16:59:28-07:00'
+  resourceVersion: 3.3.0
+spec:
+  resource:
+    kind: Route
+    scope: Namespaced
+    apiGroup:
+      apiVersion: appmesh.awsoperator.io/v1alpha1
+      group: appmesh
+      region: us-east-1
+      domain: awsoperator.io
+      versions:
+      - name: v1alpha1
+        served: true
+        storage: true
+    names:
+      singular: route
+      plural: routes
+      shortNames: []
+  openAPIV3Schema:
+    properties:
+      spec:
+        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-appmesh-route.html
+        type: object
+        customAttributes: {}
+        required:
+        - meshName
+        - spec
+        - virtualRouterName
+        properties:
+          meshName:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-appmesh-route.html#cfn-appmesh-route-meshname
+            type: string
+            customAttributes:
+              template: MeshName
+              immutable: true
+          routeName:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-appmesh-route.html#cfn-appmesh-route-routename
+            type: string
+            customAttributes:
+              template: RouteName
+              resourceName: true
+              immutable: true
+          spec:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-appmesh-route.html#cfn-appmesh-route-spec
+            type: object
+            customAttributes:
+              immutable: false
+            required: []
+            properties:
+              httpRoute:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-appmesh-route-routespec.html#cfn-appmesh-route-routespec-httproute
+                type: object
+                customAttributes:
+                  immutable: false
+                required:
+                - action
+                - match
+                properties:
+                  action:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-appmesh-route-httproute.html#cfn-appmesh-route-httproute-action
+                    type: object
+                    customAttributes:
+                      immutable: false
+                    required:
+                    - weightedTargets
+                    properties:
+                      weightedTargets:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-appmesh-route-httprouteaction.html#cfn-appmesh-route-httprouteaction-weightedtargets
+                        type: array
+                        customAttributes:
+                          template: WeightedTargets
+                          immutable: false
+                        items:
+                          type: object
+                          properties:
+                            virtualNode:
+                              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-appmesh-route-weightedtarget.html#cfn-appmesh-route-weightedtarget-virtualnode
+                              type: string
+                              customAttributes:
+                                template: VirtualNode
+                                immutable: false
+                            weight:
+                              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-appmesh-route-weightedtarget.html#cfn-appmesh-route-weightedtarget-weight
+                              type: integer
+                              format: int32
+                              customAttributes:
+                                template: Weight
+                                immutable: false
+                  match:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-appmesh-route-httproute.html#cfn-appmesh-route-httproute-match
+                    type: object
+                    customAttributes:
+                      immutable: false
+                    required:
+                    - prefix
+                    properties:
+                      prefix:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-appmesh-route-httproutematch.html#cfn-appmesh-route-httproutematch-prefix
+                        type: string
+                        customAttributes:
+                          template: Prefix
+                          immutable: false
+              tcpRoute:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-appmesh-route-routespec.html#cfn-appmesh-route-routespec-tcproute
+                type: object
+                customAttributes:
+                  immutable: false
+                required:
+                - action
+                properties:
+                  action:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-appmesh-route-tcproute.html#cfn-appmesh-route-tcproute-action
+                    type: object
+                    customAttributes:
+                      immutable: false
+                    required:
+                    - weightedTargets
+                    properties:
+                      weightedTargets:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-appmesh-route-tcprouteaction.html#cfn-appmesh-route-tcprouteaction-weightedtargets
+                        type: array
+                        customAttributes:
+                          template: WeightedTargets
+                          immutable: false
+                        items:
+                          type: object
+                          properties:
+                            virtualNode:
+                              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-appmesh-route-weightedtarget.html#cfn-appmesh-route-weightedtarget-virtualnode
+                              type: string
+                              customAttributes:
+                                template: VirtualNode
+                                immutable: false
+                            weight:
+                              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-appmesh-route-weightedtarget.html#cfn-appmesh-route-weightedtarget-weight
+                              type: integer
+                              format: int32
+                              customAttributes:
+                                template: Weight
+                                immutable: false
+          tags:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-appmesh-route.html#cfn-appmesh-route-tags
+            type: array
+            customAttributes:
+              template: Tags
+              immutable: false
+            items:
+              type: object
+              properties:
+                key:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-appmesh-route-tagref.html#cfn-appmesh-route-tagref-key
+                  type: string
+                  customAttributes:
+                    template: Key
+                    immutable: false
+                value:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-appmesh-route-tagref.html#cfn-appmesh-route-tagref-value
+                  type: string
+                  customAttributes:
+                    template: Value
+                    immutable: false
+          virtualRouterName:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-appmesh-route.html#cfn-appmesh-route-virtualroutername
+            type: string
+            customAttributes:
+              template: VirtualRouterName
+              immutable: true

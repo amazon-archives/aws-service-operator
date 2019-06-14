@@ -1,0 +1,188 @@
+---
+apiVersion: models.awsoperator.io/v1alpha1
+kind: ModelFile
+metadata:
+  name: glue-crawler-resource
+  creationTimestamp: '2019-06-13T16:59:29-07:00'
+  resourceVersion: 3.3.0
+spec:
+  resource:
+    kind: Crawler
+    scope: Namespaced
+    apiGroup:
+      apiVersion: glue.awsoperator.io/v1alpha1
+      group: glue
+      region: us-east-1
+      domain: awsoperator.io
+      versions:
+      - name: v1alpha1
+        served: true
+        storage: true
+    names:
+      singular: crawler
+      plural: crawlers
+      shortNames: []
+  openAPIV3Schema:
+    properties:
+      spec:
+        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-glue-crawler.html
+        type: object
+        customAttributes: {}
+        required:
+        - databaseName
+        - role
+        - targets
+        properties:
+          classifiers:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-glue-crawler.html#cfn-glue-crawler-classifiers
+            type: array
+            customAttributes:
+              template: Classifiers
+              immutable: false
+            items:
+              type: string
+          configuration:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-glue-crawler.html#cfn-glue-crawler-configuration
+            type: string
+            customAttributes:
+              template: Configuration
+              immutable: false
+          crawlerSecurityConfiguration:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-glue-crawler.html#cfn-glue-crawler-crawlersecurityconfiguration
+            type: string
+            customAttributes:
+              template: CrawlerSecurityConfiguration
+              immutable: false
+          databaseName:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-glue-crawler.html#cfn-glue-crawler-databasename
+            type: string
+            customAttributes:
+              template: DatabaseName
+              immutable: false
+          description:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-glue-crawler.html#cfn-glue-crawler-description
+            type: string
+            customAttributes:
+              template: Description
+              immutable: false
+          name:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-glue-crawler.html#cfn-glue-crawler-name
+            type: string
+            customAttributes:
+              template: Name
+              immutable: true
+          role:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-glue-crawler.html#cfn-glue-crawler-role
+            type: string
+            customAttributes:
+              template: Role
+              immutable: false
+          schedule:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-glue-crawler.html#cfn-glue-crawler-schedule
+            type: object
+            customAttributes:
+              immutable: false
+            required: []
+            properties:
+              scheduleExpression:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-glue-crawler-schedule.html#cfn-glue-crawler-schedule-scheduleexpression
+                type: string
+                customAttributes:
+                  template: ScheduleExpression
+                  immutable: false
+          schemaChangePolicy:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-glue-crawler.html#cfn-glue-crawler-schemachangepolicy
+            type: object
+            customAttributes:
+              immutable: false
+            required: []
+            properties:
+              deleteBehavior:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-glue-crawler-schemachangepolicy.html#cfn-glue-crawler-schemachangepolicy-deletebehavior
+                type: string
+                customAttributes:
+                  template: DeleteBehavior
+                  immutable: false
+                enum:
+                - DELETE_FROM_DATABASE
+                - DEPRECATE_IN_DATABASE
+                - LOG
+              updateBehavior:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-glue-crawler-schemachangepolicy.html#cfn-glue-crawler-schemachangepolicy-updatebehavior
+                type: string
+                customAttributes:
+                  template: UpdateBehavior
+                  immutable: false
+                enum:
+                - LOG
+                - UPDATE_IN_DATABASE
+          tablePrefix:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-glue-crawler.html#cfn-glue-crawler-tableprefix
+            type: string
+            customAttributes:
+              template: TablePrefix
+              immutable: false
+          tags:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-glue-crawler.html#cfn-glue-crawler-tags
+            customAttributes:
+              template: Tags
+              immutable: false
+          targets:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-glue-crawler.html#cfn-glue-crawler-targets
+            type: object
+            customAttributes:
+              immutable: false
+            required: []
+            properties:
+              jdbcTargets:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-glue-crawler-targets.html#cfn-glue-crawler-targets-jdbctargets
+                type: array
+                customAttributes:
+                  template: JdbcTargets
+                  immutable: false
+                items:
+                  type: object
+                  properties:
+                    connectionName:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-glue-crawler-jdbctarget.html#cfn-glue-crawler-jdbctarget-connectionname
+                      type: string
+                      customAttributes:
+                        template: ConnectionName
+                        immutable: false
+                    exclusions:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-glue-crawler-jdbctarget.html#cfn-glue-crawler-jdbctarget-exclusions
+                      type: array
+                      customAttributes:
+                        template: Exclusions
+                        immutable: false
+                      items:
+                        type: string
+                    path:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-glue-crawler-jdbctarget.html#cfn-glue-crawler-jdbctarget-path
+                      type: string
+                      customAttributes:
+                        template: Path
+                        immutable: false
+              s3Targets:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-glue-crawler-targets.html#cfn-glue-crawler-targets-s3targets
+                type: array
+                customAttributes:
+                  template: S3Targets
+                  immutable: false
+                items:
+                  type: object
+                  properties:
+                    exclusions:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-glue-crawler-s3target.html#cfn-glue-crawler-s3target-exclusions
+                      type: array
+                      customAttributes:
+                        template: Exclusions
+                        immutable: false
+                      items:
+                        type: string
+                    path:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-glue-crawler-s3target.html#cfn-glue-crawler-s3target-path
+                      type: string
+                      customAttributes:
+                        template: Path
+                        immutable: false

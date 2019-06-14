@@ -1,0 +1,328 @@
+---
+apiVersion: models.awsoperator.io/v1alpha1
+kind: ModelFile
+metadata:
+  name: codepipeline-pipeline-resource
+  creationTimestamp: '2019-06-13T16:59:28-07:00'
+  resourceVersion: 3.3.0
+spec:
+  resource:
+    kind: Pipeline
+    scope: Namespaced
+    apiGroup:
+      apiVersion: codepipeline.awsoperator.io/v1alpha1
+      group: codepipeline
+      region: us-east-1
+      domain: awsoperator.io
+      versions:
+      - name: v1alpha1
+        served: true
+        storage: true
+    names:
+      singular: pipeline
+      plural: pipelines
+      shortNames: []
+  openAPIV3Schema:
+    properties:
+      spec:
+        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-codepipeline-pipeline.html
+        type: object
+        customAttributes: {}
+        required:
+        - roleArn
+        - stages
+        properties:
+          artifactStore:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-codepipeline-pipeline.html#cfn-codepipeline-pipeline-artifactstore
+            type: object
+            customAttributes:
+              immutable: false
+            required:
+            - location
+            - type
+            properties:
+              encryptionKey:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codepipeline-pipeline-artifactstore.html#cfn-codepipeline-pipeline-artifactstore-encryptionkey
+                type: object
+                customAttributes:
+                  immutable: false
+                required:
+                - id
+                - type
+                properties:
+                  id:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codepipeline-pipeline-artifactstore-encryptionkey.html#cfn-codepipeline-pipeline-artifactstore-encryptionkey-id
+                    type: string
+                    customAttributes:
+                      template: Id
+                      immutable: false
+                  type:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codepipeline-pipeline-artifactstore-encryptionkey.html#cfn-codepipeline-pipeline-artifactstore-encryptionkey-type
+                    type: string
+                    customAttributes:
+                      template: Type
+                      immutable: false
+              location:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codepipeline-pipeline-artifactstore.html#cfn-codepipeline-pipeline-artifactstore-location
+                type: string
+                customAttributes:
+                  template: Location
+                  immutable: false
+              type:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codepipeline-pipeline-artifactstore.html#cfn-codepipeline-pipeline-artifactstore-type
+                type: string
+                customAttributes:
+                  template: Type
+                  immutable: false
+                enum: &1
+                - S3
+          artifactStores:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-codepipeline-pipeline.html#cfn-codepipeline-pipeline-artifactstores
+            type: array
+            customAttributes:
+              template: ArtifactStores
+              immutable: false
+            items:
+              type: object
+              properties:
+                artifactStore:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codepipeline-pipeline-artifactstoremap.html#cfn-codepipeline-pipeline-artifactstoremap-artifactstore
+                  type: object
+                  customAttributes:
+                    immutable: false
+                  required:
+                  - location
+                  - type
+                  properties:
+                    encryptionKey:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codepipeline-pipeline-artifactstore.html#cfn-codepipeline-pipeline-artifactstore-encryptionkey
+                      type: object
+                      customAttributes:
+                        immutable: false
+                      required:
+                      - id
+                      - type
+                      properties:
+                        id:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codepipeline-pipeline-artifactstore-encryptionkey.html#cfn-codepipeline-pipeline-artifactstore-encryptionkey-id
+                          type: string
+                          customAttributes:
+                            template: Id
+                            immutable: false
+                        type:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codepipeline-pipeline-artifactstore-encryptionkey.html#cfn-codepipeline-pipeline-artifactstore-encryptionkey-type
+                          type: string
+                          customAttributes:
+                            template: Type
+                            immutable: false
+                    location:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codepipeline-pipeline-artifactstore.html#cfn-codepipeline-pipeline-artifactstore-location
+                      type: string
+                      customAttributes:
+                        template: Location
+                        immutable: false
+                    type:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codepipeline-pipeline-artifactstore.html#cfn-codepipeline-pipeline-artifactstore-type
+                      type: string
+                      customAttributes:
+                        template: Type
+                        immutable: false
+                      enum: *1
+                region:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codepipeline-pipeline-artifactstoremap.html#cfn-codepipeline-pipeline-artifactstoremap-region
+                  type: string
+                  customAttributes:
+                    template: Region
+                    immutable: false
+          disableInboundStageTransitions:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-codepipeline-pipeline.html#cfn-codepipeline-pipeline-disableinboundstagetransitions
+            type: array
+            customAttributes:
+              template: DisableInboundStageTransitions
+              immutable: false
+            items:
+              type: object
+              properties:
+                reason:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codepipeline-pipeline-disableinboundstagetransitions.html#cfn-codepipeline-pipeline-disableinboundstagetransitions-reason
+                  type: string
+                  customAttributes:
+                    template: Reason
+                    immutable: false
+                stageName:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codepipeline-pipeline-disableinboundstagetransitions.html#cfn-codepipeline-pipeline-disableinboundstagetransitions-stagename
+                  type: string
+                  customAttributes:
+                    template: StageName
+                    immutable: false
+          name:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-codepipeline-pipeline.html#cfn-codepipeline-pipeline-name
+            type: string
+            customAttributes:
+              template: Name
+              immutable: true
+          restartExecutionOnUpdate:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-codepipeline-pipeline.html#cfn-codepipeline-pipeline-restartexecutiononupdate
+            type: boolean
+            customAttributes:
+              template: RestartExecutionOnUpdate
+              immutable: false
+          roleRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-codepipeline-pipeline.html#cfn-codepipeline-pipeline-rolearn
+            type: string
+            customAttributes:
+              template: RoleArn
+              immutable: false
+          stages:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-codepipeline-pipeline.html#cfn-codepipeline-pipeline-stages
+            type: array
+            customAttributes:
+              template: Stages
+              immutable: false
+            items:
+              type: object
+              properties:
+                actions:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codepipeline-pipeline-stages.html#cfn-codepipeline-pipeline-stages-actions
+                  type: array
+                  customAttributes:
+                    template: Actions
+                    immutable: false
+                  items:
+                    type: object
+                    properties:
+                      actionTypeRef:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codepipeline-pipeline-stages-actions.html#cfn-codepipeline-pipeline-stages-actions-actiontypeid
+                        type: object
+                        customAttributes:
+                          immutable: false
+                        required:
+                        - category
+                        - owner
+                        - provider
+                        - version
+                        properties:
+                          category:
+                            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codepipeline-pipeline-stages-actions-actiontypeid.html#cfn-codepipeline-pipeline-stages-actions-actiontypeid-category
+                            type: string
+                            customAttributes:
+                              template: Category
+                              immutable: false
+                            enum:
+                            - Approval
+                            - Build
+                            - Deploy
+                            - Invoke
+                            - Source
+                            - Test
+                          owner:
+                            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codepipeline-pipeline-stages-actions-actiontypeid.html#cfn-codepipeline-pipeline-stages-actions-actiontypeid-owner
+                            type: string
+                            customAttributes:
+                              template: Owner
+                              immutable: false
+                            enum:
+                            - AWS
+                            - Custom
+                            - ThirdParty
+                          provider:
+                            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codepipeline-pipeline-stages-actions-actiontypeid.html#cfn-codepipeline-pipeline-stages-actions-actiontypeid-provider
+                            type: string
+                            customAttributes:
+                              template: Provider
+                              immutable: false
+                          version:
+                            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codepipeline-pipeline-stages-actions-actiontypeid.html#cfn-codepipeline-pipeline-stages-actions-actiontypeid-version
+                            type: string
+                            customAttributes:
+                              template: Version
+                              immutable: false
+                      configuration:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codepipeline-pipeline-stages-actions.html#cfn-codepipeline-pipeline-stages-actions-configuration
+                        customAttributes:
+                          template: Configuration
+                          immutable: false
+                      inputArtifacts:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codepipeline-pipeline-stages-actions.html#cfn-codepipeline-pipeline-stages-actions-inputartifacts
+                        type: array
+                        customAttributes:
+                          template: InputArtifacts
+                          immutable: false
+                        items:
+                          type: object
+                          properties:
+                            name:
+                              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codepipeline-pipeline-stages-actions-inputartifacts.html#cfn-codepipeline-pipeline-stages-actions-inputartifacts-name
+                              type: string
+                              customAttributes:
+                                template: Name
+                                immutable: false
+                      name:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codepipeline-pipeline-stages-actions.html#cfn-codepipeline-pipeline-stages-actions-name
+                        type: string
+                        customAttributes:
+                          template: Name
+                          immutable: false
+                      outputArtifacts:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codepipeline-pipeline-stages-actions.html#cfn-codepipeline-pipeline-stages-actions-outputartifacts
+                        type: array
+                        customAttributes:
+                          template: OutputArtifacts
+                          immutable: false
+                        items:
+                          type: object
+                          properties:
+                            name:
+                              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codepipeline-pipeline-stages-actions-outputartifacts.html#cfn-codepipeline-pipeline-stages-actions-outputartifacts-name
+                              type: string
+                              customAttributes:
+                                template: Name
+                                immutable: false
+                      region:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codepipeline-pipeline-stages-actions.html#cfn-codepipeline-pipeline-stages-actions-region
+                        type: string
+                        customAttributes:
+                          template: Region
+                          immutable: false
+                      roleRef:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codepipeline-pipeline-stages-actions.html#cfn-codepipeline-pipeline-stages-actions-rolearn
+                        type: string
+                        customAttributes:
+                          template: RoleArn
+                          immutable: false
+                      runOrder:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codepipeline-pipeline-stages-actions.html#cfn-codepipeline-pipeline-stages-actions-runorder
+                        type: integer
+                        format: int32
+                        customAttributes:
+                          template: RunOrder
+                          immutable: false
+                blockers:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codepipeline-pipeline-stages.html#cfn-codepipeline-pipeline-stages-blockers
+                  type: array
+                  customAttributes:
+                    template: Blockers
+                    immutable: false
+                  items:
+                    type: object
+                    properties:
+                      name:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codepipeline-pipeline-stages-blockers.html#cfn-codepipeline-pipeline-stages-blockers-name
+                        type: string
+                        customAttributes:
+                          template: Name
+                          immutable: false
+                      type:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codepipeline-pipeline-stages-blockers.html#cfn-codepipeline-pipeline-stages-blockers-type
+                        type: string
+                        customAttributes:
+                          template: Type
+                          immutable: false
+                        enum:
+                        - Schedule
+                name:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codepipeline-pipeline-stages.html#cfn-codepipeline-pipeline-stages-name
+                  type: string
+                  customAttributes:
+                    template: Name
+                    immutable: false

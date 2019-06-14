@@ -1,0 +1,193 @@
+---
+apiVersion: models.awsoperator.io/v1alpha1
+kind: ModelFile
+metadata:
+  name: route53-healthcheck-resource
+  creationTimestamp: '2019-06-13T16:59:29-07:00'
+  resourceVersion: 3.3.0
+spec:
+  resource:
+    kind: HealthCheck
+    scope: Namespaced
+    apiGroup:
+      apiVersion: route53.awsoperator.io/v1alpha1
+      group: route53
+      region: us-east-1
+      domain: awsoperator.io
+      versions:
+      - name: v1alpha1
+        served: true
+        storage: true
+    names:
+      singular: healthcheck
+      plural: healthchecks
+      shortNames: []
+  openAPIV3Schema:
+    properties:
+      spec:
+        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-route53-healthcheck.html
+        type: object
+        customAttributes: {}
+        required:
+        - healthCheckConfig
+        properties:
+          healthCheckConfig:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-route53-healthcheck.html#cfn-route53-healthcheck-healthcheckconfig
+            type: object
+            customAttributes:
+              immutable: false
+            required:
+            - type
+            properties:
+              alarmentifierRef:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-route53-healthcheck-healthcheckconfig.html#cfn-route53-healthcheck-healthcheckconfig-alarmidentifier
+                type: object
+                customAttributes:
+                  immutable: false
+                required:
+                - name
+                - region
+                properties:
+                  name:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-route53-healthcheck-alarmidentifier.html#cfn-route53-healthcheck-alarmidentifier-name
+                    type: string
+                    customAttributes:
+                      template: Name
+                      immutable: false
+                  region:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-route53-healthcheck-alarmidentifier.html#cfn-route53-healthcheck-alarmidentifier-region
+                    type: string
+                    customAttributes:
+                      template: Region
+                      immutable: false
+              childHealthChecks:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-route53-healthcheck-healthcheckconfig.html#cfn-route53-healthcheck-healthcheckconfig-childhealthchecks
+                type: array
+                customAttributes:
+                  template: ChildHealthChecks
+                  immutable: false
+                items:
+                  type: string
+              enableSNI:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-route53-healthcheck-healthcheckconfig.html#cfn-route53-healthcheck-healthcheckconfig-enablesni
+                type: boolean
+                customAttributes:
+                  template: EnableSNI
+                  immutable: false
+              failureThreshold:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-route53-healthcheck-healthcheckconfig.html#cfn-route53-healthcheck-healthcheckconfig-failurethreshold
+                type: integer
+                format: int32
+                customAttributes:
+                  template: FailureThreshold
+                  immutable: false
+              fullyQualifiedDomainName:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-route53-healthcheck-healthcheckconfig.html#cfn-route53-healthcheck-healthcheckconfig-fullyqualifieddomainname
+                type: string
+                customAttributes:
+                  template: FullyQualifiedDomainName
+                  immutable: false
+              healthThreshold:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-route53-healthcheck-healthcheckconfig.html#cfn-route53-healthcheck-healthcheckconfig-healththreshold
+                type: integer
+                format: int32
+                customAttributes:
+                  template: HealthThreshold
+                  immutable: false
+              iPAddress:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-route53-healthcheck-healthcheckconfig.html#cfn-route53-healthcheck-healthcheckconfig-ipaddress
+                type: string
+                customAttributes:
+                  template: IPAddress
+                  immutable: false
+              insufficientDataHealthStatus:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-route53-healthcheck-healthcheckconfig.html#cfn-route53-healthcheck-healthcheckconfig-insufficientdatahealthstatus
+                type: string
+                customAttributes:
+                  template: InsufficientDataHealthStatus
+                  immutable: false
+                enum:
+                - Healthy
+                - LastKnownStatus
+                - Unhealthy
+              inverted:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-route53-healthcheck-healthcheckconfig.html#cfn-route53-healthcheck-healthcheckconfig-inverted
+                type: boolean
+                customAttributes:
+                  template: Inverted
+                  immutable: false
+              measureLatency:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-route53-healthcheck-healthcheckconfig.html#cfn-route53-healthcheck-healthcheckconfig-measurelatency
+                type: boolean
+                customAttributes:
+                  template: MeasureLatency
+                  immutable: true
+              port:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-route53-healthcheck-healthcheckconfig.html#cfn-route53-healthcheck-healthcheckconfig-port
+                type: integer
+                format: int32
+                customAttributes:
+                  template: Port
+                  immutable: false
+              regions:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-route53-healthcheck-healthcheckconfig.html#cfn-route53-healthcheck-healthcheckconfig-regions
+                type: array
+                customAttributes:
+                  template: Regions
+                  immutable: false
+                items:
+                  type: string
+              requestInterval:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-route53-healthcheck-healthcheckconfig.html#cfn-route53-healthcheck-healthcheckconfig-requestinterval
+                type: integer
+                format: int32
+                customAttributes:
+                  template: RequestInterval
+                  immutable: true
+              resourcePath:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-route53-healthcheck-healthcheckconfig.html#cfn-route53-healthcheck-healthcheckconfig-resourcepath
+                type: string
+                customAttributes:
+                  template: ResourcePath
+                  immutable: false
+              searchString:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-route53-healthcheck-healthcheckconfig.html#cfn-route53-healthcheck-healthcheckconfig-searchstring
+                type: string
+                customAttributes:
+                  template: SearchString
+                  immutable: false
+              type:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-route53-healthcheck-healthcheckconfig.html#cfn-route53-healthcheck-healthcheckconfig-type
+                type: string
+                customAttributes:
+                  template: Type
+                  immutable: true
+                enum:
+                - CALCULATED
+                - CLOUDWATCH_METRIC
+                - HTTP_STR_MATCH
+                - HTTP
+                - HTTPS_STR_MATCH
+                - HTTPS
+                - TCP
+          healthCheckTags:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-route53-healthcheck.html#cfn-route53-healthcheck-healthchecktags
+            type: array
+            customAttributes:
+              template: HealthCheckTags
+              immutable: false
+            items:
+              type: object
+              properties:
+                key:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-route53-healthcheck-healthchecktag.html#cfn-route53-healthchecktags-key
+                  type: string
+                  customAttributes:
+                    template: Key
+                    immutable: false
+                value:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-route53-healthcheck-healthchecktag.html#cfn-route53-healthchecktags-value
+                  type: string
+                  customAttributes:
+                    template: Value
+                    immutable: false

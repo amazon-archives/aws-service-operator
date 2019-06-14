@@ -1,0 +1,73 @@
+---
+apiVersion: models.awsoperator.io/v1alpha1
+kind: ModelFile
+metadata:
+  name: iam-group-resource
+  creationTimestamp: '2019-06-13T16:59:29-07:00'
+  resourceVersion: 3.3.0
+spec:
+  resource:
+    kind: Group
+    scope: Namespaced
+    apiGroup:
+      apiVersion: iam.awsoperator.io/v1alpha1
+      group: iam
+      region: us-east-1
+      domain: awsoperator.io
+      versions:
+      - name: v1alpha1
+        served: true
+        storage: true
+    names:
+      singular: group
+      plural: groups
+      shortNames: []
+  openAPIV3Schema:
+    properties:
+      spec:
+        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-iam-group.html
+        type: object
+        customAttributes: {}
+        required: []
+        properties:
+          groupName:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-iam-group.html#cfn-iam-group-groupname
+            type: string
+            customAttributes:
+              template: GroupName
+              resourceName: true
+              immutable: true
+          managedPolicyRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-iam-group.html#cfn-iam-group-managepolicyarns
+            type: array
+            customAttributes:
+              template: ManagedPolicyArns
+              immutable: false
+            items:
+              type: string
+          path:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-iam-group.html#cfn-iam-group-path
+            type: string
+            customAttributes:
+              template: Path
+              immutable: false
+          policies:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-iam-group.html#cfn-iam-group-policies
+            type: array
+            customAttributes:
+              template: Policies
+              immutable: false
+            items:
+              type: object
+              properties:
+                policyDocument:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-iam-policy.html#cfn-iam-policies-policydocument
+                  customAttributes:
+                    template: PolicyDocument
+                    immutable: false
+                policyName:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-iam-policy.html#cfn-iam-policies-policyname
+                  type: string
+                  customAttributes:
+                    template: PolicyName
+                    immutable: false

@@ -1,0 +1,139 @@
+---
+apiVersion: models.awsoperator.io/v1alpha1
+kind: ModelFile
+metadata:
+  name: dax-cluster-resource
+  creationTimestamp: '2019-06-13T16:59:29-07:00'
+  resourceVersion: 3.3.0
+spec:
+  resource:
+    kind: Cluster
+    scope: Namespaced
+    apiGroup:
+      apiVersion: dax.awsoperator.io/v1alpha1
+      group: dax
+      region: us-east-1
+      domain: awsoperator.io
+      versions:
+      - name: v1alpha1
+        served: true
+        storage: true
+    names:
+      singular: cluster
+      plural: clusters
+      shortNames: []
+  openAPIV3Schema:
+    properties:
+      spec:
+        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-dax-cluster.html
+        type: object
+        customAttributes: {}
+        required:
+        - iAMRoleARN
+        - nodeType
+        - replicationFactor
+        properties:
+          availabilityZones:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-dax-cluster.html#cfn-dax-cluster-availabilityzones
+            type: array
+            customAttributes:
+              template: AvailabilityZones
+              immutable: false
+            items:
+              type: string
+          clusterName:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-dax-cluster.html#cfn-dax-cluster-clustername
+            type: string
+            customAttributes:
+              template: ClusterName
+              resourceName: true
+              immutable: true
+          description:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-dax-cluster.html#cfn-dax-cluster-description
+            type: string
+            customAttributes:
+              template: Description
+              immutable: false
+          iAMRoleARN:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-dax-cluster.html#cfn-dax-cluster-iamrolearn
+            type: string
+            customAttributes:
+              template: IAMRoleARN
+              immutable: true
+          nodeType:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-dax-cluster.html#cfn-dax-cluster-nodetype
+            type: string
+            customAttributes:
+              template: NodeType
+              immutable: true
+            enum:
+            - dax.r3.2xlarge
+            - dax.r3.4xlarge
+            - dax.r3.8xlarge
+            - dax.r3.large
+            - dax.r3.xlarge
+            - dax.r4.16xlarge
+            - dax.r4.2xlarge
+            - dax.r4.4xlarge
+            - dax.r4.8xlarge
+            - dax.r4.large
+            - dax.r4.xlarge
+            - dax.t2.medium
+            - dax.t2.small
+          notificationTopicARN:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-dax-cluster.html#cfn-dax-cluster-notificationtopicarn
+            type: string
+            customAttributes:
+              template: NotificationTopicARN
+              immutable: false
+          parameterGroupName:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-dax-cluster.html#cfn-dax-cluster-parametergroupname
+            type: string
+            customAttributes:
+              template: ParameterGroupName
+              immutable: false
+          preferredMaintenanceWindow:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-dax-cluster.html#cfn-dax-cluster-preferredmaintenancewindow
+            type: string
+            customAttributes:
+              template: PreferredMaintenanceWindow
+              immutable: false
+          replicationFactor:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-dax-cluster.html#cfn-dax-cluster-replicationfactor
+            type: integer
+            format: int32
+            customAttributes:
+              template: ReplicationFactor
+              immutable: false
+          sSESpecification:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-dax-cluster.html#cfn-dax-cluster-ssespecification
+            type: object
+            customAttributes:
+              immutable: true
+            required: []
+            properties:
+              sSEEnabled:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-dax-cluster-ssespecification.html#cfn-dax-cluster-ssespecification-sseenabled
+                type: boolean
+                customAttributes:
+                  template: SSEEnabled
+                  immutable: false
+          securityGroupRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-dax-cluster.html#cfn-dax-cluster-securitygroupids
+            type: array
+            customAttributes:
+              template: SecurityGroupIds
+              immutable: false
+            items:
+              type: string
+          subnetGroupName:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-dax-cluster.html#cfn-dax-cluster-subnetgroupname
+            type: string
+            customAttributes:
+              template: SubnetGroupName
+              immutable: true
+          tags:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-dax-cluster.html#cfn-dax-cluster-tags
+            customAttributes:
+              template: Tags
+              immutable: false

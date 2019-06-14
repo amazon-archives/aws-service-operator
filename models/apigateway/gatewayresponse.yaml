@@ -1,0 +1,85 @@
+---
+apiVersion: models.awsoperator.io/v1alpha1
+kind: ModelFile
+metadata:
+  name: apigateway-gatewayresponse-resource
+  creationTimestamp: '2019-06-13T16:59:28-07:00'
+  resourceVersion: 3.3.0
+spec:
+  resource:
+    kind: GatewayResponse
+    scope: Namespaced
+    apiGroup:
+      apiVersion: apigateway.awsoperator.io/v1alpha1
+      group: apigateway
+      region: us-east-1
+      domain: awsoperator.io
+      versions:
+      - name: v1alpha1
+        served: true
+        storage: true
+    names:
+      singular: gatewayresponse
+      plural: gatewayresponses
+      shortNames: []
+  openAPIV3Schema:
+    properties:
+      spec:
+        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigateway-gatewayresponse.html
+        type: object
+        customAttributes: {}
+        required:
+        - responseType
+        - restApiId
+        properties:
+          responseParameters:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigateway-gatewayresponse.html#cfn-apigateway-gatewayresponse-responseparameters
+            type: json
+            customAttributes:
+              template: ResponseParameters
+              immutable: false
+          responseTemplates:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigateway-gatewayresponse.html#cfn-apigateway-gatewayresponse-responsetemplates
+            type: json
+            customAttributes:
+              template: ResponseTemplates
+              immutable: false
+          responseType:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigateway-gatewayresponse.html#cfn-apigateway-gatewayresponse-responsetype
+            type: string
+            customAttributes:
+              template: ResponseType
+              immutable: true
+            enum:
+            - ACCESS_DENIED
+            - API_CONFIGURATION_ERROR
+            - AUTHORIZER_FAILURE
+            - AUTHORIZER_CONFIGURATION_ERROR
+            - BAD_REQUEST_PARAMETERS
+            - BAD_REQUEST_BODY
+            - DEFAULT_4XX
+            - DEFAULT_5XX
+            - EXPIRED_TOKEN
+            - INVALID_SIGNATURE
+            - INTEGRATION_FAILURE
+            - INTEGRATION_TIMEOUT
+            - INVALID_API_KEY
+            - MISSING_AUTHENTICATION_TOKEN
+            - QUOTA_EXCEEDED
+            - REQUEST_TOO_LARGE
+            - RESOURCE_NOT_FOUND
+            - THROTTLED
+            - UNAUTHORIZED
+            - UNSUPPORTED_MEDIA_TYPE
+          restApiRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigateway-gatewayresponse.html#cfn-apigateway-gatewayresponse-restapiid
+            type: string
+            customAttributes:
+              template: RestApiId
+              immutable: true
+          statusCode:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigateway-gatewayresponse.html#cfn-apigateway-gatewayresponse-statuscode
+            type: string
+            customAttributes:
+              template: StatusCode
+              immutable: false

@@ -1,0 +1,29 @@
+apiVersion: cloudformation.awsoperator.io/v1alpha1
+kind: Stack
+metadata:
+  name: test-stack
+spec:
+  region: us-west-2
+  # capabilities: []
+  # notificationARNs: []
+  parameters:
+    Namespace: "default"
+    Name: "aws-service-operator"
+  templateBody: |
+    AWSTemplateFormatVersion: 2010-09-09
+    Description: 'AWS Service Operator - Amazon ECR Repository (aso-1otq2cgc9)'
+    Parameters:
+      Namespace:
+        Type: String
+      Name:
+        Type: String
+    Resources:
+      ECRRepository:
+        Type: AWS::ECR::Repository
+        Properties:
+          RepositoryName: !Ref Name
+    Outputs:
+      Name:
+        Value: !Ref ECRRepository
+      ARN:
+        Value: !GetAtt ECRRepository.Arn

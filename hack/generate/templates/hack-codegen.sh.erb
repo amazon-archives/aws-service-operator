@@ -1,0 +1,13 @@
+set -o errexit
+set -o nounset
+set -o pipefail
+
+SCRIPT_ROOT=$(dirname ${BASH_SOURCE})/..
+CODEGEN_PKG=${CODEGEN_PKG:-$(cd ${SCRIPT_ROOT}; ls -d -1 ./vendor/k8s.io/code-generator 2>/dev/null || echo ../code-generator)}
+
+${CODEGEN_PKG}/generate-groups.sh all \
+  awsoperator.io/client \
+  awsoperator.io/apis \
+  "<% @obj.each do |key, _| %><%= key %>:<%= @version %> <% end %>" \
+  --output-base "${GOPATH}/src" \
+  --go-header-file ${SCRIPT_ROOT}/hack/boilerplate.go.txt

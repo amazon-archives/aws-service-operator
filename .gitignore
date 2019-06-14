@@ -1,7 +1,10 @@
-/aws-service-operator
-pod-role.json
+
 .DS_Store
-/aws-service-operator.yaml
+/.awsoperator.yaml
+/awsoperator
 kubeconfig
 dist/
 .envrc
+#output/
+hack/generate/cfn-specification/
+.vscode

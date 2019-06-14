@@ -1,0 +1,506 @@
+---
+apiVersion: models.awsoperator.io/v1alpha1
+kind: ModelFile
+metadata:
+  name: batch-jobdefinition-resource
+  creationTimestamp: '2019-06-13T16:59:28-07:00'
+  resourceVersion: 3.3.0
+spec:
+  resource:
+    kind: JobDefinition
+    scope: Namespaced
+    apiGroup:
+      apiVersion: batch.awsoperator.io/v1alpha1
+      group: batch
+      region: us-east-1
+      domain: awsoperator.io
+      versions:
+      - name: v1alpha1
+        served: true
+        storage: true
+    names:
+      singular: jobdefinition
+      plural: jobdefinitions
+      shortNames: []
+  openAPIV3Schema:
+    properties:
+      spec:
+        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-batch-jobdefinition.html
+        type: object
+        customAttributes: {}
+        required:
+        - type
+        properties:
+          containerProperties:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-batch-jobdefinition.html#cfn-batch-jobdefinition-containerproperties
+            type: object
+            customAttributes:
+              immutable: false
+            required:
+            - image
+            - memory
+            - vcpus
+            properties:
+              command:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-batch-jobdefinition-containerproperties.html#cfn-batch-jobdefinition-containerproperties-command
+                type: array
+                customAttributes:
+                  template: Command
+                  immutable: false
+                items:
+                  type: string
+              environment:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-batch-jobdefinition-containerproperties.html#cfn-batch-jobdefinition-containerproperties-environment
+                type: array
+                customAttributes:
+                  template: Environment
+                  immutable: false
+                items:
+                  type: object
+                  properties:
+                    name:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-batch-jobdefinition-environment.html#cfn-batch-jobdefinition-environment-name
+                      type: string
+                      customAttributes:
+                        template: Name
+                        immutable: false
+                    value:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-batch-jobdefinition-environment.html#cfn-batch-jobdefinition-environment-value
+                      type: string
+                      customAttributes:
+                        template: Value
+                        immutable: false
+              image:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-batch-jobdefinition-containerproperties.html#cfn-batch-jobdefinition-containerproperties-image
+                type: string
+                customAttributes:
+                  template: Image
+                  immutable: false
+              instanceType:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-batch-jobdefinition-containerproperties.html#cfn-batch-jobdefinition-containerproperties-instancetype
+                type: string
+                customAttributes:
+                  template: InstanceType
+                  immutable: false
+              jobRoleRef:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-batch-jobdefinition-containerproperties.html#cfn-batch-jobdefinition-containerproperties-jobrolearn
+                type: string
+                customAttributes:
+                  template: JobRoleArn
+                  immutable: false
+              memory:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-batch-jobdefinition-containerproperties.html#cfn-batch-jobdefinition-containerproperties-memory
+                type: integer
+                format: int32
+                customAttributes:
+                  template: Memory
+                  immutable: false
+              mountPoints:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-batch-jobdefinition-containerproperties.html#cfn-batch-jobdefinition-containerproperties-mountpoints
+                type: array
+                customAttributes:
+                  template: MountPoints
+                  immutable: false
+                items:
+                  type: object
+                  properties:
+                    containerPath:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-batch-jobdefinition-mountpoints.html#cfn-batch-jobdefinition-mountpoints-containerpath
+                      type: string
+                      customAttributes:
+                        template: ContainerPath
+                        immutable: false
+                    readOnly:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-batch-jobdefinition-mountpoints.html#cfn-batch-jobdefinition-mountpoints-readonly
+                      type: boolean
+                      customAttributes:
+                        template: ReadOnly
+                        immutable: false
+                    sourceVolume:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-batch-jobdefinition-mountpoints.html#cfn-batch-jobdefinition-mountpoints-sourcevolume
+                      type: string
+                      customAttributes:
+                        template: SourceVolume
+                        immutable: false
+              privileged:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-batch-jobdefinition-containerproperties.html#cfn-batch-jobdefinition-containerproperties-privileged
+                type: boolean
+                customAttributes:
+                  template: Privileged
+                  immutable: false
+              readonlyRootFilesystem:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-batch-jobdefinition-containerproperties.html#cfn-batch-jobdefinition-containerproperties-readonlyrootfilesystem
+                type: boolean
+                customAttributes:
+                  template: ReadonlyRootFilesystem
+                  immutable: false
+              resourceRequirements:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-batch-jobdefinition-containerproperties.html#cfn-batch-jobdefinition-containerproperties-resourcerequirements
+                type: array
+                customAttributes:
+                  template: ResourceRequirements
+                  immutable: false
+                items:
+                  type: object
+                  properties:
+                    type:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-batch-jobdefinition-resourcerequirement.html#cfn-batch-jobdefinition-resourcerequirement-type
+                      type: string
+                      customAttributes:
+                        template: Type
+                        immutable: false
+                    value:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-batch-jobdefinition-resourcerequirement.html#cfn-batch-jobdefinition-resourcerequirement-value
+                      type: string
+                      customAttributes:
+                        template: Value
+                        immutable: false
+              ulimits:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-batch-jobdefinition-containerproperties.html#cfn-batch-jobdefinition-containerproperties-ulimits
+                type: array
+                customAttributes:
+                  template: Ulimits
+                  immutable: false
+                items:
+                  type: object
+                  properties:
+                    hardLimit:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-batch-jobdefinition-ulimit.html#cfn-batch-jobdefinition-ulimit-hardlimit
+                      type: integer
+                      format: int32
+                      customAttributes:
+                        template: HardLimit
+                        immutable: false
+                    name:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-batch-jobdefinition-ulimit.html#cfn-batch-jobdefinition-ulimit-name
+                      type: string
+                      customAttributes:
+                        template: Name
+                        immutable: false
+                    softLimit:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-batch-jobdefinition-ulimit.html#cfn-batch-jobdefinition-ulimit-softlimit
+                      type: integer
+                      format: int32
+                      customAttributes:
+                        template: SoftLimit
+                        immutable: false
+              user:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-batch-jobdefinition-containerproperties.html#cfn-batch-jobdefinition-containerproperties-user
+                type: string
+                customAttributes:
+                  template: User
+                  immutable: false
+              vcpus:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-batch-jobdefinition-containerproperties.html#cfn-batch-jobdefinition-containerproperties-vcpus
+                type: integer
+                format: int32
+                customAttributes:
+                  template: Vcpus
+                  immutable: false
+              volumes:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-batch-jobdefinition-containerproperties.html#cfn-batch-jobdefinition-containerproperties-volumes
+                type: array
+                customAttributes:
+                  template: Volumes
+                  immutable: false
+                items:
+                  type: object
+                  properties:
+                    host:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-batch-jobdefinition-volumes.html#cfn-batch-jobdefinition-volumes-host
+                      type: object
+                      customAttributes:
+                        immutable: false
+                      required: []
+                      properties:
+                        sourcePath:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-batch-jobdefinition-volumeshost.html#cfn-batch-jobdefinition-volumeshost-sourcepath
+                          type: string
+                          customAttributes:
+                            template: SourcePath
+                            immutable: false
+                    name:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-batch-jobdefinition-volumes.html#cfn-batch-jobdefinition-volumes-name
+                      type: string
+                      customAttributes:
+                        template: Name
+                        immutable: false
+          jobDefinitionName:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-batch-jobdefinition.html#cfn-batch-jobdefinition-jobdefinitionname
+            type: string
+            customAttributes:
+              template: JobDefinitionName
+              resourceName: true
+              immutable: true
+          nodeProperties:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-batch-jobdefinition.html#cfn-batch-jobdefinition-nodeproperties
+            type: object
+            customAttributes:
+              immutable: false
+            required:
+            - mainNode
+            - nodeRangeProperties
+            - numNodes
+            properties:
+              mainNode:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-batch-jobdefinition-nodeproperties.html#cfn-batch-jobdefinition-nodeproperties-mainnode
+                type: integer
+                format: int32
+                customAttributes:
+                  template: MainNode
+                  immutable: false
+              nodeRangeProperties:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-batch-jobdefinition-nodeproperties.html#cfn-batch-jobdefinition-nodeproperties-noderangeproperties
+                type: array
+                customAttributes:
+                  template: NodeRangeProperties
+                  immutable: false
+                items:
+                  type: object
+                  properties:
+                    container:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-batch-jobdefinition-noderangeproperty.html#cfn-batch-jobdefinition-noderangeproperty-container
+                      type: object
+                      customAttributes:
+                        immutable: false
+                      required:
+                      - image
+                      - memory
+                      - vcpus
+                      properties:
+                        command:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-batch-jobdefinition-containerproperties.html#cfn-batch-jobdefinition-containerproperties-command
+                          type: array
+                          customAttributes:
+                            template: Command
+                            immutable: false
+                          items:
+                            type: string
+                        environment:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-batch-jobdefinition-containerproperties.html#cfn-batch-jobdefinition-containerproperties-environment
+                          type: array
+                          customAttributes:
+                            template: Environment
+                            immutable: false
+                          items:
+                            type: object
+                            properties:
+                              name:
+                                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-batch-jobdefinition-environment.html#cfn-batch-jobdefinition-environment-name
+                                type: string
+                                customAttributes:
+                                  template: Name
+                                  immutable: false
+                              value:
+                                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-batch-jobdefinition-environment.html#cfn-batch-jobdefinition-environment-value
+                                type: string
+                                customAttributes:
+                                  template: Value
+                                  immutable: false
+                        image:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-batch-jobdefinition-containerproperties.html#cfn-batch-jobdefinition-containerproperties-image
+                          type: string
+                          customAttributes:
+                            template: Image
+                            immutable: false
+                        instanceType:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-batch-jobdefinition-containerproperties.html#cfn-batch-jobdefinition-containerproperties-instancetype
+                          type: string
+                          customAttributes:
+                            template: InstanceType
+                            immutable: false
+                        jobRoleRef:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-batch-jobdefinition-containerproperties.html#cfn-batch-jobdefinition-containerproperties-jobrolearn
+                          type: string
+                          customAttributes:
+                            template: JobRoleArn
+                            immutable: false
+                        memory:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-batch-jobdefinition-containerproperties.html#cfn-batch-jobdefinition-containerproperties-memory
+                          type: integer
+                          format: int32
+                          customAttributes:
+                            template: Memory
+                            immutable: false
+                        mountPoints:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-batch-jobdefinition-containerproperties.html#cfn-batch-jobdefinition-containerproperties-mountpoints
+                          type: array
+                          customAttributes:
+                            template: MountPoints
+                            immutable: false
+                          items:
+                            type: object
+                            properties:
+                              containerPath:
+                                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-batch-jobdefinition-mountpoints.html#cfn-batch-jobdefinition-mountpoints-containerpath
+                                type: string
+                                customAttributes:
+                                  template: ContainerPath
+                                  immutable: false
+                              readOnly:
+                                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-batch-jobdefinition-mountpoints.html#cfn-batch-jobdefinition-mountpoints-readonly
+                                type: boolean
+                                customAttributes:
+                                  template: ReadOnly
+                                  immutable: false
+                              sourceVolume:
+                                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-batch-jobdefinition-mountpoints.html#cfn-batch-jobdefinition-mountpoints-sourcevolume
+                                type: string
+                                customAttributes:
+                                  template: SourceVolume
+                                  immutable: false
+                        privileged:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-batch-jobdefinition-containerproperties.html#cfn-batch-jobdefinition-containerproperties-privileged
+                          type: boolean
+                          customAttributes:
+                            template: Privileged
+                            immutable: false
+                        readonlyRootFilesystem:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-batch-jobdefinition-containerproperties.html#cfn-batch-jobdefinition-containerproperties-readonlyrootfilesystem
+                          type: boolean
+                          customAttributes:
+                            template: ReadonlyRootFilesystem
+                            immutable: false
+                        resourceRequirements:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-batch-jobdefinition-containerproperties.html#cfn-batch-jobdefinition-containerproperties-resourcerequirements
+                          type: array
+                          customAttributes:
+                            template: ResourceRequirements
+                            immutable: false
+                          items:
+                            type: object
+                            properties:
+                              type:
+                                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-batch-jobdefinition-resourcerequirement.html#cfn-batch-jobdefinition-resourcerequirement-type
+                                type: string
+                                customAttributes:
+                                  template: Type
+                                  immutable: false
+                              value:
+                                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-batch-jobdefinition-resourcerequirement.html#cfn-batch-jobdefinition-resourcerequirement-value
+                                type: string
+                                customAttributes:
+                                  template: Value
+                                  immutable: false
+                        ulimits:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-batch-jobdefinition-containerproperties.html#cfn-batch-jobdefinition-containerproperties-ulimits
+                          type: array
+                          customAttributes:
+                            template: Ulimits
+                            immutable: false
+                          items:
+                            type: object
+                            properties:
+                              hardLimit:
+                                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-batch-jobdefinition-ulimit.html#cfn-batch-jobdefinition-ulimit-hardlimit
+                                type: integer
+                                format: int32
+                                customAttributes:
+                                  template: HardLimit
+                                  immutable: false
+                              name:
+                                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-batch-jobdefinition-ulimit.html#cfn-batch-jobdefinition-ulimit-name
+                                type: string
+                                customAttributes:
+                                  template: Name
+                                  immutable: false
+                              softLimit:
+                                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-batch-jobdefinition-ulimit.html#cfn-batch-jobdefinition-ulimit-softlimit
+                                type: integer
+                                format: int32
+                                customAttributes:
+                                  template: SoftLimit
+                                  immutable: false
+                        user:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-batch-jobdefinition-containerproperties.html#cfn-batch-jobdefinition-containerproperties-user
+                          type: string
+                          customAttributes:
+                            template: User
+                            immutable: false
+                        vcpus:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-batch-jobdefinition-containerproperties.html#cfn-batch-jobdefinition-containerproperties-vcpus
+                          type: integer
+                          format: int32
+                          customAttributes:
+                            template: Vcpus
+                            immutable: false
+                        volumes:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-batch-jobdefinition-containerproperties.html#cfn-batch-jobdefinition-containerproperties-volumes
+                          type: array
+                          customAttributes:
+                            template: Volumes
+                            immutable: false
+                          items:
+                            type: object
+                            properties:
+                              host:
+                                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-batch-jobdefinition-volumes.html#cfn-batch-jobdefinition-volumes-host
+                                type: object
+                                customAttributes:
+                                  immutable: false
+                                required: []
+                                properties:
+                                  sourcePath:
+                                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-batch-jobdefinition-volumeshost.html#cfn-batch-jobdefinition-volumeshost-sourcepath
+                                    type: string
+                                    customAttributes:
+                                      template: SourcePath
+                                      immutable: false
+                              name:
+                                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-batch-jobdefinition-volumes.html#cfn-batch-jobdefinition-volumes-name
+                                type: string
+                                customAttributes:
+                                  template: Name
+                                  immutable: false
+                    targetNodes:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-batch-jobdefinition-noderangeproperty.html#cfn-batch-jobdefinition-noderangeproperty-targetnodes
+                      type: string
+                      customAttributes:
+                        template: TargetNodes
+                        immutable: false
+              numNodes:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-batch-jobdefinition-nodeproperties.html#cfn-batch-jobdefinition-nodeproperties-numnodes
+                type: integer
+                format: int32
+                customAttributes:
+                  template: NumNodes
+                  immutable: false
+          parameters:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-batch-jobdefinition.html#cfn-batch-jobdefinition-parameters
+            customAttributes:
+              template: Parameters
+              immutable: false
+          retryStrategy:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-batch-jobdefinition.html#cfn-batch-jobdefinition-retrystrategy
+            type: object
+            customAttributes:
+              immutable: false
+            required: []
+            properties:
+              attempts:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-batch-jobdefinition-retrystrategy.html#cfn-batch-jobdefinition-retrystrategy-attempts
+                type: integer
+                format: int32
+                customAttributes:
+                  template: Attempts
+                  immutable: false
+          timeout:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-batch-jobdefinition.html#cfn-batch-jobdefinition-timeout
+            type: object
+            customAttributes:
+              immutable: false
+            required: []
+            properties:
+              attemptDurationSeconds:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-batch-jobdefinition-timeout.html#cfn-batch-jobdefinition-timeout-attemptdurationseconds
+                type: integer
+                format: int32
+                customAttributes:
+                  template: AttemptDurationSeconds
+                  immutable: false
+          type:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-batch-jobdefinition.html#cfn-batch-jobdefinition-type
+            type: string
+            customAttributes:
+              template: Type
+              immutable: false

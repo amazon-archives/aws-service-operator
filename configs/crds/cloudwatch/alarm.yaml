@@ -1,0 +1,269 @@
+---
+apiVersion: apiextensions.k8s.io/v1beta1
+kind: CustomResourceDefinition
+metadata:
+  name: alarms.cloudwatch.awsoperator.io
+spec:
+  group: cloudwatch.awsoperator.io
+  versions:
+  - name: v1alpha1
+    served: true
+    storage: true
+  scope: Namespaced
+  names:
+    plural: alarms
+    singular: alarm
+    kind: Alarm
+    shortNames: []
+    categories:
+    - aws
+    - cloudwatch
+  additionalPrinterColumns:
+  - name: Status
+    type: string
+    description: Status for the AWS CloudFormation stack.
+    JSONPath: ".status.reason"
+  - name: Message
+    type: string
+    description: Message accompanying it's current stack status.
+    JSONPath: ".status.message"
+    priority: 1
+  - name: Created At
+    type: date
+    description: When the resource was created
+    JSONPath: ".metadata.creationTimestamp"
+  subresources:
+    status: {}
+  validation:
+    openAPIV3Schema:
+      properties:
+        spec:
+          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cw-alarm.html
+          type: object
+          required:
+          - comparisonOperator
+          - evaluationPeriods
+          - threshold
+          properties:
+            actionsEnabled:
+              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cw-alarm.html#cfn-cloudwatch-alarms-actionsenabled
+              type: boolean
+            alarmActions:
+              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cw-alarm.html#cfn-cloudwatch-alarms-alarmactions
+              type: array
+              items:
+                type: string
+            alarmDescription:
+              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cw-alarm.html#cfn-cloudwatch-alarms-alarmdescription
+              type: string
+            comparisonOperator:
+              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cw-alarm.html#cfn-cloudwatch-alarms-comparisonoperator
+              type: string
+              enum:
+              - GreaterThanOrEqualToThreshold
+              - GreaterThanThreshold
+              - LessThanOrEqualToThreshold
+              - LessThanThreshold
+            datapointsToAlarm:
+              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cw-alarm.html#cfn-cloudwatch-alarm-datapointstoalarm
+              type: integer
+              format: int32
+            dimensions:
+              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cw-alarm.html#cfn-cloudwatch-alarms-dimension
+              type: array
+              items:
+                type: object
+                properties:
+                  name:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cw-dimension.html#cfn-cloudwatch-alarm-dimension-name
+                    type: string
+                    customAttributes:
+                      template: Name
+                      immutable: false
+                  value:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cw-dimension.html#cfn-cloudwatch-alarm-dimension-value
+                    type: string
+                    customAttributes:
+                      template: Value
+                      immutable: false
+            evaluateLowSampleCountPercentile:
+              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cw-alarm.html#cfn-cloudwatch-alarms-evaluatelowsamplecountpercentile
+              type: string
+            evaluationPeriods:
+              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cw-alarm.html#cfn-cloudwatch-alarms-evaluationperiods
+              type: integer
+              format: int32
+            extendedStatistic:
+              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cw-alarm.html#cfn-cloudwatch-alarms-extendedstatistic
+              type: string
+            insufficientDataActions:
+              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cw-alarm.html#cfn-cloudwatch-alarms-insufficientdataactions
+              type: array
+              items:
+                type: string
+            metricName:
+              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cw-alarm.html#cfn-cloudwatch-alarms-metricname
+              type: string
+            metrics:
+              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cw-alarm.html#cfn-cloudwatch-alarm-metrics
+              type: array
+              items:
+                type: object
+                properties:
+                  expression:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudwatch-alarm-metricdataquery.html#cfn-cloudwatch-alarm-metricdataquery-expression
+                    type: string
+                    customAttributes:
+                      template: Expression
+                      immutable: false
+                  id:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudwatch-alarm-metricdataquery.html#cfn-cloudwatch-alarm-metricdataquery-id
+                    type: string
+                    customAttributes:
+                      template: Id
+                      immutable: false
+                  label:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudwatch-alarm-metricdataquery.html#cfn-cloudwatch-alarm-metricdataquery-label
+                    type: string
+                    customAttributes:
+                      template: Label
+                      immutable: false
+                  metricStat:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudwatch-alarm-metricdataquery.html#cfn-cloudwatch-alarm-metricdataquery-metricstat
+                    type: object
+                    customAttributes:
+                      immutable: false
+                    required:
+                    - metric
+                    - period
+                    - stat
+                    properties:
+                      metric:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudwatch-alarm-metricstat.html#cfn-cloudwatch-alarm-metricstat-metric
+                        type: object
+                        customAttributes:
+                          immutable: false
+                        required: []
+                        properties:
+                          dimensions:
+                            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudwatch-alarm-metric.html#cfn-cloudwatch-alarm-metric-dimensions
+                            type: array
+                            customAttributes:
+                              template: Dimensions
+                              immutable: false
+                            items:
+                              type: object
+                              properties:
+                                name:
+                                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cw-dimension.html#cfn-cloudwatch-alarm-dimension-name
+                                  type: string
+                                  customAttributes:
+                                    template: Name
+                                    immutable: false
+                                value:
+                                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cw-dimension.html#cfn-cloudwatch-alarm-dimension-value
+                                  type: string
+                                  customAttributes:
+                                    template: Value
+                                    immutable: false
+                          metricName:
+                            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudwatch-alarm-metric.html#cfn-cloudwatch-alarm-metric-metricname
+                            type: string
+                            customAttributes:
+                              template: MetricName
+                              immutable: false
+                          namespace:
+                            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudwatch-alarm-metric.html#cfn-cloudwatch-alarm-metric-namespace
+                            type: string
+                            customAttributes:
+                              template: Namespace
+                              immutable: false
+                      period:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudwatch-alarm-metricstat.html#cfn-cloudwatch-alarm-metricstat-period
+                        type: integer
+                        format: int32
+                        customAttributes:
+                          template: Period
+                          immutable: false
+                      stat:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudwatch-alarm-metricstat.htmlcfn-cloudwatch-alarm-metricstat-stat
+                        type: string
+                        customAttributes:
+                          template: Stat
+                          immutable: false
+                      unit:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudwatch-alarm-metricstat.htmlcfn-cloudwatch-alarm-metricstat-unit
+                        type: string
+                        customAttributes:
+                          template: Unit
+                          immutable: false
+                  returnData:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudwatch-alarm-metricdataquery.html#cfn-cloudwatch-alarm-metricdataquery-returndata
+                    type: boolean
+                    customAttributes:
+                      template: ReturnData
+                      immutable: false
+            namespace:
+              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cw-alarm.html#cfn-cloudwatch-alarms-namespace
+              type: string
+            oKActions:
+              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cw-alarm.html#cfn-cloudwatch-alarms-okactions
+              type: array
+              items:
+                type: string
+            period:
+              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cw-alarm.html#cfn-cloudwatch-alarms-period
+              type: integer
+              format: int32
+            statistic:
+              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cw-alarm.html#cfn-cloudwatch-alarms-statistic
+              type: string
+              enum:
+              - Average
+              - Maximum
+              - Minimum
+              - SampleCount
+              - Sum
+            threshold:
+              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cw-alarm.html#cfn-cloudwatch-alarms-threshold
+              type: integer
+              format: double
+            treatMissingData:
+              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cw-alarm.html#cfn-cloudwatch-alarms-treatmissingdata
+              type: string
+              enum:
+              - breaching
+              - ignore
+              - missing
+              - notBreaching
+            unit:
+              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cw-alarm.html#cfn-cloudwatch-alarms-unit
+              type: string
+              enum:
+              - Bits
+              - Bits/Second
+              - Bytes
+              - Bytes/Second
+              - Count
+              - Count/Second
+              - Gigabits
+              - Gigabits/Second
+              - Gigabytes
+              - Gigabytes/Second
+              - Kilobits
+              - Kilobits/Second
+              - Kilobytes
+              - Kilobytes/Second
+              - Megabits
+              - Megabits/Second
+              - Megabytes
+              - Megabytes/Second
+              - Microseconds
+              - Milliseconds
+              - None
+              - Percent
+              - Seconds
+              - Terabits
+              - Terabits/Second
+              - Terabytes
+              - Terabytes/Second

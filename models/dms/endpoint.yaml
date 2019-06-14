@@ -1,0 +1,345 @@
+---
+apiVersion: models.awsoperator.io/v1alpha1
+kind: ModelFile
+metadata:
+  name: dms-endpoint-resource
+  creationTimestamp: '2019-06-13T16:59:29-07:00'
+  resourceVersion: 3.3.0
+spec:
+  resource:
+    kind: Endpoint
+    scope: Namespaced
+    apiGroup:
+      apiVersion: dms.awsoperator.io/v1alpha1
+      group: dms
+      region: us-east-1
+      domain: awsoperator.io
+      versions:
+      - name: v1alpha1
+        served: true
+        storage: true
+    names:
+      singular: endpoint
+      plural: endpoints
+      shortNames: []
+  openAPIV3Schema:
+    properties:
+      spec:
+        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-dms-endpoint.html
+        type: object
+        customAttributes: {}
+        required:
+        - endpointType
+        - engineName
+        properties:
+          certificateRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-dms-endpoint.html#cfn-dms-endpoint-certificatearn
+            type: string
+            customAttributes:
+              template: CertificateArn
+              immutable: false
+          databaseName:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-dms-endpoint.html#cfn-dms-endpoint-databasename
+            type: string
+            customAttributes:
+              template: DatabaseName
+              immutable: false
+          dynamoDbSettings:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-dms-endpoint.html#cfn-dms-endpoint-dynamodbsettings
+            type: object
+            customAttributes:
+              immutable: false
+            required: []
+            properties:
+              serviceAccessRoleRef:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-dms-endpoint-dynamodbsettings.html#cfn-dms-endpoint-dynamodbsettings-serviceaccessrolearn
+                type: string
+                customAttributes:
+                  template: ServiceAccessRoleArn
+                  immutable: false
+          elasticsearchSettings:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-dms-endpoint.html#cfn-dms-endpoint-elasticsearchsettings
+            type: object
+            customAttributes:
+              immutable: false
+            required: []
+            properties:
+              endpointUri:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-dms-endpoint-elasticsearchsettings.html#cfn-dms-endpoint-elasticsearchsettings-endpointuri
+                type: string
+                customAttributes:
+                  template: EndpointUri
+                  immutable: false
+              errorRetryDuration:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-dms-endpoint-elasticsearchsettings.html#cfn-dms-endpoint-elasticsearchsettings-errorretryduration
+                type: integer
+                format: int32
+                customAttributes:
+                  template: ErrorRetryDuration
+                  immutable: false
+              fullLoadErrorPercentage:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-dms-endpoint-elasticsearchsettings.html#cfn-dms-endpoint-elasticsearchsettings-fullloaderrorpercentage
+                type: integer
+                format: int32
+                customAttributes:
+                  template: FullLoadErrorPercentage
+                  immutable: false
+              serviceAccessRoleRef:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-dms-endpoint-elasticsearchsettings.html#cfn-dms-endpoint-elasticsearchsettings-serviceaccessrolearn
+                type: string
+                customAttributes:
+                  template: ServiceAccessRoleArn
+                  immutable: false
+          endpointentifierRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-dms-endpoint.html#cfn-dms-endpoint-endpointidentifier
+            type: string
+            customAttributes:
+              template: EndpointIdentifier
+              immutable: false
+          endpointType:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-dms-endpoint.html#cfn-dms-endpoint-endpointtype
+            type: string
+            customAttributes:
+              template: EndpointType
+              immutable: false
+            enum:
+            - source
+            - target
+          engineName:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-dms-endpoint.html#cfn-dms-endpoint-enginename
+            type: string
+            customAttributes:
+              template: EngineName
+              immutable: false
+            enum:
+            - aurora-postgresql
+            - aurora
+            - azuredb
+            - db2
+            - dynamodb
+            - mariadb
+            - mongodb
+            - mysql
+            - oracle
+            - postgres
+            - redshift
+            - s3
+            - sqlserver
+            - sybase
+          extraConnectionAttributes:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-dms-endpoint.html#cfn-dms-endpoint-extraconnectionattributes
+            type: string
+            customAttributes:
+              template: ExtraConnectionAttributes
+              immutable: false
+          kinesisSettings:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-dms-endpoint.html#cfn-dms-endpoint-kinesissettings
+            type: object
+            customAttributes:
+              immutable: false
+            required: []
+            properties:
+              messageFormat:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-dms-endpoint-kinesissettings.html#cfn-dms-endpoint-kinesissettings-messageformat
+                type: string
+                customAttributes:
+                  template: MessageFormat
+                  immutable: false
+              serviceAccessRoleRef:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-dms-endpoint-kinesissettings.html#cfn-dms-endpoint-kinesissettings-serviceaccessrolearn
+                type: string
+                customAttributes:
+                  template: ServiceAccessRoleArn
+                  immutable: false
+              streamRef:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-dms-endpoint-kinesissettings.html#cfn-dms-endpoint-kinesissettings-streamarn
+                type: string
+                customAttributes:
+                  template: StreamArn
+                  immutable: false
+          kmsKeyRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-dms-endpoint.html#cfn-dms-endpoint-kmskeyid
+            type: string
+            customAttributes:
+              template: KmsKeyId
+              immutable: true
+          mongoDbSettings:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-dms-endpoint.html#cfn-dms-endpoint-mongodbsettings
+            type: object
+            customAttributes:
+              immutable: false
+            required: []
+            properties:
+              authMechanism:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-dms-endpoint-mongodbsettings.html#cfn-dms-endpoint-mongodbsettings-authmechanism
+                type: string
+                customAttributes:
+                  template: AuthMechanism
+                  immutable: false
+              authSource:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-dms-endpoint-mongodbsettings.html#cfn-dms-endpoint-mongodbsettings-authsource
+                type: string
+                customAttributes:
+                  template: AuthSource
+                  immutable: false
+              authType:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-dms-endpoint-mongodbsettings.html#cfn-dms-endpoint-mongodbsettings-authtype
+                type: string
+                customAttributes:
+                  template: AuthType
+                  immutable: false
+              databaseName:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-dms-endpoint-mongodbsettings.html#cfn-dms-endpoint-mongodbsettings-databasename
+                type: string
+                customAttributes:
+                  template: DatabaseName
+                  immutable: false
+              docsToInvestigate:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-dms-endpoint-mongodbsettings.html#cfn-dms-endpoint-mongodbsettings-docstoinvestigate
+                type: string
+                customAttributes:
+                  template: DocsToInvestigate
+                  immutable: false
+              extractDocRef:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-dms-endpoint-mongodbsettings.html#cfn-dms-endpoint-mongodbsettings-extractdocid
+                type: string
+                customAttributes:
+                  template: ExtractDocId
+                  immutable: false
+              nestingLevel:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-dms-endpoint-mongodbsettings.html#cfn-dms-endpoint-mongodbsettings-nestinglevel
+                type: string
+                customAttributes:
+                  template: NestingLevel
+                  immutable: false
+              password:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-dms-endpoint-mongodbsettings.html#cfn-dms-endpoint-mongodbsettings-password
+                type: string
+                customAttributes:
+                  template: Password
+                  immutable: false
+              port:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-dms-endpoint-mongodbsettings.html#cfn-dms-endpoint-mongodbsettings-port
+                type: integer
+                format: int32
+                customAttributes:
+                  template: Port
+                  immutable: false
+              serverName:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-dms-endpoint-mongodbsettings.html#cfn-dms-endpoint-mongodbsettings-servername
+                type: string
+                customAttributes:
+                  template: ServerName
+                  immutable: false
+              username:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-dms-endpoint-mongodbsettings.html#cfn-dms-endpoint-mongodbsettings-username
+                type: string
+                customAttributes:
+                  template: Username
+                  immutable: false
+          password:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-dms-endpoint.html#cfn-dms-endpoint-password
+            type: string
+            customAttributes:
+              template: Password
+              immutable: false
+          port:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-dms-endpoint.html#cfn-dms-endpoint-port
+            type: integer
+            format: int32
+            customAttributes:
+              template: Port
+              immutable: false
+          s3Settings:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-dms-endpoint.html#cfn-dms-endpoint-s3settings
+            type: object
+            customAttributes:
+              immutable: false
+            required: []
+            properties:
+              bucketFolder:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-dms-endpoint-s3settings.html#cfn-dms-endpoint-s3settings-bucketfolder
+                type: string
+                customAttributes:
+                  template: BucketFolder
+                  immutable: false
+              bucketName:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-dms-endpoint-s3settings.html#cfn-dms-endpoint-s3settings-bucketname
+                type: string
+                customAttributes:
+                  template: BucketName
+                  immutable: false
+              compressionType:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-dms-endpoint-s3settings.html#cfn-dms-endpoint-s3settings-compressiontype
+                type: string
+                customAttributes:
+                  template: CompressionType
+                  immutable: false
+              csvDelimiter:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-dms-endpoint-s3settings.html#cfn-dms-endpoint-s3settings-csvdelimiter
+                type: string
+                customAttributes:
+                  template: CsvDelimiter
+                  immutable: false
+              csvRowDelimiter:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-dms-endpoint-s3settings.html#cfn-dms-endpoint-s3settings-csvrowdelimiter
+                type: string
+                customAttributes:
+                  template: CsvRowDelimiter
+                  immutable: false
+              externalTableDefinition:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-dms-endpoint-s3settings.html#cfn-dms-endpoint-s3settings-externaltabledefinition
+                type: string
+                customAttributes:
+                  template: ExternalTableDefinition
+                  immutable: false
+              serviceAccessRoleRef:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-dms-endpoint-s3settings.html#cfn-dms-endpoint-s3settings-serviceaccessrolearn
+                type: string
+                customAttributes:
+                  template: ServiceAccessRoleArn
+                  immutable: false
+          serverName:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-dms-endpoint.html#cfn-dms-endpoint-servername
+            type: string
+            customAttributes:
+              template: ServerName
+              immutable: false
+          sslMode:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-dms-endpoint.html#cfn-dms-endpoint-sslmode
+            type: string
+            customAttributes:
+              template: SslMode
+              immutable: false
+            enum:
+            - none
+            - require
+            - verify-ca
+            - verify-full
+          tags:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-dms-endpoint.html#cfn-dms-endpoint-tags
+            type: array
+            customAttributes:
+              template: Tags
+              immutable: true
+            items:
+              type: object
+              properties:
+                key:
+                  description: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-resource-tags.html#cfn-resource-tags-key
+                  type: string
+                  customAttributes:
+                    template: Key
+                    immutable: false
+                value:
+                  description: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-resource-tags.html#cfn-resource-tags-value
+                  type: string
+                  customAttributes:
+                    template: Value
+                    immutable: false
+          username:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-dms-endpoint.html#cfn-dms-endpoint-username
+            type: string
+            customAttributes:
+              template: Username
+              immutable: false

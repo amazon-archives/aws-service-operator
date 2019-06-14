@@ -1,16 +1,36 @@
+/*
+Copyright 2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+
+Licensed under the Apache License, Version 2.0 (the "License"). You may
+not use this file except in compliance with the License. A copy of the
+License is located at
+
+     http://aws.amazon.com/apache2.0/
+
+or in the "license" file accompanying this file. This file is distributed
+on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+express or implied. See the License for the specific language governing
+permissions and limitations under the License.
+*/
+
 package queue
 
-import (
-	awsclient "github.com/awslabs/aws-service-operator/pkg/client/clientset/versioned/typed/service-operator.aws/v1alpha1"
-	"github.com/awslabs/aws-service-operator/pkg/config"
-)
+// ControllerHandler implements the OnMessage handlers which allow the CFN controller
+// to push messages to the workqueue
+type ControllerHandler interface {
+	OnMessage(interface{})
+}
 
-// Queue wraps the config object for updating
-type Queue struct {
-	config       config.Config
-	queueURL     string
-	awsclientset awsclient.ServiceoperatorV1alpha1Interface
-	timeout      int64
+// ControllerHandlerFuncs implements the stuck which supports controller handler
+type ControllerHandlerFuncs struct {
+	MessageFunc func(interface{})
+}
+
+// OnMessage is called anytime there is a new message on the queue
+func (c ControllerHandlerFuncs) OnMessage(obj interface{}) {
+	if c.MessageFunc != nil {
+		c.MessageFunc(obj)
+	}
 }
 
 // Policy wraps the JSON policy

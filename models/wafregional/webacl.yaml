@@ -1,0 +1,97 @@
+---
+apiVersion: models.awsoperator.io/v1alpha1
+kind: ModelFile
+metadata:
+  name: wafregional-webacl-resource
+  creationTimestamp: '2019-06-13T16:59:30-07:00'
+  resourceVersion: 3.3.0
+spec:
+  resource:
+    kind: WebACL
+    scope: Namespaced
+    apiGroup:
+      apiVersion: wafregional.awsoperator.io/v1alpha1
+      group: wafregional
+      region: us-east-1
+      domain: awsoperator.io
+      versions:
+      - name: v1alpha1
+        served: true
+        storage: true
+    names:
+      singular: webacl
+      plural: webacls
+      shortNames: []
+  openAPIV3Schema:
+    properties:
+      spec:
+        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-wafregional-webacl.html
+        type: object
+        customAttributes: {}
+        required:
+        - defaultAction
+        - metricName
+        - name
+        properties:
+          defaultAction:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-wafregional-webacl.html#cfn-wafregional-webacl-defaultaction
+            type: object
+            customAttributes:
+              immutable: false
+            required:
+            - type
+            properties:
+              type:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-wafregional-webacl-action.html#cfn-wafregional-webacl-action-type
+                type: string
+                customAttributes:
+                  template: Type
+                  immutable: false
+          metricName:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-wafregional-webacl.html#cfn-wafregional-webacl-metricname
+            type: string
+            customAttributes:
+              template: MetricName
+              immutable: true
+          name:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-wafregional-webacl.html#cfn-wafregional-webacl-name
+            type: string
+            customAttributes:
+              template: Name
+              immutable: true
+          rules:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-wafregional-webacl.html#cfn-wafregional-webacl-rules
+            type: array
+            customAttributes:
+              template: Rules
+              immutable: false
+            items:
+              type: object
+              properties:
+                action:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-wafregional-webacl-rule.html#cfn-wafregional-webacl-rule-action
+                  type: object
+                  customAttributes:
+                    immutable: false
+                  required:
+                  - type
+                  properties:
+                    type:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-wafregional-webacl-action.html#cfn-wafregional-webacl-action-type
+                      type: string
+                      customAttributes:
+                        template: Type
+                        immutable: false
+                priority:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-wafregional-webacl-rule.html#cfn-wafregional-webacl-rule-priority
+                  type: integer
+                  format: int32
+                  customAttributes:
+                    template: Priority
+                    immutable: false
+                ruleRef:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-wafregional-webacl-rule.html#cfn-wafregional-webacl-rule-ruleid
+                  type: string
+                  customAttributes:
+                    template: RuleId
+                    immutable: false

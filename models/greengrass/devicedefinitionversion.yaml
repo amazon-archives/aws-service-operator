@@ -1,0 +1,73 @@
+---
+apiVersion: models.awsoperator.io/v1alpha1
+kind: ModelFile
+metadata:
+  name: greengrass-devicedefinitionversion-resource
+  creationTimestamp: '2019-06-13T16:59:29-07:00'
+  resourceVersion: 3.3.0
+spec:
+  resource:
+    kind: DeviceDefinitionVersion
+    scope: Namespaced
+    apiGroup:
+      apiVersion: greengrass.awsoperator.io/v1alpha1
+      group: greengrass
+      region: us-east-1
+      domain: awsoperator.io
+      versions:
+      - name: v1alpha1
+        served: true
+        storage: true
+    names:
+      singular: devicedefinitionversion
+      plural: devicedefinitionversions
+      shortNames: []
+  openAPIV3Schema:
+    properties:
+      spec:
+        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-greengrass-devicedefinitionversion.html
+        type: object
+        customAttributes: {}
+        required:
+        - deviceDefinitionId
+        - devices
+        properties:
+          deviceDefinitionRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-greengrass-devicedefinitionversion.html#cfn-greengrass-devicedefinitionversion-devicedefinitionid
+            type: string
+            customAttributes:
+              template: DeviceDefinitionId
+              immutable: true
+          devices:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-greengrass-devicedefinitionversion.html#cfn-greengrass-devicedefinitionversion-devices
+            type: array
+            customAttributes:
+              template: Devices
+              immutable: true
+            items:
+              type: object
+              properties:
+                certificateRef:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-greengrass-devicedefinitionversion-device.html#cfn-greengrass-devicedefinitionversion-device-certificatearn
+                  type: string
+                  customAttributes:
+                    template: CertificateArn
+                    immutable: true
+                id:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-greengrass-devicedefinitionversion-device.html#cfn-greengrass-devicedefinitionversion-device-id
+                  type: string
+                  customAttributes:
+                    template: Id
+                    immutable: true
+                syncShadow:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-greengrass-devicedefinitionversion-device.html#cfn-greengrass-devicedefinitionversion-device-syncshadow
+                  type: boolean
+                  customAttributes:
+                    template: SyncShadow
+                    immutable: true
+                thingRef:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-greengrass-devicedefinitionversion-device.html#cfn-greengrass-devicedefinitionversion-device-thingarn
+                  type: string
+                  customAttributes:
+                    template: ThingArn
+                    immutable: true

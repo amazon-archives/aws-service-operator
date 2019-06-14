@@ -1,88 +1,53 @@
+/*
+Copyright 2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+
+Licensed under the Apache License, Version 2.0 (the "License"). You may
+not use this file except in compliance with the License. A copy of the
+License is located at
+
+     http://aws.amazon.com/apache2.0/
+
+or in the "license" file accompanying this file. This file is distributed
+on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+express or implied. See the License for the specific language governing
+permissions and limitations under the License.
+*/
+
 package server
 
 import (
-	"context"
 	"fmt"
 	"net/http"
+	"time"
 
-	awsscheme "github.com/awslabs/aws-service-operator/pkg/apis/service-operator.aws/v1alpha1"
-	"github.com/awslabs/aws-service-operator/pkg/config"
-	opBase "github.com/awslabs/aws-service-operator/pkg/operators/base"
-	"github.com/awslabs/aws-service-operator/pkg/queue"
-	"github.com/awslabs/aws-service-operator/pkg/queuemanager"
+	self "awsoperator.io/pkg/apis/self/v1alpha1"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
-	"github.com/sirupsen/logrus"
-	"k8s.io/client-go/kubernetes/scheme"
 )
 
-// New creates a new server from a config
-func New(config config.Config) *Server {
-	return &Server{
-		Config: config,
+// Handler wraps handler functions
+type Handler struct {
+	http.ServeMux
+}
+
+// New returns an http.Server for exposing endpoints
+func New(config self.Config) *http.Server {
+	return &http.Server{
+		Handler:      newHandler(config),
+		Addr:         config.Server.Address,
+		ReadTimeout:  5 * time.Second,
+		WriteTimeout: 5 * time.Second,
 	}
 }
 
-func (c *Server) exposeMetrics(errChan chan error, ctx context.Context) {
-	c.Handle("/metrics", promhttp.Handler())
-	server := http.Server{
-		Addr:    ":9090",
-		Handler: c,
+func newHandler(config self.Config) *Handler {
+	h := &Handler{}
+	h.HandleFunc("/healthz", healthzFunc)
+	if config.Server.Metrics.Enable {
+		h.Handle(config.Server.Metrics.Endpoint, promhttp.Handler())
 	}
-	defer server.Shutdown(ctx)
-
-	go func() {
-		err := server.ListenAndServe()
-		if err != nil {
-			errChan <- fmt.Errorf("unable to expose metrics: %v", err)
-		}
-	}()
-
-	c.Config.Logger.Info("metrics server started")
-	<-ctx.Done()
-	c.Config.Logger.Info("metrics server stopped")
+	return h
 }
 
-func (c *Server) watchOperatorResources(errChan chan error, ctx context.Context) {
-	logger := c.Config.Logger
-
-	logger.Info("getting kubernetes context")
-	awsscheme.AddToScheme(scheme.Scheme)
-
-	queueManager := queuemanager.New()
-	operators := opBase.New(c.Config, queueManager)
-
-	err := queue.SetQueuePolicy(c.Config, queueManager)
-	if err != nil {
-		logger.WithError(err).Error("error setting queue policy")
-	}
-
-	k8sNamespaceToWatch := c.Config.K8sNamespace
-	logger.WithFields(logrus.Fields{"resources": c.Config.Resources, "in namespace": k8sNamespaceToWatch}).Info("Watching")
-	go operators.Watch(ctx, k8sNamespaceToWatch)
-	go queue.Subscribe(c.Config, queueManager, ctx)
-	<-ctx.Done()
-	c.Config.Logger.Info("operators stopped")
-}
-
-// Run starts the server to listen to Kubernetes
-func (c *Server) Run(ctx context.Context) {
-	config := c.Config
-	logger := config.Logger
-	errChan := make(chan error, 1)
-
-	logger.Info("starting metrics server")
-	go c.exposeMetrics(errChan, ctx)
-
-	logger.Info("starting resource watcher")
-	go c.watchOperatorResources(errChan, ctx)
-
-	for {
-		select {
-		case err := <-errChan:
-			c.Config.Logger.WithError(err).Fatal(err)
-		case <-ctx.Done():
-			c.Config.Logger.Info("stop signal received. waiting for operators to stop")
-			return
-		}
-	}
+func healthzFunc(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintf(w, "ok")
 }

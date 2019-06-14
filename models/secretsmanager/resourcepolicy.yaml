@@ -1,0 +1,45 @@
+---
+apiVersion: models.awsoperator.io/v1alpha1
+kind: ModelFile
+metadata:
+  name: secretsmanager-resourcepolicy-resource
+  creationTimestamp: '2019-06-13T16:59:30-07:00'
+  resourceVersion: 3.3.0
+spec:
+  resource:
+    kind: ResourcePolicy
+    scope: Namespaced
+    apiGroup:
+      apiVersion: secretsmanager.awsoperator.io/v1alpha1
+      group: secretsmanager
+      region: us-east-1
+      domain: awsoperator.io
+      versions:
+      - name: v1alpha1
+        served: true
+        storage: true
+    names:
+      singular: resourcepolicy
+      plural: resourcepolicies
+      shortNames: []
+  openAPIV3Schema:
+    properties:
+      spec:
+        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-secretsmanager-resourcepolicy.html
+        type: object
+        customAttributes: {}
+        required:
+        - resourcePolicy
+        - secretId
+        properties:
+          resourcePolicy:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-secretsmanager-resourcepolicy.html#cfn-secretsmanager-resourcepolicy-resourcepolicy
+            customAttributes:
+              template: ResourcePolicy
+              immutable: false
+          secretRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-secretsmanager-resourcepolicy.html#cfn-secretsmanager-resourcepolicy-secretid
+            type: string
+            customAttributes:
+              template: SecretId
+              immutable: true

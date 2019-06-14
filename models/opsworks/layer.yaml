@@ -1,0 +1,393 @@
+---
+apiVersion: models.awsoperator.io/v1alpha1
+kind: ModelFile
+metadata:
+  name: opsworks-layer-resource
+  creationTimestamp: '2019-06-13T16:59:29-07:00'
+  resourceVersion: 3.3.0
+spec:
+  resource:
+    kind: Layer
+    scope: Namespaced
+    apiGroup:
+      apiVersion: opsworks.awsoperator.io/v1alpha1
+      group: opsworks
+      region: us-east-1
+      domain: awsoperator.io
+      versions:
+      - name: v1alpha1
+        served: true
+        storage: true
+    names:
+      singular: layer
+      plural: layers
+      shortNames: []
+  openAPIV3Schema:
+    properties:
+      spec:
+        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-opsworks-layer.html
+        type: object
+        customAttributes: {}
+        required:
+        - autoAssignElasticIps
+        - autoAssignPublicIps
+        - enableAutoHealing
+        - name
+        - shortname
+        - stackId
+        - type
+        properties:
+          attributes:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-opsworks-layer.html#cfn-opsworks-layer-attributes
+            type: json
+            customAttributes:
+              template: Attributes
+              immutable: false
+          autoAssignElasticIps:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-opsworks-layer.html#cfn-opsworks-layer-autoassignelasticips
+            type: boolean
+            customAttributes:
+              template: AutoAssignElasticIps
+              immutable: false
+          autoAssignPublicIps:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-opsworks-layer.html#cfn-opsworks-layer-autoassignpublicips
+            type: boolean
+            customAttributes:
+              template: AutoAssignPublicIps
+              immutable: false
+          customInstanceProfileRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-opsworks-layer.html#cfn-opsworks-layer-custominstanceprofilearn
+            type: string
+            customAttributes:
+              template: CustomInstanceProfileArn
+              immutable: false
+          customJson:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-opsworks-layer.html#cfn-opsworks-layer-customjson
+            customAttributes:
+              template: CustomJson
+              immutable: false
+          customRecipes:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-opsworks-layer.html#cfn-opsworks-layer-customrecipes
+            type: object
+            customAttributes:
+              immutable: false
+            required: []
+            properties:
+              configure:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-opsworks-layer-recipes.html#cfn-opsworks-layer-customrecipes-configure
+                type: array
+                customAttributes:
+                  template: Configure
+                  immutable: false
+                items:
+                  type: string
+              deploy:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-opsworks-layer-recipes.html#cfn-opsworks-layer-customrecipes-deploy
+                type: array
+                customAttributes:
+                  template: Deploy
+                  immutable: false
+                items:
+                  type: string
+              setup:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-opsworks-layer-recipes.html#cfn-opsworks-layer-customrecipes-setup
+                type: array
+                customAttributes:
+                  template: Setup
+                  immutable: false
+                items:
+                  type: string
+              shutdown:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-opsworks-layer-recipes.html#cfn-opsworks-layer-customrecipes-shutdown
+                type: array
+                customAttributes:
+                  template: Shutdown
+                  immutable: false
+                items:
+                  type: string
+              undeploy:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-opsworks-layer-recipes.html#cfn-opsworks-layer-customrecipes-undeploy
+                type: array
+                customAttributes:
+                  template: Undeploy
+                  immutable: false
+                items:
+                  type: string
+          customSecurityGroupRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-opsworks-layer.html#cfn-opsworks-layer-customsecuritygroupids
+            type: array
+            customAttributes:
+              template: CustomSecurityGroupIds
+              immutable: false
+            items:
+              type: string
+          enableAutoHealing:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-opsworks-layer.html#cfn-opsworks-layer-enableautohealing
+            type: boolean
+            customAttributes:
+              template: EnableAutoHealing
+              immutable: false
+          installUpdatesOnBoot:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-opsworks-layer.html#cfn-opsworks-layer-installupdatesonboot
+            type: boolean
+            customAttributes:
+              template: InstallUpdatesOnBoot
+              immutable: false
+          lifecycleEventConfiguration:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-opsworks-layer.html#cfn-opsworks-layer-lifecycleeventconfiguration
+            type: object
+            customAttributes:
+              immutable: false
+            required: []
+            properties:
+              shutdownEventConfiguration:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-opsworks-layer-lifecycleeventconfiguration.html#cfn-opsworks-layer-lifecycleconfiguration-shutdowneventconfiguration
+                type: object
+                customAttributes:
+                  immutable: false
+                required: []
+                properties:
+                  delayUntilElbConnectionsDrained:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-opsworks-layer-lifecycleeventconfiguration-shutdowneventconfiguration.html#cfn-opsworks-layer-lifecycleconfiguration-shutdowneventconfiguration-delayuntilelbconnectionsdrained
+                    type: boolean
+                    customAttributes:
+                      template: DelayUntilElbConnectionsDrained
+                      immutable: false
+                  executionTimeout:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-opsworks-layer-lifecycleeventconfiguration-shutdowneventconfiguration.html#cfn-opsworks-layer-lifecycleconfiguration-shutdowneventconfiguration-executiontimeout
+                    type: integer
+                    format: int32
+                    customAttributes:
+                      template: ExecutionTimeout
+                      immutable: false
+          loadBasedAutoScaling:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-opsworks-layer.html#cfn-opsworks-layer-loadbasedautoscaling
+            type: object
+            customAttributes:
+              immutable: false
+            required: []
+            properties:
+              downScaling:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-opsworks-layer-loadbasedautoscaling.html#cfn-opsworks-layer-loadbasedautoscaling-downscaling
+                type: object
+                customAttributes:
+                  immutable: false
+                required: []
+                properties:
+                  cpuThreshold:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-opsworks-layer-loadbasedautoscaling-autoscalingthresholds.html#cfn-opsworks-layer-loadbasedautoscaling-autoscalingthresholds-cputhreshold
+                    type: integer
+                    format: double
+                    customAttributes:
+                      template: CpuThreshold
+                      immutable: false
+                  ignoreMetricsTime:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-opsworks-layer-loadbasedautoscaling-autoscalingthresholds.html#cfn-opsworks-layer-loadbasedautoscaling-autoscalingthresholds-ignoremetricstime
+                    type: integer
+                    format: int32
+                    customAttributes:
+                      template: IgnoreMetricsTime
+                      immutable: false
+                  instanceCount:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-opsworks-layer-loadbasedautoscaling-autoscalingthresholds.html#cfn-opsworks-layer-loadbasedautoscaling-autoscalingthresholds-instancecount
+                    type: integer
+                    format: int32
+                    customAttributes:
+                      template: InstanceCount
+                      immutable: false
+                  loadThreshold:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-opsworks-layer-loadbasedautoscaling-autoscalingthresholds.html#cfn-opsworks-layer-loadbasedautoscaling-autoscalingthresholds-loadthreshold
+                    type: integer
+                    format: double
+                    customAttributes:
+                      template: LoadThreshold
+                      immutable: false
+                  memoryThreshold:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-opsworks-layer-loadbasedautoscaling-autoscalingthresholds.html#cfn-opsworks-layer-loadbasedautoscaling-autoscalingthresholds-memorythreshold
+                    type: integer
+                    format: double
+                    customAttributes:
+                      template: MemoryThreshold
+                      immutable: false
+                  thresholdsWaitTime:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-opsworks-layer-loadbasedautoscaling-autoscalingthresholds.html#cfn-opsworks-layer-loadbasedautoscaling-autoscalingthresholds-thresholdwaittime
+                    type: integer
+                    format: int32
+                    customAttributes:
+                      template: ThresholdsWaitTime
+                      immutable: false
+              enable:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-opsworks-layer-loadbasedautoscaling.html#cfn-opsworks-layer-loadbasedautoscaling-enable
+                type: boolean
+                customAttributes:
+                  template: Enable
+                  immutable: false
+              upScaling:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-opsworks-layer-loadbasedautoscaling.html#cfn-opsworks-layer-loadbasedautoscaling-upscaling
+                type: object
+                customAttributes:
+                  immutable: false
+                required: []
+                properties:
+                  cpuThreshold:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-opsworks-layer-loadbasedautoscaling-autoscalingthresholds.html#cfn-opsworks-layer-loadbasedautoscaling-autoscalingthresholds-cputhreshold
+                    type: integer
+                    format: double
+                    customAttributes:
+                      template: CpuThreshold
+                      immutable: false
+                  ignoreMetricsTime:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-opsworks-layer-loadbasedautoscaling-autoscalingthresholds.html#cfn-opsworks-layer-loadbasedautoscaling-autoscalingthresholds-ignoremetricstime
+                    type: integer
+                    format: int32
+                    customAttributes:
+                      template: IgnoreMetricsTime
+                      immutable: false
+                  instanceCount:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-opsworks-layer-loadbasedautoscaling-autoscalingthresholds.html#cfn-opsworks-layer-loadbasedautoscaling-autoscalingthresholds-instancecount
+                    type: integer
+                    format: int32
+                    customAttributes:
+                      template: InstanceCount
+                      immutable: false
+                  loadThreshold:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-opsworks-layer-loadbasedautoscaling-autoscalingthresholds.html#cfn-opsworks-layer-loadbasedautoscaling-autoscalingthresholds-loadthreshold
+                    type: integer
+                    format: double
+                    customAttributes:
+                      template: LoadThreshold
+                      immutable: false
+                  memoryThreshold:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-opsworks-layer-loadbasedautoscaling-autoscalingthresholds.html#cfn-opsworks-layer-loadbasedautoscaling-autoscalingthresholds-memorythreshold
+                    type: integer
+                    format: double
+                    customAttributes:
+                      template: MemoryThreshold
+                      immutable: false
+                  thresholdsWaitTime:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-opsworks-layer-loadbasedautoscaling-autoscalingthresholds.html#cfn-opsworks-layer-loadbasedautoscaling-autoscalingthresholds-thresholdwaittime
+                    type: integer
+                    format: int32
+                    customAttributes:
+                      template: ThresholdsWaitTime
+                      immutable: false
+          name:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-opsworks-layer.html#cfn-opsworks-layer-name
+            type: string
+            customAttributes:
+              template: Name
+              immutable: false
+          packages:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-opsworks-layer.html#cfn-opsworks-layer-packages
+            type: array
+            customAttributes:
+              template: Packages
+              immutable: false
+            items:
+              type: string
+          shortname:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-opsworks-layer.html#cfn-opsworks-layer-shortname
+            type: string
+            customAttributes:
+              template: Shortname
+              immutable: false
+          stackRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-opsworks-layer.html#cfn-opsworks-layer-stackid
+            type: string
+            customAttributes:
+              template: StackId
+              immutable: true
+          tags:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-opsworks-layer.html#cfn-opsworks-layer-tags
+            type: array
+            customAttributes:
+              template: Tags
+              immutable: false
+            items:
+              type: object
+              properties:
+                key:
+                  description: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-resource-tags.html#cfn-resource-tags-key
+                  type: string
+                  customAttributes:
+                    template: Key
+                    immutable: false
+                value:
+                  description: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-resource-tags.html#cfn-resource-tags-value
+                  type: string
+                  customAttributes:
+                    template: Value
+                    immutable: false
+          type:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-opsworks-layer.html#cfn-opsworks-layer-type
+            type: string
+            customAttributes:
+              template: Type
+              immutable: true
+          useEbsOptimizedInstances:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-opsworks-layer.html#cfn-opsworks-layer-useebsoptimizedinstances
+            type: boolean
+            customAttributes:
+              template: UseEbsOptimizedInstances
+              immutable: false
+          volumeConfigurations:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-opsworks-layer.html#cfn-opsworks-layer-volumeconfigurations
+            type: array
+            customAttributes:
+              template: VolumeConfigurations
+              immutable: false
+            items:
+              type: object
+              properties:
+                encrypted:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-opsworks-layer-volumeconfiguration.html#cfn-opsworks-layer-volumeconfiguration-encrypted
+                  type: boolean
+                  customAttributes:
+                    template: Encrypted
+                    immutable: false
+                iops:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-opsworks-layer-volumeconfiguration.html#cfn-opsworks-layer-volconfig-iops
+                  type: integer
+                  format: int32
+                  customAttributes:
+                    template: Iops
+                    immutable: false
+                mountPoint:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-opsworks-layer-volumeconfiguration.html#cfn-opsworks-layer-volconfig-mountpoint
+                  type: string
+                  customAttributes:
+                    template: MountPoint
+                    immutable: false
+                numberOfDisks:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-opsworks-layer-volumeconfiguration.html#cfn-opsworks-layer-volconfig-numberofdisks
+                  type: integer
+                  format: int32
+                  customAttributes:
+                    template: NumberOfDisks
+                    immutable: false
+                raidLevel:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-opsworks-layer-volumeconfiguration.html#cfn-opsworks-layer-volconfig-raidlevel
+                  type: integer
+                  format: int32
+                  customAttributes:
+                    template: RaidLevel
+                    immutable: false
+                size:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-opsworks-layer-volumeconfiguration.html#cfn-opsworks-layer-volconfig-size
+                  type: integer
+                  format: int32
+                  customAttributes:
+                    template: Size
+                    immutable: false
+                volumeType:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-opsworks-layer-volumeconfiguration.html#cfn-opsworks-layer-volconfig-volumetype
+                  type: string
+                  customAttributes:
+                    template: VolumeType
+                    immutable: false
+                  enum:
+                  - gp2
+                  - io1
+                  - sc1
+                  - st1
+                  - standard

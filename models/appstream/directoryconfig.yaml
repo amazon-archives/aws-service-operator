@@ -1,0 +1,70 @@
+---
+apiVersion: models.awsoperator.io/v1alpha1
+kind: ModelFile
+metadata:
+  name: appstream-directoryconfig-resource
+  creationTimestamp: '2019-06-13T16:59:28-07:00'
+  resourceVersion: 3.3.0
+spec:
+  resource:
+    kind: DirectoryConfig
+    scope: Namespaced
+    apiGroup:
+      apiVersion: appstream.awsoperator.io/v1alpha1
+      group: appstream
+      region: us-east-1
+      domain: awsoperator.io
+      versions:
+      - name: v1alpha1
+        served: true
+        storage: true
+    names:
+      singular: directoryconfig
+      plural: directoryconfigs
+      shortNames: []
+  openAPIV3Schema:
+    properties:
+      spec:
+        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-appstream-directoryconfig.html
+        type: object
+        customAttributes: {}
+        required:
+        - directoryName
+        - organizationalUnitDistinguishedNames
+        - serviceAccountCredentials
+        properties:
+          directoryName:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-appstream-directoryconfig.html#cfn-appstream-directoryconfig-directoryname
+            type: string
+            customAttributes:
+              template: DirectoryName
+              immutable: true
+          organizationalUnitDistinguishedNames:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-appstream-directoryconfig.html#cfn-appstream-directoryconfig-organizationalunitdistinguishednames
+            type: array
+            customAttributes:
+              template: OrganizationalUnitDistinguishedNames
+              immutable: false
+            items:
+              type: string
+          serviceAccountCredentials:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-appstream-directoryconfig.html#cfn-appstream-directoryconfig-serviceaccountcredentials
+            type: object
+            customAttributes:
+              immutable: false
+            required:
+            - accountName
+            - accountPassword
+            properties:
+              accountName:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-appstream-directoryconfig-serviceaccountcredentials.html#cfn-appstream-directoryconfig-serviceaccountcredentials-accountname
+                type: string
+                customAttributes:
+                  template: AccountName
+                  immutable: false
+              accountPassword:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-appstream-directoryconfig-serviceaccountcredentials.html#cfn-appstream-directoryconfig-serviceaccountcredentials-accountpassword
+                type: string
+                customAttributes:
+                  template: AccountPassword
+                  immutable: false

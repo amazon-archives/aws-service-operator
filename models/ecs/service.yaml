@@ -1,0 +1,259 @@
+---
+apiVersion: models.awsoperator.io/v1alpha1
+kind: ModelFile
+metadata:
+  name: ecs-service-resource
+  creationTimestamp: '2019-06-13T16:59:29-07:00'
+  resourceVersion: 3.3.0
+spec:
+  resource:
+    kind: Service
+    scope: Namespaced
+    apiGroup:
+      apiVersion: ecs.awsoperator.io/v1alpha1
+      group: ecs
+      region: us-east-1
+      domain: awsoperator.io
+      versions:
+      - name: v1alpha1
+        served: true
+        storage: true
+    names:
+      singular: service
+      plural: services
+      shortNames: []
+  openAPIV3Schema:
+    properties:
+      spec:
+        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ecs-service.html
+        type: object
+        customAttributes: {}
+        required:
+        - taskDefinition
+        properties:
+          cluster:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ecs-service.html#cfn-ecs-service-cluster
+            type: string
+            customAttributes:
+              template: Cluster
+              immutable: true
+          deploymentConfiguration:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ecs-service.html#cfn-ecs-service-deploymentconfiguration
+            type: object
+            customAttributes:
+              immutable: false
+            required: []
+            properties:
+              maximumPercent:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-service-deploymentconfiguration.html#cfn-ecs-service-deploymentconfiguration-maximumpercent
+                type: integer
+                format: int32
+                customAttributes:
+                  template: MaximumPercent
+                  immutable: false
+              minimumHealthyPercent:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-service-deploymentconfiguration.html#cfn-ecs-service-deploymentconfiguration-minimumhealthypercent
+                type: integer
+                format: int32
+                customAttributes:
+                  template: MinimumHealthyPercent
+                  immutable: false
+          desiredCount:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ecs-service.html#cfn-ecs-service-desiredcount
+            type: integer
+            format: int32
+            customAttributes:
+              template: DesiredCount
+              immutable: false
+          healthCheckGracePeriodSeconds:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ecs-service.html#cfn-ecs-service-healthcheckgraceperiodseconds
+            type: integer
+            format: int32
+            customAttributes:
+              template: HealthCheckGracePeriodSeconds
+              immutable: false
+          launchType:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ecs-service.html#cfn-ecs-service-launchtype
+            type: string
+            customAttributes:
+              template: LaunchType
+              immutable: true
+          loadBalancers:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ecs-service.html#cfn-ecs-service-loadbalancers
+            type: array
+            customAttributes:
+              template: LoadBalancers
+              immutable: true
+            items:
+              type: object
+              properties:
+                containerName:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-service-loadbalancers.html#cfn-ecs-service-loadbalancers-containername
+                  type: string
+                  customAttributes:
+                    template: ContainerName
+                    immutable: true
+                containerPort:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-service-loadbalancers.html#cfn-ecs-service-loadbalancers-containerport
+                  type: integer
+                  format: int32
+                  customAttributes:
+                    template: ContainerPort
+                    immutable: true
+                loadBalancerName:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-service-loadbalancers.html#cfn-ecs-service-loadbalancers-loadbalancername
+                  type: string
+                  customAttributes:
+                    template: LoadBalancerName
+                    immutable: true
+                targetGroupRef:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-service-loadbalancers.html#cfn-ecs-service-loadbalancers-targetgrouparn
+                  type: string
+                  customAttributes:
+                    template: TargetGroupArn
+                    immutable: true
+          networkConfiguration:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ecs-service.html#cfn-ecs-service-networkconfiguration
+            type: object
+            customAttributes:
+              immutable: false
+            required: []
+            properties:
+              awsvpcConfiguration:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-service-networkconfiguration.html#cfn-ecs-service-networkconfiguration-awsvpcconfiguration
+                type: object
+                customAttributes:
+                  immutable: false
+                required:
+                - subnets
+                properties:
+                  assignPublicIp:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-service-awsvpcconfiguration.html#cfn-ecs-service-awsvpcconfiguration-assignpublicip
+                    type: string
+                    customAttributes:
+                      template: AssignPublicIp
+                      immutable: false
+                  securityGroupsRef:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-service-awsvpcconfiguration.html#cfn-ecs-service-awsvpcconfiguration-securitygroups
+                    type: array
+                    customAttributes:
+                      template: SecurityGroups
+                      immutable: false
+                    items:
+                      type: string
+                  subnets:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-service-awsvpcconfiguration.html#cfn-ecs-service-awsvpcconfiguration-subnets
+                    type: array
+                    customAttributes:
+                      template: Subnets
+                      immutable: false
+                    items:
+                      type: string
+          placementConstraints:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ecs-service.html#cfn-ecs-service-placementconstraints
+            type: array
+            customAttributes:
+              template: PlacementConstraints
+              immutable: true
+            items:
+              type: object
+              properties:
+                expression:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-service-placementconstraint.html#cfn-ecs-service-placementconstraint-expression
+                  type: string
+                  customAttributes:
+                    template: Expression
+                    immutable: true
+                type:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-service-placementconstraint.html#cfn-ecs-service-placementconstraint-type
+                  type: string
+                  customAttributes:
+                    template: Type
+                    immutable: true
+          placementStrategies:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ecs-service.html#cfn-ecs-service-placementstrategies
+            type: array
+            customAttributes:
+              template: PlacementStrategies
+              immutable: true
+            items:
+              type: object
+              properties:
+                field:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-service-placementstrategy.html#cfn-ecs-service-placementstrategy-field
+                  type: string
+                  customAttributes:
+                    template: Field
+                    immutable: true
+                type:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-service-placementstrategy.html#cfn-ecs-service-placementstrategy-type
+                  type: string
+                  customAttributes:
+                    template: Type
+                    immutable: true
+          platformVersion:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ecs-service.html#cfn-ecs-service-platformversion
+            type: string
+            customAttributes:
+              template: PlatformVersion
+              immutable: true
+          role:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ecs-service.html#cfn-ecs-service-role
+            type: string
+            customAttributes:
+              template: Role
+              immutable: true
+          schedulingStrategy:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ecs-service.html#cfn-ecs-service-schedulingstrategy
+            type: string
+            customAttributes:
+              template: SchedulingStrategy
+              immutable: true
+          serviceName:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ecs-service.html#cfn-ecs-service-servicename
+            type: string
+            customAttributes:
+              template: ServiceName
+              resourceName: true
+              immutable: true
+          serviceRegistries:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ecs-service.html#cfn-ecs-service-serviceregistries
+            type: array
+            customAttributes:
+              template: ServiceRegistries
+              immutable: true
+            items:
+              type: object
+              properties:
+                containerName:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-service-serviceregistry.html#cfn-ecs-service-serviceregistry-containername
+                  type: string
+                  customAttributes:
+                    template: ContainerName
+                    immutable: true
+                containerPort:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-service-serviceregistry.html#cfn-ecs-service-serviceregistry-containerport
+                  type: integer
+                  format: int32
+                  customAttributes:
+                    template: ContainerPort
+                    immutable: true
+                port:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-service-serviceregistry.html#cfn-ecs-service-serviceregistry-port
+                  type: integer
+                  format: int32
+                  customAttributes:
+                    template: Port
+                    immutable: true
+                registryRef:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-service-serviceregistry.html#cfn-ecs-service-serviceregistry-registryarn
+                  type: string
+                  customAttributes:
+                    template: RegistryArn
+                    immutable: true
+          taskDefinition:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ecs-service.html#cfn-ecs-service-taskdefinition
+            type: string
+            customAttributes:
+              template: TaskDefinition
+              immutable: false

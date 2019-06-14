@@ -1,0 +1,136 @@
+---
+apiVersion: models.awsoperator.io/v1alpha1
+kind: ModelFile
+metadata:
+  name: workspaces-workspace-resource
+  creationTimestamp: '2019-06-13T16:59:30-07:00'
+  resourceVersion: 3.3.0
+spec:
+  resource:
+    kind: Workspace
+    scope: Namespaced
+    apiGroup:
+      apiVersion: workspaces.awsoperator.io/v1alpha1
+      group: workspaces
+      region: us-east-1
+      domain: awsoperator.io
+      versions:
+      - name: v1alpha1
+        served: true
+        storage: true
+    names:
+      singular: workspace
+      plural: workspaces
+      shortNames: []
+  openAPIV3Schema:
+    properties:
+      spec:
+        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-workspaces-workspace.html
+        type: object
+        customAttributes: {}
+        required:
+        - bundleId
+        - directoryId
+        - userName
+        properties:
+          bundleRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-workspaces-workspace.html#cfn-workspaces-workspace-bundleid
+            type: string
+            customAttributes:
+              template: BundleId
+          directoryRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-workspaces-workspace.html#cfn-workspaces-workspace-directoryid
+            type: string
+            customAttributes:
+              template: DirectoryId
+          rootVolumeEncryptionEnabled:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-workspaces-workspace.html#cfn-workspaces-workspace-rootvolumeencryptionenabled
+            type: boolean
+            customAttributes:
+              template: RootVolumeEncryptionEnabled
+          tags:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-workspaces-workspace.html#cfn-workspaces-workspace-tags
+            type: array
+            customAttributes:
+              template: Tags
+              immutable: false
+            items:
+              type: object
+              properties:
+                key:
+                  description: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-resource-tags.html#cfn-resource-tags-key
+                  type: string
+                  customAttributes:
+                    template: Key
+                    immutable: false
+                value:
+                  description: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-resource-tags.html#cfn-resource-tags-value
+                  type: string
+                  customAttributes:
+                    template: Value
+                    immutable: false
+          userName:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-workspaces-workspace.html#cfn-workspaces-workspace-username
+            type: string
+            customAttributes:
+              template: UserName
+              immutable: true
+          userVolumeEncryptionEnabled:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-workspaces-workspace.html#cfn-workspaces-workspace-uservolumeencryptionenabled
+            type: boolean
+            customAttributes:
+              template: UserVolumeEncryptionEnabled
+          volumeEncryptionKey:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-workspaces-workspace.html#cfn-workspaces-workspace-volumeencryptionkey
+            type: string
+            customAttributes:
+              template: VolumeEncryptionKey
+          workspaceProperties:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-workspaces-workspace.html#cfn-workspaces-workspace-workspaceproperties
+            type: object
+            customAttributes:
+              immutable: false
+            required: []
+            properties:
+              computeTypeName:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-workspaces-workspace-workspaceproperties.html#cfn-workspaces-workspace-workspaceproperties-computetypename
+                type: string
+                customAttributes:
+                  template: ComputeTypeName
+                  immutable: false
+                enum:
+                - GRAPHICS
+                - PERFORMANCE
+                - POWER
+                - STANDARD
+                - VALUE
+              rootVolumeSizeGib:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-workspaces-workspace-workspaceproperties.html#cfn-workspaces-workspace-workspaceproperties-rootvolumesizegib
+                type: integer
+                format: int32
+                customAttributes:
+                  template: RootVolumeSizeGib
+                  immutable: false
+              runningMode:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-workspaces-workspace-workspaceproperties.html#cfn-workspaces-workspace-workspaceproperties-runningmode
+                type: string
+                customAttributes:
+                  template: RunningMode
+                  immutable: false
+                enum:
+                - ALWAYS_ON
+                - AUTO_STOP
+              runningModeAutoStopTimeoutInMinutes:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-workspaces-workspace-workspaceproperties.html#cfn-workspaces-workspace-workspaceproperties-runningmodeautostoptimeoutinminutes
+                type: integer
+                format: int32
+                customAttributes:
+                  template: RunningModeAutoStopTimeoutInMinutes
+                  immutable: false
+              userVolumeSizeGib:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-workspaces-workspace-workspaceproperties.html#cfn-workspaces-workspace-workspaceproperties-uservolumesizegib
+                type: integer
+                format: int32
+                customAttributes:
+                  template: UserVolumeSizeGib
+                  immutable: false

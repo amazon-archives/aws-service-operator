@@ -1,0 +1,98 @@
+---
+apiVersion: models.awsoperator.io/v1alpha1
+kind: ModelFile
+metadata:
+  name: config-configurationaggregator-resource
+  creationTimestamp: '2019-06-13T16:59:29-07:00'
+  resourceVersion: 3.3.0
+spec:
+  resource:
+    kind: ConfigurationAggregator
+    scope: Namespaced
+    apiGroup:
+      apiVersion: config.awsoperator.io/v1alpha1
+      group: config
+      region: us-east-1
+      domain: awsoperator.io
+      versions:
+      - name: v1alpha1
+        served: true
+        storage: true
+    names:
+      singular: configurationaggregator
+      plural: configurationaggregators
+      shortNames: []
+  openAPIV3Schema:
+    properties:
+      spec:
+        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-config-configurationaggregator.html
+        type: object
+        customAttributes: {}
+        required: []
+        properties:
+          accountAggregationSources:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-config-configurationaggregator.html#cfn-config-configurationaggregator-accountaggregationsources
+            type: array
+            customAttributes:
+              template: AccountAggregationSources
+              immutable: false
+            items:
+              type: object
+              properties:
+                accountRef:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-config-configurationaggregator-accountaggregationsource.html#cfn-config-configurationaggregator-accountaggregationsource-accountids
+                  type: array
+                  customAttributes:
+                    template: AccountIds
+                    immutable: false
+                  items:
+                    type: string
+                allAwsRegions:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-config-configurationaggregator-accountaggregationsource.html#cfn-config-configurationaggregator-accountaggregationsource-allawsregions
+                  type: boolean
+                  customAttributes:
+                    template: AllAwsRegions
+                    immutable: false
+                awsRegions:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-config-configurationaggregator-accountaggregationsource.html#cfn-config-configurationaggregator-accountaggregationsource-awsregions
+                  type: array
+                  customAttributes:
+                    template: AwsRegions
+                    immutable: false
+                  items:
+                    type: string
+          configurationAggregatorName:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-config-configurationaggregator.html#cfn-config-configurationaggregator-configurationaggregatorname
+            type: string
+            customAttributes:
+              template: ConfigurationAggregatorName
+              resourceName: true
+              immutable: true
+          organizationAggregationSource:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-config-configurationaggregator.html#cfn-config-configurationaggregator-organizationaggregationsource
+            type: object
+            customAttributes:
+              immutable: false
+            required:
+            - roleArn
+            properties:
+              allAwsRegions:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-config-configurationaggregator-organizationaggregationsource.html#cfn-config-configurationaggregator-organizationaggregationsource-allawsregions
+                type: boolean
+                customAttributes:
+                  template: AllAwsRegions
+                  immutable: false
+              awsRegions:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-config-configurationaggregator-organizationaggregationsource.html#cfn-config-configurationaggregator-organizationaggregationsource-awsregions
+                type: array
+                customAttributes:
+                  template: AwsRegions
+                  immutable: false
+                items:
+                  type: string
+              roleRef:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-config-configurationaggregator-organizationaggregationsource.html#cfn-config-configurationaggregator-organizationaggregationsource-rolearn
+                type: string
+                customAttributes:
+                  template: RoleArn
+                  immutable: false

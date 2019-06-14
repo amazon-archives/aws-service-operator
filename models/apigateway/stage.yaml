@@ -1,0 +1,238 @@
+---
+apiVersion: models.awsoperator.io/v1alpha1
+kind: ModelFile
+metadata:
+  name: apigateway-stage-resource
+  creationTimestamp: '2019-06-13T16:59:28-07:00'
+  resourceVersion: 3.3.0
+spec:
+  resource:
+    kind: Stage
+    scope: Namespaced
+    apiGroup:
+      apiVersion: apigateway.awsoperator.io/v1alpha1
+      group: apigateway
+      region: us-east-1
+      domain: awsoperator.io
+      versions:
+      - name: v1alpha1
+        served: true
+        storage: true
+    names:
+      singular: stage
+      plural: stages
+      shortNames: []
+  openAPIV3Schema:
+    properties:
+      spec:
+        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigateway-stage.html
+        type: object
+        customAttributes: {}
+        required:
+        - restApiId
+        properties:
+          accessLogSetting:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigateway-stage.html#cfn-apigateway-stage-accesslogsetting
+            type: object
+            customAttributes:
+              immutable: false
+            required: []
+            properties:
+              destinationRef:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-apigateway-stage-accesslogsetting.html#cfn-apigateway-stage-accesslogsetting-destinationarn
+                type: string
+                customAttributes:
+                  template: DestinationArn
+                  immutable: false
+              format:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-apigateway-stage-accesslogsetting.html#cfn-apigateway-stage-accesslogsetting-format
+                type: string
+                customAttributes:
+                  template: Format
+                  immutable: false
+          cacheClusterEnabled:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigateway-stage.html#cfn-apigateway-stage-cacheclusterenabled
+            type: boolean
+            customAttributes:
+              template: CacheClusterEnabled
+              immutable: false
+          cacheClusterSize:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigateway-stage.html#cfn-apigateway-stage-cacheclustersize
+            type: string
+            customAttributes:
+              template: CacheClusterSize
+              immutable: false
+          canarySetting:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigateway-stage.html#cfn-apigateway-stage-canarysetting
+            type: object
+            customAttributes:
+              immutable: false
+            required: []
+            properties:
+              deploymentRef:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-apigateway-stage-canarysetting.html#cfn-apigateway-stage-canarysetting-deploymentid
+                type: string
+                customAttributes:
+                  template: DeploymentId
+                  immutable: false
+              percentTraffic:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-apigateway-stage-canarysetting.html#cfn-apigateway-stage-canarysetting-percenttraffic
+                type: integer
+                format: double
+                customAttributes:
+                  template: PercentTraffic
+                  immutable: false
+              stageVariableOverrides:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-apigateway-stage-canarysetting.html#cfn-apigateway-stage-canarysetting-stagevariableoverrides
+                type: json
+                customAttributes:
+                  template: StageVariableOverrides
+                  immutable: false
+              useStageCache:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-apigateway-stage-canarysetting.html#cfn-apigateway-stage-canarysetting-usestagecache
+                type: boolean
+                customAttributes:
+                  template: UseStageCache
+                  immutable: false
+          clientCertificateRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigateway-stage.html#cfn-apigateway-stage-clientcertificateid
+            type: string
+            customAttributes:
+              template: ClientCertificateId
+              immutable: false
+          deploymentRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigateway-stage.html#cfn-apigateway-stage-deploymentid
+            type: string
+            customAttributes:
+              template: DeploymentId
+              immutable: false
+          description:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigateway-stage.html#cfn-apigateway-stage-description
+            type: string
+            customAttributes:
+              template: Description
+              immutable: false
+          documentationVersion:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigateway-stage.html#cfn-apigateway-stage-documentationversion
+            type: string
+            customAttributes:
+              template: DocumentationVersion
+              immutable: false
+          methodSettings:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigateway-stage.html#cfn-apigateway-stage-methodsettings
+            type: array
+            customAttributes:
+              template: MethodSettings
+              immutable: false
+            items:
+              type: object
+              properties:
+                cacheDataEncrypted:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-apitgateway-stage-methodsetting.html#cfn-apigateway-stage-methodsetting-cachedataencrypted
+                  type: boolean
+                  customAttributes:
+                    template: CacheDataEncrypted
+                    immutable: false
+                cacheTtlInSeconds:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-apitgateway-stage-methodsetting.html#cfn-apigateway-stage-methodsetting-cachettlinseconds
+                  type: integer
+                  format: int32
+                  customAttributes:
+                    template: CacheTtlInSeconds
+                    immutable: false
+                cachingEnabled:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-apitgateway-stage-methodsetting.html#cfn-apigateway-stage-methodsetting-cachingenabled
+                  type: boolean
+                  customAttributes:
+                    template: CachingEnabled
+                    immutable: false
+                dataTraceEnabled:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-apitgateway-stage-methodsetting.html#cfn-apigateway-stage-methodsetting-datatraceenabled
+                  type: boolean
+                  customAttributes:
+                    template: DataTraceEnabled
+                    immutable: false
+                httpMethod:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-apitgateway-stage-methodsetting.html#cfn-apigateway-stage-methodsetting-httpmethod
+                  type: string
+                  customAttributes:
+                    template: HttpMethod
+                    immutable: false
+                loggingLevel:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-apitgateway-stage-methodsetting.html#cfn-apigateway-stage-methodsetting-logginglevel
+                  type: string
+                  customAttributes:
+                    template: LoggingLevel
+                    immutable: false
+                metricsEnabled:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-apitgateway-stage-methodsetting.html#cfn-apigateway-stage-methodsetting-metricsenabled
+                  type: boolean
+                  customAttributes:
+                    template: MetricsEnabled
+                    immutable: false
+                resourcePath:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-apitgateway-stage-methodsetting.html#cfn-apigateway-stage-methodsetting-resourcepath
+                  type: string
+                  customAttributes:
+                    template: ResourcePath
+                    immutable: false
+                throttlingBurstLimit:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-apitgateway-stage-methodsetting.html#cfn-apigateway-stage-methodsetting-throttlingburstlimit
+                  type: integer
+                  format: int32
+                  customAttributes:
+                    template: ThrottlingBurstLimit
+                    immutable: false
+                throttlingRateLimit:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-apitgateway-stage-methodsetting.html#cfn-apigateway-stage-methodsetting-throttlingratelimit
+                  type: integer
+                  format: double
+                  customAttributes:
+                    template: ThrottlingRateLimit
+                    immutable: false
+          restApiRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigateway-stage.html#cfn-apigateway-stage-restapiid
+            type: string
+            customAttributes:
+              template: RestApiId
+              immutable: true
+          stageName:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigateway-stage.html#cfn-apigateway-stage-stagename
+            type: string
+            customAttributes:
+              template: StageName
+              resourceName: true
+              immutable: true
+          tags:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigateway-stage.html#cfn-apigateway-stage-tags
+            type: array
+            customAttributes:
+              template: Tags
+              immutable: false
+            items:
+              type: object
+              properties:
+                key:
+                  description: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-resource-tags.html#cfn-resource-tags-key
+                  type: string
+                  customAttributes:
+                    template: Key
+                    immutable: false
+                value:
+                  description: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-resource-tags.html#cfn-resource-tags-value
+                  type: string
+                  customAttributes:
+                    template: Value
+                    immutable: false
+          tracingEnabled:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigateway-stage.html#cfn-apigateway-stage-tracingenabled
+            type: boolean
+            customAttributes:
+              template: TracingEnabled
+              immutable: false
+          variables:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigateway-stage.html#cfn-apigateway-stage-variables
+            type: json
+            customAttributes:
+              template: Variables
+              immutable: false

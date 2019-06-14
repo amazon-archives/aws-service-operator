@@ -1,0 +1,78 @@
+---
+apiVersion: models.awsoperator.io/v1alpha1
+kind: ModelFile
+metadata:
+  name: guardduty-member-resource
+  creationTimestamp: '2019-06-13T16:59:29-07:00'
+  resourceVersion: 3.3.0
+spec:
+  resource:
+    kind: Member
+    scope: Namespaced
+    apiGroup:
+      apiVersion: guardduty.awsoperator.io/v1alpha1
+      group: guardduty
+      region: us-east-1
+      domain: awsoperator.io
+      versions:
+      - name: v1alpha1
+        served: true
+        storage: true
+    names:
+      singular: member
+      plural: members
+      shortNames: []
+  openAPIV3Schema:
+    properties:
+      spec:
+        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-guardduty-member.html
+        type: object
+        customAttributes: {}
+        required:
+        - detectorId
+        - email
+        - memberId
+        properties:
+          detectorRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-guardduty-member.html#cfn-guardduty-member-detectorid
+            type: string
+            customAttributes:
+              template: DetectorId
+              immutable: true
+          disableEmailNotification:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-guardduty-member.html#cfn-guardduty-member-disableemailnotification
+            type: boolean
+            customAttributes:
+              template: DisableEmailNotification
+              immutable: false
+          email:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-guardduty-member.html#cfn-guardduty-member-email
+            type: string
+            customAttributes:
+              template: Email
+              immutable: true
+          memberRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-guardduty-member.html#cfn-guardduty-member-memberid
+            type: string
+            customAttributes:
+              template: MemberId
+              immutable: true
+          message:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-guardduty-member.html#cfn-guardduty-member-message
+            type: string
+            customAttributes:
+              template: Message
+              immutable: false
+          status:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-guardduty-member.html#cfn-guardduty-member-status
+            type: string
+            customAttributes:
+              template: Status
+              immutable: false
+            enum:
+            - Created
+            - Disabled
+            - Enabled
+            - Invited
+            - Removed
+            - Resigned

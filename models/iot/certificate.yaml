@@ -1,0 +1,46 @@
+---
+apiVersion: models.awsoperator.io/v1alpha1
+kind: ModelFile
+metadata:
+  name: iot-certificate-resource
+  creationTimestamp: '2019-06-13T16:59:29-07:00'
+  resourceVersion: 3.3.0
+spec:
+  resource:
+    kind: Certificate
+    scope: Namespaced
+    apiGroup:
+      apiVersion: iot.awsoperator.io/v1alpha1
+      group: iot
+      region: us-east-1
+      domain: awsoperator.io
+      versions:
+      - name: v1alpha1
+        served: true
+        storage: true
+    names:
+      singular: certificate
+      plural: certificates
+      shortNames: []
+  openAPIV3Schema:
+    properties:
+      spec:
+        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iot-certificate.html
+        type: object
+        customAttributes: {}
+        required:
+        - certificateSigningRequest
+        - status
+        properties:
+          certificateSigningRequest:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iot-certificate.html#cfn-iot-certificate-certificatesigningrequest
+            type: string
+            customAttributes:
+              template: CertificateSigningRequest
+              immutable: true
+          status:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iot-certificate.html#cfn-iot-certificate-status
+            type: string
+            customAttributes:
+              template: Status
+              immutable: false

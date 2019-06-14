@@ -1,0 +1,86 @@
+---
+apiVersion: models.awsoperator.io/v1alpha1
+kind: ModelFile
+metadata:
+  name: cognito-userpoolclient-resource
+  creationTimestamp: '2019-06-13T16:59:28-07:00'
+  resourceVersion: 3.3.0
+spec:
+  resource:
+    kind: UserPoolClient
+    scope: Namespaced
+    apiGroup:
+      apiVersion: cognito.awsoperator.io/v1alpha1
+      group: cognito
+      region: us-east-1
+      domain: awsoperator.io
+      versions:
+      - name: v1alpha1
+        served: true
+        storage: true
+    names:
+      singular: userpoolclient
+      plural: userpoolclients
+      shortNames: []
+  openAPIV3Schema:
+    properties:
+      spec:
+        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cognito-userpoolclient.html
+        type: object
+        customAttributes: {}
+        required:
+        - userPoolId
+        properties:
+          clientName:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cognito-userpoolclient.html#cfn-cognito-userpoolclient-clientname
+            type: string
+            customAttributes:
+              template: ClientName
+              immutable: false
+          explicitAuthFlows:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cognito-userpoolclient.html#cfn-cognito-userpoolclient-explicitauthflows
+            type: array
+            customAttributes:
+              template: ExplicitAuthFlows
+              immutable: false
+            items:
+              type: string
+            enum:
+            - ADMIN_NO_SRP_AUTH
+            - CUSTOM_AUTH_FLOW_ONLY
+            - USER_PASSWORD_AUTH
+          generateSecret:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cognito-userpoolclient.html#cfn-cognito-userpoolclient-generatesecret
+            type: boolean
+            customAttributes:
+              template: GenerateSecret
+              immutable: true
+          readAttributes:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cognito-userpoolclient.html#cfn-cognito-userpoolclient-readattributes
+            type: array
+            customAttributes:
+              template: ReadAttributes
+              immutable: false
+            items:
+              type: string
+          refreshTokenValidity:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cognito-userpoolclient.html#cfn-cognito-userpoolclient-refreshtokenvalidity
+            type: integer
+            format: double
+            customAttributes:
+              template: RefreshTokenValidity
+              immutable: false
+          userPoolRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cognito-userpoolclient.html#cfn-cognito-userpoolclient-userpoolid
+            type: string
+            customAttributes:
+              template: UserPoolId
+              immutable: true
+          writeAttributes:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cognito-userpoolclient.html#cfn-cognito-userpoolclient-writeattributes
+            type: array
+            customAttributes:
+              template: WriteAttributes
+              immutable: false
+            items:
+              type: string

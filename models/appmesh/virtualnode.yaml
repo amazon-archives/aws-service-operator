@@ -1,0 +1,238 @@
+---
+apiVersion: models.awsoperator.io/v1alpha1
+kind: ModelFile
+metadata:
+  name: appmesh-virtualnode-resource
+  creationTimestamp: '2019-06-13T16:59:28-07:00'
+  resourceVersion: 3.3.0
+spec:
+  resource:
+    kind: VirtualNode
+    scope: Namespaced
+    apiGroup:
+      apiVersion: appmesh.awsoperator.io/v1alpha1
+      group: appmesh
+      region: us-east-1
+      domain: awsoperator.io
+      versions:
+      - name: v1alpha1
+        served: true
+        storage: true
+    names:
+      singular: virtualnode
+      plural: virtualnodes
+      shortNames: []
+  openAPIV3Schema:
+    properties:
+      spec:
+        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-appmesh-virtualnode.html
+        type: object
+        customAttributes: {}
+        required:
+        - meshName
+        - spec
+        properties:
+          meshName:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-appmesh-virtualnode.html#cfn-appmesh-virtualnode-meshname
+            type: string
+            customAttributes:
+              template: MeshName
+              immutable: true
+          spec:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-appmesh-virtualnode.html#cfn-appmesh-virtualnode-spec
+            type: object
+            customAttributes:
+              immutable: false
+            required: []
+            properties:
+              backends:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-appmesh-virtualnode-virtualnodespec.html#cfn-appmesh-virtualnode-virtualnodespec-backends
+                type: array
+                customAttributes:
+                  template: Backends
+                  immutable: false
+                items:
+                  type: object
+                  properties:
+                    virtualService:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-appmesh-virtualnode-backend.html#cfn-appmesh-virtualnode-backend-virtualservice
+                      type: object
+                      customAttributes:
+                        immutable: false
+                      required:
+                      - virtualServiceName
+                      properties:
+                        virtualServiceName:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-appmesh-virtualnode-virtualservicebackend.html#cfn-appmesh-virtualnode-virtualservicebackend-virtualservicename
+                          type: string
+                          customAttributes:
+                            template: VirtualServiceName
+                            immutable: false
+              listeners:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-appmesh-virtualnode-virtualnodespec.html#cfn-appmesh-virtualnode-virtualnodespec-listeners
+                type: array
+                customAttributes:
+                  template: Listeners
+                  immutable: false
+                items:
+                  type: object
+                  properties:
+                    healthCheck:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-appmesh-virtualnode-listener.html#cfn-appmesh-virtualnode-listener-healthcheck
+                      type: object
+                      customAttributes:
+                        immutable: false
+                      required:
+                      - healthyThreshold
+                      - intervalMillis
+                      - protocol
+                      - timeoutMillis
+                      - unhealthyThreshold
+                      properties:
+                        healthyThreshold:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-appmesh-virtualnode-healthcheck.html#cfn-appmesh-virtualnode-healthcheck-healthythreshold
+                          type: integer
+                          format: int32
+                          customAttributes:
+                            template: HealthyThreshold
+                            immutable: false
+                        intervalMillis:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-appmesh-virtualnode-healthcheck.html#cfn-appmesh-virtualnode-healthcheck-intervalmillis
+                          type: integer
+                          format: int32
+                          customAttributes:
+                            template: IntervalMillis
+                            immutable: false
+                        path:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-appmesh-virtualnode-healthcheck.html#cfn-appmesh-virtualnode-healthcheck-path
+                          type: string
+                          customAttributes:
+                            template: Path
+                            immutable: false
+                        port:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-appmesh-virtualnode-healthcheck.html#cfn-appmesh-virtualnode-healthcheck-port
+                          type: integer
+                          format: int32
+                          customAttributes:
+                            template: Port
+                            immutable: false
+                        protocol:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-appmesh-virtualnode-healthcheck.html#cfn-appmesh-virtualnode-healthcheck-protocol
+                          type: string
+                          customAttributes:
+                            template: Protocol
+                            immutable: false
+                        timeoutMillis:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-appmesh-virtualnode-healthcheck.html#cfn-appmesh-virtualnode-healthcheck-timeoutmillis
+                          type: integer
+                          format: int32
+                          customAttributes:
+                            template: TimeoutMillis
+                            immutable: false
+                        unhealthyThreshold:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-appmesh-virtualnode-healthcheck.html#cfn-appmesh-virtualnode-healthcheck-unhealthythreshold
+                          type: integer
+                          format: int32
+                          customAttributes:
+                            template: UnhealthyThreshold
+                            immutable: false
+                    portMapping:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-appmesh-virtualnode-listener.html#cfn-appmesh-virtualnode-listener-portmapping
+                      type: object
+                      customAttributes:
+                        immutable: false
+                      required:
+                      - port
+                      - protocol
+                      properties:
+                        port:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-appmesh-virtualnode-portmapping.html#cfn-appmesh-virtualnode-portmapping-port
+                          type: integer
+                          format: int32
+                          customAttributes:
+                            template: Port
+                            immutable: false
+                        protocol:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-appmesh-virtualnode-portmapping.html#cfn-appmesh-virtualnode-portmapping-protocol
+                          type: string
+                          customAttributes:
+                            template: Protocol
+                            immutable: false
+              logging:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-appmesh-virtualnode-virtualnodespec.html#cfn-appmesh-virtualnode-virtualnodespec-logging
+                type: object
+                customAttributes:
+                  immutable: false
+                required: []
+                properties:
+                  accessLog:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-appmesh-virtualnode-logging.html#cfn-appmesh-virtualnode-logging-accesslog
+                    type: object
+                    customAttributes:
+                      immutable: false
+                    required: []
+                    properties:
+                      file:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-appmesh-virtualnode-accesslog.html#cfn-appmesh-virtualnode-accesslog-file
+                        type: object
+                        customAttributes:
+                          immutable: false
+                        required:
+                        - path
+                        properties:
+                          path:
+                            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-appmesh-virtualnode-fileaccesslog.html#cfn-appmesh-virtualnode-fileaccesslog-path
+                            type: string
+                            customAttributes:
+                              template: Path
+                              immutable: false
+              serviceDiscovery:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-appmesh-virtualnode-virtualnodespec.html#cfn-appmesh-virtualnode-virtualnodespec-servicediscovery
+                type: object
+                customAttributes:
+                  immutable: false
+                required:
+                - dNS
+                properties:
+                  dNS:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-appmesh-virtualnode-servicediscovery.html#cfn-appmesh-virtualnode-servicediscovery-dns
+                    type: object
+                    customAttributes:
+                      immutable: false
+                    required:
+                    - hostname
+                    properties:
+                      hostname:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-appmesh-virtualnode-dnsservicediscovery.html#cfn-appmesh-virtualnode-dnsservicediscovery-hostname
+                        type: string
+                        customAttributes:
+                          template: Hostname
+                          immutable: false
+          tags:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-appmesh-virtualnode.html#cfn-appmesh-virtualnode-tags
+            type: array
+            customAttributes:
+              template: Tags
+              immutable: false
+            items:
+              type: object
+              properties:
+                key:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-appmesh-virtualnode-tagref.html#cfn-appmesh-virtualnode-tagref-key
+                  type: string
+                  customAttributes:
+                    template: Key
+                    immutable: false
+                value:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-appmesh-virtualnode-tagref.html#cfn-appmesh-virtualnode-tagref-value
+                  type: string
+                  customAttributes:
+                    template: Value
+                    immutable: false
+          virtualNodeName:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-appmesh-virtualnode.html#cfn-appmesh-virtualnode-virtualnodename
+            type: string
+            customAttributes:
+              template: VirtualNodeName
+              resourceName: true
+              immutable: true

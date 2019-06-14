@@ -1,0 +1,144 @@
+---
+apiVersion: models.awsoperator.io/v1alpha1
+kind: ModelFile
+metadata:
+  name: appsync-graphqlapi-resource
+  creationTimestamp: '2019-06-13T16:59:28-07:00'
+  resourceVersion: 3.3.0
+spec:
+  resource:
+    kind: GraphQLApi
+    scope: Namespaced
+    apiGroup:
+      apiVersion: appsync.awsoperator.io/v1alpha1
+      group: appsync
+      region: us-east-1
+      domain: awsoperator.io
+      versions:
+      - name: v1alpha1
+        served: true
+        storage: true
+    names:
+      singular: graphqlapi
+      plural: graphqlapis
+      shortNames: []
+  openAPIV3Schema:
+    properties:
+      spec:
+        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-appsync-graphqlapi.html
+        type: object
+        customAttributes: {}
+        required:
+        - authenticationType
+        - name
+        properties:
+          additionalAuthenticationProviders:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-appsync-graphqlapi.html#cfn-appsync-graphqlapi-additionalauthenticationproviders
+            type: object
+            customAttributes:
+              immutable: false
+          authenticationType:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-appsync-graphqlapi.html#cfn-appsync-graphqlapi-authenticationtype
+            type: string
+            customAttributes:
+              template: AuthenticationType
+              immutable: false
+            enum:
+            - AMAZON_COGNITO_USER_POOLS
+            - API_KEY
+            - AWS_IAM
+            - OPENID_CONNECT
+          logConfig:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-appsync-graphqlapi.html#cfn-appsync-graphqlapi-logconfig
+            type: object
+            customAttributes:
+              immutable: false
+            required: []
+            properties:
+              cloudWatchLogsRoleRef:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-appsync-graphqlapi-logconfig.html#cfn-appsync-graphqlapi-logconfig-cloudwatchlogsrolearn
+                type: string
+                customAttributes:
+                  template: CloudWatchLogsRoleArn
+                  immutable: false
+              fieldLogLevel:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-appsync-graphqlapi-logconfig.html#cfn-appsync-graphqlapi-logconfig-fieldloglevel
+                type: string
+                customAttributes:
+                  template: FieldLogLevel
+                  immutable: false
+          name:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-appsync-graphqlapi.html#cfn-appsync-graphqlapi-name
+            type: string
+            customAttributes:
+              template: Name
+              immutable: false
+          openIDConnectConfig:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-appsync-graphqlapi.html#cfn-appsync-graphqlapi-openidconnectconfig
+            type: object
+            customAttributes:
+              immutable: false
+            required: []
+            properties:
+              authTTL:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-appsync-graphqlapi-openidconnectconfig.html#cfn-appsync-graphqlapi-openidconnectconfig-authttl
+                type: integer
+                format: double
+                customAttributes:
+                  template: AuthTTL
+                  immutable: false
+              clientRef:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-appsync-graphqlapi-openidconnectconfig.html#cfn-appsync-graphqlapi-openidconnectconfig-clientid
+                type: string
+                customAttributes:
+                  template: ClientId
+                  immutable: false
+              iatTTL:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-appsync-graphqlapi-openidconnectconfig.html#cfn-appsync-graphqlapi-openidconnectconfig-iatttl
+                type: integer
+                format: double
+                customAttributes:
+                  template: IatTTL
+                  immutable: false
+              issuer:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-appsync-graphqlapi-openidconnectconfig.html#cfn-appsync-graphqlapi-openidconnectconfig-issuer
+                type: string
+                customAttributes:
+                  template: Issuer
+                  immutable: false
+          tags:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-appsync-graphqlapi.html#cfn-appsync-graphqlapi-tags
+            type: object
+            customAttributes:
+              immutable: false
+          userPoolConfig:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-appsync-graphqlapi.html#cfn-appsync-graphqlapi-userpoolconfig
+            type: object
+            customAttributes:
+              immutable: false
+            required: []
+            properties:
+              appClientRegexRef:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-appsync-graphqlapi-userpoolconfig.html#cfn-appsync-graphqlapi-userpoolconfig-appidclientregex
+                type: string
+                customAttributes:
+                  template: AppIdClientRegex
+                  immutable: false
+              awsRegion:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-appsync-graphqlapi-userpoolconfig.html#cfn-appsync-graphqlapi-userpoolconfig-awsregion
+                type: string
+                customAttributes:
+                  template: AwsRegion
+                  immutable: false
+              defaultAction:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-appsync-graphqlapi-userpoolconfig.html#cfn-appsync-graphqlapi-userpoolconfig-defaultaction
+                type: string
+                customAttributes:
+                  template: DefaultAction
+                  immutable: false
+              userPoolRef:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-appsync-graphqlapi-userpoolconfig.html#cfn-appsync-graphqlapi-userpoolconfig-userpoolid
+                type: string
+                customAttributes:
+                  template: UserPoolId
+                  immutable: false

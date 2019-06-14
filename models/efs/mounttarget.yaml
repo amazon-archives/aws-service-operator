@@ -1,0 +1,61 @@
+---
+apiVersion: models.awsoperator.io/v1alpha1
+kind: ModelFile
+metadata:
+  name: efs-mounttarget-resource
+  creationTimestamp: '2019-06-13T16:59:29-07:00'
+  resourceVersion: 3.3.0
+spec:
+  resource:
+    kind: MountTarget
+    scope: Namespaced
+    apiGroup:
+      apiVersion: efs.awsoperator.io/v1alpha1
+      group: efs
+      region: us-east-1
+      domain: awsoperator.io
+      versions:
+      - name: v1alpha1
+        served: true
+        storage: true
+    names:
+      singular: mounttarget
+      plural: mounttargets
+      shortNames: []
+  openAPIV3Schema:
+    properties:
+      spec:
+        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-efs-mounttarget.html
+        type: object
+        customAttributes: {}
+        required:
+        - fileSystemId
+        - securityGroups
+        - subnetId
+        properties:
+          fileSystemRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-efs-mounttarget.html#cfn-efs-mounttarget-filesystemid
+            type: string
+            customAttributes:
+              template: FileSystemId
+              immutable: true
+          ipAddress:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-efs-mounttarget.html#cfn-efs-mounttarget-ipaddress
+            type: string
+            customAttributes:
+              template: IpAddress
+              immutable: true
+          securityGroupsRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-efs-mounttarget.html#cfn-efs-mounttarget-securitygroups
+            type: array
+            customAttributes:
+              template: SecurityGroups
+              immutable: false
+            items:
+              type: string
+          subnetRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-efs-mounttarget.html#cfn-efs-mounttarget-subnetid
+            type: string
+            customAttributes:
+              template: SubnetId
+              immutable: true

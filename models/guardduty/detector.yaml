@@ -1,0 +1,49 @@
+---
+apiVersion: models.awsoperator.io/v1alpha1
+kind: ModelFile
+metadata:
+  name: guardduty-detector-resource
+  creationTimestamp: '2019-06-13T16:59:29-07:00'
+  resourceVersion: 3.3.0
+spec:
+  resource:
+    kind: Detector
+    scope: Namespaced
+    apiGroup:
+      apiVersion: guardduty.awsoperator.io/v1alpha1
+      group: guardduty
+      region: us-east-1
+      domain: awsoperator.io
+      versions:
+      - name: v1alpha1
+        served: true
+        storage: true
+    names:
+      singular: detector
+      plural: detectors
+      shortNames: []
+  openAPIV3Schema:
+    properties:
+      spec:
+        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-guardduty-detector.html
+        type: object
+        customAttributes: {}
+        required:
+        - enable
+        properties:
+          enable:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-guardduty-detector.html#cfn-guardduty-detector-enable
+            type: boolean
+            customAttributes:
+              template: Enable
+              immutable: false
+          findingPublishingFrequency:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-guardduty-detector.html#cfn-guardduty-detector-findingpublishingfrequency
+            type: string
+            customAttributes:
+              template: FindingPublishingFrequency
+              immutable: false
+            enum:
+            - FIFTEEN_MINUTES
+            - ONE_HOUR
+            - SIX_HOURS

@@ -1,0 +1,80 @@
+---
+apiVersion: models.awsoperator.io/v1alpha1
+kind: ModelFile
+metadata:
+  name: greengrass-subscriptiondefinition-resource
+  creationTimestamp: '2019-06-13T16:59:29-07:00'
+  resourceVersion: 3.3.0
+spec:
+  resource:
+    kind: SubscriptionDefinition
+    scope: Namespaced
+    apiGroup:
+      apiVersion: greengrass.awsoperator.io/v1alpha1
+      group: greengrass
+      region: us-east-1
+      domain: awsoperator.io
+      versions:
+      - name: v1alpha1
+        served: true
+        storage: true
+    names:
+      singular: subscriptiondefinition
+      plural: subscriptiondefinitions
+      shortNames: []
+  openAPIV3Schema:
+    properties:
+      spec:
+        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-greengrass-subscriptiondefinition.html
+        type: object
+        customAttributes: {}
+        required:
+        - name
+        properties:
+          initialVersion:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-greengrass-subscriptiondefinition.html#cfn-greengrass-subscriptiondefinition-initialversion
+            type: object
+            customAttributes:
+              immutable: true
+            required:
+            - subscriptions
+            properties:
+              subscriptions:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-greengrass-subscriptiondefinition-subscriptiondefinitionversion.html#cfn-greengrass-subscriptiondefinition-subscriptiondefinitionversion-subscriptions
+                type: array
+                customAttributes:
+                  template: Subscriptions
+                  immutable: true
+                items:
+                  type: object
+                  properties:
+                    id:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-greengrass-subscriptiondefinition-subscription.html#cfn-greengrass-subscriptiondefinition-subscription-id
+                      type: string
+                      customAttributes:
+                        template: Id
+                        immutable: true
+                    source:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-greengrass-subscriptiondefinition-subscription.html#cfn-greengrass-subscriptiondefinition-subscription-source
+                      type: string
+                      customAttributes:
+                        template: Source
+                        immutable: true
+                    subject:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-greengrass-subscriptiondefinition-subscription.html#cfn-greengrass-subscriptiondefinition-subscription-subject
+                      type: string
+                      customAttributes:
+                        template: Subject
+                        immutable: true
+                    target:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-greengrass-subscriptiondefinition-subscription.html#cfn-greengrass-subscriptiondefinition-subscription-target
+                      type: string
+                      customAttributes:
+                        template: Target
+                        immutable: true
+          name:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-greengrass-subscriptiondefinition.html#cfn-greengrass-subscriptiondefinition-name
+            type: string
+            customAttributes:
+              template: Name
+              immutable: false

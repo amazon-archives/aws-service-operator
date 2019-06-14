@@ -1,0 +1,119 @@
+---
+apiVersion: models.awsoperator.io/v1alpha1
+kind: ModelFile
+metadata:
+  name: apigateway-usageplan-resource
+  creationTimestamp: '2019-06-13T16:59:28-07:00'
+  resourceVersion: 3.3.0
+spec:
+  resource:
+    kind: UsagePlan
+    scope: Namespaced
+    apiGroup:
+      apiVersion: apigateway.awsoperator.io/v1alpha1
+      group: apigateway
+      region: us-east-1
+      domain: awsoperator.io
+      versions:
+      - name: v1alpha1
+        served: true
+        storage: true
+    names:
+      singular: usageplan
+      plural: usageplans
+      shortNames: []
+  openAPIV3Schema:
+    properties:
+      spec:
+        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigateway-usageplan.html
+        type: object
+        customAttributes: {}
+        required: []
+        properties:
+          apiStages:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigateway-usageplan.html#cfn-apigateway-usageplan-apistages
+            type: array
+            customAttributes:
+              template: ApiStages
+              immutable: false
+            items:
+              type: object
+              properties:
+                apiRef:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-apigateway-usageplan-apistage.html#cfn-apigateway-usageplan-apistage-apiid
+                  type: string
+                  customAttributes:
+                    template: ApiId
+                    immutable: false
+                stage:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-apigateway-usageplan-apistage.html#cfn-apigateway-usageplan-apistage-stage
+                  type: string
+                  customAttributes:
+                    template: Stage
+                    immutable: false
+                throttle:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-apigateway-usageplan-apistage.html#cfn-apigateway-usageplan-apistage-throttle
+                  type: json
+                  customAttributes:
+                    template: Throttle
+                    immutable: false
+          description:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigateway-usageplan.html#cfn-apigateway-usageplan-description
+            type: string
+            customAttributes:
+              template: Description
+              immutable: false
+          quota:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigateway-usageplan.html#cfn-apigateway-usageplan-quota
+            type: object
+            customAttributes:
+              immutable: false
+            required: []
+            properties:
+              limit:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-apigateway-usageplan-quotasettings.html#cfn-apigateway-usageplan-quotasettings-limit
+                type: integer
+                format: int32
+                customAttributes:
+                  template: Limit
+                  immutable: false
+              offset:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-apigateway-usageplan-quotasettings.html#cfn-apigateway-usageplan-quotasettings-offset
+                type: integer
+                format: int32
+                customAttributes:
+                  template: Offset
+                  immutable: false
+              period:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-apigateway-usageplan-quotasettings.html#cfn-apigateway-usageplan-quotasettings-period
+                type: string
+                customAttributes:
+                  template: Period
+                  immutable: false
+          throttle:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigateway-usageplan.html#cfn-apigateway-usageplan-throttle
+            type: object
+            customAttributes:
+              immutable: false
+            required: []
+            properties:
+              burstLimit:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-apigateway-usageplan-throttlesettings.html#cfn-apigateway-usageplan-throttlesettings-burstlimit
+                type: integer
+                format: int32
+                customAttributes:
+                  template: BurstLimit
+                  immutable: false
+              rateLimit:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-apigateway-usageplan-throttlesettings.html#cfn-apigateway-usageplan-throttlesettings-ratelimit
+                type: integer
+                format: double
+                customAttributes:
+                  template: RateLimit
+                  immutable: false
+          usagePlanName:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigateway-usageplan.html#cfn-apigateway-usageplan-usageplanname
+            type: string
+            customAttributes:
+              template: UsagePlanName
+              immutable: false

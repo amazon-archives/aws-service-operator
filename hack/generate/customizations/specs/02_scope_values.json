@@ -1,0 +1,2816 @@
+[
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::AmazonMQ::Broker/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::AmazonMQ::Configuration/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::AmazonMQ::ConfigurationAssociation/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::ApiGateway::Account/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::ApiGateway::ApiKey/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::ApiGateway::Authorizer/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::ApiGateway::BasePathMapping/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::ApiGateway::ClientCertificate/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::ApiGateway::Deployment/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::ApiGateway::DocumentationPart/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::ApiGateway::DocumentationVersion/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::ApiGateway::DomainName/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::ApiGateway::GatewayResponse/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::ApiGateway::Method/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::ApiGateway::Model/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::ApiGateway::RequestValidator/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::ApiGateway::Resource/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::ApiGateway::RestApi/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::ApiGateway::Stage/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::ApiGateway::UsagePlan/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::ApiGateway::UsagePlanKey/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::ApiGateway::VpcLink/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::ApiGatewayV2::Api/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::ApiGatewayV2::ApiMapping/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::ApiGatewayV2::Authorizer/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::ApiGatewayV2::Deployment/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::ApiGatewayV2::DomainName/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::ApiGatewayV2::Integration/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::ApiGatewayV2::IntegrationResponse/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::ApiGatewayV2::Model/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::ApiGatewayV2::Route/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::ApiGatewayV2::RouteResponse/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::ApiGatewayV2::Stage/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::AppMesh::Mesh/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::AppMesh::Route/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::AppMesh::VirtualNode/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::AppMesh::VirtualRouter/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::AppMesh::VirtualService/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::AppStream::DirectoryConfig/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::AppStream::Fleet/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::AppStream::ImageBuilder/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::AppStream::Stack/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::AppStream::StackFleetAssociation/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::AppStream::StackUserAssociation/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::AppStream::User/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::AppSync::ApiKey/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::AppSync::DataSource/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::AppSync::FunctionConfiguration/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::AppSync::GraphQLApi/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::AppSync::GraphQLSchema/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::AppSync::Resolver/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::ApplicationAutoScaling::ScalableTarget/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::ApplicationAutoScaling::ScalingPolicy/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::Athena::NamedQuery/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::AutoScaling::AutoScalingGroup/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::AutoScaling::LaunchConfiguration/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::AutoScaling::LifecycleHook/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::AutoScaling::ScalingPolicy/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::AutoScaling::ScheduledAction/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::AutoScalingPlans::ScalingPlan/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::Batch::ComputeEnvironment/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::Batch::JobDefinition/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::Batch::JobQueue/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::Budgets::Budget/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::CDK::Metadata/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::CertificateManager::Certificate/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::Cloud9::EnvironmentEC2/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::CloudFormation::CustomResource/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::CloudFormation::Macro/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::CloudFormation::Stack/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::CloudFormation::WaitCondition/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::CloudFormation::WaitConditionHandle/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::CloudFront::CloudFrontOriginAccessIdentity/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::CloudFront::Distribution/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::CloudFront::StreamingDistribution/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::CloudTrail::Trail/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::CloudWatch::Alarm/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::CloudWatch::Dashboard/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::CodeBuild::Project/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::CodeCommit::Repository/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::CodeDeploy::Application/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::CodeDeploy::DeploymentConfig/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::CodeDeploy::DeploymentGroup/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::CodePipeline::CustomActionType/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::CodePipeline::Pipeline/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::CodePipeline::Webhook/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::Cognito::IdentityPool/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::Cognito::IdentityPoolRoleAttachment/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::Cognito::UserPool/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::Cognito::UserPoolClient/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::Cognito::UserPoolGroup/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::Cognito::UserPoolUser/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::Cognito::UserPoolUserToGroupAttachment/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::Config::AggregationAuthorization/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::Config::ConfigRule/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::Config::ConfigurationAggregator/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::Config::ConfigurationRecorder/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::Config::DeliveryChannel/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::DAX::Cluster/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::DAX::ParameterGroup/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::DAX::SubnetGroup/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::DLM::LifecyclePolicy/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::DMS::Certificate/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::DMS::Endpoint/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::DMS::EventSubscription/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::DMS::ReplicationInstance/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::DMS::ReplicationSubnetGroup/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::DMS::ReplicationTask/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::DataPipeline::Pipeline/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::DirectoryService::MicrosoftAD/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::DirectoryService::SimpleAD/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::DocDB::DBCluster/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::DocDB::DBClusterParameterGroup/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::DocDB::DBInstance/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::DocDB::DBSubnetGroup/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::DynamoDB::Table/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::EC2::CapacityReservation/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::EC2::CustomerGateway/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::EC2::DHCPOptions/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::EC2::EC2Fleet/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::EC2::EIP/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::EC2::EIPAssociation/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::EC2::EgressOnlyInternetGateway/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::EC2::FlowLog/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::EC2::Host/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::EC2::Instance/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::EC2::InternetGateway/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::EC2::LaunchTemplate/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::EC2::NatGateway/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::EC2::NetworkAcl/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::EC2::NetworkAclEntry/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::EC2::NetworkInterface/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::EC2::NetworkInterfaceAttachment/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::EC2::NetworkInterfacePermission/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::EC2::PlacementGroup/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::EC2::Route/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::EC2::RouteTable/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::EC2::SecurityGroup/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::EC2::SecurityGroupEgress/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::EC2::SecurityGroupIngress/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::EC2::SpotFleet/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::EC2::Subnet/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::EC2::SubnetCidrBlock/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::EC2::SubnetNetworkAclAssociation/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::EC2::SubnetRouteTableAssociation/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::EC2::TransitGateway/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::EC2::TransitGatewayAttachment/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::EC2::TransitGatewayRoute/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::EC2::TransitGatewayRouteTable/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::EC2::TransitGatewayRouteTableAssociation/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::EC2::TransitGatewayRouteTablePropagation/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::EC2::VPC/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::EC2::VPCCidrBlock/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::EC2::VPCDHCPOptionsAssociation/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::EC2::VPCEndpoint/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::EC2::VPCEndpointConnectionNotification/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::EC2::VPCEndpointService/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::EC2::VPCEndpointServicePermissions/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::EC2::VPCGatewayAttachment/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::EC2::VPCPeeringConnection/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::EC2::VPNConnection/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::EC2::VPNConnectionRoute/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::EC2::VPNGateway/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::EC2::VPNGatewayRoutePropagation/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::EC2::Volume/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::EC2::VolumeAttachment/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::ECR::Repository/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::ECS::Cluster/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::ECS::Service/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::ECS::TaskDefinition/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::EFS::FileSystem/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::EFS::MountTarget/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::EKS::Cluster/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::EMR::Cluster/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::EMR::InstanceFleetConfig/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::EMR::InstanceGroupConfig/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::EMR::SecurityConfiguration/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::EMR::Step/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::ElastiCache::CacheCluster/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::ElastiCache::ParameterGroup/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::ElastiCache::ReplicationGroup/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::ElastiCache::SecurityGroup/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::ElastiCache::SecurityGroupIngress/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::ElastiCache::SubnetGroup/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::ElasticBeanstalk::Application/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::ElasticBeanstalk::ApplicationVersion/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::ElasticBeanstalk::ConfigurationTemplate/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::ElasticBeanstalk::Environment/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::ElasticLoadBalancing::LoadBalancer/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::ElasticLoadBalancingV2::Listener/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::ElasticLoadBalancingV2::ListenerCertificate/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::ElasticLoadBalancingV2::ListenerRule/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::ElasticLoadBalancingV2::LoadBalancer/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::ElasticLoadBalancingV2::TargetGroup/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::Elasticsearch::Domain/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::Events::EventBusPolicy/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::Events::Rule/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::FSx::FileSystem/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::GameLift::Alias/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::GameLift::Build/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::GameLift::Fleet/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::Glue::Classifier/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::Glue::Connection/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::Glue::Crawler/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::Glue::DataCatalogEncryptionSettings/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::Glue::Database/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::Glue::DevEndpoint/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::Glue::Job/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::Glue::Partition/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::Glue::SecurityConfiguration/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::Glue::Table/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::Glue::Trigger/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::Greengrass::ConnectorDefinition/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::Greengrass::ConnectorDefinitionVersion/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::Greengrass::CoreDefinition/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::Greengrass::CoreDefinitionVersion/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::Greengrass::DeviceDefinition/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::Greengrass::DeviceDefinitionVersion/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::Greengrass::FunctionDefinition/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::Greengrass::FunctionDefinitionVersion/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::Greengrass::Group/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::Greengrass::GroupVersion/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::Greengrass::LoggerDefinition/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::Greengrass::LoggerDefinitionVersion/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::Greengrass::ResourceDefinition/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::Greengrass::ResourceDefinitionVersion/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::Greengrass::SubscriptionDefinition/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::Greengrass::SubscriptionDefinitionVersion/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::GuardDuty::Detector/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::GuardDuty::Filter/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::GuardDuty::IPSet/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::GuardDuty::Master/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::GuardDuty::Member/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::GuardDuty::ThreatIntelSet/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::IAM::AccessKey/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::IAM::Group/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::IAM::InstanceProfile/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::IAM::ManagedPolicy/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::IAM::Policy/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::IAM::Role/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::IAM::ServiceLinkedRole/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::IAM::User/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::IAM::UserToGroupAddition/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::Inspector::AssessmentTarget/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::Inspector::AssessmentTemplate/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::Inspector::ResourceGroup/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::IoT1Click::Device/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::IoT1Click::Placement/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::IoT1Click::Project/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::IoT::Certificate/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::IoT::Policy/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::IoT::PolicyPrincipalAttachment/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::IoT::Thing/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::IoT::ThingPrincipalAttachment/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::IoT::TopicRule/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::IoTAnalytics::Channel/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::IoTAnalytics::Dataset/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::IoTAnalytics::Datastore/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::IoTAnalytics::Pipeline/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::KMS::Alias/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::KMS::Key/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::Kinesis::Stream/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::Kinesis::StreamConsumer/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::KinesisAnalytics::Application/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::KinesisAnalytics::ApplicationOutput/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::KinesisAnalytics::ApplicationReferenceDataSource/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::KinesisAnalyticsV2::Application/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::KinesisAnalyticsV2::ApplicationCloudWatchLoggingOption/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::KinesisAnalyticsV2::ApplicationOutput/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::KinesisAnalyticsV2::ApplicationReferenceDataSource/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::KinesisFirehose::DeliveryStream/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::Lambda::Alias/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::Lambda::EventSourceMapping/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::Lambda::Function/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::Lambda::LayerVersion/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::Lambda::LayerVersionPermission/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::Lambda::Permission/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::Lambda::Version/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::Logs::Destination/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::Logs::LogGroup/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::Logs::LogStream/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::Logs::MetricFilter/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::Logs::SubscriptionFilter/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::MediaStore::Container/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::Neptune::DBCluster/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::Neptune::DBClusterParameterGroup/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::Neptune::DBInstance/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::Neptune::DBParameterGroup/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::Neptune::DBSubnetGroup/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::OpsWorks::App/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::OpsWorks::ElasticLoadBalancerAttachment/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::OpsWorks::Instance/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::OpsWorks::Layer/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::OpsWorks::Stack/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::OpsWorks::UserProfile/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::OpsWorks::Volume/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::OpsWorksCM::Server/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::PinpointEmail::ConfigurationSet/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::PinpointEmail::ConfigurationSetEventDestination/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::PinpointEmail::DedicatedIpPool/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::PinpointEmail::Identity/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::RAM::ResourceShare/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::RDS::DBCluster/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::RDS::DBClusterParameterGroup/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::RDS::DBInstance/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::RDS::DBParameterGroup/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::RDS::DBSecurityGroup/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::RDS::DBSecurityGroupIngress/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::RDS::DBSubnetGroup/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::RDS::EventSubscription/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::RDS::OptionGroup/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::Redshift::Cluster/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::Redshift::ClusterParameterGroup/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::Redshift::ClusterSecurityGroup/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::Redshift::ClusterSecurityGroupIngress/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::Redshift::ClusterSubnetGroup/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::RoboMaker::Fleet/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::RoboMaker::Robot/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::RoboMaker::RobotApplication/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::RoboMaker::RobotApplicationVersion/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::RoboMaker::SimulationApplication/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::RoboMaker::SimulationApplicationVersion/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::Route53::HealthCheck/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::Route53::HostedZone/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::Route53::RecordSet/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::Route53::RecordSetGroup/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::Route53Resolver::ResolverEndpoint/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::Route53Resolver::ResolverRule/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::Route53Resolver::ResolverRuleAssociation/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::S3::Bucket/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::S3::BucketPolicy/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::SDB::Domain/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::SES::ConfigurationSet/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::SES::ConfigurationSetEventDestination/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::SES::ReceiptFilter/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::SES::ReceiptRule/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::SES::ReceiptRuleSet/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::SES::Template/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::SNS::Subscription/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::SNS::Topic/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::SNS::TopicPolicy/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::SQS::Queue/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::SQS::QueuePolicy/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::SSM::Association/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::SSM::Document/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::SSM::MaintenanceWindow/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::SSM::MaintenanceWindowTarget/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::SSM::MaintenanceWindowTask/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::SSM::Parameter/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::SSM::PatchBaseline/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::SSM::ResourceDataSync/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::SageMaker::Endpoint/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::SageMaker::EndpointConfig/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::SageMaker::Model/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::SageMaker::NotebookInstance/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::SageMaker::NotebookInstanceLifecycleConfig/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::SecretsManager::ResourcePolicy/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::SecretsManager::RotationSchedule/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::SecretsManager::Secret/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::SecretsManager::SecretTargetAttachment/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::ServiceCatalog::AcceptedPortfolioShare/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::ServiceCatalog::CloudFormationProduct/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::ServiceCatalog::CloudFormationProvisionedProduct/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::ServiceCatalog::LaunchNotificationConstraint/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::ServiceCatalog::LaunchRoleConstraint/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::ServiceCatalog::LaunchTemplateConstraint/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::ServiceCatalog::Portfolio/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::ServiceCatalog::PortfolioPrincipalAssociation/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::ServiceCatalog::PortfolioProductAssociation/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::ServiceCatalog::PortfolioShare/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::ServiceCatalog::ResourceUpdateConstraint/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::ServiceCatalog::TagOption/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::ServiceCatalog::TagOptionAssociation/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::ServiceDiscovery::HttpNamespace/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::ServiceDiscovery::Instance/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::ServiceDiscovery::PrivateDnsNamespace/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::ServiceDiscovery::PublicDnsNamespace/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::ServiceDiscovery::Service/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::StepFunctions::Activity/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::StepFunctions::StateMachine/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::Transfer::Server/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::Transfer::User/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::WAF::ByteMatchSet/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::WAF::IPSet/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::WAF::Rule/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::WAF::SizeConstraintSet/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::WAF::SqlInjectionMatchSet/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::WAF::WebACL/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::WAF::XssMatchSet/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::WAFRegional::ByteMatchSet/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::WAFRegional::GeoMatchSet/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::WAFRegional::IPSet/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::WAFRegional::RateBasedRule/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::WAFRegional::RegexPatternSet/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::WAFRegional::Rule/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::WAFRegional::SizeConstraintSet/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::WAFRegional::SqlInjectionMatchSet/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::WAFRegional::WebACL/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::WAFRegional::WebACLAssociation/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::WAFRegional::XssMatchSet/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/AWS::WorkSpaces::Workspace/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  },
+  {
+    "op": "add",
+    "path": "/ResourceTypes/Alexa::ASK::Skill/Scope",
+    "value": {
+      "ScopeType": "Namespaced"
+    }
+  }
+]

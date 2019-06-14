@@ -1,0 +1,290 @@
+---
+apiVersion: models.awsoperator.io/v1alpha1
+kind: ModelFile
+metadata:
+  name: glue-table-resource
+  creationTimestamp: '2019-06-13T16:59:29-07:00'
+  resourceVersion: 3.3.0
+spec:
+  resource:
+    kind: Table
+    scope: Namespaced
+    apiGroup:
+      apiVersion: glue.awsoperator.io/v1alpha1
+      group: glue
+      region: us-east-1
+      domain: awsoperator.io
+      versions:
+      - name: v1alpha1
+        served: true
+        storage: true
+    names:
+      singular: table
+      plural: tables
+      shortNames: []
+  openAPIV3Schema:
+    properties:
+      spec:
+        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-glue-table.html
+        type: object
+        customAttributes: {}
+        required:
+        - catalogId
+        - databaseName
+        - tableInput
+        properties:
+          catalogRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-glue-table.html#cfn-glue-table-catalogid
+            type: string
+            customAttributes:
+              template: CatalogId
+              immutable: true
+          databaseName:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-glue-table.html#cfn-glue-table-databasename
+            type: string
+            customAttributes:
+              template: DatabaseName
+              immutable: true
+          tableInput:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-glue-table.html#cfn-glue-table-tableinput
+            type: object
+            customAttributes:
+              immutable: false
+            required: []
+            properties:
+              description:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-glue-table-tableinput.html#cfn-glue-table-tableinput-description
+                type: string
+                customAttributes:
+                  template: Description
+                  immutable: false
+              name:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-glue-table-tableinput.html#cfn-glue-table-tableinput-name
+                type: string
+                customAttributes:
+                  template: Name
+                  immutable: true
+              owner:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-glue-table-tableinput.html#cfn-glue-table-tableinput-owner
+                type: string
+                customAttributes:
+                  template: Owner
+                  immutable: false
+              parameters:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-glue-table-tableinput.html#cfn-glue-table-tableinput-parameters
+                customAttributes:
+                  template: Parameters
+                  immutable: false
+              partitionKeys:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-glue-table-tableinput.html#cfn-glue-table-tableinput-partitionkeys
+                type: array
+                customAttributes:
+                  template: PartitionKeys
+                  immutable: false
+                items:
+                  type: object
+                  properties:
+                    comment:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-glue-table-column.html#cfn-glue-table-column-comment
+                      type: string
+                      customAttributes:
+                        template: Comment
+                        immutable: false
+                    name:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-glue-table-column.html#cfn-glue-table-column-name
+                      type: string
+                      customAttributes:
+                        template: Name
+                        immutable: false
+                    type:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-glue-table-column.html#cfn-glue-table-column-type
+                      type: string
+                      customAttributes:
+                        template: Type
+                        immutable: false
+              retention:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-glue-table-tableinput.html#cfn-glue-table-tableinput-retention
+                type: integer
+                format: int32
+                customAttributes:
+                  template: Retention
+                  immutable: false
+              storageDescriptor:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-glue-table-tableinput.html#cfn-glue-table-tableinput-storagedescriptor
+                type: object
+                customAttributes:
+                  immutable: false
+                required: []
+                properties:
+                  bucketColumns:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-glue-table-storagedescriptor.html#cfn-glue-table-storagedescriptor-bucketcolumns
+                    type: array
+                    customAttributes:
+                      template: BucketColumns
+                      immutable: false
+                    items:
+                      type: string
+                  columns:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-glue-table-storagedescriptor.html#cfn-glue-table-storagedescriptor-columns
+                    type: array
+                    customAttributes:
+                      template: Columns
+                      immutable: false
+                    items:
+                      type: object
+                      properties:
+                        comment:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-glue-table-column.html#cfn-glue-table-column-comment
+                          type: string
+                          customAttributes:
+                            template: Comment
+                            immutable: false
+                        name:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-glue-table-column.html#cfn-glue-table-column-name
+                          type: string
+                          customAttributes:
+                            template: Name
+                            immutable: false
+                        type:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-glue-table-column.html#cfn-glue-table-column-type
+                          type: string
+                          customAttributes:
+                            template: Type
+                            immutable: false
+                  compressed:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-glue-table-storagedescriptor.html#cfn-glue-table-storagedescriptor-compressed
+                    type: boolean
+                    customAttributes:
+                      template: Compressed
+                      immutable: false
+                  inputFormat:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-glue-table-storagedescriptor.html#cfn-glue-table-storagedescriptor-inputformat
+                    type: string
+                    customAttributes:
+                      template: InputFormat
+                      immutable: false
+                  location:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-glue-table-storagedescriptor.html#cfn-glue-table-storagedescriptor-location
+                    type: string
+                    customAttributes:
+                      template: Location
+                      immutable: false
+                  numberOfBuckets:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-glue-table-storagedescriptor.html#cfn-glue-table-storagedescriptor-numberofbuckets
+                    type: integer
+                    format: int32
+                    customAttributes:
+                      template: NumberOfBuckets
+                      immutable: false
+                  outputFormat:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-glue-table-storagedescriptor.html#cfn-glue-table-storagedescriptor-outputformat
+                    type: string
+                    customAttributes:
+                      template: OutputFormat
+                      immutable: false
+                  parameters:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-glue-table-storagedescriptor.html#cfn-glue-table-storagedescriptor-parameters
+                    customAttributes:
+                      template: Parameters
+                      immutable: false
+                  serdeInfo:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-glue-table-storagedescriptor.html#cfn-glue-table-storagedescriptor-serdeinfo
+                    type: object
+                    customAttributes:
+                      immutable: false
+                    required: []
+                    properties:
+                      name:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-glue-table-serdeinfo.html#cfn-glue-table-serdeinfo-name
+                        type: string
+                        customAttributes:
+                          template: Name
+                          immutable: false
+                      parameters:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-glue-table-serdeinfo.html#cfn-glue-table-serdeinfo-parameters
+                        customAttributes:
+                          template: Parameters
+                          immutable: false
+                      serializationLibrary:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-glue-table-serdeinfo.html#cfn-glue-table-serdeinfo-serializationlibrary
+                        type: string
+                        customAttributes:
+                          template: SerializationLibrary
+                          immutable: false
+                  skewedInfo:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-glue-table-storagedescriptor.html#cfn-glue-table-storagedescriptor-skewedinfo
+                    type: object
+                    customAttributes:
+                      immutable: false
+                    required: []
+                    properties:
+                      skewedColumnNames:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-glue-table-skewedinfo.html#cfn-glue-table-skewedinfo-skewedcolumnnames
+                        type: array
+                        customAttributes:
+                          template: SkewedColumnNames
+                          immutable: false
+                        items:
+                          type: string
+                      skewedColumnValueLocationMaps:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-glue-table-skewedinfo.html#cfn-glue-table-skewedinfo-skewedcolumnvaluelocationmaps
+                        customAttributes:
+                          template: SkewedColumnValueLocationMaps
+                          immutable: false
+                      skewedColumnValues:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-glue-table-skewedinfo.html#cfn-glue-table-skewedinfo-skewedcolumnvalues
+                        type: array
+                        customAttributes:
+                          template: SkewedColumnValues
+                          immutable: false
+                        items:
+                          type: string
+                  sortColumns:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-glue-table-storagedescriptor.html#cfn-glue-table-storagedescriptor-sortcolumns
+                    type: array
+                    customAttributes:
+                      template: SortColumns
+                      immutable: false
+                    items:
+                      type: object
+                      properties:
+                        column:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-glue-table-order.html#cfn-glue-table-order-column
+                          type: string
+                          customAttributes:
+                            template: Column
+                            immutable: false
+                        sortOrder:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-glue-table-order.html#cfn-glue-table-order-sortorder
+                          type: integer
+                          format: int32
+                          customAttributes:
+                            template: SortOrder
+                            immutable: false
+                  storedAsSubDirectories:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-glue-table-storagedescriptor.html#cfn-glue-table-storagedescriptor-storedassubdirectories
+                    type: boolean
+                    customAttributes:
+                      template: StoredAsSubDirectories
+                      immutable: false
+              tableType:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-glue-table-tableinput.html#cfn-glue-table-tableinput-tabletype
+                type: string
+                customAttributes:
+                  template: TableType
+                  immutable: false
+                enum:
+                - EXTERNAL_TABLE
+                - VIRTUAL_VIEW
+              viewExpandedText:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-glue-table-tableinput.html#cfn-glue-table-tableinput-viewexpandedtext
+                type: string
+                customAttributes:
+                  template: ViewExpandedText
+                  immutable: false
+              viewOriginalText:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-glue-table-tableinput.html#cfn-glue-table-tableinput-vieworiginaltext
+                type: string
+                customAttributes:
+                  template: ViewOriginalText
+                  immutable: false

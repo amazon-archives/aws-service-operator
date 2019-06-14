@@ -1,0 +1,475 @@
+---
+apiVersion: models.awsoperator.io/v1alpha1
+kind: ModelFile
+metadata:
+  name: ec2-ec2fleet-resource
+  creationTimestamp: '2019-06-13T16:59:29-07:00'
+  resourceVersion: 3.3.0
+spec:
+  resource:
+    kind: EC2Fleet
+    scope: Namespaced
+    apiGroup:
+      apiVersion: ec2.awsoperator.io/v1alpha1
+      group: ec2
+      region: us-east-1
+      domain: awsoperator.io
+      versions:
+      - name: v1alpha1
+        served: true
+        storage: true
+    names:
+      singular: ec2fleet
+      plural: ec2fleets
+      shortNames: []
+  openAPIV3Schema:
+    properties:
+      spec:
+        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-ec2fleet.html
+        type: object
+        customAttributes: {}
+        required:
+        - launchTemplateConfigs
+        - targetCapacitySpecification
+        properties:
+          excessCapacityTerminationPolicy:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-ec2fleet.html#cfn-ec2-ec2fleet-excesscapacityterminationpolicy
+            type: string
+            customAttributes:
+              template: ExcessCapacityTerminationPolicy
+              immutable: false
+            enum:
+            - no-termination
+            - termination
+          launchTemplateConfigs:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-ec2fleet.html#cfn-ec2-ec2fleet-launchtemplateconfigs
+            type: array
+            customAttributes:
+              template: LaunchTemplateConfigs
+              immutable: true
+            items:
+              type: object
+              properties:
+                launchTemplateSpecification:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-ec2fleet-fleetlaunchtemplateconfigrequest.html#cfn-ec2-ec2fleet-fleetlaunchtemplateconfigrequest-launchtemplatespecification
+                  type: object
+                  customAttributes:
+                    immutable: false
+                  required: []
+                  properties:
+                    launchTemplateRef:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-ec2fleet-fleetlaunchtemplatespecificationrequest.html#cfn-ec2-ec2fleet-fleetlaunchtemplatespecificationrequest-launchtemplateid
+                      type: string
+                      customAttributes:
+                        template: LaunchTemplateId
+                        immutable: false
+                    launchTemplateName:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-ec2fleet-fleetlaunchtemplatespecificationrequest.html#cfn-ec2-ec2fleet-fleetlaunchtemplatespecificationrequest-launchtemplatename
+                      type: string
+                      customAttributes:
+                        template: LaunchTemplateName
+                        immutable: false
+                    version:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-ec2fleet-fleetlaunchtemplatespecificationrequest.html#cfn-ec2-ec2fleet-fleetlaunchtemplatespecificationrequest-version
+                      type: string
+                      customAttributes:
+                        template: Version
+                        immutable: false
+                overrides:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-ec2fleet-fleetlaunchtemplateconfigrequest.html#cfn-ec2-ec2fleet-fleetlaunchtemplateconfigrequest-overrides
+                  type: array
+                  customAttributes:
+                    template: Overrides
+                    immutable: false
+                  items:
+                    type: object
+                    properties:
+                      availabilityZone:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-ec2fleet-fleetlaunchtemplateoverridesrequest.html#cfn-ec2-ec2fleet-fleetlaunchtemplateoverridesrequest-availabilityzone
+                        type: string
+                        customAttributes:
+                          template: AvailabilityZone
+                          immutable: false
+                      instanceType:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-ec2fleet-fleetlaunchtemplateoverridesrequest.html#cfn-ec2-ec2fleet-fleetlaunchtemplateoverridesrequest-instancetype
+                        type: string
+                        customAttributes:
+                          template: InstanceType
+                          immutable: false
+                        enum:
+                        - a1.2xlarge
+                        - a1.4xlarge
+                        - a1.large
+                        - a1.medium
+                        - a1.xlarge
+                        - c1.medium
+                        - c1.xlarge
+                        - c3.2xlarge
+                        - c3.4xlarge
+                        - c3.8xlarge
+                        - c3.large
+                        - c3.xlarge
+                        - c4.2xlarge
+                        - c4.4xlarge
+                        - c4.8xlarge
+                        - c4.large
+                        - c4.xlarge
+                        - c5.18xlarge
+                        - c5.2xlarge
+                        - c5.4xlarge
+                        - c5.9xlarge
+                        - c5.large
+                        - c5.xlarge
+                        - c5d.18xlarge
+                        - c5d.2xlarge
+                        - c5d.4xlarge
+                        - c5d.9xlarge
+                        - c5d.large
+                        - c5d.xlarge
+                        - c5n.18xlarge
+                        - c5n.2xlarge
+                        - c5n.4xlarge
+                        - c5n.9xlarge
+                        - c5n.large
+                        - c5n.xlarge
+                        - cc2.8xlarge
+                        - cr1.8xlarge
+                        - d2.2xlarge
+                        - d2.4xlarge
+                        - d2.8xlarge
+                        - d2.xlarge
+                        - f1.16xlarge
+                        - f1.2xlarge
+                        - f1.4xlarge
+                        - g2.2xlarge
+                        - g2.8xlarge
+                        - g3.16xlarge
+                        - g3.4xlarge
+                        - g3.8xlarge
+                        - g3s.xlarge
+                        - h1.16xlarge
+                        - h1.2xlarge
+                        - h1.4xlarge
+                        - h1.8xlarge
+                        - hs1.8xlarge
+                        - i2.2xlarge
+                        - i2.4xlarge
+                        - i2.8xlarge
+                        - i2.xlarge
+                        - i3.16xlarge
+                        - i3.2xlarge
+                        - i3.4xlarge
+                        - i3.8xlarge
+                        - i3.large
+                        - i3.xlarge
+                        - i3en.12xlarge
+                        - i3en.24xlarge
+                        - i3en.2xlarge
+                        - i3en.3xlarge
+                        - i3en.6xlarge
+                        - i3en.large
+                        - i3en.xlarge
+                        - m1.large
+                        - m1.medium
+                        - m1.small
+                        - m1.xlarge
+                        - m2.2xlarge
+                        - m2.4xlarge
+                        - m2.xlarge
+                        - m3.2xlarge
+                        - m3.large
+                        - m3.medium
+                        - m3.xlarge
+                        - m4.10xlarge
+                        - m4.16xlarge
+                        - m4.2xlarge
+                        - m4.4xlarge
+                        - m4.large
+                        - m4.xlarge
+                        - m5.12xlarge
+                        - m5.24xlarge
+                        - m5.2xlarge
+                        - m5.4xlarge
+                        - m5.large
+                        - m5.metal
+                        - m5.xlarge
+                        - m5a.12xlarge
+                        - m5a.24xlarge
+                        - m5a.2xlarge
+                        - m5a.4xlarge
+                        - m5a.large
+                        - m5a.xlarge
+                        - m5ad.12xlarge
+                        - m5ad.24xlarge
+                        - m5ad.2xlarge
+                        - m5ad.4xlarge
+                        - m5ad.large
+                        - m5ad.xlarge
+                        - m5d.12xlarge
+                        - m5d.24xlarge
+                        - m5d.2xlarge
+                        - m5d.4xlarge
+                        - m5d.large
+                        - m5d.metal
+                        - m5d.xlarge
+                        - p2.16xlarge
+                        - p2.8xlarge
+                        - p2.xlarge
+                        - p3.16xlarge
+                        - p3.2xlarge
+                        - p3.8xlarge
+                        - p3dn.24xlarge
+                        - r3.2xlarge
+                        - r3.4xlarge
+                        - r3.8xlarge
+                        - r3.large
+                        - r3.xlarge
+                        - r4.16xlarge
+                        - r4.2xlarge
+                        - r4.4xlarge
+                        - r4.8xlarge
+                        - r4.large
+                        - r4.xlarge
+                        - r5.12xlarge
+                        - r5.24xlarge
+                        - r5.2xlarge
+                        - r5.4xlarge
+                        - r5.large
+                        - r5.xlarge
+                        - r5a.12xlarge
+                        - r5a.24xlarge
+                        - r5a.2xlarge
+                        - r5a.4xlarge
+                        - r5a.large
+                        - r5a.xlarge
+                        - r5ad.12xlarge
+                        - r5ad.24xlarge
+                        - r5ad.2xlarge
+                        - r5ad.4xlarge
+                        - r5ad.large
+                        - r5ad.xlarge
+                        - r5d.12xlarge
+                        - r5d.24xlarge
+                        - r5d.2xlarge
+                        - r5d.4xlarge
+                        - r5d.large
+                        - r5d.xlarge
+                        - t1.micro
+                        - t2.2xlarge
+                        - t2.large
+                        - t2.medium
+                        - t2.micro
+                        - t2.nano
+                        - t2.small
+                        - t2.xlarge
+                        - t3.2xlarge
+                        - t3.large
+                        - t3.medium
+                        - t3.micro
+                        - t3.nano
+                        - t3.small
+                        - t3.xlarge
+                        - t3a.2xlarge
+                        - t3a.large
+                        - t3a.medium
+                        - t3a.micro
+                        - t3a.nano
+                        - t3a.small
+                        - t3a.xlarge
+                        - x1.16xlarge
+                        - x1.32xlarge
+                        - x1e.16xlarge
+                        - x1e.2xlarge
+                        - x1e.32xlarge
+                        - x1e.4xlarge
+                        - x1e.8xlarge
+                        - x1e.xlarge
+                        - z1d.12xlarge
+                        - z1d.2xlarge
+                        - z1d.3xlarge
+                        - z1d.6xlarge
+                        - z1d.large
+                        - z1d.xlarge
+                      maxPrice:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-ec2fleet-fleetlaunchtemplateoverridesrequest.html#cfn-ec2-ec2fleet-fleetlaunchtemplateoverridesrequest-maxprice
+                        type: string
+                        customAttributes:
+                          template: MaxPrice
+                          immutable: false
+                      priority:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-ec2fleet-fleetlaunchtemplateoverridesrequest.html#cfn-ec2-ec2fleet-fleetlaunchtemplateoverridesrequest-priority
+                        type: integer
+                        format: double
+                        customAttributes:
+                          template: Priority
+                          immutable: false
+                      subnetRef:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-ec2fleet-fleetlaunchtemplateoverridesrequest.html#cfn-ec2-ec2fleet-fleetlaunchtemplateoverridesrequest-subnetid
+                        type: string
+                        customAttributes:
+                          template: SubnetId
+                          immutable: false
+                      weightedCapacity:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-ec2fleet-fleetlaunchtemplateoverridesrequest.html#cfn-ec2-ec2fleet-fleetlaunchtemplateoverridesrequest-weightedcapacity
+                        type: integer
+                        format: double
+                        customAttributes:
+                          template: WeightedCapacity
+                          immutable: false
+          onDemandOptions:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-ec2fleet.html#cfn-ec2-ec2fleet-ondemandoptions
+            type: object
+            customAttributes:
+              immutable: true
+            required: []
+            properties:
+              allocationStrategy:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-ec2fleet-ondemandoptionsrequest.html#cfn-ec2-ec2fleet-ondemandoptionsrequest-allocationstrategy
+                type: string
+                customAttributes:
+                  template: AllocationStrategy
+                  immutable: false
+                enum:
+                - lowest-price
+                - prioritized
+          replaceUnhealthyInstances:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-ec2fleet.html#cfn-ec2-ec2fleet-replaceunhealthyinstances
+            type: boolean
+            customAttributes:
+              template: ReplaceUnhealthyInstances
+              immutable: true
+          spotOptions:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-ec2fleet.html#cfn-ec2-ec2fleet-spotoptions
+            type: object
+            customAttributes:
+              immutable: true
+            required: []
+            properties:
+              allocationStrategy:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-ec2fleet-spotoptionsrequest.html#cfn-ec2-ec2fleet-spotoptionsrequest-allocationstrategy
+                type: string
+                customAttributes:
+                  template: AllocationStrategy
+                  immutable: false
+                enum:
+                - diversified
+                - lowest-price
+              instanceInterruptionBehavior:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-ec2fleet-spotoptionsrequest.html#cfn-ec2-ec2fleet-spotoptionsrequest-instanceinterruptionbehavior
+                type: string
+                customAttributes:
+                  template: InstanceInterruptionBehavior
+                  immutable: false
+                enum:
+                - hibernate
+                - stop
+                - terminate
+              instancePoolsToUseCount:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-ec2fleet-spotoptionsrequest.html#cfn-ec2-ec2fleet-spotoptionsrequest-instancepoolstousecount
+                type: integer
+                format: int32
+                customAttributes:
+                  template: InstancePoolsToUseCount
+                  immutable: false
+          tagSpecifications:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-ec2fleet.html#cfn-ec2-ec2fleet-tagspecifications
+            type: array
+            customAttributes:
+              template: TagSpecifications
+              immutable: true
+            items:
+              type: object
+              properties:
+                resourceType:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-ec2fleet-tagspecification.html#cfn-ec2-ec2fleet-tagspecification-resourcetype
+                  type: string
+                  customAttributes:
+                    template: ResourceType
+                    immutable: false
+                tags:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-ec2fleet-tagspecification.html#cfn-ec2-ec2fleet-tagspecification-tags
+                  type: array
+                  customAttributes:
+                    template: Tags
+                    immutable: false
+                  items:
+                    type: object
+                    properties:
+                      key:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-ec2fleet-tagrequest.html#cfn-ec2-ec2fleet-tagrequest-key
+                        type: string
+                        customAttributes:
+                          template: Key
+                          immutable: false
+                      value:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-ec2fleet-tagrequest.html#cfn-ec2-ec2fleet-tagrequest-value
+                        type: string
+                        customAttributes:
+                          template: Value
+                          immutable: false
+          targetCapacitySpecification:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-ec2fleet.html#cfn-ec2-ec2fleet-targetcapacityspecification
+            type: object
+            customAttributes:
+              immutable: false
+            required:
+            - totalTargetCapacity
+            properties:
+              defaultTargetCapacityType:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-ec2fleet-targetcapacityspecificationrequest.html#cfn-ec2-ec2fleet-targetcapacityspecificationrequest-defaulttargetcapacitytype
+                type: string
+                customAttributes:
+                  template: DefaultTargetCapacityType
+                  immutable: false
+                enum:
+                - on-demand
+                - spot
+              onDemandTargetCapacity:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-ec2fleet-targetcapacityspecificationrequest.html#cfn-ec2-ec2fleet-targetcapacityspecificationrequest-ondemandtargetcapacity
+                type: integer
+                format: int32
+                customAttributes:
+                  template: OnDemandTargetCapacity
+                  immutable: false
+              spotTargetCapacity:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-ec2fleet-targetcapacityspecificationrequest.html#cfn-ec2-ec2fleet-targetcapacityspecificationrequest-spottargetcapacity
+                type: integer
+                format: int32
+                customAttributes:
+                  template: SpotTargetCapacity
+                  immutable: false
+              totalTargetCapacity:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-ec2fleet-targetcapacityspecificationrequest.html#cfn-ec2-ec2fleet-targetcapacityspecificationrequest-totaltargetcapacity
+                type: integer
+                format: int32
+                customAttributes:
+                  template: TotalTargetCapacity
+                  immutable: false
+          terminateInstancesWithExpiration:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-ec2fleet.html#cfn-ec2-ec2fleet-terminateinstanceswithexpiration
+            type: boolean
+            customAttributes:
+              template: TerminateInstancesWithExpiration
+              immutable: true
+          type:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-ec2fleet.html#cfn-ec2-ec2fleet-type
+            type: string
+            customAttributes:
+              template: Type
+              immutable: true
+            enum:
+            - instant
+            - maintain
+            - request
+          validFrom:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-ec2fleet.html#cfn-ec2-ec2fleet-validfrom
+            type: string
+            customAttributes:
+              template: ValidFrom
+              immutable: true
+          validUntil:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-ec2fleet.html#cfn-ec2-ec2fleet-validuntil
+            type: string
+            customAttributes:
+              template: ValidUntil
+              immutable: true

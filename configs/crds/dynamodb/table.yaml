@@ -1,0 +1,310 @@
+---
+apiVersion: apiextensions.k8s.io/v1beta1
+kind: CustomResourceDefinition
+metadata:
+  name: tables.dynamodb.awsoperator.io
+spec:
+  group: dynamodb.awsoperator.io
+  versions:
+  - name: v1alpha1
+    served: true
+    storage: true
+  scope: Namespaced
+  names:
+    plural: tables
+    singular: table
+    kind: Table
+    shortNames: []
+    categories:
+    - aws
+    - dynamodb
+  additionalPrinterColumns:
+  - name: Status
+    type: string
+    description: Status for the AWS CloudFormation stack.
+    JSONPath: ".status.reason"
+  - name: Message
+    type: string
+    description: Message accompanying it's current stack status.
+    JSONPath: ".status.message"
+    priority: 1
+  - name: Created At
+    type: date
+    description: When the resource was created
+    JSONPath: ".metadata.creationTimestamp"
+  subresources:
+    status: {}
+  validation:
+    openAPIV3Schema:
+      properties:
+        spec:
+          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-dynamodb-table.html
+          type: object
+          required:
+          - attributeDefinitions
+          - keySchema
+          properties:
+            attributeDefinitions:
+              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-dynamodb-table.html#cfn-dynamodb-table-attributedef
+              type: array
+              items:
+                type: object
+                properties:
+                  attributeName:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-dynamodb-attributedef.html#cfn-dynamodb-attributedef-attributename
+                    type: string
+                    customAttributes:
+                      template: AttributeName
+                      immutable: false
+                  attributeType:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-dynamodb-attributedef.html#cfn-dynamodb-attributedef-attributename-attributetype
+                    type: string
+                    customAttributes:
+                      template: AttributeType
+                      immutable: false
+                    enum:
+                    - B
+                    - N
+                    - S
+            billingMode:
+              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-dynamodb-table.html#cfn-dynamodb-table-billingmode
+              type: string
+              enum:
+              - PAY_PER_REQUEST
+              - PROVISIONED
+            globalSecondaryIndexes:
+              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-dynamodb-table.html#cfn-dynamodb-table-gsi
+              type: array
+              items:
+                type: object
+                properties:
+                  indexName:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-dynamodb-gsi.html#cfn-dynamodb-gsi-indexname
+                    type: string
+                    customAttributes:
+                      template: IndexName
+                      immutable: false
+                  keySchema:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-dynamodb-gsi.html#cfn-dynamodb-gsi-keyschema
+                    type: array
+                    customAttributes:
+                      template: KeySchema
+                      immutable: false
+                    items:
+                      type: object
+                      properties:
+                        attributeName:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-dynamodb-keyschema.html#aws-properties-dynamodb-keyschema-attributename
+                          type: string
+                          customAttributes:
+                            template: AttributeName
+                            immutable: false
+                        keyType:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-dynamodb-keyschema.html#aws-properties-dynamodb-keyschema-keytype
+                          type: string
+                          customAttributes:
+                            template: KeyType
+                            immutable: false
+                          enum: &1
+                          - HASH
+                          - RANGE
+                  projection:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-dynamodb-gsi.html#cfn-dynamodb-gsi-projection
+                    type: object
+                    customAttributes:
+                      immutable: false
+                    required: []
+                    properties:
+                      nonKeyAttributes:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-dynamodb-projectionobject.html#cfn-dynamodb-projectionobj-nonkeyatt
+                        type: array
+                        customAttributes:
+                          template: NonKeyAttributes
+                          immutable: false
+                        items:
+                          type: string
+                      projectionType:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-dynamodb-projectionobject.html#cfn-dynamodb-projectionobj-projtype
+                        type: string
+                        customAttributes:
+                          template: ProjectionType
+                          immutable: false
+                        enum: &2
+                        - ALL
+                        - INCLUDE
+                        - KEYS_ONLY
+                  provisionedThroughput:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-dynamodb-gsi.html#cfn-dynamodb-gsi-provisionedthroughput
+                    type: object
+                    customAttributes:
+                      immutable: false
+                    required:
+                    - readCapacityUnits
+                    - writeCapacityUnits
+                    properties:
+                      readCapacityUnits:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-dynamodb-provisionedthroughput.html#cfn-dynamodb-provisionedthroughput-readcapacityunits
+                        type: integer
+                        format: int64
+                        customAttributes:
+                          template: ReadCapacityUnits
+                          immutable: false
+                      writeCapacityUnits:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-dynamodb-provisionedthroughput.html#cfn-dynamodb-provisionedthroughput-writecapacityunits
+                        type: integer
+                        format: int64
+                        customAttributes:
+                          template: WriteCapacityUnits
+                          immutable: false
+            keySchema:
+              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-dynamodb-table.html#cfn-dynamodb-table-keyschema
+              type: array
+              items:
+                type: object
+                properties:
+                  attributeName:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-dynamodb-keyschema.html#aws-properties-dynamodb-keyschema-attributename
+                    type: string
+                    customAttributes:
+                      template: AttributeName
+                      immutable: false
+                  keyType:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-dynamodb-keyschema.html#aws-properties-dynamodb-keyschema-keytype
+                    type: string
+                    customAttributes:
+                      template: KeyType
+                      immutable: false
+                    enum: *1
+            localSecondaryIndexes:
+              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-dynamodb-table.html#cfn-dynamodb-table-lsi
+              type: array
+              items:
+                type: object
+                properties:
+                  indexName:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-dynamodb-lsi.html#cfn-dynamodb-lsi-indexname
+                    type: string
+                    customAttributes:
+                      template: IndexName
+                      immutable: false
+                  keySchema:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-dynamodb-lsi.html#cfn-dynamodb-lsi-keyschema
+                    type: array
+                    customAttributes:
+                      template: KeySchema
+                      immutable: false
+                    items:
+                      type: object
+                      properties:
+                        attributeName:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-dynamodb-keyschema.html#aws-properties-dynamodb-keyschema-attributename
+                          type: string
+                          customAttributes:
+                            template: AttributeName
+                            immutable: false
+                        keyType:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-dynamodb-keyschema.html#aws-properties-dynamodb-keyschema-keytype
+                          type: string
+                          customAttributes:
+                            template: KeyType
+                            immutable: false
+                          enum: *1
+                  projection:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-dynamodb-lsi.html#cfn-dynamodb-lsi-projection
+                    type: object
+                    customAttributes:
+                      immutable: false
+                    required: []
+                    properties:
+                      nonKeyAttributes:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-dynamodb-projectionobject.html#cfn-dynamodb-projectionobj-nonkeyatt
+                        type: array
+                        customAttributes:
+                          template: NonKeyAttributes
+                          immutable: false
+                        items:
+                          type: string
+                      projectionType:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-dynamodb-projectionobject.html#cfn-dynamodb-projectionobj-projtype
+                        type: string
+                        customAttributes:
+                          template: ProjectionType
+                          immutable: false
+                        enum: *2
+            pointInTimeRecoverySpecification:
+              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-dynamodb-table.html#cfn-dynamodb-table-pointintimerecoveryspecification
+              type: object
+              required: []
+              properties:
+                pointInTimeRecoveryEnabled:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-dynamodb-table-pointintimerecoveryspecification.html#cfn-dynamodb-table-pointintimerecoveryspecification-pointintimerecoveryenabled
+                  type: boolean
+            provisionedThroughput:
+              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-dynamodb-table.html#cfn-dynamodb-table-provisionedthroughput
+              type: object
+              required:
+              - readCapacityUnits
+              - writeCapacityUnits
+              properties:
+                readCapacityUnits:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-dynamodb-provisionedthroughput.html#cfn-dynamodb-provisionedthroughput-readcapacityunits
+                  type: integer
+                  format: int64
+                writeCapacityUnits:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-dynamodb-provisionedthroughput.html#cfn-dynamodb-provisionedthroughput-writecapacityunits
+                  type: integer
+                  format: int64
+            sSESpecification:
+              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-dynamodb-table.html#cfn-dynamodb-table-ssespecification
+              type: object
+              required:
+              - sSEEnabled
+              properties:
+                sSEEnabled:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-dynamodb-table-ssespecification.html#cfn-dynamodb-table-ssespecification-sseenabled
+                  type: boolean
+            streamSpecification:
+              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-dynamodb-table.html#cfn-dynamodb-table-streamspecification
+              type: object
+              required:
+              - streamViewType
+              properties:
+                streamViewType:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-dynamodb-streamspecification.html#cfn-dynamodb-streamspecification-streamviewtype
+                  type: string
+                  enum:
+                  - KEYS_ONLY
+                  - NEW_AND_OLD_IMAGES
+                  - NEW_IMAGE
+                  - OLD_IMAGE
+            tags:
+              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-dynamodb-table.html#cfn-dynamodb-table-tags
+              type: array
+              items:
+                type: object
+                properties:
+                  key:
+                    description: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-resource-tags.html#cfn-resource-tags-key
+                    type: string
+                    customAttributes:
+                      template: Key
+                      immutable: false
+                  value:
+                    description: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-resource-tags.html#cfn-resource-tags-value
+                    type: string
+                    customAttributes:
+                      template: Value
+                      immutable: false
+            timeToLiveSpecification:
+              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-dynamodb-table.html#cfn-dynamodb-table-timetolivespecification
+              type: object
+              required:
+              - attributeName
+              - enabled
+              properties:
+                attributeName:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-dynamodb-timetolivespecification.html#cfn-dynamodb-timetolivespecification-attributename
+                  type: string
+                enabled:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-dynamodb-timetolivespecification.html#cfn-dynamodb-timetolivespecification-enabled
+                  type: boolean

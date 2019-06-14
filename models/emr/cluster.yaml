@@ -1,0 +1,1321 @@
+---
+apiVersion: models.awsoperator.io/v1alpha1
+kind: ModelFile
+metadata:
+  name: emr-cluster-resource
+  creationTimestamp: '2019-06-13T16:59:29-07:00'
+  resourceVersion: 3.3.0
+spec:
+  resource:
+    kind: Cluster
+    scope: Namespaced
+    apiGroup:
+      apiVersion: emr.awsoperator.io/v1alpha1
+      group: emr
+      region: us-east-1
+      domain: awsoperator.io
+      versions:
+      - name: v1alpha1
+        served: true
+        storage: true
+    names:
+      singular: cluster
+      plural: clusters
+      shortNames: []
+  openAPIV3Schema:
+    properties:
+      spec:
+        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticmapreduce-cluster.html
+        type: object
+        customAttributes: {}
+        required:
+        - instances
+        - jobFlowRole
+        - name
+        - serviceRole
+        properties:
+          additionalInfo:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticmapreduce-cluster.html#cfn-elasticmapreduce-cluster-additionalinfo
+            customAttributes:
+              template: AdditionalInfo
+              immutable: true
+          applications:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticmapreduce-cluster.html#cfn-elasticmapreduce-cluster-applications
+            type: array
+            customAttributes:
+              template: Applications
+              immutable: true
+            items:
+              type: object
+              properties:
+                additionalInfo:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-application.html#cfn-elasticmapreduce-cluster-application-additionalinfo
+                  type: json
+                  customAttributes:
+                    template: AdditionalInfo
+                    immutable: false
+                args:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-application.html#cfn-elasticmapreduce-cluster-application-args
+                  type: array
+                  customAttributes:
+                    template: Args
+                    immutable: false
+                  items:
+                    type: string
+                name:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-application.html#cfn-elasticmapreduce-cluster-application-name
+                  type: string
+                  customAttributes:
+                    template: Name
+                    immutable: false
+                version:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-application.html#cfn-elasticmapreduce-cluster-application-version
+                  type: string
+                  customAttributes:
+                    template: Version
+                    immutable: false
+          autoScalingRole:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticmapreduce-cluster.html#cfn-elasticmapreduce-cluster-autoscalingrole
+            type: string
+            customAttributes:
+              template: AutoScalingRole
+              immutable: true
+          bootstrapActions:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticmapreduce-cluster.html#cfn-elasticmapreduce-cluster-bootstrapactions
+            type: array
+            customAttributes:
+              template: BootstrapActions
+              immutable: true
+            items:
+              type: object
+              properties:
+                name:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-bootstrapactionconfig.html#cfn-elasticmapreduce-cluster-bootstrapactionconfig-name
+                  type: string
+                  customAttributes:
+                    template: Name
+                    immutable: false
+                scriptBootstrapAction:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-bootstrapactionconfig.html#cfn-elasticmapreduce-cluster-bootstrapactionconfig-scriptbootstrapaction
+                  type: object
+                  customAttributes:
+                    immutable: false
+                  required:
+                  - path
+                  properties:
+                    args:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-scriptbootstrapactionconfig.html#cfn-elasticmapreduce-cluster-scriptbootstrapactionconfig-args
+                      type: array
+                      customAttributes:
+                        template: Args
+                        immutable: false
+                      items:
+                        type: string
+                    path:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-scriptbootstrapactionconfig.html#cfn-elasticmapreduce-cluster-scriptbootstrapactionconfig-path
+                      type: string
+                      customAttributes:
+                        template: Path
+                        immutable: false
+          configurations:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticmapreduce-cluster.html#cfn-elasticmapreduce-cluster-configurations
+            type: array
+            customAttributes:
+              template: Configurations
+              immutable: true
+            items:
+              type: object
+              properties: {}
+          customAmiRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticmapreduce-cluster.html#cfn-elasticmapreduce-cluster-customamiid
+            type: string
+            customAttributes:
+              template: CustomAmiId
+              immutable: true
+          ebsRootVolumeSize:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticmapreduce-cluster.html#cfn-elasticmapreduce-cluster-ebsrootvolumesize
+            type: integer
+            format: int32
+            customAttributes:
+              template: EbsRootVolumeSize
+              immutable: true
+          instances:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticmapreduce-cluster.html#cfn-elasticmapreduce-cluster-instances
+            type: object
+            customAttributes: {}
+            required: []
+            properties:
+              additionalMasterSecurityGroups:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-jobflowinstancesconfig.html#cfn-elasticmapreduce-cluster-jobflowinstancesconfig-additionalmastersecuritygroups
+                type: array
+                customAttributes:
+                  template: AdditionalMasterSecurityGroups
+                  immutable: true
+                items:
+                  type: string
+              additionalSlaveSecurityGroups:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-jobflowinstancesconfig.html#cfn-elasticmapreduce-cluster-jobflowinstancesconfig-additionalslavesecuritygroups
+                type: array
+                customAttributes:
+                  template: AdditionalSlaveSecurityGroups
+                  immutable: true
+                items:
+                  type: string
+              coreInstanceFleet:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-jobflowinstancesconfig.html#cfn-elasticmapreduce-cluster-jobflowinstancesconfig-coreinstancefleet
+                type: object
+                customAttributes:
+                  immutable: true
+                required: []
+                properties:
+                  instanceTypeConfigs:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-instancefleetconfig.html#cfn-elasticmapreduce-cluster-instancefleetconfig-instancetypeconfigs
+                    type: array
+                    customAttributes:
+                      template: InstanceTypeConfigs
+                      immutable: true
+                    items:
+                      type: object
+                      properties:
+                        bidPrice:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-instancetypeconfig.html#cfn-elasticmapreduce-cluster-instancetypeconfig-bidprice
+                          type: string
+                          customAttributes:
+                            template: BidPrice
+                            immutable: true
+                        bidPriceAsPercentageOfOnDemandPrice:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-instancetypeconfig.html#cfn-elasticmapreduce-cluster-instancetypeconfig-bidpriceaspercentageofondemandprice
+                          type: integer
+                          format: double
+                          customAttributes:
+                            template: BidPriceAsPercentageOfOnDemandPrice
+                            immutable: true
+                        configurations:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-instancetypeconfig.html#cfn-elasticmapreduce-cluster-instancetypeconfig-configurations
+                          type: array
+                          customAttributes:
+                            template: Configurations
+                            immutable: true
+                          items:
+                            type: object
+                            properties: {}
+                        ebsConfiguration:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-instancetypeconfig.html#cfn-elasticmapreduce-cluster-instancetypeconfig-ebsconfiguration
+                          type: object
+                          customAttributes:
+                            immutable: true
+                          required: []
+                          properties:
+                            ebsBlockDeviceConfigs:
+                              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-ebsconfiguration.html#cfn-elasticmapreduce-cluster-ebsconfiguration-ebsblockdeviceconfigs
+                              type: array
+                              customAttributes:
+                                template: EbsBlockDeviceConfigs
+                                immutable: false
+                              items:
+                                type: object
+                                properties:
+                                  volumeSpecification:
+                                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-ebsblockdeviceconfig.html#cfn-elasticmapreduce-cluster-ebsblockdeviceconfig-volumespecification
+                                    type: object
+                                    customAttributes:
+                                      immutable: false
+                                    required:
+                                    - sizeInGB
+                                    - volumeType
+                                    properties:
+                                      iops:
+                                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-volumespecification.html#cfn-elasticmapreduce-cluster-volumespecification-iops
+                                        type: integer
+                                        format: int32
+                                        customAttributes:
+                                          template: Iops
+                                          immutable: false
+                                      sizeInGB:
+                                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-volumespecification.html#cfn-elasticmapreduce-cluster-volumespecification-sizeingb
+                                        type: integer
+                                        format: int32
+                                        customAttributes:
+                                          template: SizeInGB
+                                          immutable: false
+                                      volumeType:
+                                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-volumespecification.html#cfn-elasticmapreduce-cluster-volumespecification-volumetype
+                                        type: string
+                                        customAttributes:
+                                          template: VolumeType
+                                          immutable: false
+                                  volumesPerInstance:
+                                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-ebsblockdeviceconfig.html#cfn-elasticmapreduce-cluster-ebsblockdeviceconfig-volumesperinstance
+                                    type: integer
+                                    format: int32
+                                    customAttributes:
+                                      template: VolumesPerInstance
+                                      immutable: false
+                            ebsOptimized:
+                              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-ebsconfiguration.html#cfn-elasticmapreduce-cluster-ebsconfiguration-ebsoptimized
+                              type: boolean
+                              customAttributes:
+                                template: EbsOptimized
+                                immutable: false
+                        instanceType:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-instancetypeconfig.html#cfn-elasticmapreduce-cluster-instancetypeconfig-instancetype
+                          type: string
+                          customAttributes:
+                            template: InstanceType
+                            immutable: true
+                        weightedCapacity:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-instancetypeconfig.html#cfn-elasticmapreduce-cluster-instancetypeconfig-weightedcapacity
+                          type: integer
+                          format: int32
+                          customAttributes:
+                            template: WeightedCapacity
+                            immutable: true
+                  launchSpecifications:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-instancefleetconfig.html#cfn-elasticmapreduce-cluster-instancefleetconfig-launchspecifications
+                    type: object
+                    customAttributes:
+                      immutable: true
+                    required:
+                    - spotSpecification
+                    properties:
+                      spotSpecification:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-instancefleetprovisioningspecifications.html#cfn-elasticmapreduce-cluster-instancefleetprovisioningspecifications-spotspecification
+                        type: object
+                        customAttributes:
+                          immutable: false
+                        required:
+                        - timeoutAction
+                        - timeoutDurationMinutes
+                        properties:
+                          blockDurationMinutes:
+                            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-spotprovisioningspecification.html#cfn-elasticmapreduce-cluster-spotprovisioningspecification-blockdurationminutes
+                            type: integer
+                            format: int32
+                            customAttributes:
+                              template: BlockDurationMinutes
+                              immutable: false
+                          timeoutAction:
+                            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-spotprovisioningspecification.html#cfn-elasticmapreduce-cluster-spotprovisioningspecification-timeoutaction
+                            type: string
+                            customAttributes:
+                              template: TimeoutAction
+                              immutable: false
+                          timeoutDurationMinutes:
+                            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-spotprovisioningspecification.html#cfn-elasticmapreduce-cluster-spotprovisioningspecification-timeoutdurationminutes
+                            type: integer
+                            format: int32
+                            customAttributes:
+                              template: TimeoutDurationMinutes
+                              immutable: false
+                  name:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-instancefleetconfig.html#cfn-elasticmapreduce-cluster-instancefleetconfig-name
+                    type: string
+                    customAttributes:
+                      template: Name
+                      immutable: true
+                  targetOnDemandCapacity:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-instancefleetconfig.html#cfn-elasticmapreduce-cluster-instancefleetconfig-targetondemandcapacity
+                    type: integer
+                    format: int32
+                    customAttributes:
+                      template: TargetOnDemandCapacity
+                      immutable: false
+                  targetSpotCapacity:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-instancefleetconfig.html#cfn-elasticmapreduce-cluster-instancefleetconfig-targetspotcapacity
+                    type: integer
+                    format: int32
+                    customAttributes:
+                      template: TargetSpotCapacity
+                      immutable: false
+              coreInstanceGroup:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-jobflowinstancesconfig.html#cfn-elasticmapreduce-cluster-jobflowinstancesconfig-coreinstancegroup
+                type: object
+                customAttributes:
+                  immutable: true
+                required:
+                - instanceCount
+                - instanceType
+                properties:
+                  autoScalingPolicy:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-instancegroupconfig.html#cfn-elasticmapreduce-cluster-instancegroupconfig-autoscalingpolicy
+                    type: object
+                    customAttributes:
+                      immutable: false
+                    required:
+                    - constraints
+                    - rules
+                    properties:
+                      constraints:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-autoscalingpolicy.html#cfn-elasticmapreduce-cluster-autoscalingpolicy-constraints
+                        type: object
+                        customAttributes:
+                          immutable: false
+                        required:
+                        - maxCapacity
+                        - minCapacity
+                        properties:
+                          maxCapacity:
+                            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-scalingconstraints.html#cfn-elasticmapreduce-cluster-scalingconstraints-maxcapacity
+                            type: integer
+                            format: int32
+                            customAttributes:
+                              template: MaxCapacity
+                              immutable: false
+                          minCapacity:
+                            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-scalingconstraints.html#cfn-elasticmapreduce-cluster-scalingconstraints-mincapacity
+                            type: integer
+                            format: int32
+                            customAttributes:
+                              template: MinCapacity
+                              immutable: false
+                      rules:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-autoscalingpolicy.html#cfn-elasticmapreduce-cluster-autoscalingpolicy-rules
+                        type: array
+                        customAttributes:
+                          template: Rules
+                          immutable: false
+                        items:
+                          type: object
+                          properties:
+                            action:
+                              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-scalingrule.html#cfn-elasticmapreduce-cluster-scalingrule-action
+                              type: object
+                              customAttributes:
+                                immutable: false
+                              required:
+                              - simpleScalingPolicyConfiguration
+                              properties:
+                                market:
+                                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-scalingaction.html#cfn-elasticmapreduce-cluster-scalingaction-market
+                                  type: string
+                                  customAttributes:
+                                    template: Market
+                                    immutable: false
+                                simpleScalingPolicyConfiguration:
+                                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-scalingaction.html#cfn-elasticmapreduce-cluster-scalingaction-simplescalingpolicyconfiguration
+                                  type: object
+                                  customAttributes:
+                                    immutable: false
+                                  required:
+                                  - scalingAdjustment
+                                  properties:
+                                    adjustmentType:
+                                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-simplescalingpolicyconfiguration.html#cfn-elasticmapreduce-cluster-simplescalingpolicyconfiguration-adjustmenttype
+                                      type: string
+                                      customAttributes:
+                                        template: AdjustmentType
+                                        immutable: false
+                                    coolDown:
+                                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-simplescalingpolicyconfiguration.html#cfn-elasticmapreduce-cluster-simplescalingpolicyconfiguration-cooldown
+                                      type: integer
+                                      format: int32
+                                      customAttributes:
+                                        template: CoolDown
+                                        immutable: false
+                                    scalingAdjustment:
+                                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-simplescalingpolicyconfiguration.html#cfn-elasticmapreduce-cluster-simplescalingpolicyconfiguration-scalingadjustment
+                                      type: integer
+                                      format: int32
+                                      customAttributes:
+                                        template: ScalingAdjustment
+                                        immutable: false
+                            description:
+                              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-scalingrule.html#cfn-elasticmapreduce-cluster-scalingrule-description
+                              type: string
+                              customAttributes:
+                                template: Description
+                                immutable: false
+                            name:
+                              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-scalingrule.html#cfn-elasticmapreduce-cluster-scalingrule-name
+                              type: string
+                              customAttributes:
+                                template: Name
+                                immutable: false
+                            trigger:
+                              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-scalingrule.html#cfn-elasticmapreduce-cluster-scalingrule-trigger
+                              type: object
+                              customAttributes:
+                                immutable: false
+                              required:
+                              - cloudWatchAlarmDefinition
+                              properties:
+                                cloudWatchAlarmDefinition:
+                                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-scalingtrigger.html#cfn-elasticmapreduce-cluster-scalingtrigger-cloudwatchalarmdefinition
+                                  type: object
+                                  customAttributes:
+                                    immutable: false
+                                  required:
+                                  - comparisonOperator
+                                  - metricName
+                                  - period
+                                  - threshold
+                                  properties:
+                                    comparisonOperator:
+                                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-cloudwatchalarmdefinition.html#cfn-elasticmapreduce-cluster-cloudwatchalarmdefinition-comparisonoperator
+                                      type: string
+                                      customAttributes:
+                                        template: ComparisonOperator
+                                        immutable: false
+                                    dimensions:
+                                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-cloudwatchalarmdefinition.html#cfn-elasticmapreduce-cluster-cloudwatchalarmdefinition-dimensions
+                                      type: array
+                                      customAttributes:
+                                        template: Dimensions
+                                        immutable: false
+                                      items:
+                                        type: object
+                                        properties:
+                                          key:
+                                            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-metricdimension.html#cfn-elasticmapreduce-cluster-metricdimension-key
+                                            type: string
+                                            customAttributes:
+                                              template: Key
+                                              immutable: false
+                                          value:
+                                            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-metricdimension.html#cfn-elasticmapreduce-cluster-metricdimension-value
+                                            type: string
+                                            customAttributes:
+                                              template: Value
+                                              immutable: false
+                                    evaluationPeriods:
+                                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-cloudwatchalarmdefinition.html#cfn-elasticmapreduce-cluster-cloudwatchalarmdefinition-evaluationperiods
+                                      type: integer
+                                      format: int32
+                                      customAttributes:
+                                        template: EvaluationPeriods
+                                        immutable: false
+                                    metricName:
+                                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-cloudwatchalarmdefinition.html#cfn-elasticmapreduce-cluster-cloudwatchalarmdefinition-metricname
+                                      type: string
+                                      customAttributes:
+                                        template: MetricName
+                                        immutable: false
+                                    namespace:
+                                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-cloudwatchalarmdefinition.html#cfn-elasticmapreduce-cluster-cloudwatchalarmdefinition-namespace
+                                      type: string
+                                      customAttributes:
+                                        template: Namespace
+                                        immutable: false
+                                    period:
+                                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-cloudwatchalarmdefinition.html#cfn-elasticmapreduce-cluster-cloudwatchalarmdefinition-period
+                                      type: integer
+                                      format: int32
+                                      customAttributes:
+                                        template: Period
+                                        immutable: false
+                                    statistic:
+                                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-cloudwatchalarmdefinition.html#cfn-elasticmapreduce-cluster-cloudwatchalarmdefinition-statistic
+                                      type: string
+                                      customAttributes:
+                                        template: Statistic
+                                        immutable: false
+                                    threshold:
+                                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-cloudwatchalarmdefinition.html#cfn-elasticmapreduce-cluster-cloudwatchalarmdefinition-threshold
+                                      type: integer
+                                      format: double
+                                      customAttributes:
+                                        template: Threshold
+                                        immutable: false
+                                    unit:
+                                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-cloudwatchalarmdefinition.html#cfn-elasticmapreduce-cluster-cloudwatchalarmdefinition-unit
+                                      type: string
+                                      customAttributes:
+                                        template: Unit
+                                        immutable: false
+                  bidPrice:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-instancegroupconfig.html#cfn-elasticmapreduce-cluster-instancegroupconfig-bidprice
+                    type: string
+                    customAttributes:
+                      template: BidPrice
+                      immutable: true
+                  configurations:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-instancegroupconfig.html#cfn-elasticmapreduce-cluster-instancegroupconfig-configurations
+                    type: array
+                    customAttributes:
+                      template: Configurations
+                      immutable: true
+                    items:
+                      type: object
+                      properties: {}
+                  ebsConfiguration:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-instancegroupconfig.html#cfn-elasticmapreduce-cluster-instancegroupconfig-ebsconfiguration
+                    type: object
+                    customAttributes:
+                      immutable: true
+                    required: []
+                    properties:
+                      ebsBlockDeviceConfigs:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-ebsconfiguration.html#cfn-elasticmapreduce-cluster-ebsconfiguration-ebsblockdeviceconfigs
+                        type: array
+                        customAttributes:
+                          template: EbsBlockDeviceConfigs
+                          immutable: false
+                        items:
+                          type: object
+                          properties:
+                            volumeSpecification:
+                              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-ebsblockdeviceconfig.html#cfn-elasticmapreduce-cluster-ebsblockdeviceconfig-volumespecification
+                              type: object
+                              customAttributes:
+                                immutable: false
+                              required:
+                              - sizeInGB
+                              - volumeType
+                              properties:
+                                iops:
+                                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-volumespecification.html#cfn-elasticmapreduce-cluster-volumespecification-iops
+                                  type: integer
+                                  format: int32
+                                  customAttributes:
+                                    template: Iops
+                                    immutable: false
+                                sizeInGB:
+                                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-volumespecification.html#cfn-elasticmapreduce-cluster-volumespecification-sizeingb
+                                  type: integer
+                                  format: int32
+                                  customAttributes:
+                                    template: SizeInGB
+                                    immutable: false
+                                volumeType:
+                                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-volumespecification.html#cfn-elasticmapreduce-cluster-volumespecification-volumetype
+                                  type: string
+                                  customAttributes:
+                                    template: VolumeType
+                                    immutable: false
+                            volumesPerInstance:
+                              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-ebsblockdeviceconfig.html#cfn-elasticmapreduce-cluster-ebsblockdeviceconfig-volumesperinstance
+                              type: integer
+                              format: int32
+                              customAttributes:
+                                template: VolumesPerInstance
+                                immutable: false
+                      ebsOptimized:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-ebsconfiguration.html#cfn-elasticmapreduce-cluster-ebsconfiguration-ebsoptimized
+                        type: boolean
+                        customAttributes:
+                          template: EbsOptimized
+                          immutable: false
+                  instanceCount:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-instancegroupconfig.html#cfn-elasticmapreduce-cluster-instancegroupconfig-instancecount
+                    type: integer
+                    format: int32
+                    customAttributes:
+                      template: InstanceCount
+                      immutable: false
+                  instanceType:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-instancegroupconfig.html#cfn-elasticmapreduce-cluster-instancegroupconfig-instancetype
+                    type: string
+                    customAttributes:
+                      template: InstanceType
+                      immutable: true
+                  market:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-instancegroupconfig.html#cfn-elasticmapreduce-cluster-instancegroupconfig-market
+                    type: string
+                    customAttributes:
+                      template: Market
+                      immutable: true
+                  name:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-instancegroupconfig.html#cfn-elasticmapreduce-cluster-instancegroupconfig-name
+                    type: string
+                    customAttributes:
+                      template: Name
+                      immutable: true
+              ec2KeyName:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-jobflowinstancesconfig.html#cfn-elasticmapreduce-cluster-jobflowinstancesconfig-ec2keyname
+                type: string
+                customAttributes:
+                  template: Ec2KeyName
+                  immutable: true
+              ec2SubnetRef:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-jobflowinstancesconfig.html#cfn-elasticmapreduce-cluster-jobflowinstancesconfig-ec2subnetid
+                type: string
+                customAttributes:
+                  template: Ec2SubnetId
+                  immutable: true
+              emrManagedMasterSecurityGroup:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-jobflowinstancesconfig.html#cfn-elasticmapreduce-cluster-jobflowinstancesconfig-emrmanagedmastersecuritygroup
+                type: string
+                customAttributes:
+                  template: EmrManagedMasterSecurityGroup
+                  immutable: true
+              emrManagedSlaveSecurityGroup:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-jobflowinstancesconfig.html#cfn-elasticmapreduce-cluster-jobflowinstancesconfig-emrmanagedslavesecuritygroup
+                type: string
+                customAttributes:
+                  template: EmrManagedSlaveSecurityGroup
+                  immutable: true
+              hadoopVersion:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-jobflowinstancesconfig.html#cfn-elasticmapreduce-cluster-jobflowinstancesconfig-hadoopversion
+                type: string
+                customAttributes:
+                  template: HadoopVersion
+                  immutable: true
+              keepJobFlowAliveWhenNoSteps:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-jobflowinstancesconfig.html#cfn-elasticmapreduce-cluster-jobflowinstancesconfig-keepjobflowalivewhennosteps
+                type: boolean
+                customAttributes:
+                  template: KeepJobFlowAliveWhenNoSteps
+                  immutable: true
+              masterInstanceFleet:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-jobflowinstancesconfig.html#cfn-elasticmapreduce-cluster-jobflowinstancesconfig-masterinstancefleet
+                type: object
+                customAttributes:
+                  immutable: true
+                required: []
+                properties:
+                  instanceTypeConfigs:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-instancefleetconfig.html#cfn-elasticmapreduce-cluster-instancefleetconfig-instancetypeconfigs
+                    type: array
+                    customAttributes:
+                      template: InstanceTypeConfigs
+                      immutable: true
+                    items:
+                      type: object
+                      properties:
+                        bidPrice:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-instancetypeconfig.html#cfn-elasticmapreduce-cluster-instancetypeconfig-bidprice
+                          type: string
+                          customAttributes:
+                            template: BidPrice
+                            immutable: true
+                        bidPriceAsPercentageOfOnDemandPrice:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-instancetypeconfig.html#cfn-elasticmapreduce-cluster-instancetypeconfig-bidpriceaspercentageofondemandprice
+                          type: integer
+                          format: double
+                          customAttributes:
+                            template: BidPriceAsPercentageOfOnDemandPrice
+                            immutable: true
+                        configurations:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-instancetypeconfig.html#cfn-elasticmapreduce-cluster-instancetypeconfig-configurations
+                          type: array
+                          customAttributes:
+                            template: Configurations
+                            immutable: true
+                          items:
+                            type: object
+                            properties: {}
+                        ebsConfiguration:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-instancetypeconfig.html#cfn-elasticmapreduce-cluster-instancetypeconfig-ebsconfiguration
+                          type: object
+                          customAttributes:
+                            immutable: true
+                          required: []
+                          properties:
+                            ebsBlockDeviceConfigs:
+                              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-ebsconfiguration.html#cfn-elasticmapreduce-cluster-ebsconfiguration-ebsblockdeviceconfigs
+                              type: array
+                              customAttributes:
+                                template: EbsBlockDeviceConfigs
+                                immutable: false
+                              items:
+                                type: object
+                                properties:
+                                  volumeSpecification:
+                                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-ebsblockdeviceconfig.html#cfn-elasticmapreduce-cluster-ebsblockdeviceconfig-volumespecification
+                                    type: object
+                                    customAttributes:
+                                      immutable: false
+                                    required:
+                                    - sizeInGB
+                                    - volumeType
+                                    properties:
+                                      iops:
+                                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-volumespecification.html#cfn-elasticmapreduce-cluster-volumespecification-iops
+                                        type: integer
+                                        format: int32
+                                        customAttributes:
+                                          template: Iops
+                                          immutable: false
+                                      sizeInGB:
+                                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-volumespecification.html#cfn-elasticmapreduce-cluster-volumespecification-sizeingb
+                                        type: integer
+                                        format: int32
+                                        customAttributes:
+                                          template: SizeInGB
+                                          immutable: false
+                                      volumeType:
+                                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-volumespecification.html#cfn-elasticmapreduce-cluster-volumespecification-volumetype
+                                        type: string
+                                        customAttributes:
+                                          template: VolumeType
+                                          immutable: false
+                                  volumesPerInstance:
+                                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-ebsblockdeviceconfig.html#cfn-elasticmapreduce-cluster-ebsblockdeviceconfig-volumesperinstance
+                                    type: integer
+                                    format: int32
+                                    customAttributes:
+                                      template: VolumesPerInstance
+                                      immutable: false
+                            ebsOptimized:
+                              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-ebsconfiguration.html#cfn-elasticmapreduce-cluster-ebsconfiguration-ebsoptimized
+                              type: boolean
+                              customAttributes:
+                                template: EbsOptimized
+                                immutable: false
+                        instanceType:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-instancetypeconfig.html#cfn-elasticmapreduce-cluster-instancetypeconfig-instancetype
+                          type: string
+                          customAttributes:
+                            template: InstanceType
+                            immutable: true
+                        weightedCapacity:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-instancetypeconfig.html#cfn-elasticmapreduce-cluster-instancetypeconfig-weightedcapacity
+                          type: integer
+                          format: int32
+                          customAttributes:
+                            template: WeightedCapacity
+                            immutable: true
+                  launchSpecifications:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-instancefleetconfig.html#cfn-elasticmapreduce-cluster-instancefleetconfig-launchspecifications
+                    type: object
+                    customAttributes:
+                      immutable: true
+                    required:
+                    - spotSpecification
+                    properties:
+                      spotSpecification:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-instancefleetprovisioningspecifications.html#cfn-elasticmapreduce-cluster-instancefleetprovisioningspecifications-spotspecification
+                        type: object
+                        customAttributes:
+                          immutable: false
+                        required:
+                        - timeoutAction
+                        - timeoutDurationMinutes
+                        properties:
+                          blockDurationMinutes:
+                            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-spotprovisioningspecification.html#cfn-elasticmapreduce-cluster-spotprovisioningspecification-blockdurationminutes
+                            type: integer
+                            format: int32
+                            customAttributes:
+                              template: BlockDurationMinutes
+                              immutable: false
+                          timeoutAction:
+                            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-spotprovisioningspecification.html#cfn-elasticmapreduce-cluster-spotprovisioningspecification-timeoutaction
+                            type: string
+                            customAttributes:
+                              template: TimeoutAction
+                              immutable: false
+                          timeoutDurationMinutes:
+                            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-spotprovisioningspecification.html#cfn-elasticmapreduce-cluster-spotprovisioningspecification-timeoutdurationminutes
+                            type: integer
+                            format: int32
+                            customAttributes:
+                              template: TimeoutDurationMinutes
+                              immutable: false
+                  name:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-instancefleetconfig.html#cfn-elasticmapreduce-cluster-instancefleetconfig-name
+                    type: string
+                    customAttributes:
+                      template: Name
+                      immutable: true
+                  targetOnDemandCapacity:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-instancefleetconfig.html#cfn-elasticmapreduce-cluster-instancefleetconfig-targetondemandcapacity
+                    type: integer
+                    format: int32
+                    customAttributes:
+                      template: TargetOnDemandCapacity
+                      immutable: false
+                  targetSpotCapacity:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-instancefleetconfig.html#cfn-elasticmapreduce-cluster-instancefleetconfig-targetspotcapacity
+                    type: integer
+                    format: int32
+                    customAttributes:
+                      template: TargetSpotCapacity
+                      immutable: false
+              masterInstanceGroup:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-jobflowinstancesconfig.html#cfn-elasticmapreduce-cluster-jobflowinstancesconfig-masterinstancegroup
+                type: object
+                customAttributes:
+                  immutable: true
+                required:
+                - instanceCount
+                - instanceType
+                properties:
+                  autoScalingPolicy:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-instancegroupconfig.html#cfn-elasticmapreduce-cluster-instancegroupconfig-autoscalingpolicy
+                    type: object
+                    customAttributes:
+                      immutable: false
+                    required:
+                    - constraints
+                    - rules
+                    properties:
+                      constraints:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-autoscalingpolicy.html#cfn-elasticmapreduce-cluster-autoscalingpolicy-constraints
+                        type: object
+                        customAttributes:
+                          immutable: false
+                        required:
+                        - maxCapacity
+                        - minCapacity
+                        properties:
+                          maxCapacity:
+                            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-scalingconstraints.html#cfn-elasticmapreduce-cluster-scalingconstraints-maxcapacity
+                            type: integer
+                            format: int32
+                            customAttributes:
+                              template: MaxCapacity
+                              immutable: false
+                          minCapacity:
+                            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-scalingconstraints.html#cfn-elasticmapreduce-cluster-scalingconstraints-mincapacity
+                            type: integer
+                            format: int32
+                            customAttributes:
+                              template: MinCapacity
+                              immutable: false
+                      rules:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-autoscalingpolicy.html#cfn-elasticmapreduce-cluster-autoscalingpolicy-rules
+                        type: array
+                        customAttributes:
+                          template: Rules
+                          immutable: false
+                        items:
+                          type: object
+                          properties:
+                            action:
+                              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-scalingrule.html#cfn-elasticmapreduce-cluster-scalingrule-action
+                              type: object
+                              customAttributes:
+                                immutable: false
+                              required:
+                              - simpleScalingPolicyConfiguration
+                              properties:
+                                market:
+                                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-scalingaction.html#cfn-elasticmapreduce-cluster-scalingaction-market
+                                  type: string
+                                  customAttributes:
+                                    template: Market
+                                    immutable: false
+                                simpleScalingPolicyConfiguration:
+                                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-scalingaction.html#cfn-elasticmapreduce-cluster-scalingaction-simplescalingpolicyconfiguration
+                                  type: object
+                                  customAttributes:
+                                    immutable: false
+                                  required:
+                                  - scalingAdjustment
+                                  properties:
+                                    adjustmentType:
+                                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-simplescalingpolicyconfiguration.html#cfn-elasticmapreduce-cluster-simplescalingpolicyconfiguration-adjustmenttype
+                                      type: string
+                                      customAttributes:
+                                        template: AdjustmentType
+                                        immutable: false
+                                    coolDown:
+                                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-simplescalingpolicyconfiguration.html#cfn-elasticmapreduce-cluster-simplescalingpolicyconfiguration-cooldown
+                                      type: integer
+                                      format: int32
+                                      customAttributes:
+                                        template: CoolDown
+                                        immutable: false
+                                    scalingAdjustment:
+                                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-simplescalingpolicyconfiguration.html#cfn-elasticmapreduce-cluster-simplescalingpolicyconfiguration-scalingadjustment
+                                      type: integer
+                                      format: int32
+                                      customAttributes:
+                                        template: ScalingAdjustment
+                                        immutable: false
+                            description:
+                              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-scalingrule.html#cfn-elasticmapreduce-cluster-scalingrule-description
+                              type: string
+                              customAttributes:
+                                template: Description
+                                immutable: false
+                            name:
+                              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-scalingrule.html#cfn-elasticmapreduce-cluster-scalingrule-name
+                              type: string
+                              customAttributes:
+                                template: Name
+                                immutable: false
+                            trigger:
+                              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-scalingrule.html#cfn-elasticmapreduce-cluster-scalingrule-trigger
+                              type: object
+                              customAttributes:
+                                immutable: false
+                              required:
+                              - cloudWatchAlarmDefinition
+                              properties:
+                                cloudWatchAlarmDefinition:
+                                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-scalingtrigger.html#cfn-elasticmapreduce-cluster-scalingtrigger-cloudwatchalarmdefinition
+                                  type: object
+                                  customAttributes:
+                                    immutable: false
+                                  required:
+                                  - comparisonOperator
+                                  - metricName
+                                  - period
+                                  - threshold
+                                  properties:
+                                    comparisonOperator:
+                                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-cloudwatchalarmdefinition.html#cfn-elasticmapreduce-cluster-cloudwatchalarmdefinition-comparisonoperator
+                                      type: string
+                                      customAttributes:
+                                        template: ComparisonOperator
+                                        immutable: false
+                                    dimensions:
+                                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-cloudwatchalarmdefinition.html#cfn-elasticmapreduce-cluster-cloudwatchalarmdefinition-dimensions
+                                      type: array
+                                      customAttributes:
+                                        template: Dimensions
+                                        immutable: false
+                                      items:
+                                        type: object
+                                        properties:
+                                          key:
+                                            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-metricdimension.html#cfn-elasticmapreduce-cluster-metricdimension-key
+                                            type: string
+                                            customAttributes:
+                                              template: Key
+                                              immutable: false
+                                          value:
+                                            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-metricdimension.html#cfn-elasticmapreduce-cluster-metricdimension-value
+                                            type: string
+                                            customAttributes:
+                                              template: Value
+                                              immutable: false
+                                    evaluationPeriods:
+                                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-cloudwatchalarmdefinition.html#cfn-elasticmapreduce-cluster-cloudwatchalarmdefinition-evaluationperiods
+                                      type: integer
+                                      format: int32
+                                      customAttributes:
+                                        template: EvaluationPeriods
+                                        immutable: false
+                                    metricName:
+                                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-cloudwatchalarmdefinition.html#cfn-elasticmapreduce-cluster-cloudwatchalarmdefinition-metricname
+                                      type: string
+                                      customAttributes:
+                                        template: MetricName
+                                        immutable: false
+                                    namespace:
+                                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-cloudwatchalarmdefinition.html#cfn-elasticmapreduce-cluster-cloudwatchalarmdefinition-namespace
+                                      type: string
+                                      customAttributes:
+                                        template: Namespace
+                                        immutable: false
+                                    period:
+                                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-cloudwatchalarmdefinition.html#cfn-elasticmapreduce-cluster-cloudwatchalarmdefinition-period
+                                      type: integer
+                                      format: int32
+                                      customAttributes:
+                                        template: Period
+                                        immutable: false
+                                    statistic:
+                                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-cloudwatchalarmdefinition.html#cfn-elasticmapreduce-cluster-cloudwatchalarmdefinition-statistic
+                                      type: string
+                                      customAttributes:
+                                        template: Statistic
+                                        immutable: false
+                                    threshold:
+                                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-cloudwatchalarmdefinition.html#cfn-elasticmapreduce-cluster-cloudwatchalarmdefinition-threshold
+                                      type: integer
+                                      format: double
+                                      customAttributes:
+                                        template: Threshold
+                                        immutable: false
+                                    unit:
+                                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-cloudwatchalarmdefinition.html#cfn-elasticmapreduce-cluster-cloudwatchalarmdefinition-unit
+                                      type: string
+                                      customAttributes:
+                                        template: Unit
+                                        immutable: false
+                  bidPrice:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-instancegroupconfig.html#cfn-elasticmapreduce-cluster-instancegroupconfig-bidprice
+                    type: string
+                    customAttributes:
+                      template: BidPrice
+                      immutable: true
+                  configurations:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-instancegroupconfig.html#cfn-elasticmapreduce-cluster-instancegroupconfig-configurations
+                    type: array
+                    customAttributes:
+                      template: Configurations
+                      immutable: true
+                    items:
+                      type: object
+                      properties: {}
+                  ebsConfiguration:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-instancegroupconfig.html#cfn-elasticmapreduce-cluster-instancegroupconfig-ebsconfiguration
+                    type: object
+                    customAttributes:
+                      immutable: true
+                    required: []
+                    properties:
+                      ebsBlockDeviceConfigs:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-ebsconfiguration.html#cfn-elasticmapreduce-cluster-ebsconfiguration-ebsblockdeviceconfigs
+                        type: array
+                        customAttributes:
+                          template: EbsBlockDeviceConfigs
+                          immutable: false
+                        items:
+                          type: object
+                          properties:
+                            volumeSpecification:
+                              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-ebsblockdeviceconfig.html#cfn-elasticmapreduce-cluster-ebsblockdeviceconfig-volumespecification
+                              type: object
+                              customAttributes:
+                                immutable: false
+                              required:
+                              - sizeInGB
+                              - volumeType
+                              properties:
+                                iops:
+                                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-volumespecification.html#cfn-elasticmapreduce-cluster-volumespecification-iops
+                                  type: integer
+                                  format: int32
+                                  customAttributes:
+                                    template: Iops
+                                    immutable: false
+                                sizeInGB:
+                                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-volumespecification.html#cfn-elasticmapreduce-cluster-volumespecification-sizeingb
+                                  type: integer
+                                  format: int32
+                                  customAttributes:
+                                    template: SizeInGB
+                                    immutable: false
+                                volumeType:
+                                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-volumespecification.html#cfn-elasticmapreduce-cluster-volumespecification-volumetype
+                                  type: string
+                                  customAttributes:
+                                    template: VolumeType
+                                    immutable: false
+                            volumesPerInstance:
+                              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-ebsblockdeviceconfig.html#cfn-elasticmapreduce-cluster-ebsblockdeviceconfig-volumesperinstance
+                              type: integer
+                              format: int32
+                              customAttributes:
+                                template: VolumesPerInstance
+                                immutable: false
+                      ebsOptimized:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-ebsconfiguration.html#cfn-elasticmapreduce-cluster-ebsconfiguration-ebsoptimized
+                        type: boolean
+                        customAttributes:
+                          template: EbsOptimized
+                          immutable: false
+                  instanceCount:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-instancegroupconfig.html#cfn-elasticmapreduce-cluster-instancegroupconfig-instancecount
+                    type: integer
+                    format: int32
+                    customAttributes:
+                      template: InstanceCount
+                      immutable: false
+                  instanceType:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-instancegroupconfig.html#cfn-elasticmapreduce-cluster-instancegroupconfig-instancetype
+                    type: string
+                    customAttributes:
+                      template: InstanceType
+                      immutable: true
+                  market:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-instancegroupconfig.html#cfn-elasticmapreduce-cluster-instancegroupconfig-market
+                    type: string
+                    customAttributes:
+                      template: Market
+                      immutable: true
+                  name:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-instancegroupconfig.html#cfn-elasticmapreduce-cluster-instancegroupconfig-name
+                    type: string
+                    customAttributes:
+                      template: Name
+                      immutable: true
+              placement:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-jobflowinstancesconfig.html#cfn-elasticmapreduce-cluster-jobflowinstancesconfig-placement
+                type: object
+                customAttributes:
+                  immutable: true
+                required:
+                - availabilityZone
+                properties:
+                  availabilityZone:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-placementtype.html#cfn-elasticmapreduce-cluster-placementtype-availabilityzone
+                    type: string
+                    customAttributes:
+                      template: AvailabilityZone
+                      immutable: true
+              serviceAccessSecurityGroup:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-jobflowinstancesconfig.html#cfn-elasticmapreduce-cluster-jobflowinstancesconfig-serviceaccesssecuritygroup
+                type: string
+                customAttributes:
+                  template: ServiceAccessSecurityGroup
+                  immutable: true
+              terminationProtected:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-jobflowinstancesconfig.html#cfn-elasticmapreduce-cluster-jobflowinstancesconfig-terminationprotected
+                type: boolean
+                customAttributes:
+                  template: TerminationProtected
+                  immutable: false
+          jobFlowRole:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticmapreduce-cluster.html#cfn-elasticmapreduce-cluster-jobflowrole
+            type: string
+            customAttributes:
+              template: JobFlowRole
+              immutable: true
+          kerberosAttributes:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticmapreduce-cluster.html#cfn-elasticmapreduce-cluster-kerberosattributes
+            type: object
+            customAttributes:
+              immutable: true
+            required:
+            - kdcAdminPassword
+            - realm
+            properties:
+              aDDomainJoinPassword:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-kerberosattributes.html#cfn-elasticmapreduce-cluster-kerberosattributes-addomainjoinpassword
+                type: string
+                customAttributes:
+                  template: ADDomainJoinPassword
+                  immutable: false
+              aDDomainJoinUser:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-kerberosattributes.html#cfn-elasticmapreduce-cluster-kerberosattributes-addomainjoinuser
+                type: string
+                customAttributes:
+                  template: ADDomainJoinUser
+                  immutable: false
+              crossRealmTrustPrincipalPassword:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-kerberosattributes.html#cfn-elasticmapreduce-cluster-kerberosattributes-crossrealmtrustprincipalpassword
+                type: string
+                customAttributes:
+                  template: CrossRealmTrustPrincipalPassword
+                  immutable: false
+              kdcAdminPassword:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-kerberosattributes.html#cfn-elasticmapreduce-cluster-kerberosattributes-kdcadminpassword
+                type: string
+                customAttributes:
+                  template: KdcAdminPassword
+                  immutable: false
+              realm:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-kerberosattributes.html#cfn-elasticmapreduce-cluster-kerberosattributes-realm
+                type: string
+                customAttributes:
+                  template: Realm
+                  immutable: false
+          logUri:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticmapreduce-cluster.html#cfn-elasticmapreduce-cluster-loguri
+            type: string
+            customAttributes:
+              template: LogUri
+              immutable: true
+          name:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticmapreduce-cluster.html#cfn-elasticmapreduce-cluster-name
+            type: string
+            customAttributes:
+              template: Name
+              immutable: true
+          releaseLabel:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticmapreduce-cluster.html#cfn-elasticmapreduce-cluster-releaselabel
+            type: string
+            customAttributes:
+              template: ReleaseLabel
+              immutable: true
+          scaleDownBehavior:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticmapreduce-cluster.html#cfn-elasticmapreduce-cluster-scaledownbehavior
+            type: string
+            customAttributes:
+              template: ScaleDownBehavior
+              immutable: true
+          securityConfiguration:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticmapreduce-cluster.html#cfn-elasticmapreduce-cluster-securityconfiguration
+            type: string
+            customAttributes:
+              template: SecurityConfiguration
+              immutable: true
+          serviceRole:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticmapreduce-cluster.html#cfn-elasticmapreduce-cluster-servicerole
+            type: string
+            customAttributes:
+              template: ServiceRole
+              immutable: true
+          steps:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticmapreduce-cluster.html#cfn-elasticmapreduce-cluster-steps
+            type: array
+            customAttributes:
+              template: Steps
+              immutable: true
+            items:
+              type: object
+              properties:
+                actionOnFailure:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-stepconfig.html#cfn-elasticmapreduce-cluster-stepconfig-actiononfailure
+                  type: string
+                  customAttributes:
+                    template: ActionOnFailure
+                    immutable: false
+                hadoopJarStep:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-stepconfig.html#cfn-elasticmapreduce-cluster-stepconfig-hadoopjarstep
+                  type: object
+                  customAttributes:
+                    immutable: false
+                  required:
+                  - jar
+                  properties:
+                    args:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-hadoopjarstepconfig.html#cfn-elasticmapreduce-cluster-hadoopjarstepconfig-args
+                      type: array
+                      customAttributes:
+                        template: Args
+                        immutable: false
+                      items:
+                        type: string
+                    jar:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-hadoopjarstepconfig.html#cfn-elasticmapreduce-cluster-hadoopjarstepconfig-jar
+                      type: string
+                      customAttributes:
+                        template: Jar
+                        immutable: false
+                    mainClass:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-hadoopjarstepconfig.html#cfn-elasticmapreduce-cluster-hadoopjarstepconfig-mainclass
+                      type: string
+                      customAttributes:
+                        template: MainClass
+                        immutable: false
+                    stepProperties:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-hadoopjarstepconfig.html#cfn-elasticmapreduce-cluster-hadoopjarstepconfig-stepproperties
+                      type: array
+                      customAttributes:
+                        template: StepProperties
+                        immutable: false
+                      items:
+                        type: object
+                        properties:
+                          key:
+                            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-keyvalue.html#cfn-elasticmapreduce-cluster-keyvalue-key
+                            type: string
+                            customAttributes:
+                              template: Key
+                              immutable: false
+                          value:
+                            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-keyvalue.html#cfn-elasticmapreduce-cluster-keyvalue-value
+                            type: string
+                            customAttributes:
+                              template: Value
+                              immutable: false
+                name:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-cluster-stepconfig.html#cfn-elasticmapreduce-cluster-stepconfig-name
+                  type: string
+                  customAttributes:
+                    template: Name
+                    immutable: false
+          tags:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticmapreduce-cluster.html#cfn-elasticmapreduce-cluster-tags
+            type: array
+            customAttributes:
+              template: Tags
+              immutable: false
+            items:
+              type: object
+              properties:
+                key:
+                  description: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-resource-tags.html#cfn-resource-tags-key
+                  type: string
+                  customAttributes:
+                    template: Key
+                    immutable: false
+                value:
+                  description: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-resource-tags.html#cfn-resource-tags-value
+                  type: string
+                  customAttributes:
+                    template: Value
+                    immutable: false
+          visibleToAllUsers:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticmapreduce-cluster.html#cfn-elasticmapreduce-cluster-visibletoallusers
+            type: boolean
+            customAttributes:
+              template: VisibleToAllUsers
+              immutable: false

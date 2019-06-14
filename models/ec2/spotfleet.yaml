@@ -1,0 +1,798 @@
+---
+apiVersion: models.awsoperator.io/v1alpha1
+kind: ModelFile
+metadata:
+  name: ec2-spotfleet-resource
+  creationTimestamp: '2019-06-13T16:59:29-07:00'
+  resourceVersion: 3.3.0
+spec:
+  resource:
+    kind: SpotFleet
+    scope: Namespaced
+    apiGroup:
+      apiVersion: ec2.awsoperator.io/v1alpha1
+      group: ec2
+      region: us-east-1
+      domain: awsoperator.io
+      versions:
+      - name: v1alpha1
+        served: true
+        storage: true
+    names:
+      singular: spotfleet
+      plural: spotfleets
+      shortNames: []
+  openAPIV3Schema:
+    properties:
+      spec:
+        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-spotfleet.html
+        type: object
+        customAttributes: {}
+        required:
+        - spotFleetRequestConfigData
+        properties:
+          spotFleetRequestConfigData:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-spotfleet.html#cfn-ec2-spotfleet-spotfleetrequestconfigdata
+            type: object
+            customAttributes: {}
+            required:
+            - iamFleetRole
+            - targetCapacity
+            properties:
+              allocationStrategy:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-spotfleet-spotfleetrequestconfigdata.html#cfn-ec2-spotfleet-spotfleetrequestconfigdata-allocationstrategy
+                type: string
+                customAttributes:
+                  template: AllocationStrategy
+                  immutable: true
+                enum:
+                - diversified
+                - lowestPrice
+              excessCapacityTerminationPolicy:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-spotfleet-spotfleetrequestconfigdata.html#cfn-ec2-spotfleet-spotfleetrequestconfigdata-excesscapacityterminationpolicy
+                type: string
+                customAttributes:
+                  template: ExcessCapacityTerminationPolicy
+                  immutable: false
+                enum:
+                - default
+                - noTermination
+              iamFleetRole:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-spotfleet-spotfleetrequestconfigdata.html#cfn-ec2-spotfleet-spotfleetrequestconfigdata-iamfleetrole
+                type: string
+                customAttributes:
+                  template: IamFleetRole
+                  immutable: true
+              instanceInterruptionBehavior:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-spotfleet-spotfleetrequestconfigdata.html#cfn-ec2-spotfleet-spotfleetrequestconfigdata-instanceinterruptionbehavior
+                type: string
+                customAttributes:
+                  template: InstanceInterruptionBehavior
+                  immutable: true
+                enum:
+                - hibernate
+                - stop
+                - terminate
+              launchSpecifications:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-spotfleet-spotfleetrequestconfigdata.html#cfn-ec2-spotfleet-spotfleetrequestconfigdata-launchspecifications
+                type: array
+                customAttributes:
+                  template: LaunchSpecifications
+                  immutable: true
+                items:
+                  type: object
+                  properties:
+                    blockDeviceMappings:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-spotfleet-spotfleetrequestconfigdata-launchspecifications.html#cfn-ec2-spotfleet-spotfleetlaunchspecification-blockdevicemappings
+                      type: array
+                      customAttributes:
+                        template: BlockDeviceMappings
+                        immutable: false
+                      items:
+                        type: object
+                        properties:
+                          deviceName:
+                            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-spotfleet-spotfleetrequestconfigdata-launchspecifications-blockdevicemappings.html#cfn-ec2-spotfleet-blockdevicemapping-devicename
+                            type: string
+                            customAttributes:
+                              template: DeviceName
+                              immutable: false
+                          ebs:
+                            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-spotfleet-spotfleetrequestconfigdata-launchspecifications-blockdevicemappings.html#cfn-ec2-spotfleet-blockdevicemapping-ebs
+                            type: object
+                            customAttributes:
+                              immutable: false
+                            required: []
+                            properties:
+                              deleteOnTermination:
+                                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-spotfleet-spotfleetrequestconfigdata-launchspecifications-blockdevicemappings-ebs.html#cfn-ec2-spotfleet-ebsblockdevice-deleteontermination
+                                type: boolean
+                                customAttributes:
+                                  template: DeleteOnTermination
+                                  immutable: false
+                              encrypted:
+                                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-spotfleet-spotfleetrequestconfigdata-launchspecifications-blockdevicemappings-ebs.html#cfn-ec2-spotfleet-ebsblockdevice-encrypted
+                                type: boolean
+                                customAttributes:
+                                  template: Encrypted
+                                  immutable: false
+                              iops:
+                                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-spotfleet-spotfleetrequestconfigdata-launchspecifications-blockdevicemappings-ebs.html#cfn-ec2-spotfleet-ebsblockdevice-iops
+                                type: integer
+                                format: int32
+                                customAttributes:
+                                  template: Iops
+                                  immutable: false
+                              snapshotRef:
+                                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-spotfleet-spotfleetrequestconfigdata-launchspecifications-blockdevicemappings-ebs.html#cfn-ec2-spotfleet-ebsblockdevice-snapshotid
+                                type: string
+                                customAttributes:
+                                  template: SnapshotId
+                                  immutable: false
+                              volumeSize:
+                                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-spotfleet-spotfleetrequestconfigdata-launchspecifications-blockdevicemappings-ebs.html#cfn-ec2-spotfleet-ebsblockdevice-volumesize
+                                type: integer
+                                format: int32
+                                customAttributes:
+                                  template: VolumeSize
+                                  immutable: false
+                              volumeType:
+                                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-spotfleet-spotfleetrequestconfigdata-launchspecifications-blockdevicemappings-ebs.html#cfn-ec2-spotfleet-ebsblockdevice-volumetype
+                                type: string
+                                customAttributes:
+                                  template: VolumeType
+                                  immutable: false
+                                enum:
+                                - gp2
+                                - io1
+                                - sc1
+                                - st1
+                                - standard
+                          noDevice:
+                            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-spotfleet-spotfleetrequestconfigdata-launchspecifications-blockdevicemappings.html#cfn-ec2-spotfleet-blockdevicemapping-nodevice
+                            type: string
+                            customAttributes:
+                              template: NoDevice
+                              immutable: false
+                          virtualName:
+                            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-spotfleet-spotfleetrequestconfigdata-launchspecifications-blockdevicemappings.html#cfn-ec2-spotfleet-blockdevicemapping-virtualname
+                            type: string
+                            customAttributes:
+                              template: VirtualName
+                              immutable: false
+                    ebsOptimized:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-spotfleet-spotfleetrequestconfigdata-launchspecifications.html#cfn-ec2-spotfleet-spotfleetlaunchspecification-ebsoptimized
+                      type: boolean
+                      customAttributes:
+                        template: EbsOptimized
+                        immutable: false
+                    iamInstanceProfile:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-spotfleet-spotfleetrequestconfigdata-launchspecifications.html#cfn-ec2-spotfleet-spotfleetlaunchspecification-iaminstanceprofile
+                      type: object
+                      customAttributes:
+                        immutable: false
+                      required: []
+                      properties:
+                        arn:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-spotfleet-spotfleetrequestconfigdata-launchspecifications-iaminstanceprofile.html#cfn-ec2-spotfleet-iaminstanceprofilespecification-arn
+                          type: string
+                          customAttributes:
+                            template: Arn
+                            immutable: false
+                    imageRef:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-spotfleet-spotfleetrequestconfigdata-launchspecifications.html#cfn-ec2-spotfleet-spotfleetlaunchspecification-imageid
+                      type: string
+                      customAttributes:
+                        template: ImageId
+                        immutable: false
+                    instanceType:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-spotfleet-spotfleetrequestconfigdata-launchspecifications.html#cfn-ec2-spotfleet-spotfleetlaunchspecification-instancetype
+                      type: string
+                      customAttributes:
+                        template: InstanceType
+                        immutable: false
+                      enum:
+                      - a1.2xlarge
+                      - a1.4xlarge
+                      - a1.large
+                      - a1.medium
+                      - a1.xlarge
+                      - c1.medium
+                      - c1.xlarge
+                      - c3.2xlarge
+                      - c3.4xlarge
+                      - c3.8xlarge
+                      - c3.large
+                      - c3.xlarge
+                      - c4.2xlarge
+                      - c4.4xlarge
+                      - c4.8xlarge
+                      - c4.large
+                      - c4.xlarge
+                      - c5.18xlarge
+                      - c5.2xlarge
+                      - c5.4xlarge
+                      - c5.9xlarge
+                      - c5.large
+                      - c5.xlarge
+                      - c5d.18xlarge
+                      - c5d.2xlarge
+                      - c5d.4xlarge
+                      - c5d.9xlarge
+                      - c5d.large
+                      - c5d.xlarge
+                      - c5n.18xlarge
+                      - c5n.2xlarge
+                      - c5n.4xlarge
+                      - c5n.9xlarge
+                      - c5n.large
+                      - c5n.xlarge
+                      - cc2.8xlarge
+                      - cr1.8xlarge
+                      - d2.2xlarge
+                      - d2.4xlarge
+                      - d2.8xlarge
+                      - d2.xlarge
+                      - f1.16xlarge
+                      - f1.2xlarge
+                      - f1.4xlarge
+                      - g2.2xlarge
+                      - g2.8xlarge
+                      - g3.16xlarge
+                      - g3.4xlarge
+                      - g3.8xlarge
+                      - g3s.xlarge
+                      - h1.16xlarge
+                      - h1.2xlarge
+                      - h1.4xlarge
+                      - h1.8xlarge
+                      - hs1.8xlarge
+                      - i2.2xlarge
+                      - i2.4xlarge
+                      - i2.8xlarge
+                      - i2.xlarge
+                      - i3.16xlarge
+                      - i3.2xlarge
+                      - i3.4xlarge
+                      - i3.8xlarge
+                      - i3.large
+                      - i3.xlarge
+                      - i3en.12xlarge
+                      - i3en.24xlarge
+                      - i3en.2xlarge
+                      - i3en.3xlarge
+                      - i3en.6xlarge
+                      - i3en.large
+                      - i3en.xlarge
+                      - m1.large
+                      - m1.medium
+                      - m1.small
+                      - m1.xlarge
+                      - m2.2xlarge
+                      - m2.4xlarge
+                      - m2.xlarge
+                      - m3.2xlarge
+                      - m3.large
+                      - m3.medium
+                      - m3.xlarge
+                      - m4.10xlarge
+                      - m4.16xlarge
+                      - m4.2xlarge
+                      - m4.4xlarge
+                      - m4.large
+                      - m4.xlarge
+                      - m5.12xlarge
+                      - m5.24xlarge
+                      - m5.2xlarge
+                      - m5.4xlarge
+                      - m5.large
+                      - m5.metal
+                      - m5.xlarge
+                      - m5a.12xlarge
+                      - m5a.24xlarge
+                      - m5a.2xlarge
+                      - m5a.4xlarge
+                      - m5a.large
+                      - m5a.xlarge
+                      - m5ad.12xlarge
+                      - m5ad.24xlarge
+                      - m5ad.2xlarge
+                      - m5ad.4xlarge
+                      - m5ad.large
+                      - m5ad.xlarge
+                      - m5d.12xlarge
+                      - m5d.24xlarge
+                      - m5d.2xlarge
+                      - m5d.4xlarge
+                      - m5d.large
+                      - m5d.metal
+                      - m5d.xlarge
+                      - p2.16xlarge
+                      - p2.8xlarge
+                      - p2.xlarge
+                      - p3.16xlarge
+                      - p3.2xlarge
+                      - p3.8xlarge
+                      - p3dn.24xlarge
+                      - r3.2xlarge
+                      - r3.4xlarge
+                      - r3.8xlarge
+                      - r3.large
+                      - r3.xlarge
+                      - r4.16xlarge
+                      - r4.2xlarge
+                      - r4.4xlarge
+                      - r4.8xlarge
+                      - r4.large
+                      - r4.xlarge
+                      - r5.12xlarge
+                      - r5.24xlarge
+                      - r5.2xlarge
+                      - r5.4xlarge
+                      - r5.large
+                      - r5.xlarge
+                      - r5a.12xlarge
+                      - r5a.24xlarge
+                      - r5a.2xlarge
+                      - r5a.4xlarge
+                      - r5a.large
+                      - r5a.xlarge
+                      - r5ad.12xlarge
+                      - r5ad.24xlarge
+                      - r5ad.2xlarge
+                      - r5ad.4xlarge
+                      - r5ad.large
+                      - r5ad.xlarge
+                      - r5d.12xlarge
+                      - r5d.24xlarge
+                      - r5d.2xlarge
+                      - r5d.4xlarge
+                      - r5d.large
+                      - r5d.xlarge
+                      - t1.micro
+                      - t2.2xlarge
+                      - t2.large
+                      - t2.medium
+                      - t2.micro
+                      - t2.nano
+                      - t2.small
+                      - t2.xlarge
+                      - t3.2xlarge
+                      - t3.large
+                      - t3.medium
+                      - t3.micro
+                      - t3.nano
+                      - t3.small
+                      - t3.xlarge
+                      - t3a.2xlarge
+                      - t3a.large
+                      - t3a.medium
+                      - t3a.micro
+                      - t3a.nano
+                      - t3a.small
+                      - t3a.xlarge
+                      - x1.16xlarge
+                      - x1.32xlarge
+                      - x1e.16xlarge
+                      - x1e.2xlarge
+                      - x1e.32xlarge
+                      - x1e.4xlarge
+                      - x1e.8xlarge
+                      - x1e.xlarge
+                      - z1d.12xlarge
+                      - z1d.2xlarge
+                      - z1d.3xlarge
+                      - z1d.6xlarge
+                      - z1d.large
+                      - z1d.xlarge
+                    kernelRef:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-spotfleet-spotfleetrequestconfigdata-launchspecifications.html#cfn-ec2-spotfleet-spotfleetlaunchspecification-kernelid
+                      type: string
+                      customAttributes:
+                        template: KernelId
+                        immutable: false
+                    keyName:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-spotfleet-spotfleetrequestconfigdata-launchspecifications.html#cfn-ec2-spotfleet-spotfleetlaunchspecification-keyname
+                      type: string
+                      customAttributes:
+                        template: KeyName
+                        immutable: false
+                    monitoring:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-spotfleet-spotfleetrequestconfigdata-launchspecifications.html#cfn-ec2-spotfleet-spotfleetlaunchspecification-monitoring
+                      type: object
+                      customAttributes:
+                        immutable: false
+                      required: []
+                      properties:
+                        enabled:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-spotfleet-spotfleetrequestconfigdata-launchspecifications-monitoring.html#cfn-ec2-spotfleet-spotfleetmonitoring-enabled
+                          type: boolean
+                          customAttributes:
+                            template: Enabled
+                            immutable: false
+                    networkInterfaces:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-spotfleet-spotfleetrequestconfigdata-launchspecifications.html#cfn-ec2-spotfleet-spotfleetlaunchspecification-networkinterfaces
+                      type: array
+                      customAttributes:
+                        template: NetworkInterfaces
+                        immutable: false
+                      items:
+                        type: object
+                        properties:
+                          associatePublicIpAddress:
+                            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-spotfleet-spotfleetrequestconfigdata-launchspecifications-networkinterfaces.html#cfn-ec2-spotfleet-instancenetworkinterfacespecification-associatepublicipaddress
+                            type: boolean
+                            customAttributes:
+                              template: AssociatePublicIpAddress
+                              immutable: false
+                          deleteOnTermination:
+                            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-spotfleet-spotfleetrequestconfigdata-launchspecifications-networkinterfaces.html#cfn-ec2-spotfleet-instancenetworkinterfacespecification-deleteontermination
+                            type: boolean
+                            customAttributes:
+                              template: DeleteOnTermination
+                              immutable: false
+                          description:
+                            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-spotfleet-spotfleetrequestconfigdata-launchspecifications-networkinterfaces.html#cfn-ec2-spotfleet-instancenetworkinterfacespecification-description
+                            type: string
+                            customAttributes:
+                              template: Description
+                              immutable: false
+                          deviceIndex:
+                            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-spotfleet-spotfleetrequestconfigdata-launchspecifications-networkinterfaces.html#cfn-ec2-spotfleet-instancenetworkinterfacespecification-deviceindex
+                            type: integer
+                            format: int32
+                            customAttributes:
+                              template: DeviceIndex
+                              immutable: false
+                          groups:
+                            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-spotfleet-spotfleetrequestconfigdata-launchspecifications-networkinterfaces.html#cfn-ec2-spotfleet-instancenetworkinterfacespecification-groups
+                            type: array
+                            customAttributes:
+                              template: Groups
+                              immutable: false
+                            items:
+                              type: string
+                          ipv6AddressCount:
+                            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-spotfleet-spotfleetrequestconfigdata-launchspecifications-networkinterfaces.html#cfn-ec2-spotfleet-instancenetworkinterfacespecification-ipv6addresscount
+                            type: integer
+                            format: int32
+                            customAttributes:
+                              template: Ipv6AddressCount
+                              immutable: false
+                          ipv6Addresses:
+                            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-spotfleet-spotfleetrequestconfigdata-launchspecifications-networkinterfaces.html#cfn-ec2-spotfleet-instancenetworkinterfacespecification-ipv6addresses
+                            type: array
+                            customAttributes:
+                              template: Ipv6Addresses
+                              immutable: false
+                            items:
+                              type: object
+                              properties:
+                                ipv6Address:
+                                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-spotfleet-instanceipv6address.html#cfn-ec2-spotfleet-instanceipv6address-ipv6address
+                                  type: string
+                                  customAttributes:
+                                    template: Ipv6Address
+                                    immutable: false
+                          networkInterfaceRef:
+                            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-spotfleet-spotfleetrequestconfigdata-launchspecifications-networkinterfaces.html#cfn-ec2-spotfleet-instancenetworkinterfacespecification-networkinterfaceid
+                            type: string
+                            customAttributes:
+                              template: NetworkInterfaceId
+                              immutable: false
+                          privateIpAddresses:
+                            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-spotfleet-spotfleetrequestconfigdata-launchspecifications-networkinterfaces.html#cfn-ec2-spotfleet-instancenetworkinterfacespecification-privateipaddresses
+                            type: array
+                            customAttributes:
+                              template: PrivateIpAddresses
+                              immutable: false
+                            items:
+                              type: object
+                              properties:
+                                primary:
+                                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-spotfleet-spotfleetrequestconfigdata-launchspecifications-networkinterfaces-privateipaddresses.html#cfn-ec2-spotfleet-privateipaddressspecification-primary
+                                  type: boolean
+                                  customAttributes:
+                                    template: Primary
+                                    immutable: false
+                                privateIpAddress:
+                                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-spotfleet-spotfleetrequestconfigdata-launchspecifications-networkinterfaces-privateipaddresses.html#cfn-ec2-spotfleet-privateipaddressspecification-privateipaddress
+                                  type: string
+                                  customAttributes:
+                                    template: PrivateIpAddress
+                                    immutable: false
+                          secondaryPrivateIpAddressCount:
+                            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-spotfleet-spotfleetrequestconfigdata-launchspecifications-networkinterfaces.html#cfn-ec2-spotfleet-instancenetworkinterfacespecification-secondaryprivateipaddresscount
+                            type: integer
+                            format: int32
+                            customAttributes:
+                              template: SecondaryPrivateIpAddressCount
+                              immutable: false
+                          subnetRef:
+                            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-spotfleet-spotfleetrequestconfigdata-launchspecifications-networkinterfaces.html#cfn-ec2-spotfleet-instancenetworkinterfacespecification-subnetid
+                            type: string
+                            customAttributes:
+                              template: SubnetId
+                              immutable: false
+                    placement:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-spotfleet-spotfleetrequestconfigdata-launchspecifications.html#cfn-ec2-spotfleet-spotfleetlaunchspecification-placement
+                      type: object
+                      customAttributes:
+                        immutable: false
+                      required: []
+                      properties:
+                        availabilityZone:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-spotfleet-spotfleetrequestconfigdata-launchspecifications-placement.html#cfn-ec2-spotfleet-spotplacement-availabilityzone
+                          type: string
+                          customAttributes:
+                            template: AvailabilityZone
+                            immutable: false
+                        groupName:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-spotfleet-spotfleetrequestconfigdata-launchspecifications-placement.html#cfn-ec2-spotfleet-spotplacement-groupname
+                          type: string
+                          customAttributes:
+                            template: GroupName
+                            immutable: false
+                        tenancy:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-spotfleet-spotfleetrequestconfigdata-launchspecifications-placement.html#cfn-ec2-spotfleet-spotplacement-tenancy
+                          type: string
+                          customAttributes:
+                            template: Tenancy
+                            immutable: false
+                    ramdiskRef:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-spotfleet-spotfleetrequestconfigdata-launchspecifications.html#cfn-ec2-spotfleet-spotfleetlaunchspecification-ramdiskid
+                      type: string
+                      customAttributes:
+                        template: RamdiskId
+                        immutable: false
+                    securityGroupsRef:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-spotfleet-spotfleetrequestconfigdata-launchspecifications.html#cfn-ec2-spotfleet-spotfleetlaunchspecification-securitygroups
+                      type: array
+                      customAttributes:
+                        template: SecurityGroups
+                        immutable: false
+                      items:
+                        type: object
+                        properties:
+                          groupRef:
+                            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-spotfleet-spotfleetrequestconfigdata-launchspecifications-securitygroups.html#cfn-ec2-spotfleet-groupidentifier-groupid
+                            type: string
+                            customAttributes:
+                              template: GroupId
+                              immutable: false
+                    spotPrice:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-spotfleet-spotfleetrequestconfigdata-launchspecifications.html#cfn-ec2-spotfleet-spotfleetlaunchspecification-spotprice
+                      type: string
+                      customAttributes:
+                        template: SpotPrice
+                        immutable: false
+                    subnetRef:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-spotfleet-spotfleetrequestconfigdata-launchspecifications.html#cfn-ec2-spotfleet-spotfleetlaunchspecification-subnetid
+                      type: string
+                      customAttributes:
+                        template: SubnetId
+                        immutable: false
+                    tagSpecifications:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-spotfleet-spotfleetrequestconfigdata-launchspecifications.html#cfn-ec2-spotfleet-spotfleetlaunchspecification-tagspecifications
+                      type: array
+                      customAttributes:
+                        template: TagSpecifications
+                        immutable: false
+                      items:
+                        type: object
+                        properties:
+                          resourceType:
+                            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-spotfleet-spotfleetrequestconfigdata-launchspecifications-tagspecifications.html#cfn-ec2-spotfleet-spotfleettagspecification-resourcetype
+                            type: string
+                            customAttributes:
+                              template: ResourceType
+                              immutable: false
+                          tags:
+                            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-spotfleet-spotfleetrequestconfigdata-launchspecifications-tagspecifications.html#cfn-ec2-spotfleet-tags
+                            type: array
+                            customAttributes:
+                              template: Tags
+                              immutable: false
+                            items:
+                              type: object
+                              properties:
+                                key:
+                                  description: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-resource-tags.html#cfn-resource-tags-key
+                                  type: string
+                                  customAttributes:
+                                    template: Key
+                                    immutable: false
+                                value:
+                                  description: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-resource-tags.html#cfn-resource-tags-value
+                                  type: string
+                                  customAttributes:
+                                    template: Value
+                                    immutable: false
+                    userData:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-spotfleet-spotfleetrequestconfigdata-launchspecifications.html#cfn-ec2-spotfleet-spotfleetlaunchspecification-userdata
+                      type: string
+                      customAttributes:
+                        template: UserData
+                        immutable: false
+                    weightedCapacity:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-spotfleet-spotfleetrequestconfigdata-launchspecifications.html#cfn-ec2-spotfleet-spotfleetlaunchspecification-weightedcapacity
+                      type: integer
+                      format: double
+                      customAttributes:
+                        template: WeightedCapacity
+                        immutable: false
+              launchTemplateConfigs:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-spotfleet-spotfleetrequestconfigdata.html#cfn-ec2-spotfleet-spotfleetrequestconfigdata-launchtemplateconfigs
+                type: array
+                customAttributes:
+                  template: LaunchTemplateConfigs
+                  immutable: true
+                items:
+                  type: object
+                  properties:
+                    launchTemplateSpecification:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-spotfleet-launchtemplateconfig.html#cfn-ec2-spotfleet-launchtemplateconfig-launchtemplatespecification
+                      type: object
+                      customAttributes:
+                        immutable: false
+                      required:
+                      - version
+                      properties:
+                        launchTemplateRef:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-spotfleet-fleetlaunchtemplatespecification.html#cfn-ec2-spotfleet-fleetlaunchtemplatespecification-launchtemplateid
+                          type: string
+                          customAttributes:
+                            template: LaunchTemplateId
+                            immutable: false
+                        launchTemplateName:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-spotfleet-fleetlaunchtemplatespecification.html#cfn-ec2-spotfleet-fleetlaunchtemplatespecification-launchtemplatename
+                          type: string
+                          customAttributes:
+                            template: LaunchTemplateName
+                            immutable: false
+                        version:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-spotfleet-fleetlaunchtemplatespecification.html#cfn-ec2-spotfleet-fleetlaunchtemplatespecification-version
+                          type: string
+                          customAttributes:
+                            template: Version
+                            immutable: false
+                    overrides:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-spotfleet-launchtemplateconfig.html#cfn-ec2-spotfleet-launchtemplateconfig-overrides
+                      type: array
+                      customAttributes:
+                        template: Overrides
+                        immutable: false
+                      items:
+                        type: object
+                        properties:
+                          availabilityZone:
+                            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-spotfleet-launchtemplateoverrides.html#cfn-ec2-spotfleet-launchtemplateoverrides-availabilityzone
+                            type: string
+                            customAttributes:
+                              template: AvailabilityZone
+                              immutable: false
+                          instanceType:
+                            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-spotfleet-launchtemplateoverrides.html#cfn-ec2-spotfleet-launchtemplateoverrides-instancetype
+                            type: string
+                            customAttributes:
+                              template: InstanceType
+                              immutable: false
+                          spotPrice:
+                            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-spotfleet-launchtemplateoverrides.html#cfn-ec2-spotfleet-launchtemplateoverrides-spotprice
+                            type: string
+                            customAttributes:
+                              template: SpotPrice
+                              immutable: false
+                          subnetRef:
+                            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-spotfleet-launchtemplateoverrides.html#cfn-ec2-spotfleet-launchtemplateoverrides-subnetid
+                            type: string
+                            customAttributes:
+                              template: SubnetId
+                              immutable: false
+                          weightedCapacity:
+                            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-spotfleet-launchtemplateoverrides.html#cfn-ec2-spotfleet-launchtemplateoverrides-weightedcapacity
+                            type: integer
+                            format: double
+                            customAttributes:
+                              template: WeightedCapacity
+                              immutable: false
+              loadBalancersConfig:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-spotfleet-spotfleetrequestconfigdata.html#cfn-ec2-spotfleet-spotfleetrequestconfigdata-loadbalancersconfig
+                type: object
+                customAttributes:
+                  immutable: true
+                required: []
+                properties:
+                  classicLoadBalancersConfig:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-spotfleet-loadbalancersconfig.html#cfn-ec2-spotfleet-loadbalancersconfig-classicloadbalancersconfig
+                    type: object
+                    customAttributes:
+                      immutable: false
+                    required:
+                    - classicLoadBalancers
+                    properties:
+                      classicLoadBalancers:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-spotfleet-classicloadbalancersconfig.html#cfn-ec2-spotfleet-classicloadbalancersconfig-classicloadbalancers
+                        type: array
+                        customAttributes:
+                          template: ClassicLoadBalancers
+                          immutable: false
+                        items:
+                          type: object
+                          properties:
+                            name:
+                              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-spotfleet-classicloadbalancer.html#cfn-ec2-spotfleet-classicloadbalancer-name
+                              type: string
+                              customAttributes:
+                                template: Name
+                                immutable: false
+                  targetGroupsConfig:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-spotfleet-loadbalancersconfig.html#cfn-ec2-spotfleet-loadbalancersconfig-targetgroupsconfig
+                    type: object
+                    customAttributes:
+                      immutable: false
+                    required:
+                    - targetGroups
+                    properties:
+                      targetGroups:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-spotfleet-targetgroupsconfig.html#cfn-ec2-spotfleet-targetgroupsconfig-targetgroups
+                        type: array
+                        customAttributes:
+                          template: TargetGroups
+                          immutable: false
+                        items:
+                          type: object
+                          properties:
+                            arn:
+                              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-spotfleet-targetgroup.html#cfn-ec2-spotfleet-targetgroup-arn
+                              type: string
+                              customAttributes:
+                                template: Arn
+                                immutable: false
+              replaceUnhealthyInstances:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-spotfleet-spotfleetrequestconfigdata.html#cfn-ec2-spotfleet-spotfleetrequestconfigdata-replaceunhealthyinstances
+                type: boolean
+                customAttributes:
+                  template: ReplaceUnhealthyInstances
+                  immutable: true
+              spotPrice:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-spotfleet-spotfleetrequestconfigdata.html#cfn-ec2-spotfleet-spotfleetrequestconfigdata-spotprice
+                type: string
+                customAttributes:
+                  template: SpotPrice
+                  immutable: true
+              targetCapacity:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-spotfleet-spotfleetrequestconfigdata.html#cfn-ec2-spotfleet-spotfleetrequestconfigdata-targetcapacity
+                type: integer
+                format: int32
+                customAttributes:
+                  template: TargetCapacity
+                  immutable: false
+              terminateInstancesWithExpiration:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-spotfleet-spotfleetrequestconfigdata.html#cfn-ec2-spotfleet-spotfleetrequestconfigdata-terminateinstanceswithexpiration
+                type: boolean
+                customAttributes:
+                  template: TerminateInstancesWithExpiration
+                  immutable: true
+              type:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-spotfleet-spotfleetrequestconfigdata.html#cfn-ec2-spotfleet-spotfleetrequestconfigdata-type
+                type: string
+                customAttributes:
+                  template: Type
+                  immutable: true
+                enum:
+                - instant
+                - maintain
+                - request
+              validFrom:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-spotfleet-spotfleetrequestconfigdata.html#cfn-ec2-spotfleet-spotfleetrequestconfigdata-validfrom
+                type: string
+                customAttributes:
+                  template: ValidFrom
+                  immutable: true
+              validUntil:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-spotfleet-spotfleetrequestconfigdata.html#cfn-ec2-spotfleet-spotfleetrequestconfigdata-validuntil
+                type: string
+                customAttributes:
+                  template: ValidUntil
+                  immutable: true

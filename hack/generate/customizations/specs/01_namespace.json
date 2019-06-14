@@ -1,0 +1,12 @@
+[{
+  "op": "add",
+  "path": "/ScopeTypes",
+  "value": {
+    "Namespaced": {
+      "Value": "Namespaced"
+    },
+    "Cluster": {
+      "Value": "Cluster"
+    }
+  }
+}]

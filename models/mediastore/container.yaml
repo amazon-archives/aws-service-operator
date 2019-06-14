@@ -1,0 +1,105 @@
+---
+apiVersion: models.awsoperator.io/v1alpha1
+kind: ModelFile
+metadata:
+  name: mediastore-container-resource
+  creationTimestamp: '2019-06-13T16:59:29-07:00'
+  resourceVersion: 3.3.0
+spec:
+  resource:
+    kind: Container
+    scope: Namespaced
+    apiGroup:
+      apiVersion: mediastore.awsoperator.io/v1alpha1
+      group: mediastore
+      region: us-east-1
+      domain: awsoperator.io
+      versions:
+      - name: v1alpha1
+        served: true
+        storage: true
+    names:
+      singular: container
+      plural: containers
+      shortNames: []
+  openAPIV3Schema:
+    properties:
+      spec:
+        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mediastore-container.html
+        type: object
+        customAttributes: {}
+        required: []
+        properties:
+          accessLoggingEnabled:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mediastore-container.html#cfn-mediastore-container-accessloggingenabled
+            type: boolean
+            customAttributes:
+              template: AccessLoggingEnabled
+              immutable: false
+          containerName:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mediastore-container.html#cfn-mediastore-container-containername
+            type: string
+            customAttributes:
+              template: ContainerName
+              resourceName: true
+              immutable: true
+          corsPolicy:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mediastore-container.html#cfn-mediastore-container-corspolicy
+            type: array
+            customAttributes:
+              template: CorsPolicy
+              immutable: false
+            items:
+              type: object
+              properties:
+                allowedHeaders:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-mediastore-container-corsrule.html#cfn-mediastore-container-corsrule-allowedheaders
+                  type: array
+                  customAttributes:
+                    template: AllowedHeaders
+                    immutable: false
+                  items:
+                    type: string
+                allowedMethods:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-mediastore-container-corsrule.html#cfn-mediastore-container-corsrule-allowedmethods
+                  type: array
+                  customAttributes:
+                    template: AllowedMethods
+                    immutable: true
+                  items:
+                    type: string
+                allowedOrigins:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-mediastore-container-corsrule.html#cfn-mediastore-container-corsrule-allowedorigins
+                  type: array
+                  customAttributes:
+                    template: AllowedOrigins
+                    immutable: false
+                  items:
+                    type: string
+                exposeHeaders:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-mediastore-container-corsrule.html#cfn-mediastore-container-corsrule-exposeheaders
+                  type: array
+                  customAttributes:
+                    template: ExposeHeaders
+                    immutable: false
+                  items:
+                    type: string
+                maxAgeSeconds:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-mediastore-container-corsrule.html#cfn-mediastore-container-corsrule-maxageseconds
+                  type: integer
+                  format: int32
+                  customAttributes:
+                    template: MaxAgeSeconds
+                    immutable: false
+          lifecyclePolicy:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mediastore-container.html#cfn-mediastore-container-lifecyclepolicy
+            type: string
+            customAttributes:
+              template: LifecyclePolicy
+              immutable: false
+          policy:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mediastore-container.html#cfn-mediastore-container-policy
+            type: string
+            customAttributes:
+              template: Policy
+              immutable: false

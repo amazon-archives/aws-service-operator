@@ -1,129 +1,244 @@
+/*
+Copyright 2019 Amazon.com, Inc. or its affiliates. All Rights Reserved.
+
+Licensed under the Apache License, Version 2.0 (the "License"). You may
+not use this file except in compliance with the License. A copy of the
+License is located at
+
+     http://aws.amazon.com/apache2.0/
+
+or in the "license" file accompanying this file. This file is distributed
+on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either
+express or implied. See the License for the specific language governing
+permissions and limitations under the License.
+*/
+
 package queue
 
 import (
-	"context"
 	"encoding/json"
-	"os"
+	"fmt"
+
+	"k8s.io/klog"
+
+	"awsoperator.io/pkg/event"
 
 	"github.com/aws/aws-sdk-go/aws"
-	"github.com/aws/aws-sdk-go/aws/session"
-	"github.com/aws/aws-sdk-go/service/sns"
+
 	"github.com/aws/aws-sdk-go/service/sqs"
-	awsclient "github.com/awslabs/aws-service-operator/pkg/client/clientset/versioned/typed/service-operator.aws/v1alpha1"
-	"github.com/awslabs/aws-service-operator/pkg/config"
-	"github.com/awslabs/aws-service-operator/pkg/queuemanager"
+	"github.com/aws/aws-sdk-go/service/sqs/sqsiface"
+
+	"github.com/aws/aws-sdk-go/service/sns"
+	"github.com/aws/aws-sdk-go/service/sns/snsiface"
 )
 
-// New will initialize the Queue object for watching
-func New(config config.Config, awsclientset awsclient.ServiceoperatorV1alpha1Interface, timeout int) *Queue {
-	return &Queue{
-		config:       config,
-		awsclientset: awsclientset,
-		timeout:      int64(timeout),
-	}
+// InformerFactory implements all the handler and starting for watching sqs
+type InformerFactory interface {
+	AddMessageHander(ControllerHandler)
+	Start(<-chan struct{})
+	GetTopicARN() string
 }
 
-// RegisterQueue wkll create the Queue so it is accessible to SNS.
-func RegisterQueue(awsSession *session.Session, clusterName, name string) (queueURL, queueARN string, err error) {
-	sqsSvc := sqs.New(awsSession)
-	keyname := keyName(clusterName, name)
-	queueInputs := sqs.CreateQueueInput{
-		QueueName: aws.String(keyname),
-		Attributes: map[string]*string{
-			"DelaySeconds":           aws.String("10"),
-			"MessageRetentionPeriod": aws.String("86400"),
-		},
+// Informer implements the controller
+type Informer struct {
+	sqsclient sqsiface.SQSAPI
+	snsclient snsiface.SNSAPI
+
+	queueName string
+	queueURL  string
+	queueARN  string
+
+	topicARN string
+	subARN   string
+
+	handlers ControllerHandler
+}
+
+// New will return a queue controller and set up any resource if they do not exist
+func New(
+	sqsclient sqsiface.SQSAPI,
+	snsclient snsiface.SNSAPI,
+	name string) (*Informer, error) {
+
+	ctrl := &Informer{
+		sqsclient: sqsclient,
+		snsclient: snsclient,
+		queueName: name,
 	}
-	sqsOutput, err := sqsSvc.CreateQueue(&queueInputs)
+
+	queueURL, queueARN, err := ctrl.createSQSQueue(name)
+	if err != nil {
+		return ctrl, err
+	}
+	ctrl.queueURL = queueURL
+	ctrl.queueARN = queueARN
+
+	topicARN, subARN, err := ctrl.createSNSTopic(name)
+	if err != nil {
+		return ctrl, err
+	}
+	ctrl.topicARN = topicARN
+	ctrl.subARN = subARN
+
+	err = ctrl.setPolicy()
+	if err != nil {
+		return ctrl, err
+	}
+
+	return ctrl, nil
+}
+
+// GetTopicARN will return your topic arn
+func (c *Informer) GetTopicARN() string {
+	return c.topicARN
+}
+
+// AddMessageHander will allow you add the handler functions to the controller
+// object for operating on.
+func (c *Informer) AddMessageHander(handlers ControllerHandler) {
+	c.handlers = handlers
+}
+
+// Start will load up messages and call the message handler function
+func (c *Informer) Start(stopCh <-chan struct{}) {
+	go func() {
+		for {
+			select {
+			case <-stopCh:
+				klog.Infof("Shutting down SQS listener")
+				return
+			default:
+			}
+			input := &sqs.ReceiveMessageInput{}
+			input.SetQueueUrl(c.queueURL)
+			input.SetAttributeNames(aws.StringSlice([]string{"SentTimestamp"}))
+			input.SetMaxNumberOfMessages(1)
+			input.SetMessageAttributeNames(aws.StringSlice([]string{"All"}))
+			input.SetWaitTimeSeconds(10)
+
+			output, err := c.sqsclient.ReceiveMessage(input)
+			if err != nil {
+				klog.Errorf("Error pulling messages off the queue '%s'", err.Error())
+				return
+			}
+
+			for _, message := range output.Messages {
+				evtMessage := &event.Message{}
+				err := json.Unmarshal([]byte(*message.Body), evtMessage)
+				if err != nil {
+					klog.Errorf("Error unmarshalling the message body '%s'", err.Error())
+					break
+				}
+
+				evt := &event.Event{}
+				err = event.Unmarshal(evtMessage.Message, evt)
+				if err != nil {
+					klog.Errorf("Error unmarshalling the message '%s'", err.Error())
+					break
+				}
+
+				c.handlers.OnMessage(evt)
+
+				deleteInput := &sqs.DeleteMessageInput{}
+				deleteInput.SetQueueUrl(c.queueURL)
+				deleteInput.SetReceiptHandle(*message.ReceiptHandle)
+				_, err = c.sqsclient.DeleteMessage(deleteInput)
+				if err != nil {
+					klog.Errorf("Error deleting the message '%s'", err.Error())
+					break
+				}
+			}
+		}
+	}()
+}
+
+func (c *Informer) getQueueURL(name string) (string, error) {
+	input := &sqs.GetQueueUrlInput{}
+	input.SetQueueName(name)
+	output, err := c.sqsclient.GetQueueUrl(input)
+	if err != nil {
+		return "", err
+	}
+	return *output.QueueUrl, nil
+}
+
+func (c *Informer) createQueue(name string) (string, error) {
+	input := &sqs.CreateQueueInput{}
+	input.SetQueueName(name)
+	output, err := c.sqsclient.CreateQueue(input)
+	if err != nil {
+		return "", err
+	}
+	return *output.QueueUrl, nil
+}
+
+func (c *Informer) createSQSQueue(name string) (string, string, error) {
+	if name == "" {
+		return "", "", fmt.Errorf("SQS Queue name can't be blank")
+	}
+
+	var queueURL string
+	var err error
+	queueURL, err = c.getQueueURL(name)
+	if err != nil {
+		klog.Infof("Error getting Queue URL '%s'", err.Error())
+		queueURL, err = c.createQueue(name)
+		if err != nil {
+			return "", "", err
+		}
+	}
+
+	queueQueryInputs := &sqs.GetQueueAttributesInput{}
+	queueQueryInputs.SetQueueUrl(queueURL)
+	queueQueryInputs.SetAttributeNames([]*string{aws.String("All")})
+
+	sqsQueueOutput, err := c.sqsclient.GetQueueAttributes(queueQueryInputs)
 	if err != nil {
 		return "", "", err
 	}
-	queueURL = *sqsOutput.QueueUrl
+	queueARN := *sqsQueueOutput.Attributes["QueueArn"]
 
-	queueQueryInputs := sqs.GetQueueAttributesInput{
-		QueueUrl: aws.String(queueURL),
-		AttributeNames: []*string{
-			aws.String("All"),
-		},
-	}
-	sqsQueueOutput, err := sqsSvc.GetQueueAttributes(&queueQueryInputs)
+	return string(queueURL), string(queueARN), nil
+}
+
+func (c *Informer) createSNSTopic(name string) (string, string, error) {
+	topicInputs := &sns.CreateTopicInput{}
+	topicInputs.SetName(name)
+	output, err := c.snsclient.CreateTopic(topicInputs)
 	if err != nil {
 		return "", "", err
 	}
-	queueARN = *sqsQueueOutput.Attributes["QueueArn"]
-	return queueURL, queueARN, nil
+	topicARN := *output.TopicArn
+
+	subInput := &sns.SubscribeInput{}
+	subInput.SetTopicArn(topicARN)
+	subInput.SetEndpoint(c.queueARN)
+	subInput.SetProtocol("sqs")
+
+	subOutput, err := c.snsclient.Subscribe(subInput)
+	if err != nil {
+		return "", "", err
+	}
+	subARN := *subOutput.SubscriptionArn
+
+	return topicARN, subARN, nil
 }
 
-// Subscribe will listen to the global queue and distribute messages
-func Subscribe(config config.Config, manager *queuemanager.QueueManager, ctx context.Context) {
-	logger := config.Logger
-	sess, err := session.NewSession(&aws.Config{
-		Region: aws.String(config.Region),
-	})
-	if err != nil {
-		logger.WithError(err).Error("error creating AWS session")
-		os.Exit(1)
-	}
-
-	svc := sqs.New(sess)
-
-	process(config, svc, manager, ctx)
-}
-
-// Register will create all the affilate resources
-func (q *Queue) Register(name string) (topicARN string, subARN string) {
-	config := q.config
-	logger := config.Logger
-	keyname := keyName(config.ClusterName, name)
-	svc := sns.New(config.AWSSession)
-	topicInputs := sns.CreateTopicInput{Name: aws.String(keyname)}
-	output, err := svc.CreateTopic(&topicInputs)
-	if err != nil {
-		logger.Errorf("Error creating SNS Topic with error '%s'", err.Error())
-	}
-	topicARN = *output.TopicArn
-	logger.Infof("Created sns topic '%s'", topicARN)
-
-	// Move to somewhere else.
-	subInput := sns.SubscribeInput{
-		TopicArn: aws.String(topicARN),
-		Endpoint: aws.String(config.QueueARN),
-		Protocol: aws.String("sqs"),
-	}
-	subOutput, err := svc.Subscribe(&subInput)
-	if err != nil {
-		logger.Errorf("Error creating SNS -> SQS Subscription with error '%s'", err.Error())
-	}
-	subARN = *subOutput.SubscriptionArn
-	logger.Infof("Created sns -> sqs subscription '%s'", subARN)
-
-	return
-}
-
-func SetQueuePolicy(config config.Config, manager *queuemanager.QueueManager) error {
-	sqsSvc := sqs.New(config.AWSSession)
-	topicARNs := manager.Keys()
-
-	policy := newPolicy(config.QueueARN, config.ClusterName, topicARNs)
+func (c *Informer) setPolicy() error {
+	policy := newPolicy(c.queueARN, c.queueName, []string{c.topicARN})
 	policyb, err := json.Marshal(policy)
 	if err != nil {
 		return err
 	}
 
-	addPermInput := &sqs.SetQueueAttributesInput{
-		QueueUrl: aws.String(config.QueueURL),
-		Attributes: map[string]*string{
-			"Policy": aws.String(string(policyb)),
-		}}
-	_, err = sqsSvc.SetQueueAttributes(addPermInput)
+	input := &sqs.SetQueueAttributesInput{}
+	input.SetQueueUrl(c.queueURL)
+	input.SetAttributes(map[string]*string{"Policy": aws.String(string(policyb))})
+	_, err = c.sqsclient.SetQueueAttributes(input)
 	if err != nil {
 		return err
 	}
 	return nil
-}
-
-func keyName(clusterName string, name string) string {
-	return clusterName + "-" + name
 }
 
 func newPolicy(queueARN string, name string, topicARNs []string) Policy {
@@ -147,56 +262,5 @@ func newPolicy(queueARN string, name string, topicARNs []string) Policy {
 		Version:   "2012-10-17",
 		ID:        queueARN + "/" + name + "-policy",
 		Statement: statements,
-	}
-}
-
-func process(config config.Config, svc *sqs.SQS, manager *queuemanager.QueueManager, ctx context.Context) error {
-	logger := config.Logger
-	for {
-		result, err := svc.ReceiveMessage(&sqs.ReceiveMessageInput{
-			QueueUrl: aws.String(config.QueueURL),
-			AttributeNames: aws.StringSlice([]string{
-				"SentTimestamp",
-			}),
-			MaxNumberOfMessages: aws.Int64(1),
-			MessageAttributeNames: aws.StringSlice([]string{
-				"All",
-			}),
-			WaitTimeSeconds: aws.Int64(10),
-		})
-		if err != nil {
-			logger.WithError(err).Error("unable to receive messages from queue")
-			os.Exit(1)
-		}
-
-		for _, message := range result.Messages {
-			mb := &queuemanager.MessageBody{}
-			err := json.Unmarshal([]byte(*message.Body), mb)
-			if err != nil {
-				logger.WithError(err).Error("error parsing message body")
-			}
-			mb.ParseMessage()
-			logger.Debugf("%+v", mb)
-
-			h, ok := manager.Get(mb.TopicARN)
-			if !ok {
-				logger.Errorf("error missing handler function for topic %s", mb.TopicARN)
-			}
-
-			err = h.HandleMessage(config, mb)
-			if err != nil {
-				logger.WithError(err).Error("error processing message")
-			}
-			logger.Debugf("stackID %v updated status to %v", mb.ParsedMessage["StackId"], mb.ParsedMessage["ResourceStatus"])
-			_, err = svc.DeleteMessage(&sqs.DeleteMessageInput{
-				QueueUrl:      aws.String(config.QueueURL),
-				ReceiptHandle: message.ReceiptHandle,
-			})
-
-			if err != nil {
-				logger.WithError(err).Error("delete error")
-				os.Exit(1)
-			}
-		}
 	}
 }

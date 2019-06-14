@@ -1,0 +1,152 @@
+= Architecture
+Chris Hein <heichris@amazon.com>
+v1, 2019-01-04
+:toc: right
+:imagesdir: images/
+:source-language: golang
+
+
+link:readme.adoc[AWS Service Operator] > link:architecture.adoc[{doctitle}]
+
+The aim of the AWS Service Operator is to allow you to manage all of your AWS
+resources using the Kubernetes control loop. By using `CRDs` & `CFN` we can model
+all of the AWS resources each application consumes in `YAML` and deployed along
+side your applications. This means you no longer need to manage multiple deploy
+pipelines just for the AWS resources as you do the Kubernetes application.
+#Gitops.
+
+== Tenents
+
+To start these off these are 4 of the tenents that are set forth for the
+operator.
+
+* Provide a Kubernetes experience to using AWS native services
+* Allow developers to seamlessly manage applications resources
+* Expose all the data possible to the client
+* Make it easy to understand what resources are consummed by what cluster/application
+
+== Overall Design
+
+image::design.png[]
+
+> This defines how the Operator works to use the Amazon CloudFormation APIs with
+SQS and SNS to help report information back to the operator reconsiliation loop.
+
+=== Goals
+
+The goals of using CloudFormation as a backing scheduler is that we can reduce
+the amount of API requests it takes for the AWS Service Operator to stay in-sync
+with your account. This also allows the Operator to `create`, `update`, and
+`delete` without dealing with what the dependencies are with each resource.
+
+*Future state*: Because of using CloudFormation we also can use the new
+CloudFormation drift detection which will allow the Operator to handle issues
+when something is updated without going through the operator. For example an
+engineer manually scaling a datebase, this can either be sycned backwards or
+synced forwards.
+
+== Queue Design
+
+image:queue-design.png[]
+
+== Links
+
+link:resource-design.adoc[Resource Design]
+link:generator.adoc[Generators]
+
+== Terminology
+
+[horizontal]
+*Informer*:: An informer is a way to build Kubernetes native applications using
+`client-go` The pattern allows you to locally cache the state of `etcd` in your
+application and exposed simple `func`'s to check that the state is true.
++
+[source, golang]
+----
+deploymentInformer.Informer().AddEventHandler(cache.ResourceEventHandlerFuncs{
+	AddFunc: controller.handleObject,
+	UpdateFunc: func(old, new interface{}) {
+	  controller.handleObject(new)
+	},
+	DeleteFunc: controller.handleObject,
+})
+----
+
+*Workqueue*:: A workqueue is a Kubernetes delta fifo queue this allows you to
+put items on and take items off, with built in mechanism for popping an item
+back onto the queue and rate limiting the execution of the queue.
++
+[source, golang]
+----
+obj, shutdown := c.workqueue.Get()
+if shutdown {
+	return false
+}
+err := func(obj interface{}) error {
+	defer c.workqueue.Done(obj)
+	var key string
+	var ok bool
+	if key, ok = obj.(string); !ok {
+		c.workqueue.Forget(obj)
+		utilruntime.HandleError(fmt.Errorf("expected string in workqueue but got %#v", obj))
+		return nil
+	}
+	if err := c.syncHandler(key); err != nil {
+		c.workqueue.AddRateLimited(key)
+		return fmt.Errorf("error syncing '%s': %s, requeuing", key, err.Error())
+	}
+	c.workqueue.Forget(obj)
+	klog.Infof("Successfully synced '%s'", key)
+	return nil
+}(obj)
+----
+
+*SQS Queue*:: Amazon Simple Queue Service is used to allow the operator to get
+updates from the Amazon CloudFormation stacks when they are being provisioned.
+This means that from `kubectl` you can get all the events as they occur.
+
+
+*SNS Topic*:: Amazon Simple Notification Service is used to subscribe to the CFN
+as they are being processes, SQS is istening to thes topics which allow the
+operator to then pick them off the queue.
+
+*Resource*:: A Resource in the AWS Serice Operator is an singleton AWS Service
+this could be any AWS Service deployed into your account, for example when
+deploying a Custom Resource Defintion or (CRD) for an SNS Topic that is a
+resource.
+
+*Custom Resource Definition (CRD)*:: Custom Resource Defintions are a way that
+the Kubernetes API Server allows you to customize and expose custom object types.
+For the operator this could be any *Resource* that is exposed.
+
+*Events*:: Kubernetes events are used to record any event that happens on a
+particular resource, practically this means getting the events from CloudFormation
+and storing on the proper Kubernetes `namespace/name` resource.
+
+*Ownership*:: Any resource that is managed by another resource eg. if an Amazon
+S3 Bucket is provisioned and it provisions a Kubernetes Service, and a ConfigMap
+these "addition" resources are "Owned" by the parent `S3Bucket` this means when
+one of these resources is cleaned up it will clean up the additional resources.
+
+*Drift Support*:: Any CloudFormation template with Drift support should be able
+to use the active reconsiliation loop meaning that when it detects the resource
+has changed `etcd` can try to reconsile to the proper state. _This feature is
+loosely defined_
+
+*Status*:: Each Resource has a `Status` struct which will tell you the objects
+current state as known by the system. This status shouldn't include information
+regarding the StackIDs or other pertinent information just the following:
+- *Type* Type of Object condition `S3Provisioned`.
+- *Status* Status of the condition `True`, `False`, `Unknown`.
+- *Reason* One-word CamelCase reason for the condition's last transition `CreateComplete`.
+- *Message* Human-readable message indicating details about last transition.
+- *LastHeartbeatTime* Last time we got an update on a given condition.
+- *LastTransitionTime* Last time the condition transit from one status to another
+
+*Nesting*:: If a resource uses multiple keys prefixed the same consider breaking
+these into nested keys to save time ans readability.
+
+*Amazon Resource Names*:: Amazon Resource Names should be stored with the object
+but shouldn't be the perferred method for handling referencing other objects. If
+the resource was created with the AWS Service Operator using `{Type}Ref` objects
+to declare the mechanisms for accessing resources.

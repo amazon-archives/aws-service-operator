@@ -1,0 +1,97 @@
+---
+apiVersion: models.awsoperator.io/v1alpha1
+kind: ModelFile
+metadata:
+  name: directoryservice-microsoftad-resource
+  creationTimestamp: '2019-06-13T16:59:29-07:00'
+  resourceVersion: 3.3.0
+spec:
+  resource:
+    kind: MicrosoftAD
+    scope: Namespaced
+    apiGroup:
+      apiVersion: directoryservice.awsoperator.io/v1alpha1
+      group: directoryservice
+      region: us-east-1
+      domain: awsoperator.io
+      versions:
+      - name: v1alpha1
+        served: true
+        storage: true
+    names:
+      singular: microsoftad
+      plural: microsoftads
+      shortNames: []
+  openAPIV3Schema:
+    properties:
+      spec:
+        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-directoryservice-microsoftad.html
+        type: object
+        customAttributes: {}
+        required:
+        - name
+        - password
+        - vpcSettings
+        properties:
+          createAlias:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-directoryservice-microsoftad.html#cfn-directoryservice-microsoftad-createalias
+            type: boolean
+            customAttributes:
+              template: CreateAlias
+              immutable: true
+          edition:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-directoryservice-microsoftad.html#cfn-directoryservice-microsoftad-edition
+            type: string
+            customAttributes:
+              template: Edition
+              immutable: true
+            enum:
+            - Enterprise
+            - Standard
+          enableSso:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-directoryservice-microsoftad.html#cfn-directoryservice-microsoftad-enablesso
+            type: boolean
+            customAttributes:
+              template: EnableSso
+              immutable: false
+          name:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-directoryservice-microsoftad.html#cfn-directoryservice-microsoftad-name
+            type: string
+            customAttributes:
+              template: Name
+              immutable: true
+          password:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-directoryservice-microsoftad.html#cfn-directoryservice-microsoftad-password
+            type: string
+            customAttributes:
+              template: Password
+              immutable: true
+          shortName:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-directoryservice-microsoftad.html#cfn-directoryservice-microsoftad-shortname
+            type: string
+            customAttributes:
+              template: ShortName
+              immutable: true
+          vpcSettings:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-directoryservice-microsoftad.html#cfn-directoryservice-microsoftad-vpcsettings
+            type: object
+            customAttributes:
+              immutable: true
+            required:
+            - subnetIds
+            - vpcId
+            properties:
+              subnetRef:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-directoryservice-microsoftad-vpcsettings.html#cfn-directoryservice-microsoftad-vpcsettings-subnetids
+                type: array
+                customAttributes:
+                  template: SubnetIds
+                  immutable: false
+                items:
+                  type: string
+              vpcRef:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-directoryservice-microsoftad-vpcsettings.html#cfn-directoryservice-microsoftad-vpcsettings-vpcid
+                type: string
+                customAttributes:
+                  template: VpcId
+                  immutable: false

@@ -1,0 +1,117 @@
+---
+apiVersion: models.awsoperator.io/v1alpha1
+kind: ModelFile
+metadata:
+  name: elasticbeanstalk-application-resource
+  creationTimestamp: '2019-06-13T16:59:29-07:00'
+  resourceVersion: 3.3.0
+spec:
+  resource:
+    kind: Application
+    scope: Namespaced
+    apiGroup:
+      apiVersion: elasticbeanstalk.awsoperator.io/v1alpha1
+      group: elasticbeanstalk
+      region: us-east-1
+      domain: awsoperator.io
+      versions:
+      - name: v1alpha1
+        served: true
+        storage: true
+    names:
+      singular: application
+      plural: applications
+      shortNames: []
+  openAPIV3Schema:
+    properties:
+      spec:
+        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-beanstalk.html
+        type: object
+        customAttributes: {}
+        required: []
+        properties:
+          applicationName:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-beanstalk.html#cfn-elasticbeanstalk-application-name
+            type: string
+            customAttributes:
+              template: ApplicationName
+              resourceName: true
+              immutable: true
+          description:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-beanstalk.html#cfn-elasticbeanstalk-application-description
+            type: string
+            customAttributes:
+              template: Description
+              immutable: false
+          resourceLifecycleConfig:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-beanstalk.html#cfn-elasticbeanstalk-application-resourcelifecycleconfig
+            type: object
+            customAttributes:
+              immutable: false
+            required: []
+            properties:
+              serviceRole:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticbeanstalk-application-applicationresourcelifecycleconfig.html#cfn-elasticbeanstalk-application-applicationresourcelifecycleconfig-servicerole
+                type: string
+                customAttributes:
+                  template: ServiceRole
+                  immutable: false
+              versionLifecycleConfig:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticbeanstalk-application-applicationresourcelifecycleconfig.html#cfn-elasticbeanstalk-application-applicationresourcelifecycleconfig-versionlifecycleconfig
+                type: object
+                customAttributes:
+                  immutable: false
+                required: []
+                properties:
+                  maxAgeRule:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticbeanstalk-application-applicationversionlifecycleconfig.html#cfn-elasticbeanstalk-application-applicationversionlifecycleconfig-maxagerule
+                    type: object
+                    customAttributes:
+                      immutable: false
+                    required: []
+                    properties:
+                      deleteSourceFromS3:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticbeanstalk-application-maxagerule.html#cfn-elasticbeanstalk-application-maxagerule-deletesourcefroms3
+                        type: boolean
+                        customAttributes:
+                          template: DeleteSourceFromS3
+                          immutable: false
+                      enabled:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticbeanstalk-application-maxagerule.html#cfn-elasticbeanstalk-application-maxagerule-enabled
+                        type: boolean
+                        customAttributes:
+                          template: Enabled
+                          immutable: false
+                      maxAgeInDays:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticbeanstalk-application-maxagerule.html#cfn-elasticbeanstalk-application-maxagerule-maxageindays
+                        type: integer
+                        format: int32
+                        customAttributes:
+                          template: MaxAgeInDays
+                          immutable: false
+                  maxCountRule:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticbeanstalk-application-applicationversionlifecycleconfig.html#cfn-elasticbeanstalk-application-applicationversionlifecycleconfig-maxcountrule
+                    type: object
+                    customAttributes:
+                      immutable: false
+                    required: []
+                    properties:
+                      deleteSourceFromS3:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticbeanstalk-application-maxcountrule.html#cfn-elasticbeanstalk-application-maxcountrule-deletesourcefroms3
+                        type: boolean
+                        customAttributes:
+                          template: DeleteSourceFromS3
+                          immutable: false
+                      enabled:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticbeanstalk-application-maxcountrule.html#cfn-elasticbeanstalk-application-maxcountrule-enabled
+                        type: boolean
+                        customAttributes:
+                          template: Enabled
+                          immutable: false
+                      maxCount:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticbeanstalk-application-maxcountrule.html#cfn-elasticbeanstalk-application-maxcountrule-maxcount
+                        type: integer
+                        format: int32
+                        customAttributes:
+                          template: MaxCount
+                          immutable: false

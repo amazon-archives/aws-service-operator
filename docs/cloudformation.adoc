@@ -1,0 +1,72 @@
+= Cloudformation Architecture
+Chris Hein <heichris@amazon.com>
+v1, 2019-05-09
+:toc: right
+:imagesdir: images/
+:source-language: golang
+
+link:readme.adoc[AWS Service Operator] > link:architecture.adoc[Architecture] > link:cloudformation.adoc[{doctitle}]
+
+The AWS Service Operator heavily uses AWS Cloudformation to drive the
+deployment of services in your AWS Account. Within that it must interface with
+the Cloudformation APIs pretty heavily, when it does so it should have an
+accurate notion of what AWS looks like. To do this we'll use another CRD which
+when reconciled it will get the status from. This allows the decoupling of CRDs
+from CFN and allows us to share an informer state with each of the resources.
+
+== Overall Design
+
+image::cloudformation-stack-management.png[]
+
+This design allows for the CRDs to have coordination with other resources and
+you can. This will also enable for multiple other designs for example you could
+make it so that stacks need to be approved and this resource would be the
+gating factor, similar to how you use Terraform plans. This would also allow
+you to connect external prebuilt templates.
+
+== CloudformationStack CRD
+
+The Cloudformation CRD allows us to have a single entry point into creating
+resources. When you create a Cloudformation Stack you have the ability to pass
+in
+
+[source, golang]
+----
+package v1alpha1
+
+import (
+	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	metav1alpha1 "awsoperator.io/pkg/apis/meta/v1alpha1"
+)
+
+// CloudformationStack is a specification for a Cloudformation Stack Resource in AWS
+type CloudformationStack struct {
+  metav1.TypeMeta   `json:",inline"`
+	metav1.ObjectMeta `json:"metadata,omitempty"`
+
+	// Spec stores all the CRD information
+	Spec CloudformationStackSpec `json:"spec"`
+
+  // +optional
+	// Status stores the CloudFormation Status
+	Status CloudformationStackStatus `json:"status"`
+
+	// +optional
+	// Outputs store any Cloudformation outputs
+	Outputs map[string]string `json:"outputs"`
+}
+
+// CloudformationStackSpec is the spec for the CloudformationStack resource
+type CloudformationStackSpec struct {
+  metav1alpha1.CloudFormationMeta `json:",inline"`
+
+  // TemplateBody Structure containing the template body with a minimum length
+  // of 1 byte and a maximum length of 51,200 bytes.
+  TemplateBody string `json:"templateBody"`
+}
+
+// CloudformationStackStatus is the status for a  resource
+type CloudformationStackStatus struct {
+	metav1alpha1.StatusMeta `json:",inline" `
+}
+----

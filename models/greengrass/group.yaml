@@ -1,0 +1,94 @@
+---
+apiVersion: models.awsoperator.io/v1alpha1
+kind: ModelFile
+metadata:
+  name: greengrass-group-resource
+  creationTimestamp: '2019-06-13T16:59:29-07:00'
+  resourceVersion: 3.3.0
+spec:
+  resource:
+    kind: Group
+    scope: Namespaced
+    apiGroup:
+      apiVersion: greengrass.awsoperator.io/v1alpha1
+      group: greengrass
+      region: us-east-1
+      domain: awsoperator.io
+      versions:
+      - name: v1alpha1
+        served: true
+        storage: true
+    names:
+      singular: group
+      plural: groups
+      shortNames: []
+  openAPIV3Schema:
+    properties:
+      spec:
+        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-greengrass-group.html
+        type: object
+        customAttributes: {}
+        required:
+        - name
+        properties:
+          initialVersion:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-greengrass-group.html#cfn-greengrass-group-initialversion
+            type: object
+            customAttributes:
+              immutable: true
+            required: []
+            properties:
+              connectorDefinitionVersionRef:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-greengrass-group-groupversion.html#cfn-greengrass-group-groupversion-connectordefinitionversionarn
+                type: string
+                customAttributes:
+                  template: ConnectorDefinitionVersionArn
+                  immutable: true
+              coreDefinitionVersionRef:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-greengrass-group-groupversion.html#cfn-greengrass-group-groupversion-coredefinitionversionarn
+                type: string
+                customAttributes:
+                  template: CoreDefinitionVersionArn
+                  immutable: true
+              deviceDefinitionVersionRef:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-greengrass-group-groupversion.html#cfn-greengrass-group-groupversion-devicedefinitionversionarn
+                type: string
+                customAttributes:
+                  template: DeviceDefinitionVersionArn
+                  immutable: true
+              functionDefinitionVersionRef:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-greengrass-group-groupversion.html#cfn-greengrass-group-groupversion-functiondefinitionversionarn
+                type: string
+                customAttributes:
+                  template: FunctionDefinitionVersionArn
+                  immutable: true
+              loggerDefinitionVersionRef:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-greengrass-group-groupversion.html#cfn-greengrass-group-groupversion-loggerdefinitionversionarn
+                type: string
+                customAttributes:
+                  template: LoggerDefinitionVersionArn
+                  immutable: true
+              resourceDefinitionVersionRef:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-greengrass-group-groupversion.html#cfn-greengrass-group-groupversion-resourcedefinitionversionarn
+                type: string
+                customAttributes:
+                  template: ResourceDefinitionVersionArn
+                  immutable: true
+              subscriptionDefinitionVersionRef:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-greengrass-group-groupversion.html#cfn-greengrass-group-groupversion-subscriptiondefinitionversionarn
+                type: string
+                customAttributes:
+                  template: SubscriptionDefinitionVersionArn
+                  immutable: true
+          name:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-greengrass-group.html#cfn-greengrass-group-name
+            type: string
+            customAttributes:
+              template: Name
+              immutable: false
+          roleRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-greengrass-group.html#cfn-greengrass-group-rolearn
+            type: string
+            customAttributes:
+              template: RoleArn
+              immutable: false

@@ -1,0 +1,158 @@
+---
+apiVersion: models.awsoperator.io/v1alpha1
+kind: ModelFile
+metadata:
+  name: opsworkscm-server-resource
+  creationTimestamp: '2019-06-13T16:59:29-07:00'
+  resourceVersion: 3.3.0
+spec:
+  resource:
+    kind: Server
+    scope: Namespaced
+    apiGroup:
+      apiVersion: opsworkscm.awsoperator.io/v1alpha1
+      group: opsworkscm
+      region: us-east-1
+      domain: awsoperator.io
+      versions:
+      - name: v1alpha1
+        served: true
+        storage: true
+    names:
+      singular: server
+      plural: servers
+      shortNames: []
+  openAPIV3Schema:
+    properties:
+      spec:
+        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-opsworkscm-server.html
+        type: object
+        customAttributes: {}
+        required:
+        - instanceProfileArn
+        - instanceType
+        - serviceRoleArn
+        properties:
+          associatePublicIpAddress:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-opsworkscm-server.html#cfn-opsworkscm-server-associatepublicipaddress
+            type: boolean
+            customAttributes:
+              template: AssociatePublicIpAddress
+              immutable: true
+          backupRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-opsworkscm-server.html#cfn-opsworkscm-server-backupid
+            type: string
+            customAttributes:
+              template: BackupId
+              immutable: true
+          backupRetentionCount:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-opsworkscm-server.html#cfn-opsworkscm-server-backupretentioncount
+            type: integer
+            format: int32
+            customAttributes:
+              template: BackupRetentionCount
+              immutable: false
+          disableAutomatedBackup:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-opsworkscm-server.html#cfn-opsworkscm-server-disableautomatedbackup
+            type: boolean
+            customAttributes:
+              template: DisableAutomatedBackup
+              immutable: false
+          engine:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-opsworkscm-server.html#cfn-opsworkscm-server-engine
+            type: string
+            customAttributes:
+              template: Engine
+              immutable: true
+          engineAttributes:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-opsworkscm-server.html#cfn-opsworkscm-server-engineattributes
+            type: array
+            customAttributes:
+              template: EngineAttributes
+              immutable: false
+            items:
+              type: object
+              properties:
+                name:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-opsworkscm-server-engineattribute.html#cfn-opsworkscm-server-engineattribute-name
+                  type: string
+                  customAttributes:
+                    template: Name
+                    immutable: false
+                value:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-opsworkscm-server-engineattribute.html#cfn-opsworkscm-server-engineattribute-value
+                  type: string
+                  customAttributes:
+                    template: Value
+                    immutable: false
+          engineModel:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-opsworkscm-server.html#cfn-opsworkscm-server-enginemodel
+            type: string
+            customAttributes:
+              template: EngineModel
+              immutable: true
+          engineVersion:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-opsworkscm-server.html#cfn-opsworkscm-server-engineversion
+            type: string
+            customAttributes:
+              template: EngineVersion
+              immutable: true
+          instanceProfileRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-opsworkscm-server.html#cfn-opsworkscm-server-instanceprofilearn
+            type: string
+            customAttributes:
+              template: InstanceProfileArn
+              immutable: true
+          instanceType:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-opsworkscm-server.html#cfn-opsworkscm-server-instancetype
+            type: string
+            customAttributes:
+              template: InstanceType
+              immutable: true
+          keyPair:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-opsworkscm-server.html#cfn-opsworkscm-server-keypair
+            type: string
+            customAttributes:
+              template: KeyPair
+              immutable: true
+          preferredBackupWindow:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-opsworkscm-server.html#cfn-opsworkscm-server-preferredbackupwindow
+            type: string
+            customAttributes:
+              template: PreferredBackupWindow
+              immutable: false
+          preferredMaintenanceWindow:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-opsworkscm-server.html#cfn-opsworkscm-server-preferredmaintenancewindow
+            type: string
+            customAttributes:
+              template: PreferredMaintenanceWindow
+              immutable: false
+          securityGroupRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-opsworkscm-server.html#cfn-opsworkscm-server-securitygroupids
+            type: array
+            customAttributes:
+              template: SecurityGroupIds
+              immutable: true
+            items:
+              type: string
+          serverName:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-opsworkscm-server.html#cfn-opsworkscm-server-servername
+            type: string
+            customAttributes:
+              template: ServerName
+              resourceName: true
+              immutable: true
+          serviceRoleRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-opsworkscm-server.html#cfn-opsworkscm-server-servicerolearn
+            type: string
+            customAttributes:
+              template: ServiceRoleArn
+              immutable: true
+          subnetRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-opsworkscm-server.html#cfn-opsworkscm-server-subnetids
+            type: array
+            customAttributes:
+              template: SubnetIds
+              immutable: true
+            items:
+              type: string

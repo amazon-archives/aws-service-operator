@@ -1,0 +1,221 @@
+---
+apiVersion: models.awsoperator.io/v1alpha1
+kind: ModelFile
+metadata:
+  name: greengrass-functiondefinitionversion-resource
+  creationTimestamp: '2019-06-13T16:59:29-07:00'
+  resourceVersion: 3.3.0
+spec:
+  resource:
+    kind: FunctionDefinitionVersion
+    scope: Namespaced
+    apiGroup:
+      apiVersion: greengrass.awsoperator.io/v1alpha1
+      group: greengrass
+      region: us-east-1
+      domain: awsoperator.io
+      versions:
+      - name: v1alpha1
+        served: true
+        storage: true
+    names:
+      singular: functiondefinitionversion
+      plural: functiondefinitionversions
+      shortNames: []
+  openAPIV3Schema:
+    properties:
+      spec:
+        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-greengrass-functiondefinitionversion.html
+        type: object
+        customAttributes: {}
+        required:
+        - functionDefinitionId
+        - functions
+        properties:
+          defaultConfig:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-greengrass-functiondefinitionversion.html#cfn-greengrass-functiondefinitionversion-defaultconfig
+            type: object
+            customAttributes:
+              immutable: true
+            required:
+            - execution
+            properties:
+              execution:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-greengrass-functiondefinitionversion-defaultconfig.html#cfn-greengrass-functiondefinitionversion-defaultconfig-execution
+                type: object
+                customAttributes:
+                  immutable: false
+                required: []
+                properties:
+                  isolationMode:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-greengrass-functiondefinitionversion-execution.html#cfn-greengrass-functiondefinitionversion-execution-isolationmode
+                    type: string
+                    customAttributes:
+                      template: IsolationMode
+                      immutable: true
+                  runAs:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-greengrass-functiondefinitionversion-execution.html#cfn-greengrass-functiondefinitionversion-execution-runas
+                    type: object
+                    customAttributes:
+                      immutable: true
+                    required: []
+                    properties:
+                      gid:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-greengrass-functiondefinitionversion-runas.html#cfn-greengrass-functiondefinitionversion-runas-gid
+                        type: integer
+                        format: int32
+                        customAttributes:
+                          template: Gid
+                          immutable: true
+                      uid:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-greengrass-functiondefinitionversion-runas.html#cfn-greengrass-functiondefinitionversion-runas-uid
+                        type: integer
+                        format: int32
+                        customAttributes:
+                          template: Uid
+                          immutable: true
+          functionDefinitionRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-greengrass-functiondefinitionversion.html#cfn-greengrass-functiondefinitionversion-functiondefinitionid
+            type: string
+            customAttributes:
+              template: FunctionDefinitionId
+              immutable: true
+          functions:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-greengrass-functiondefinitionversion.html#cfn-greengrass-functiondefinitionversion-functions
+            type: array
+            customAttributes:
+              template: Functions
+              immutable: true
+            items:
+              type: object
+              properties:
+                functionRef:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-greengrass-functiondefinitionversion-function.html#cfn-greengrass-functiondefinitionversion-function-functionarn
+                  type: string
+                  customAttributes:
+                    template: FunctionArn
+                    immutable: true
+                functionConfiguration:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-greengrass-functiondefinitionversion-function.html#cfn-greengrass-functiondefinitionversion-function-functionconfiguration
+                  type: object
+                  customAttributes:
+                    immutable: true
+                  required: []
+                  properties:
+                    encodingType:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-greengrass-functiondefinitionversion-functionconfiguration.html#cfn-greengrass-functiondefinitionversion-functionconfiguration-encodingtype
+                      type: string
+                      customAttributes:
+                        template: EncodingType
+                        immutable: true
+                    environment:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-greengrass-functiondefinitionversion-functionconfiguration.html#cfn-greengrass-functiondefinitionversion-functionconfiguration-environment
+                      type: object
+                      customAttributes:
+                        immutable: true
+                      required: []
+                      properties:
+                        accessSysfs:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-greengrass-functiondefinitionversion-environment.html#cfn-greengrass-functiondefinitionversion-environment-accesssysfs
+                          type: boolean
+                          customAttributes:
+                            template: AccessSysfs
+                            immutable: true
+                        execution:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-greengrass-functiondefinitionversion-environment.html#cfn-greengrass-functiondefinitionversion-environment-execution
+                          type: object
+                          customAttributes:
+                            immutable: true
+                          required: []
+                          properties:
+                            isolationMode:
+                              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-greengrass-functiondefinitionversion-execution.html#cfn-greengrass-functiondefinitionversion-execution-isolationmode
+                              type: string
+                              customAttributes:
+                                template: IsolationMode
+                                immutable: true
+                            runAs:
+                              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-greengrass-functiondefinitionversion-execution.html#cfn-greengrass-functiondefinitionversion-execution-runas
+                              type: object
+                              customAttributes:
+                                immutable: true
+                              required: []
+                              properties:
+                                gid:
+                                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-greengrass-functiondefinitionversion-runas.html#cfn-greengrass-functiondefinitionversion-runas-gid
+                                  type: integer
+                                  format: int32
+                                  customAttributes:
+                                    template: Gid
+                                    immutable: true
+                                uid:
+                                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-greengrass-functiondefinitionversion-runas.html#cfn-greengrass-functiondefinitionversion-runas-uid
+                                  type: integer
+                                  format: int32
+                                  customAttributes:
+                                    template: Uid
+                                    immutable: true
+                        resourceAccessPolicies:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-greengrass-functiondefinitionversion-environment.html#cfn-greengrass-functiondefinitionversion-environment-resourceaccesspolicies
+                          type: array
+                          customAttributes:
+                            template: ResourceAccessPolicies
+                            immutable: true
+                          items:
+                            type: object
+                            properties:
+                              permission:
+                                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-greengrass-functiondefinitionversion-resourceaccesspolicy.html#cfn-greengrass-functiondefinitionversion-resourceaccesspolicy-permission
+                                type: string
+                                customAttributes:
+                                  template: Permission
+                                  immutable: true
+                              resourceRef:
+                                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-greengrass-functiondefinitionversion-resourceaccesspolicy.html#cfn-greengrass-functiondefinitionversion-resourceaccesspolicy-resourceid
+                                type: string
+                                customAttributes:
+                                  template: ResourceId
+                                  immutable: true
+                        variables:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-greengrass-functiondefinitionversion-environment.html#cfn-greengrass-functiondefinitionversion-environment-variables
+                          customAttributes:
+                            template: Variables
+                            immutable: true
+                    execArgs:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-greengrass-functiondefinitionversion-functionconfiguration.html#cfn-greengrass-functiondefinitionversion-functionconfiguration-execargs
+                      type: string
+                      customAttributes:
+                        template: ExecArgs
+                        immutable: true
+                    executable:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-greengrass-functiondefinitionversion-functionconfiguration.html#cfn-greengrass-functiondefinitionversion-functionconfiguration-executable
+                      type: string
+                      customAttributes:
+                        template: Executable
+                        immutable: true
+                    memorySize:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-greengrass-functiondefinitionversion-functionconfiguration.html#cfn-greengrass-functiondefinitionversion-functionconfiguration-memorysize
+                      type: integer
+                      format: int32
+                      customAttributes:
+                        template: MemorySize
+                        immutable: true
+                    pinned:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-greengrass-functiondefinitionversion-functionconfiguration.html#cfn-greengrass-functiondefinitionversion-functionconfiguration-pinned
+                      type: boolean
+                      customAttributes:
+                        template: Pinned
+                        immutable: false
+                    timeout:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-greengrass-functiondefinitionversion-functionconfiguration.html#cfn-greengrass-functiondefinitionversion-functionconfiguration-timeout
+                      type: integer
+                      format: int32
+                      customAttributes:
+                        template: Timeout
+                        immutable: true
+                id:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-greengrass-functiondefinitionversion-function.html#cfn-greengrass-functiondefinitionversion-function-id
+                  type: string
+                  customAttributes:
+                    template: Id
+                    immutable: true

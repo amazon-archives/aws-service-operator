@@ -1,0 +1,180 @@
+---
+apiVersion: models.awsoperator.io/v1alpha1
+kind: ModelFile
+metadata:
+  name: kinesisanalytics-applicationreferencedatasource-resource
+  creationTimestamp: '2019-06-13T16:59:29-07:00'
+  resourceVersion: 3.3.0
+spec:
+  resource:
+    kind: ApplicationReferenceDataSource
+    scope: Namespaced
+    apiGroup:
+      apiVersion: kinesisanalytics.awsoperator.io/v1alpha1
+      group: kinesisanalytics
+      region: us-east-1
+      domain: awsoperator.io
+      versions:
+      - name: v1alpha1
+        served: true
+        storage: true
+    names:
+      singular: applicationreferencedatasource
+      plural: applicationreferencedatasources
+      shortNames: []
+  openAPIV3Schema:
+    properties:
+      spec:
+        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-kinesisanalytics-applicationreferencedatasource.html
+        type: object
+        customAttributes: {}
+        required:
+        - applicationName
+        - referenceDataSource
+        properties:
+          applicationName:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-kinesisanalytics-applicationreferencedatasource.html#cfn-kinesisanalytics-applicationreferencedatasource-applicationname
+            type: string
+            customAttributes:
+              template: ApplicationName
+              immutable: true
+          referenceDataSource:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-kinesisanalytics-applicationreferencedatasource.html#cfn-kinesisanalytics-applicationreferencedatasource-referencedatasource
+            type: object
+            customAttributes:
+              immutable: false
+            required:
+            - referenceSchema
+            properties:
+              referenceSchema:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisanalytics-applicationreferencedatasource-referencedatasource.html#cfn-kinesisanalytics-applicationreferencedatasource-referencedatasource-referenceschema
+                type: object
+                customAttributes:
+                  immutable: false
+                required:
+                - recordColumns
+                - recordFormat
+                properties:
+                  recordColumns:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisanalytics-applicationreferencedatasource-referenceschema.html#cfn-kinesisanalytics-applicationreferencedatasource-referenceschema-recordcolumns
+                    type: array
+                    customAttributes:
+                      template: RecordColumns
+                      immutable: false
+                    items:
+                      type: object
+                      properties:
+                        mapping:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisanalytics-applicationreferencedatasource-recordcolumn.html#cfn-kinesisanalytics-applicationreferencedatasource-recordcolumn-mapping
+                          type: string
+                          customAttributes:
+                            template: Mapping
+                            immutable: false
+                        name:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisanalytics-applicationreferencedatasource-recordcolumn.html#cfn-kinesisanalytics-applicationreferencedatasource-recordcolumn-name
+                          type: string
+                          customAttributes:
+                            template: Name
+                            immutable: false
+                        sqlType:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisanalytics-applicationreferencedatasource-recordcolumn.html#cfn-kinesisanalytics-applicationreferencedatasource-recordcolumn-sqltype
+                          type: string
+                          customAttributes:
+                            template: SqlType
+                            immutable: false
+                  recordEncoding:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisanalytics-applicationreferencedatasource-referenceschema.html#cfn-kinesisanalytics-applicationreferencedatasource-referenceschema-recordencoding
+                    type: string
+                    customAttributes:
+                      template: RecordEncoding
+                      immutable: false
+                  recordFormat:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisanalytics-applicationreferencedatasource-referenceschema.html#cfn-kinesisanalytics-applicationreferencedatasource-referenceschema-recordformat
+                    type: object
+                    customAttributes:
+                      immutable: false
+                    required:
+                    - recordFormatType
+                    properties:
+                      mappingParameters:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisanalytics-applicationreferencedatasource-recordformat.html#cfn-kinesisanalytics-applicationreferencedatasource-recordformat-mappingparameters
+                        type: object
+                        customAttributes:
+                          immutable: false
+                        required: []
+                        properties:
+                          cSVMappingParameters:
+                            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisanalytics-applicationreferencedatasource-mappingparameters.html#cfn-kinesisanalytics-applicationreferencedatasource-mappingparameters-csvmappingparameters
+                            type: object
+                            customAttributes:
+                              immutable: false
+                            required:
+                            - recordColumnDelimiter
+                            - recordRowDelimiter
+                            properties:
+                              recordColumnDelimiter:
+                                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisanalytics-applicationreferencedatasource-csvmappingparameters.html#cfn-kinesisanalytics-applicationreferencedatasource-csvmappingparameters-recordcolumndelimiter
+                                type: string
+                                customAttributes:
+                                  template: RecordColumnDelimiter
+                                  immutable: false
+                              recordRowDelimiter:
+                                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisanalytics-applicationreferencedatasource-csvmappingparameters.html#cfn-kinesisanalytics-applicationreferencedatasource-csvmappingparameters-recordrowdelimiter
+                                type: string
+                                customAttributes:
+                                  template: RecordRowDelimiter
+                                  immutable: false
+                          jSONMappingParameters:
+                            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisanalytics-applicationreferencedatasource-mappingparameters.html#cfn-kinesisanalytics-applicationreferencedatasource-mappingparameters-jsonmappingparameters
+                            type: object
+                            customAttributes:
+                              immutable: false
+                            required:
+                            - recordRowPath
+                            properties:
+                              recordRowPath:
+                                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisanalytics-applicationreferencedatasource-jsonmappingparameters.html#cfn-kinesisanalytics-applicationreferencedatasource-jsonmappingparameters-recordrowpath
+                                type: string
+                                customAttributes:
+                                  template: RecordRowPath
+                                  immutable: false
+                      recordFormatType:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisanalytics-applicationreferencedatasource-recordformat.html#cfn-kinesisanalytics-applicationreferencedatasource-recordformat-recordformattype
+                        type: string
+                        customAttributes:
+                          template: RecordFormatType
+                          immutable: false
+              s3ReferenceDataSource:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisanalytics-applicationreferencedatasource-referencedatasource.html#cfn-kinesisanalytics-applicationreferencedatasource-referencedatasource-s3referencedatasource
+                type: object
+                customAttributes:
+                  immutable: false
+                required:
+                - bucketARN
+                - fileKey
+                - referenceRoleARN
+                properties:
+                  bucketARN:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisanalytics-applicationreferencedatasource-s3referencedatasource.html#cfn-kinesisanalytics-applicationreferencedatasource-s3referencedatasource-bucketarn
+                    type: string
+                    customAttributes:
+                      template: BucketARN
+                      immutable: false
+                  fileKey:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisanalytics-applicationreferencedatasource-s3referencedatasource.html#cfn-kinesisanalytics-applicationreferencedatasource-s3referencedatasource-filekey
+                    type: string
+                    customAttributes:
+                      template: FileKey
+                      immutable: false
+                  referenceRoleARN:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisanalytics-applicationreferencedatasource-s3referencedatasource.html#cfn-kinesisanalytics-applicationreferencedatasource-s3referencedatasource-referencerolearn
+                    type: string
+                    customAttributes:
+                      template: ReferenceRoleARN
+                      immutable: false
+              tableName:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisanalytics-applicationreferencedatasource-referencedatasource.html#cfn-kinesisanalytics-applicationreferencedatasource-referencedatasource-tablename
+                type: string
+                customAttributes:
+                  template: TableName
+                  immutable: false

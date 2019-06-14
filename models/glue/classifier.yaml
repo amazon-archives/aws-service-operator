@@ -1,0 +1,163 @@
+---
+apiVersion: models.awsoperator.io/v1alpha1
+kind: ModelFile
+metadata:
+  name: glue-classifier-resource
+  creationTimestamp: '2019-06-13T16:59:29-07:00'
+  resourceVersion: 3.3.0
+spec:
+  resource:
+    kind: Classifier
+    scope: Namespaced
+    apiGroup:
+      apiVersion: glue.awsoperator.io/v1alpha1
+      group: glue
+      region: us-east-1
+      domain: awsoperator.io
+      versions:
+      - name: v1alpha1
+        served: true
+        storage: true
+    names:
+      singular: classifier
+      plural: classifiers
+      shortNames: []
+  openAPIV3Schema:
+    properties:
+      spec:
+        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-glue-classifier.html
+        type: object
+        customAttributes: {}
+        required: []
+        properties:
+          csvClassifier:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-glue-classifier.html#cfn-glue-classifier-csvclassifier
+            type: object
+            customAttributes:
+              immutable: false
+            required: []
+            properties:
+              allowSingleColumn:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-glue-classifier-csvclassifier.html#cfn-glue-classifier-csvclassifier-allowsinglecolumn
+                type: boolean
+                customAttributes:
+                  template: AllowSingleColumn
+                  immutable: false
+              containsHeader:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-glue-classifier-csvclassifier.html#cfn-glue-classifier-csvclassifier-containsheader
+                type: string
+                customAttributes:
+                  template: ContainsHeader
+                  immutable: false
+              delimiter:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-glue-classifier-csvclassifier.html#cfn-glue-classifier-csvclassifier-delimiter
+                type: string
+                customAttributes:
+                  template: Delimiter
+                  immutable: false
+              disableValueTrimming:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-glue-classifier-csvclassifier.html#cfn-glue-classifier-csvclassifier-disablevaluetrimming
+                type: boolean
+                customAttributes:
+                  template: DisableValueTrimming
+                  immutable: false
+              header:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-glue-classifier-csvclassifier.html#cfn-glue-classifier-csvclassifier-header
+                type: array
+                customAttributes:
+                  template: Header
+                  immutable: false
+                items:
+                  type: string
+              name:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-glue-classifier-csvclassifier.html#cfn-glue-classifier-csvclassifier-name
+                type: string
+                customAttributes:
+                  template: Name
+                  immutable: true
+              quoteSymbol:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-glue-classifier-csvclassifier.html#cfn-glue-classifier-csvclassifier-quotesymbol
+                type: string
+                customAttributes:
+                  template: QuoteSymbol
+                  immutable: false
+          grokClassifier:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-glue-classifier.html#cfn-glue-classifier-grokclassifier
+            type: object
+            customAttributes:
+              immutable: false
+            required:
+            - classification
+            - grokPattern
+            properties:
+              classification:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-glue-classifier-grokclassifier.html#cfn-glue-classifier-grokclassifier-classification
+                type: string
+                customAttributes:
+                  template: Classification
+                  immutable: false
+              customPatterns:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-glue-classifier-grokclassifier.html#cfn-glue-classifier-grokclassifier-custompatterns
+                type: string
+                customAttributes:
+                  template: CustomPatterns
+                  immutable: false
+              grokPattern:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-glue-classifier-grokclassifier.html#cfn-glue-classifier-grokclassifier-grokpattern
+                type: string
+                customAttributes:
+                  template: GrokPattern
+                  immutable: false
+              name:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-glue-classifier-grokclassifier.html#cfn-glue-classifier-grokclassifier-name
+                type: string
+                customAttributes:
+                  template: Name
+                  immutable: true
+          jsonClassifier:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-glue-classifier.html#cfn-glue-classifier-jsonclassifier
+            type: object
+            customAttributes:
+              immutable: false
+            required:
+            - jsonPath
+            properties:
+              jsonPath:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-glue-classifier-jsonclassifier.html#cfn-glue-classifier-jsonclassifier-jsonpath
+                type: string
+                customAttributes:
+                  template: JsonPath
+                  immutable: false
+              name:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-glue-classifier-jsonclassifier.html#cfn-glue-classifier-jsonclassifier-name
+                type: string
+                customAttributes:
+                  template: Name
+                  immutable: true
+          xMLClassifier:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-glue-classifier.html#cfn-glue-classifier-xmlclassifier
+            type: object
+            customAttributes:
+              immutable: false
+            required:
+            - classification
+            - rowTag
+            properties:
+              classification:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-glue-classifier-xmlclassifier.html#cfn-glue-classifier-xmlclassifier-classification
+                type: string
+                customAttributes:
+                  template: Classification
+                  immutable: false
+              name:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-glue-classifier-xmlclassifier.html#cfn-glue-classifier-xmlclassifier-name
+                type: string
+                customAttributes:
+                  template: Name
+                  immutable: true
+              rowTag:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-glue-classifier-xmlclassifier.html#cfn-glue-classifier-xmlclassifier-rowtag
+                type: string
+                customAttributes:
+                  template: RowTag
+                  immutable: false

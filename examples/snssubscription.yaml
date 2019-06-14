@@ -1,8 +1,0 @@
-apiVersion: service-operator.aws/v1alpha1
-kind: SNSSubscription
-metadata:
-  name: example-sns-subscription-name
-spec:
-  topicName: example-sns-topic-name
-  protocol: sqs
-  endpoint: example-sqs-queue-name

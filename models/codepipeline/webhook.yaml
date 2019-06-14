@@ -1,0 +1,119 @@
+---
+apiVersion: models.awsoperator.io/v1alpha1
+kind: ModelFile
+metadata:
+  name: codepipeline-webhook-resource
+  creationTimestamp: '2019-06-13T16:59:28-07:00'
+  resourceVersion: 3.3.0
+spec:
+  resource:
+    kind: Webhook
+    scope: Namespaced
+    apiGroup:
+      apiVersion: codepipeline.awsoperator.io/v1alpha1
+      group: codepipeline
+      region: us-east-1
+      domain: awsoperator.io
+      versions:
+      - name: v1alpha1
+        served: true
+        storage: true
+    names:
+      singular: webhook
+      plural: webhooks
+      shortNames: []
+  openAPIV3Schema:
+    properties:
+      spec:
+        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-codepipeline-webhook.html
+        type: object
+        customAttributes: {}
+        required:
+        - authentication
+        - authenticationConfiguration
+        - filters
+        - targetAction
+        - targetPipeline
+        - targetPipelineVersion
+        properties:
+          authentication:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-codepipeline-webhook.html#cfn-codepipeline-webhook-authentication
+            type: string
+            customAttributes:
+              template: Authentication
+              immutable: false
+            enum:
+            - GITHUB_HMAC
+            - IP
+            - UNAUTHENTICATED
+          authenticationConfiguration:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-codepipeline-webhook.html#cfn-codepipeline-webhook-authenticationconfiguration
+            type: object
+            customAttributes:
+              immutable: false
+            required: []
+            properties:
+              allowedIPRange:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codepipeline-webhook-webhookauthconfiguration.html#cfn-codepipeline-webhook-webhookauthconfiguration-allowediprange
+                type: string
+                customAttributes:
+                  template: AllowedIPRange
+                  immutable: false
+              secretToken:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codepipeline-webhook-webhookauthconfiguration.html#cfn-codepipeline-webhook-webhookauthconfiguration-secrettoken
+                type: string
+                customAttributes:
+                  template: SecretToken
+                  immutable: false
+          filters:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-codepipeline-webhook.html#cfn-codepipeline-webhook-filters
+            type: array
+            customAttributes:
+              template: Filters
+              immutable: false
+            items:
+              type: object
+              properties:
+                jsonPath:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codepipeline-webhook-webhookfilterrule.html#cfn-codepipeline-webhook-webhookfilterrule-jsonpath
+                  type: string
+                  customAttributes:
+                    template: JsonPath
+                    immutable: false
+                matchEquals:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codepipeline-webhook-webhookfilterrule.html#cfn-codepipeline-webhook-webhookfilterrule-matchequals
+                  type: string
+                  customAttributes:
+                    template: MatchEquals
+                    immutable: false
+          name:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-codepipeline-webhook.html#cfn-codepipeline-webhook-name
+            type: string
+            customAttributes:
+              template: Name
+              immutable: true
+          registerWithThirdParty:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-codepipeline-webhook.html#cfn-codepipeline-webhook-registerwiththirdparty
+            type: boolean
+            customAttributes:
+              template: RegisterWithThirdParty
+              immutable: false
+          targetAction:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-codepipeline-webhook.html#cfn-codepipeline-webhook-targetaction
+            type: string
+            customAttributes:
+              template: TargetAction
+              immutable: false
+          targetPipeline:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-codepipeline-webhook.html#cfn-codepipeline-webhook-targetpipeline
+            type: string
+            customAttributes:
+              template: TargetPipeline
+              immutable: false
+          targetPipelineVersion:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-codepipeline-webhook.html#cfn-codepipeline-webhook-targetpipelineversion
+            type: integer
+            format: int32
+            customAttributes:
+              template: TargetPipelineVersion
+              immutable: false

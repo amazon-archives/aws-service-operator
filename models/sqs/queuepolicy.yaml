@@ -1,0 +1,47 @@
+---
+apiVersion: models.awsoperator.io/v1alpha1
+kind: ModelFile
+metadata:
+  name: sqs-queuepolicy-resource
+  creationTimestamp: '2019-06-13T16:59:30-07:00'
+  resourceVersion: 3.3.0
+spec:
+  resource:
+    kind: QueuePolicy
+    scope: Namespaced
+    apiGroup:
+      apiVersion: sqs.awsoperator.io/v1alpha1
+      group: sqs
+      region: us-east-1
+      domain: awsoperator.io
+      versions:
+      - name: v1alpha1
+        served: true
+        storage: true
+    names:
+      singular: queuepolicy
+      plural: queuepolicies
+      shortNames: []
+  openAPIV3Schema:
+    properties:
+      spec:
+        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sqs-policy.html
+        type: object
+        customAttributes: {}
+        required:
+        - policyDocument
+        - queues
+        properties:
+          policyDocument:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sqs-policy.html#cfn-sqs-queuepolicy-policydoc
+            customAttributes:
+              template: PolicyDocument
+              immutable: false
+          queues:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-sqs-policy.html#cfn-sqs-queuepolicy-queues
+            type: array
+            customAttributes:
+              template: Queues
+              immutable: false
+            items:
+              type: string

@@ -1,0 +1,233 @@
+---
+apiVersion: models.awsoperator.io/v1alpha1
+kind: ModelFile
+metadata:
+  name: autoscaling-scalingpolicy-resource
+  creationTimestamp: '2019-06-13T16:59:28-07:00'
+  resourceVersion: 3.3.0
+spec:
+  resource:
+    kind: ScalingPolicy
+    scope: Namespaced
+    apiGroup:
+      apiVersion: autoscaling.awsoperator.io/v1alpha1
+      group: autoscaling
+      region: us-east-1
+      domain: awsoperator.io
+      versions:
+      - name: v1alpha1
+        served: true
+        storage: true
+    names:
+      singular: scalingpolicy
+      plural: scalingpolicies
+      shortNames: []
+  openAPIV3Schema:
+    properties:
+      spec:
+        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-as-policy.html
+        type: object
+        customAttributes: {}
+        required:
+        - autoScalingGroupName
+        properties:
+          adjustmentType:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-as-policy.html#cfn-as-scalingpolicy-adjustmenttype
+            type: string
+            customAttributes:
+              template: AdjustmentType
+              immutable: false
+            enum:
+            - ChangeInCapacity
+            - ExactCapacity
+            - PercentChangeInCapacity
+          autoScalingGroupName:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-as-policy.html#cfn-as-scalingpolicy-autoscalinggroupname
+            type: string
+            customAttributes:
+              template: AutoScalingGroupName
+              immutable: false
+          cooldown:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-as-policy.html#cfn-as-scalingpolicy-cooldown
+            type: string
+            customAttributes:
+              template: Cooldown
+              immutable: false
+          estimatedInstanceWarmup:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-as-policy.html#cfn-as-scalingpolicy-estimatedinstancewarmup
+            type: integer
+            format: int32
+            customAttributes:
+              template: EstimatedInstanceWarmup
+              immutable: false
+          metricAggregationType:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-as-policy.html#cfn-as-scalingpolicy-metricaggregationtype
+            type: string
+            customAttributes:
+              template: MetricAggregationType
+              immutable: false
+            enum:
+            - Average
+            - Maximum
+            - Minimum
+          minAdjustmentMagnitude:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-as-policy.html#cfn-as-scalingpolicy-minadjustmentmagnitude
+            type: integer
+            format: int32
+            customAttributes:
+              template: MinAdjustmentMagnitude
+              immutable: false
+          policyType:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-as-policy.html#cfn-as-scalingpolicy-policytype
+            type: string
+            customAttributes:
+              template: PolicyType
+              immutable: false
+            enum:
+            - SimpleScaling
+            - StepScaling
+            - TargetTrackingScaling
+          scalingAdjustment:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-as-policy.html#cfn-as-scalingpolicy-scalingadjustment
+            type: integer
+            format: int32
+            customAttributes:
+              template: ScalingAdjustment
+              immutable: false
+          stepAdjustments:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-as-policy.html#cfn-as-scalingpolicy-stepadjustments
+            type: array
+            customAttributes:
+              template: StepAdjustments
+              immutable: false
+            items:
+              type: object
+              properties:
+                metricIntervalLowerBound:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-autoscaling-scalingpolicy-stepadjustments.html#cfn-autoscaling-scalingpolicy-stepadjustment-metricintervallowerbound
+                  type: integer
+                  format: double
+                  customAttributes:
+                    template: MetricIntervalLowerBound
+                    immutable: false
+                metricIntervalUpperBound:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-autoscaling-scalingpolicy-stepadjustments.html#cfn-autoscaling-scalingpolicy-stepadjustment-metricintervalupperbound
+                  type: integer
+                  format: double
+                  customAttributes:
+                    template: MetricIntervalUpperBound
+                    immutable: false
+                scalingAdjustment:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-autoscaling-scalingpolicy-stepadjustments.html#cfn-autoscaling-scalingpolicy-stepadjustment-scalingadjustment
+                  type: integer
+                  format: int32
+                  customAttributes:
+                    template: ScalingAdjustment
+                    immutable: false
+          targetTrackingConfiguration:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-as-policy.html#cfn-autoscaling-scalingpolicy-targettrackingconfiguration
+            type: object
+            customAttributes:
+              immutable: false
+            required:
+            - targetValue
+            properties:
+              customizedMetricSpecification:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-autoscaling-scalingpolicy-targettrackingconfiguration.html#cfn-autoscaling-scalingpolicy-targettrackingconfiguration-customizedmetricspecification
+                type: object
+                customAttributes:
+                  immutable: false
+                required:
+                - metricName
+                - namespace
+                - statistic
+                properties:
+                  dimensions:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-autoscaling-scalingpolicy-customizedmetricspecification.html#cfn-autoscaling-scalingpolicy-customizedmetricspecification-dimensions
+                    type: array
+                    customAttributes:
+                      template: Dimensions
+                      immutable: false
+                    items:
+                      type: object
+                      properties:
+                        name:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-autoscaling-scalingpolicy-metricdimension.html#cfn-autoscaling-scalingpolicy-metricdimension-name
+                          type: string
+                          customAttributes:
+                            template: Name
+                            immutable: false
+                        value:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-autoscaling-scalingpolicy-metricdimension.html#cfn-autoscaling-scalingpolicy-metricdimension-value
+                          type: string
+                          customAttributes:
+                            template: Value
+                            immutable: false
+                  metricName:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-autoscaling-scalingpolicy-customizedmetricspecification.html#cfn-autoscaling-scalingpolicy-customizedmetricspecification-metricname
+                    type: string
+                    customAttributes:
+                      template: MetricName
+                      immutable: false
+                  namespace:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-autoscaling-scalingpolicy-customizedmetricspecification.html#cfn-autoscaling-scalingpolicy-customizedmetricspecification-namespace
+                    type: string
+                    customAttributes:
+                      template: Namespace
+                      immutable: false
+                  statistic:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-autoscaling-scalingpolicy-customizedmetricspecification.html#cfn-autoscaling-scalingpolicy-customizedmetricspecification-statistic
+                    type: string
+                    customAttributes:
+                      template: Statistic
+                      immutable: false
+                    enum:
+                    - Average
+                    - Minimum
+                    - Maximum
+                    - SampleCount
+                    - Sum
+                  unit:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-autoscaling-scalingpolicy-customizedmetricspecification.html#cfn-autoscaling-scalingpolicy-customizedmetricspecification-unit
+                    type: string
+                    customAttributes:
+                      template: Unit
+                      immutable: false
+              disableScaleIn:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-autoscaling-scalingpolicy-targettrackingconfiguration.html#cfn-autoscaling-scalingpolicy-targettrackingconfiguration-disablescalein
+                type: boolean
+                customAttributes:
+                  template: DisableScaleIn
+                  immutable: false
+              predefinedMetricSpecification:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-autoscaling-scalingpolicy-targettrackingconfiguration.html#cfn-autoscaling-scalingpolicy-targettrackingconfiguration-predefinedmetricspecification
+                type: object
+                customAttributes:
+                  immutable: false
+                required:
+                - predefinedMetricType
+                properties:
+                  predefinedMetricType:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-autoscaling-scalingpolicy-predefinedmetricspecification.html#cfn-autoscaling-scalingpolicy-predefinedmetricspecification-predefinedmetrictype
+                    type: string
+                    customAttributes:
+                      template: PredefinedMetricType
+                      immutable: false
+                    enum:
+                    - ALBRequestCountPerTarget
+                    - ASGAverageCPUUtilization
+                    - ASGAverageNetworkIn
+                    - ASGAverageNetworkOut
+                  resourceLabel:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-autoscaling-scalingpolicy-predefinedmetricspecification.html#cfn-autoscaling-scalingpolicy-predefinedmetricspecification-resourcelabel
+                    type: string
+                    customAttributes:
+                      template: ResourceLabel
+                      immutable: false
+              targetValue:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-autoscaling-scalingpolicy-targettrackingconfiguration.html#cfn-autoscaling-scalingpolicy-targettrackingconfiguration-targetvalue
+                type: integer
+                format: double
+                customAttributes:
+                  template: TargetValue
+                  immutable: false

@@ -1,0 +1,53 @@
+---
+apiVersion: models.awsoperator.io/v1alpha1
+kind: ModelFile
+metadata:
+  name: cognito-userpoolusertogroupattachment-resource
+  creationTimestamp: '2019-06-13T16:59:28-07:00'
+  resourceVersion: 3.3.0
+spec:
+  resource:
+    kind: UserPoolUserToGroupAttachment
+    scope: Namespaced
+    apiGroup:
+      apiVersion: cognito.awsoperator.io/v1alpha1
+      group: cognito
+      region: us-east-1
+      domain: awsoperator.io
+      versions:
+      - name: v1alpha1
+        served: true
+        storage: true
+    names:
+      singular: userpoolusertogroupattachment
+      plural: userpoolusertogroupattachments
+      shortNames: []
+  openAPIV3Schema:
+    properties:
+      spec:
+        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cognito-userpoolusertogroupattachment.html
+        type: object
+        customAttributes: {}
+        required:
+        - groupName
+        - userPoolId
+        - username
+        properties:
+          groupName:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cognito-userpoolusertogroupattachment.html#cfn-cognito-userpoolusertogroupattachment-groupname
+            type: string
+            customAttributes:
+              template: GroupName
+              immutable: true
+          userPoolRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cognito-userpoolusertogroupattachment.html#cfn-cognito-userpoolusertogroupattachment-userpoolid
+            type: string
+            customAttributes:
+              template: UserPoolId
+              immutable: true
+          username:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cognito-userpoolusertogroupattachment.html#cfn-cognito-userpoolusertogroupattachment-username
+            type: string
+            customAttributes:
+              template: Username
+              immutable: true

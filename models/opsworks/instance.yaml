@@ -1,0 +1,276 @@
+---
+apiVersion: models.awsoperator.io/v1alpha1
+kind: ModelFile
+metadata:
+  name: opsworks-instance-resource
+  creationTimestamp: '2019-06-13T16:59:29-07:00'
+  resourceVersion: 3.3.0
+spec:
+  resource:
+    kind: Instance
+    scope: Namespaced
+    apiGroup:
+      apiVersion: opsworks.awsoperator.io/v1alpha1
+      group: opsworks
+      region: us-east-1
+      domain: awsoperator.io
+      versions:
+      - name: v1alpha1
+        served: true
+        storage: true
+    names:
+      singular: instance
+      plural: instances
+      shortNames: []
+  openAPIV3Schema:
+    properties:
+      spec:
+        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-opsworks-instance.html
+        type: object
+        customAttributes: {}
+        required:
+        - instanceType
+        - layerIds
+        - stackId
+        properties:
+          agentVersion:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-opsworks-instance.html#cfn-opsworks-instance-agentversion
+            type: string
+            customAttributes:
+              template: AgentVersion
+              immutable: false
+          amiRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-opsworks-instance.html#cfn-opsworks-instance-amiid
+            type: string
+            customAttributes:
+              template: AmiId
+              immutable: false
+          architecture:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-opsworks-instance.html#cfn-opsworks-instance-architecture
+            type: string
+            customAttributes:
+              template: Architecture
+              immutable: false
+          autoScalingType:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-opsworks-instance.html#cfn-opsworks-instance-autoscalingtype
+            type: string
+            customAttributes:
+              template: AutoScalingType
+              immutable: true
+          availabilityZone:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-opsworks-instance.html#cfn-opsworks-instance-availabilityzone
+            type: string
+            customAttributes:
+              template: AvailabilityZone
+              immutable: true
+          blockDeviceMappings:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-opsworks-instance.html#cfn-opsworks-instance-blockdevicemappings
+            type: array
+            customAttributes:
+              template: BlockDeviceMappings
+              immutable: true
+            items:
+              type: object
+              properties:
+                deviceName:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-opsworks-instance-blockdevicemapping.html#cfn-opsworks-instance-blockdevicemapping-devicename
+                  type: string
+                  customAttributes:
+                    template: DeviceName
+                    immutable: false
+                ebs:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-opsworks-instance-blockdevicemapping.html#cfn-opsworks-instance-blockdevicemapping-ebs
+                  type: object
+                  customAttributes:
+                    immutable: false
+                  required: []
+                  properties:
+                    deleteOnTermination:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-opsworks-instance-ebsblockdevice.html#cfn-opsworks-instance-ebsblockdevice-deleteontermination
+                      type: boolean
+                      customAttributes:
+                        template: DeleteOnTermination
+                        immutable: false
+                    iops:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-opsworks-instance-ebsblockdevice.html#cfn-opsworks-instance-ebsblockdevice-iops
+                      type: integer
+                      format: int32
+                      customAttributes:
+                        template: Iops
+                        immutable: false
+                    snapshotRef:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-opsworks-instance-ebsblockdevice.html#cfn-opsworks-instance-ebsblockdevice-snapshotid
+                      type: string
+                      customAttributes:
+                        template: SnapshotId
+                        immutable: false
+                    volumeSize:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-opsworks-instance-ebsblockdevice.html#cfn-opsworks-instance-ebsblockdevice-volumesize
+                      type: integer
+                      format: int32
+                      customAttributes:
+                        template: VolumeSize
+                        immutable: false
+                    volumeType:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-opsworks-instance-ebsblockdevice.html#cfn-opsworks-instance-ebsblockdevice-volumetype
+                      type: string
+                      customAttributes:
+                        template: VolumeType
+                        immutable: false
+                      enum:
+                      - gp2
+                      - io1
+                      - sc1
+                      - st1
+                      - standard
+                noDevice:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-opsworks-instance-blockdevicemapping.html#cfn-opsworks-instance-blockdevicemapping-nodevice
+                  type: string
+                  customAttributes:
+                    template: NoDevice
+                    immutable: false
+                virtualName:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-opsworks-instance-blockdevicemapping.html#cfn-opsworks-instance-blockdevicemapping-virtualname
+                  type: string
+                  customAttributes:
+                    template: VirtualName
+                    immutable: false
+          ebsOptimized:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-opsworks-instance.html#cfn-opsworks-instance-ebsoptimized
+            type: boolean
+            customAttributes:
+              template: EbsOptimized
+              immutable: true
+          elasticIps:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-opsworks-instance.html#cfn-opsworks-instance-elasticips
+            type: array
+            customAttributes:
+              template: ElasticIps
+              immutable: false
+            items:
+              type: string
+          hostname:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-opsworks-instance.html#cfn-opsworks-instance-hostname
+            type: string
+            customAttributes:
+              template: Hostname
+              immutable: false
+          installUpdatesOnBoot:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-opsworks-instance.html#cfn-opsworks-instance-installupdatesonboot
+            type: boolean
+            customAttributes:
+              template: InstallUpdatesOnBoot
+              immutable: false
+          instanceType:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-opsworks-instance.html#cfn-opsworks-instance-instancetype
+            type: string
+            customAttributes:
+              template: InstanceType
+              immutable: false
+          layerRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-opsworks-instance.html#cfn-opsworks-instance-layerids
+            type: array
+            customAttributes:
+              template: LayerIds
+              immutable: false
+            items:
+              type: string
+          os:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-opsworks-instance.html#cfn-opsworks-instance-os
+            type: string
+            customAttributes:
+              template: Os
+              immutable: false
+          rootDeviceType:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-opsworks-instance.html#cfn-opsworks-instance-rootdevicetype
+            type: string
+            customAttributes:
+              template: RootDeviceType
+              immutable: true
+          sshKeyName:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-opsworks-instance.html#cfn-opsworks-instance-sshkeyname
+            type: string
+            customAttributes:
+              template: SshKeyName
+              immutable: false
+          stackRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-opsworks-instance.html#cfn-opsworks-instance-stackid
+            type: string
+            customAttributes:
+              template: StackId
+              immutable: true
+          subnetRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-opsworks-instance.html#cfn-opsworks-instance-subnetid
+            type: string
+            customAttributes:
+              template: SubnetId
+              immutable: true
+          tenancy:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-opsworks-instance.html#cfn-opsworks-instance-tenancy
+            type: string
+            customAttributes:
+              template: Tenancy
+              immutable: true
+          timeBasedAutoScaling:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-opsworks-instance.html#cfn-opsworks-instance-timebasedautoscaling
+            type: object
+            customAttributes:
+              immutable: true
+            required: []
+            properties:
+              friday:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-opsworks-instance-timebasedautoscaling.html#cfn-opsworks-instance-timebasedautoscaling-friday
+                type: json
+                customAttributes:
+                  template: Friday
+                  immutable: false
+              monday:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-opsworks-instance-timebasedautoscaling.html#cfn-opsworks-instance-timebasedautoscaling-monday
+                type: json
+                customAttributes:
+                  template: Monday
+                  immutable: false
+              saturday:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-opsworks-instance-timebasedautoscaling.html#cfn-opsworks-instance-timebasedautoscaling-saturday
+                type: json
+                customAttributes:
+                  template: Saturday
+                  immutable: false
+              sunday:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-opsworks-instance-timebasedautoscaling.html#cfn-opsworks-instance-timebasedautoscaling-sunday
+                type: json
+                customAttributes:
+                  template: Sunday
+                  immutable: false
+              thursday:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-opsworks-instance-timebasedautoscaling.html#cfn-opsworks-instance-timebasedautoscaling-thursday
+                type: json
+                customAttributes:
+                  template: Thursday
+                  immutable: false
+              tuesday:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-opsworks-instance-timebasedautoscaling.html#cfn-opsworks-instance-timebasedautoscaling-tuesday
+                type: json
+                customAttributes:
+                  template: Tuesday
+                  immutable: false
+              wednesday:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-opsworks-instance-timebasedautoscaling.html#cfn-opsworks-instance-timebasedautoscaling-wednesday
+                type: json
+                customAttributes:
+                  template: Wednesday
+                  immutable: false
+          virtualizationType:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-opsworks-instance.html#cfn-opsworks-instance-virtualizationtype
+            type: string
+            customAttributes:
+              template: VirtualizationType
+              immutable: true
+          volumes:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-opsworks-instance.html#cfn-opsworks-instance-volumes
+            type: array
+            customAttributes:
+              template: Volumes
+              immutable: false
+            items:
+              type: string

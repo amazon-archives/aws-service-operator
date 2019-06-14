@@ -1,0 +1,139 @@
+---
+apiVersion: models.awsoperator.io/v1alpha1
+kind: ModelFile
+metadata:
+  name: config-configurationrecorder-resource
+  creationTimestamp: '2019-06-13T16:59:29-07:00'
+  resourceVersion: 3.3.0
+spec:
+  resource:
+    kind: ConfigurationRecorder
+    scope: Namespaced
+    apiGroup:
+      apiVersion: config.awsoperator.io/v1alpha1
+      group: config
+      region: us-east-1
+      domain: awsoperator.io
+      versions:
+      - name: v1alpha1
+        served: true
+        storage: true
+    names:
+      singular: configurationrecorder
+      plural: configurationrecorders
+      shortNames: []
+  openAPIV3Schema:
+    properties:
+      spec:
+        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-config-configurationrecorder.html
+        type: object
+        customAttributes: {}
+        required:
+        - roleARN
+        properties:
+          name:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-config-configurationrecorder.html#cfn-config-configurationrecorder-name
+            type: string
+            customAttributes:
+              template: Name
+              immutable: true
+          recordingGroup:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-config-configurationrecorder.html#cfn-config-configurationrecorder-recordinggroup
+            type: object
+            customAttributes:
+              immutable: false
+            required: []
+            properties:
+              allSupported:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-config-configurationrecorder-recordinggroup.html#cfn-config-configurationrecorder-recordinggroup-allsupported
+                type: boolean
+                customAttributes:
+                  template: AllSupported
+                  immutable: false
+              includeGlobalResourceTypes:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-config-configurationrecorder-recordinggroup.html#cfn-config-configurationrecorder-recordinggroup-includeglobalresourcetypes
+                type: boolean
+                customAttributes:
+                  template: IncludeGlobalResourceTypes
+                  immutable: false
+              resourceTypes:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-config-configurationrecorder-recordinggroup.html#cfn-config-configurationrecorder-recordinggroup-resourcetypes
+                type: array
+                customAttributes:
+                  template: ResourceTypes
+                  immutable: false
+                items:
+                  type: string
+                enum:
+                - AWS::ACM::Certificate
+                - AWS::AutoScaling::AutoScalingGroup
+                - AWS::AutoScaling::LaunchConfiguration
+                - AWS::AutoScaling::ScalingPolicy
+                - AWS::AutoScaling::ScheduledAction
+                - AWS::CloudFormation::Stack
+                - AWS::CloudFront::Distribution
+                - AWS::CloudFront::StreamingDistribution
+                - AWS::CloudTrail::Trail
+                - AWS::CloudWatch::Alarm
+                - AWS::CodeBuild::Project
+                - AWS::CodePipeline::Pipeline
+                - AWS::DynamoDB::Table
+                - AWS::EC2::CustomerGateway
+                - AWS::EC2::EIP
+                - AWS::EC2::Host
+                - AWS::EC2::Instance
+                - AWS::EC2::InternetGateway
+                - AWS::EC2::NetworkAcl
+                - AWS::EC2::NetworkInterface
+                - AWS::EC2::RouteTable
+                - AWS::EC2::SecurityGroup
+                - AWS::EC2::Subnet
+                - AWS::EC2::Volume
+                - AWS::EC2::VPC
+                - AWS::EC2::VPNConnection
+                - AWS::EC2::VPNGateway
+                - AWS::ElasticBeanstalk::Application
+                - AWS::ElasticBeanstalk::ApplicationVersion
+                - AWS::ElasticBeanstalk::Environment
+                - AWS::ElasticLoadBalancing::LoadBalancer
+                - AWS::ElasticLoadBalancingV2::LoadBalancer
+                - AWS::IAM::Group
+                - AWS::IAM::Policy
+                - AWS::IAM::Role
+                - AWS::IAM::User
+                - AWS::Lambda::Function
+                - AWS::RDS::DBInstance
+                - AWS::RDS::DBSecurityGroup
+                - AWS::RDS::DBSnapshot
+                - AWS::RDS::DBSubnetGroup
+                - AWS::RDS::EventSubscription
+                - AWS::Redshift::Cluster
+                - AWS::Redshift::ClusterParameterGroup
+                - AWS::Redshift::ClusterSecurityGroup
+                - AWS::Redshift::ClusterSnapshot
+                - AWS::Redshift::ClusterSubnetGroup
+                - AWS::Redshift::EventSubscription
+                - AWS::S3::Bucket
+                - AWS::ServiceCatalog::CloudFormationProduct
+                - AWS::ServiceCatalog::CloudFormationProvisionedProduct
+                - AWS::ServiceCatalog::Portfolio
+                - AWS::Shield::Protection
+                - AWS::ShieldRegional::Protection
+                - AWS::SSM::AssociationCompliance
+                - AWS::SSM::ManagedInstanceInventory
+                - AWS::SSM::PatchCompliance
+                - AWS::WAF::RateBasedRule
+                - AWS::WAF::Rule
+                - AWS::WAF::RuleGroup
+                - AWS::WAF::WebACL
+                - AWS::WAFRegional::RateBasedRule
+                - AWS::WAFRegional::Rule
+                - AWS::WAFRegional::RuleGroup
+                - AWS::WAFRegional::WebACL
+                - AWS::XRay::EncryptionConfig
+          roleARN:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-config-configurationrecorder.html#cfn-config-configurationrecorder-rolearn
+            type: string
+            customAttributes:
+              template: RoleARN
+              immutable: false

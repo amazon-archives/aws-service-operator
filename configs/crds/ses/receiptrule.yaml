@@ -1,0 +1,261 @@
+---
+apiVersion: apiextensions.k8s.io/v1beta1
+kind: CustomResourceDefinition
+metadata:
+  name: receiptrules.ses.awsoperator.io
+spec:
+  group: ses.awsoperator.io
+  versions:
+  - name: v1alpha1
+    served: true
+    storage: true
+  scope: Namespaced
+  names:
+    plural: receiptrules
+    singular: receiptrule
+    kind: ReceiptRule
+    shortNames: []
+    categories:
+    - aws
+    - ses
+  additionalPrinterColumns:
+  - name: Status
+    type: string
+    description: Status for the AWS CloudFormation stack.
+    JSONPath: ".status.reason"
+  - name: Message
+    type: string
+    description: Message accompanying it's current stack status.
+    JSONPath: ".status.message"
+    priority: 1
+  - name: Created At
+    type: date
+    description: When the resource was created
+    JSONPath: ".metadata.creationTimestamp"
+  subresources:
+    status: {}
+  validation:
+    openAPIV3Schema:
+      properties:
+        spec:
+          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ses-receiptrule.html
+          type: object
+          required:
+          - rule
+          - ruleSetName
+          properties:
+            after:
+              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ses-receiptrule.html#cfn-ses-receiptrule-after
+              type: string
+            rule:
+              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ses-receiptrule.html#cfn-ses-receiptrule-rule
+              type: object
+              required: []
+              properties:
+                actions:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ses-receiptrule-rule.html#cfn-ses-receiptrule-rule-actions
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      addHeaderAction:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ses-receiptrule-action.html#cfn-ses-receiptrule-action-addheaderaction
+                        type: object
+                        customAttributes:
+                          immutable: false
+                        required:
+                        - headerName
+                        - headerValue
+                        properties:
+                          headerName:
+                            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ses-receiptrule-addheaderaction.html#cfn-ses-receiptrule-addheaderaction-headername
+                            type: string
+                            customAttributes:
+                              template: HeaderName
+                              immutable: false
+                          headerValue:
+                            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ses-receiptrule-addheaderaction.html#cfn-ses-receiptrule-addheaderaction-headervalue
+                            type: string
+                            customAttributes:
+                              template: HeaderValue
+                              immutable: false
+                      bounceAction:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ses-receiptrule-action.html#cfn-ses-receiptrule-action-bounceaction
+                        type: object
+                        customAttributes:
+                          immutable: false
+                        required:
+                        - message
+                        - sender
+                        - smtpReplyCode
+                        properties:
+                          message:
+                            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ses-receiptrule-bounceaction.html#cfn-ses-receiptrule-bounceaction-message
+                            type: string
+                            customAttributes:
+                              template: Message
+                              immutable: false
+                          sender:
+                            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ses-receiptrule-bounceaction.html#cfn-ses-receiptrule-bounceaction-sender
+                            type: string
+                            customAttributes:
+                              template: Sender
+                              immutable: false
+                          smtpReplyCode:
+                            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ses-receiptrule-bounceaction.html#cfn-ses-receiptrule-bounceaction-smtpreplycode
+                            type: string
+                            customAttributes:
+                              template: SmtpReplyCode
+                              immutable: false
+                          statusCode:
+                            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ses-receiptrule-bounceaction.html#cfn-ses-receiptrule-bounceaction-statuscode
+                            type: string
+                            customAttributes:
+                              template: StatusCode
+                              immutable: false
+                          topicRef:
+                            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ses-receiptrule-bounceaction.html#cfn-ses-receiptrule-bounceaction-topicarn
+                            type: string
+                            customAttributes:
+                              template: TopicArn
+                              immutable: false
+                      lambdaAction:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ses-receiptrule-action.html#cfn-ses-receiptrule-action-lambdaaction
+                        type: object
+                        customAttributes:
+                          immutable: false
+                        required:
+                        - functionArn
+                        properties:
+                          functionRef:
+                            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ses-receiptrule-lambdaaction.html#cfn-ses-receiptrule-lambdaaction-functionarn
+                            type: string
+                            customAttributes:
+                              template: FunctionArn
+                              immutable: false
+                          invocationType:
+                            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ses-receiptrule-lambdaaction.html#cfn-ses-receiptrule-lambdaaction-invocationtype
+                            type: string
+                            customAttributes:
+                              template: InvocationType
+                              immutable: false
+                          topicRef:
+                            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ses-receiptrule-lambdaaction.html#cfn-ses-receiptrule-lambdaaction-topicarn
+                            type: string
+                            customAttributes:
+                              template: TopicArn
+                              immutable: false
+                      s3Action:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ses-receiptrule-action.html#cfn-ses-receiptrule-action-s3action
+                        type: object
+                        customAttributes:
+                          immutable: false
+                        required:
+                        - bucketName
+                        properties:
+                          bucketName:
+                            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ses-receiptrule-s3action.html#cfn-ses-receiptrule-s3action-bucketname
+                            type: string
+                            customAttributes:
+                              template: BucketName
+                              immutable: false
+                          kmsKeyRef:
+                            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ses-receiptrule-s3action.html#cfn-ses-receiptrule-s3action-kmskeyarn
+                            type: string
+                            customAttributes:
+                              template: KmsKeyArn
+                              immutable: false
+                          objectKeyPrefix:
+                            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ses-receiptrule-s3action.html#cfn-ses-receiptrule-s3action-objectkeyprefix
+                            type: string
+                            customAttributes:
+                              template: ObjectKeyPrefix
+                              immutable: false
+                          topicRef:
+                            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ses-receiptrule-s3action.html#cfn-ses-receiptrule-s3action-topicarn
+                            type: string
+                            customAttributes:
+                              template: TopicArn
+                              immutable: false
+                      sNSAction:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ses-receiptrule-action.html#cfn-ses-receiptrule-action-snsaction
+                        type: object
+                        customAttributes:
+                          immutable: false
+                        required: []
+                        properties:
+                          encoding:
+                            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ses-receiptrule-snsaction.html#cfn-ses-receiptrule-snsaction-encoding
+                            type: string
+                            customAttributes:
+                              template: Encoding
+                              immutable: false
+                          topicRef:
+                            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ses-receiptrule-snsaction.html#cfn-ses-receiptrule-snsaction-topicarn
+                            type: string
+                            customAttributes:
+                              template: TopicArn
+                              immutable: false
+                      stopAction:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ses-receiptrule-action.html#cfn-ses-receiptrule-action-stopaction
+                        type: object
+                        customAttributes:
+                          immutable: false
+                        required:
+                        - scope
+                        properties:
+                          scope:
+                            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ses-receiptrule-stopaction.html#cfn-ses-receiptrule-stopaction-scope
+                            type: string
+                            customAttributes:
+                              template: Scope
+                              immutable: false
+                          topicRef:
+                            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ses-receiptrule-stopaction.html#cfn-ses-receiptrule-stopaction-topicarn
+                            type: string
+                            customAttributes:
+                              template: TopicArn
+                              immutable: false
+                      workmailAction:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ses-receiptrule-action.html#cfn-ses-receiptrule-action-workmailaction
+                        type: object
+                        customAttributes:
+                          immutable: false
+                        required:
+                        - organizationArn
+                        properties:
+                          organizationRef:
+                            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ses-receiptrule-workmailaction.html#cfn-ses-receiptrule-workmailaction-organizationarn
+                            type: string
+                            customAttributes:
+                              template: OrganizationArn
+                              immutable: false
+                          topicRef:
+                            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ses-receiptrule-workmailaction.html#cfn-ses-receiptrule-workmailaction-topicarn
+                            type: string
+                            customAttributes:
+                              template: TopicArn
+                              immutable: false
+                enabled:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ses-receiptrule-rule.html#cfn-ses-receiptrule-rule-enabled
+                  type: boolean
+                name:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ses-receiptrule-rule.html#cfn-ses-receiptrule-rule-name
+                  type: string
+                recipients:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ses-receiptrule-rule.html#cfn-ses-receiptrule-rule-recipients
+                  type: array
+                  items:
+                    type: string
+                scanEnabled:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ses-receiptrule-rule.html#cfn-ses-receiptrule-rule-scanenabled
+                  type: boolean
+                tlsPolicy:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ses-receiptrule-rule.html#cfn-ses-receiptrule-rule-tlspolicy
+                  type: string
+                  enum:
+                  - Optional
+                  - Require
+            ruleSetName:
+              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ses-receiptrule.html#cfn-ses-receiptrule-rulesetname
+              type: string

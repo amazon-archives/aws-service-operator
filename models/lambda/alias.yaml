@@ -1,0 +1,89 @@
+---
+apiVersion: models.awsoperator.io/v1alpha1
+kind: ModelFile
+metadata:
+  name: lambda-alias-resource
+  creationTimestamp: '2019-06-13T16:59:29-07:00'
+  resourceVersion: 3.3.0
+spec:
+  resource:
+    kind: Alias
+    scope: Namespaced
+    apiGroup:
+      apiVersion: lambda.awsoperator.io/v1alpha1
+      group: lambda
+      region: us-east-1
+      domain: awsoperator.io
+      versions:
+      - name: v1alpha1
+        served: true
+        storage: true
+    names:
+      singular: alias
+      plural: aliases
+      shortNames: []
+  openAPIV3Schema:
+    properties:
+      spec:
+        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-lambda-alias.html
+        type: object
+        customAttributes: {}
+        required:
+        - functionName
+        - functionVersion
+        - name
+        properties:
+          description:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-lambda-alias.html#cfn-lambda-alias-description
+            type: string
+            customAttributes:
+              template: Description
+              immutable: false
+          functionName:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-lambda-alias.html#cfn-lambda-alias-functionname
+            type: string
+            customAttributes:
+              template: FunctionName
+              immutable: true
+          functionVersion:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-lambda-alias.html#cfn-lambda-alias-functionversion
+            type: string
+            customAttributes:
+              template: FunctionVersion
+              immutable: false
+          name:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-lambda-alias.html#cfn-lambda-alias-name
+            type: string
+            customAttributes:
+              template: Name
+              immutable: true
+          routingConfig:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-lambda-alias.html#cfn-lambda-alias-routingconfig
+            type: object
+            customAttributes:
+              immutable: false
+            required:
+            - additionalVersionWeights
+            properties:
+              additionalVersionWeights:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-lambda-alias-aliasroutingconfiguration.html#cfn-lambda-alias-aliasroutingconfiguration-additionalversionweights
+                type: array
+                customAttributes:
+                  template: AdditionalVersionWeights
+                  immutable: false
+                items:
+                  type: object
+                  properties:
+                    functionVersion:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-lambda-alias-versionweight.html#cfn-lambda-alias-versionweight-functionversion
+                      type: string
+                      customAttributes:
+                        template: FunctionVersion
+                        immutable: false
+                    functionWeight:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-lambda-alias-versionweight.html#cfn-lambda-alias-versionweight-functionweight
+                      type: integer
+                      format: double
+                      customAttributes:
+                        template: FunctionWeight
+                        immutable: false

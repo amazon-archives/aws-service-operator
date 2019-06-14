@@ -1,0 +1,66 @@
+---
+apiVersion: models.awsoperator.io/v1alpha1
+kind: ModelFile
+metadata:
+  name: apigatewayv2-domainname-resource
+  creationTimestamp: '2019-06-13T16:59:28-07:00'
+  resourceVersion: 3.3.0
+spec:
+  resource:
+    kind: DomainName
+    scope: Namespaced
+    apiGroup:
+      apiVersion: apigatewayv2.awsoperator.io/v1alpha1
+      group: apigatewayv2
+      region: us-east-1
+      domain: awsoperator.io
+      versions:
+      - name: v1alpha1
+        served: true
+        storage: true
+    names:
+      singular: domainname
+      plural: domainnames
+      shortNames: []
+  openAPIV3Schema:
+    properties:
+      spec:
+        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigatewayv2-domainname.html
+        type: object
+        customAttributes: {}
+        required:
+        - domainName
+        properties:
+          domainName:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigatewayv2-domainname.html#cfn-apigatewayv2-domainname-domainname
+            type: string
+            customAttributes:
+              template: DomainName
+              immutable: true
+          domainNameConfigurations:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigatewayv2-domainname.html#cfn-apigatewayv2-domainname-domainnameconfigurations
+            type: array
+            customAttributes:
+              template: DomainNameConfigurations
+              immutable: false
+            items:
+              type: object
+              properties:
+                certificateRef:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-apigatewayv2-domainname-domainnameconfiguration.html#cfn-apigatewayv2-domainname-domainnameconfiguration-certificatearn
+                  type: string
+                  customAttributes:
+                    template: CertificateArn
+                    immutable: false
+                certificateName:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-apigatewayv2-domainname-domainnameconfiguration.html#cfn-apigatewayv2-domainname-domainnameconfiguration-certificatename
+                  type: string
+                  customAttributes:
+                    template: CertificateName
+                    immutable: false
+                endpointType:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-apigatewayv2-domainname-domainnameconfiguration.html#cfn-apigatewayv2-domainname-domainnameconfiguration-endpointtype
+                  type: string
+                  customAttributes:
+                    template: EndpointType
+                    immutable: false
