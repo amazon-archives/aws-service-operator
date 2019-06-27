@@ -236,3 +236,4 @@ items:
             - --region=<REGION>
             - --account-id=<ACCOUNT_ID>
             - --k8s-namespace=<K8S_NAMESPACE>
+            - --bucket=<BUCKET_NAME>

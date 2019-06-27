@@ -53,7 +53,7 @@ Before applying these resources make sure to replace the following placeholders 
 - `<ACCOUNT_ID>` - Your AWS Account ID
 - `<REGION>` - The AWS Region you're working in
 - `<CLUSTER_NAME>` - The name of your cluster
-- `<BUCKET_NAME>` - (optional) The operator stores certain things in s3 create a bucket or provide an existing bucket for the operator to use `i.e. aws s3 mb s3://foobar`
+- `<BUCKET_NAME>` - The operator stores certain things in s3, create a bucket or provide an existing bucket for the operator to use `i.e. aws s3 mb s3://foobar`
 - `<K8S_NAMESPACE>` - (optional) This will scope kubernetes API calls to a specific namespace. If used consider adding a namespace to the resources defined in `configs/aws-service-operator.yaml`
 
 
