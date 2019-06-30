@@ -1,0 +1,257 @@
+---
+apiVersion: models.awsoperator.io/v1alpha1
+kind: ModelFile
+metadata:
+  name: apigateway-method-resource
+  creationTimestamp: '2019-06-13T16:59:28-07:00'
+  resourceVersion: 3.3.0
+spec:
+  resource:
+    kind: Method
+    scope: Namespaced
+    apiGroup:
+      apiVersion: apigateway.awsoperator.io/v1alpha1
+      group: apigateway
+      region: us-east-1
+      domain: awsoperator.io
+      versions:
+      - name: v1alpha1
+        served: true
+        storage: true
+    names:
+      singular: method
+      plural: methods
+      shortNames: []
+  openAPIV3Schema:
+    properties:
+      spec:
+        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigateway-method.html
+        type: object
+        customAttributes: {}
+        required:
+        - httpMethod
+        - resourceId
+        - restApiId
+        properties:
+          apiKeyRequired:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigateway-method.html#cfn-apigateway-method-apikeyrequired
+            type: boolean
+            customAttributes:
+              template: ApiKeyRequired
+              immutable: false
+          authorizationScopes:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigateway-method.html#cfn-apigateway-method-authorizationscopes
+            type: array
+            customAttributes:
+              template: AuthorizationScopes
+              immutable: false
+            items:
+              type: string
+          authorizationType:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigateway-method.html#cfn-apigateway-method-authorizationtype
+            type: string
+            customAttributes:
+              template: AuthorizationType
+              immutable: false
+          authorizerRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigateway-method.html#cfn-apigateway-method-authorizerid
+            type: string
+            customAttributes:
+              template: AuthorizerId
+              immutable: false
+          httpMethod:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigateway-method.html#cfn-apigateway-method-httpmethod
+            type: string
+            customAttributes:
+              template: HttpMethod
+              immutable: false
+          integration:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigateway-method.html#cfn-apigateway-method-integration
+            type: object
+            customAttributes:
+              immutable: false
+            required: []
+            properties:
+              cacheKeyParameters:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-apitgateway-method-integration.html#cfn-apigateway-method-integration-cachekeyparameters
+                type: array
+                customAttributes:
+                  template: CacheKeyParameters
+                  immutable: false
+                items:
+                  type: string
+              cacheNamespace:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-apitgateway-method-integration.html#cfn-apigateway-method-integration-cachenamespace
+                type: string
+                customAttributes:
+                  template: CacheNamespace
+                  immutable: false
+              connectionRef:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-apitgateway-method-integration.html#cfn-apigateway-method-integration-connectionid
+                type: string
+                customAttributes:
+                  template: ConnectionId
+                  immutable: false
+              connectionType:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-apitgateway-method-integration.html#cfn-apigateway-method-integration-connectiontype
+                type: string
+                customAttributes:
+                  template: ConnectionType
+                  immutable: false
+              contentHandling:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-apitgateway-method-integration.html#cfn-apigateway-method-integration-contenthandling
+                type: string
+                customAttributes:
+                  template: ContentHandling
+                  immutable: false
+              credentials:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-apitgateway-method-integration.html#cfn-apigateway-method-integration-credentials
+                type: string
+                customAttributes:
+                  template: Credentials
+                  immutable: false
+              integrationHttpMethod:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-apitgateway-method-integration.html#cfn-apigateway-method-integration-integrationhttpmethod
+                type: string
+                customAttributes:
+                  template: IntegrationHttpMethod
+                  immutable: false
+              integrationResponses:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-apitgateway-method-integration.html#cfn-apigateway-method-integration-integrationresponses
+                type: array
+                customAttributes:
+                  template: IntegrationResponses
+                  immutable: false
+                items:
+                  type: object
+                  properties:
+                    contentHandling:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-apitgateway-method-integration-integrationresponse.html#cfn-apigateway-method-integrationresponse-contenthandling
+                      type: string
+                      customAttributes:
+                        template: ContentHandling
+                        immutable: false
+                    responseParameters:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-apitgateway-method-integration-integrationresponse.html#cfn-apigateway-method-integration-integrationresponse-responseparameters
+                      type: json
+                      customAttributes:
+                        template: ResponseParameters
+                        immutable: false
+                    responseTemplates:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-apitgateway-method-integration-integrationresponse.html#cfn-apigateway-method-integration-integrationresponse-responsetemplates
+                      type: json
+                      customAttributes:
+                        template: ResponseTemplates
+                        immutable: false
+                    selectionPattern:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-apitgateway-method-integration-integrationresponse.html#cfn-apigateway-method-integration-integrationresponse-selectionpattern
+                      type: string
+                      customAttributes:
+                        template: SelectionPattern
+                        immutable: false
+                    statusCode:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-apitgateway-method-integration-integrationresponse.html#cfn-apigateway-method-integration-integrationresponse-statuscode
+                      type: string
+                      customAttributes:
+                        template: StatusCode
+                        immutable: false
+              passthroughBehavior:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-apitgateway-method-integration.html#cfn-apigateway-method-integration-passthroughbehavior
+                type: string
+                customAttributes:
+                  template: PassthroughBehavior
+                  immutable: false
+              requestParameters:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-apitgateway-method-integration.html#cfn-apigateway-method-integration-requestparameters
+                type: json
+                customAttributes:
+                  template: RequestParameters
+                  immutable: false
+              requestTemplates:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-apitgateway-method-integration.html#cfn-apigateway-method-integration-requesttemplates
+                type: json
+                customAttributes:
+                  template: RequestTemplates
+                  immutable: false
+              timeoutInMillis:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-apitgateway-method-integration.html#cfn-apigateway-method-integration-timeoutinmillis
+                type: integer
+                format: int32
+                customAttributes:
+                  template: TimeoutInMillis
+                  immutable: false
+              type:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-apitgateway-method-integration.html#cfn-apigateway-method-integration-type
+                type: string
+                customAttributes:
+                  template: Type
+                  immutable: false
+              uri:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-apitgateway-method-integration.html#cfn-apigateway-method-integration-uri
+                type: string
+                customAttributes:
+                  template: Uri
+                  immutable: false
+          methodResponses:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigateway-method.html#cfn-apigateway-method-methodresponses
+            type: array
+            customAttributes:
+              template: MethodResponses
+              immutable: false
+            items:
+              type: object
+              properties:
+                responseModels:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-apitgateway-method-methodresponse.html#cfn-apigateway-method-methodresponse-responsemodels
+                  type: json
+                  customAttributes:
+                    template: ResponseModels
+                    immutable: false
+                responseParameters:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-apitgateway-method-methodresponse.html#cfn-apigateway-method-methodresponse-responseparameters
+                  type: json
+                  customAttributes:
+                    template: ResponseParameters
+                    immutable: false
+                statusCode:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-apitgateway-method-methodresponse.html#cfn-apigateway-method-methodresponse-statuscode
+                  type: string
+                  customAttributes:
+                    template: StatusCode
+                    immutable: false
+          operationName:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigateway-method.html#cfn-apigateway-method-operationname
+            type: string
+            customAttributes:
+              template: OperationName
+              immutable: false
+          requestModels:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigateway-method.html#cfn-apigateway-method-requestmodels
+            type: json
+            customAttributes:
+              template: RequestModels
+              immutable: false
+          requestParameters:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigateway-method.html#cfn-apigateway-method-requestparameters
+            type: json
+            customAttributes:
+              template: RequestParameters
+              immutable: false
+          requestValatorRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigateway-method.html#cfn-apigateway-method-requestvalidatorid
+            type: string
+            customAttributes:
+              template: RequestValidatorId
+              immutable: false
+          resourceRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigateway-method.html#cfn-apigateway-method-resourceid
+            type: string
+            customAttributes:
+              template: ResourceId
+              immutable: false
+          restApiRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigateway-method.html#cfn-apigateway-method-restapiid
+            type: string
+            customAttributes:
+              template: RestApiId
+              immutable: false

@@ -1,0 +1,207 @@
+---
+apiVersion: models.awsoperator.io/v1alpha1
+kind: ModelFile
+metadata:
+  name: greengrass-resourcedefinitionversion-resource
+  creationTimestamp: '2019-06-13T16:59:29-07:00'
+  resourceVersion: 3.3.0
+spec:
+  resource:
+    kind: ResourceDefinitionVersion
+    scope: Namespaced
+    apiGroup:
+      apiVersion: greengrass.awsoperator.io/v1alpha1
+      group: greengrass
+      region: us-east-1
+      domain: awsoperator.io
+      versions:
+      - name: v1alpha1
+        served: true
+        storage: true
+    names:
+      singular: resourcedefinitionversion
+      plural: resourcedefinitionversions
+      shortNames: []
+  openAPIV3Schema:
+    properties:
+      spec:
+        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-greengrass-resourcedefinitionversion.html
+        type: object
+        customAttributes: {}
+        required:
+        - resourceDefinitionId
+        - resources
+        properties:
+          resourceDefinitionRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-greengrass-resourcedefinitionversion.html#cfn-greengrass-resourcedefinitionversion-resourcedefinitionid
+            type: string
+            customAttributes:
+              template: ResourceDefinitionId
+              immutable: true
+          resources:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-greengrass-resourcedefinitionversion.html#cfn-greengrass-resourcedefinitionversion-resources
+            type: array
+            customAttributes:
+              template: Resources
+              immutable: true
+            items:
+              type: object
+              properties:
+                id:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-greengrass-resourcedefinitionversion-resourceinstance.html#cfn-greengrass-resourcedefinitionversion-resourceinstance-id
+                  type: string
+                  customAttributes:
+                    template: Id
+                    immutable: true
+                name:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-greengrass-resourcedefinitionversion-resourceinstance.html#cfn-greengrass-resourcedefinitionversion-resourceinstance-name
+                  type: string
+                  customAttributes:
+                    template: Name
+                    immutable: true
+                resourceDataContainer:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-greengrass-resourcedefinitionversion-resourceinstance.html#cfn-greengrass-resourcedefinitionversion-resourceinstance-resourcedatacontainer
+                  type: object
+                  customAttributes:
+                    immutable: true
+                  required: []
+                  properties:
+                    localDeviceResourceData:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-greengrass-resourcedefinitionversion-resourcedatacontainer.html#cfn-greengrass-resourcedefinitionversion-resourcedatacontainer-localdeviceresourcedata
+                      type: object
+                      customAttributes:
+                        immutable: true
+                      required:
+                      - sourcePath
+                      properties:
+                        groupOwnerSetting:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-greengrass-resourcedefinitionversion-localdeviceresourcedata.html#cfn-greengrass-resourcedefinitionversion-localdeviceresourcedata-groupownersetting
+                          type: object
+                          customAttributes:
+                            immutable: true
+                          required:
+                          - autoAddGroupOwner
+                          properties:
+                            autoAddGroupOwner:
+                              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-greengrass-resourcedefinitionversion-groupownersetting.html#cfn-greengrass-resourcedefinitionversion-groupownersetting-autoaddgroupowner
+                              type: boolean
+                              customAttributes:
+                                template: AutoAddGroupOwner
+                                immutable: true
+                            groupOwner:
+                              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-greengrass-resourcedefinitionversion-groupownersetting.html#cfn-greengrass-resourcedefinitionversion-groupownersetting-groupowner
+                              type: string
+                              customAttributes:
+                                template: GroupOwner
+                                immutable: true
+                        sourcePath:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-greengrass-resourcedefinitionversion-localdeviceresourcedata.html#cfn-greengrass-resourcedefinitionversion-localdeviceresourcedata-sourcepath
+                          type: string
+                          customAttributes:
+                            template: SourcePath
+                            immutable: true
+                    localVolumeResourceData:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-greengrass-resourcedefinitionversion-resourcedatacontainer.html#cfn-greengrass-resourcedefinitionversion-resourcedatacontainer-localvolumeresourcedata
+                      type: object
+                      customAttributes:
+                        immutable: true
+                      required:
+                      - destinationPath
+                      - sourcePath
+                      properties:
+                        destinationPath:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-greengrass-resourcedefinitionversion-localvolumeresourcedata.html#cfn-greengrass-resourcedefinitionversion-localvolumeresourcedata-destinationpath
+                          type: string
+                          customAttributes:
+                            template: DestinationPath
+                            immutable: true
+                        groupOwnerSetting:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-greengrass-resourcedefinitionversion-localvolumeresourcedata.html#cfn-greengrass-resourcedefinitionversion-localvolumeresourcedata-groupownersetting
+                          type: object
+                          customAttributes:
+                            immutable: true
+                          required:
+                          - autoAddGroupOwner
+                          properties:
+                            autoAddGroupOwner:
+                              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-greengrass-resourcedefinitionversion-groupownersetting.html#cfn-greengrass-resourcedefinitionversion-groupownersetting-autoaddgroupowner
+                              type: boolean
+                              customAttributes:
+                                template: AutoAddGroupOwner
+                                immutable: true
+                            groupOwner:
+                              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-greengrass-resourcedefinitionversion-groupownersetting.html#cfn-greengrass-resourcedefinitionversion-groupownersetting-groupowner
+                              type: string
+                              customAttributes:
+                                template: GroupOwner
+                                immutable: true
+                        sourcePath:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-greengrass-resourcedefinitionversion-localvolumeresourcedata.html#cfn-greengrass-resourcedefinitionversion-localvolumeresourcedata-sourcepath
+                          type: string
+                          customAttributes:
+                            template: SourcePath
+                            immutable: true
+                    s3MachineLearningModelResourceData:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-greengrass-resourcedefinitionversion-resourcedatacontainer.html#cfn-greengrass-resourcedefinitionversion-resourcedatacontainer-s3machinelearningmodelresourcedata
+                      type: object
+                      customAttributes:
+                        immutable: true
+                      required:
+                      - destinationPath
+                      - s3Uri
+                      properties:
+                        destinationPath:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-greengrass-resourcedefinitionversion-s3machinelearningmodelresourcedata.html#cfn-greengrass-resourcedefinitionversion-s3machinelearningmodelresourcedata-destinationpath
+                          type: string
+                          customAttributes:
+                            template: DestinationPath
+                            immutable: true
+                        s3Uri:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-greengrass-resourcedefinitionversion-s3machinelearningmodelresourcedata.html#cfn-greengrass-resourcedefinitionversion-s3machinelearningmodelresourcedata-s3uri
+                          type: string
+                          customAttributes:
+                            template: S3Uri
+                            immutable: true
+                    sageMakerMachineLearningModelResourceData:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-greengrass-resourcedefinitionversion-resourcedatacontainer.html#cfn-greengrass-resourcedefinitionversion-resourcedatacontainer-sagemakermachinelearningmodelresourcedata
+                      type: object
+                      customAttributes:
+                        immutable: true
+                      required:
+                      - destinationPath
+                      - sageMakerJobArn
+                      properties:
+                        destinationPath:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-greengrass-resourcedefinitionversion-sagemakermachinelearningmodelresourcedata.html#cfn-greengrass-resourcedefinitionversion-sagemakermachinelearningmodelresourcedata-destinationpath
+                          type: string
+                          customAttributes:
+                            template: DestinationPath
+                            immutable: true
+                        sageMakerJobRef:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-greengrass-resourcedefinitionversion-sagemakermachinelearningmodelresourcedata.html#cfn-greengrass-resourcedefinitionversion-sagemakermachinelearningmodelresourcedata-sagemakerjobarn
+                          type: string
+                          customAttributes:
+                            template: SageMakerJobArn
+                            immutable: true
+                    secretsManagerSecretResourceData:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-greengrass-resourcedefinitionversion-resourcedatacontainer.html#cfn-greengrass-resourcedefinitionversion-resourcedatacontainer-secretsmanagersecretresourcedata
+                      type: object
+                      customAttributes:
+                        immutable: true
+                      required:
+                      - aRN
+                      properties:
+                        aRN:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-greengrass-resourcedefinitionversion-secretsmanagersecretresourcedata.html#cfn-greengrass-resourcedefinitionversion-secretsmanagersecretresourcedata-arn
+                          type: string
+                          customAttributes:
+                            template: ARN
+                            immutable: true
+                        additionalStagingLabelsToDownload:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-greengrass-resourcedefinitionversion-secretsmanagersecretresourcedata.html#cfn-greengrass-resourcedefinitionversion-secretsmanagersecretresourcedata-additionalstaginglabelstodownload
+                          type: array
+                          customAttributes:
+                            template: AdditionalStagingLabelsToDownload
+                            immutable: true
+                          items:
+                            type: string

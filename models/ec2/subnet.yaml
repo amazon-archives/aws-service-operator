@@ -1,0 +1,91 @@
+---
+apiVersion: models.awsoperator.io/v1alpha1
+kind: ModelFile
+metadata:
+  name: ec2-subnet-resource
+  creationTimestamp: '2019-06-13T16:59:29-07:00'
+  resourceVersion: 3.3.0
+spec:
+  resource:
+    kind: Subnet
+    scope: Namespaced
+    apiGroup:
+      apiVersion: ec2.awsoperator.io/v1alpha1
+      group: ec2
+      region: us-east-1
+      domain: awsoperator.io
+      versions:
+      - name: v1alpha1
+        served: true
+        storage: true
+    names:
+      singular: subnet
+      plural: subnets
+      shortNames: []
+  openAPIV3Schema:
+    properties:
+      spec:
+        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-subnet.html
+        type: object
+        customAttributes: {}
+        required:
+        - cidrBlock
+        - vpcId
+        properties:
+          assignIpv6AddressOnCreation:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-subnet.html#cfn-ec2-subnet-assignipv6addressoncreation
+            type: boolean
+            customAttributes:
+              template: AssignIpv6AddressOnCreation
+              immutable: false
+          availabilityZone:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-subnet.html#cfn-ec2-subnet-availabilityzone
+            type: string
+            customAttributes:
+              template: AvailabilityZone
+              immutable: true
+          cidrBlock:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-subnet.html#cfn-ec2-subnet-cidrblock
+            type: string
+            customAttributes:
+              template: CidrBlock
+              immutable: true
+          ipv6CidrBlock:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-subnet.html#cfn-ec2-subnet-ipv6cidrblock
+            type: string
+            customAttributes:
+              template: Ipv6CidrBlock
+              immutable: false
+          mapPublicIpOnLaunch:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-subnet.html#cfn-ec2-subnet-mappubliciponlaunch
+            type: boolean
+            customAttributes:
+              template: MapPublicIpOnLaunch
+              immutable: false
+          tags:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-subnet.html#cfn-ec2-subnet-tags
+            type: array
+            customAttributes:
+              template: Tags
+              immutable: false
+            items:
+              type: object
+              properties:
+                key:
+                  description: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-resource-tags.html#cfn-resource-tags-key
+                  type: string
+                  customAttributes:
+                    template: Key
+                    immutable: false
+                value:
+                  description: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-resource-tags.html#cfn-resource-tags-value
+                  type: string
+                  customAttributes:
+                    template: Value
+                    immutable: false
+          vpcRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-subnet.html#cfn-awsec2subnet-prop-vpcid
+            type: string
+            customAttributes:
+              template: VpcId
+              immutable: true

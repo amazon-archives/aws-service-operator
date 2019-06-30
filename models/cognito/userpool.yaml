@@ -1,0 +1,408 @@
+---
+apiVersion: models.awsoperator.io/v1alpha1
+kind: ModelFile
+metadata:
+  name: cognito-userpool-resource
+  creationTimestamp: '2019-06-13T16:59:28-07:00'
+  resourceVersion: 3.3.0
+spec:
+  resource:
+    kind: UserPool
+    scope: Namespaced
+    apiGroup:
+      apiVersion: cognito.awsoperator.io/v1alpha1
+      group: cognito
+      region: us-east-1
+      domain: awsoperator.io
+      versions:
+      - name: v1alpha1
+        served: true
+        storage: true
+    names:
+      singular: userpool
+      plural: userpools
+      shortNames: []
+  openAPIV3Schema:
+    properties:
+      spec:
+        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cognito-userpool.html
+        type: object
+        customAttributes: {}
+        required: []
+        properties:
+          adminCreateUserConfig:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cognito-userpool.html#cfn-cognito-userpool-admincreateuserconfig
+            type: object
+            customAttributes:
+              immutable: false
+            required: []
+            properties:
+              allowAdminCreateUserOnly:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cognito-userpool-admincreateuserconfig.html#cfn-cognito-userpool-admincreateuserconfig-allowadmincreateuseronly
+                type: boolean
+                customAttributes:
+                  template: AllowAdminCreateUserOnly
+                  immutable: false
+              inviteMessageTemplate:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cognito-userpool-admincreateuserconfig.html#cfn-cognito-userpool-admincreateuserconfig-invitemessagetemplate
+                type: object
+                customAttributes:
+                  immutable: false
+                required: []
+                properties:
+                  emailMessage:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cognito-userpool-invitemessagetemplate.html#cfn-cognito-userpool-invitemessagetemplate-emailmessage
+                    type: string
+                    customAttributes:
+                      template: EmailMessage
+                      immutable: false
+                  emailSubject:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cognito-userpool-invitemessagetemplate.html#cfn-cognito-userpool-invitemessagetemplate-emailsubject
+                    type: string
+                    customAttributes:
+                      template: EmailSubject
+                      immutable: false
+                  sMSMessage:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cognito-userpool-invitemessagetemplate.html#cfn-cognito-userpool-invitemessagetemplate-smsmessage
+                    type: string
+                    customAttributes:
+                      template: SMSMessage
+                      immutable: false
+              unusedAccountValidityDays:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cognito-userpool-admincreateuserconfig.html#cfn-cognito-userpool-admincreateuserconfig-unusedaccountvaliditydays
+                type: integer
+                format: double
+                customAttributes:
+                  template: UnusedAccountValidityDays
+                  immutable: false
+          aliasAttributes:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cognito-userpool.html#cfn-cognito-userpool-aliasattributes
+            type: array
+            customAttributes:
+              template: AliasAttributes
+              immutable: true
+            items:
+              type: string
+            enum:
+            - email
+            - phone_number
+            - preferred_username
+          autoVerifiedAttributes:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cognito-userpool.html#cfn-cognito-userpool-autoverifiedattributes
+            type: array
+            customAttributes:
+              template: AutoVerifiedAttributes
+              immutable: false
+            items:
+              type: string
+            enum: &1
+            - email
+            - phone_number
+          deviceConfiguration:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cognito-userpool.html#cfn-cognito-userpool-deviceconfiguration
+            type: object
+            customAttributes:
+              immutable: false
+            required: []
+            properties:
+              challengeRequiredOnNewDevice:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cognito-userpool-deviceconfiguration.html#cfn-cognito-userpool-deviceconfiguration-challengerequiredonnewdevice
+                type: boolean
+                customAttributes:
+                  template: ChallengeRequiredOnNewDevice
+                  immutable: false
+              deviceOnlyRememberedOnUserPrompt:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cognito-userpool-deviceconfiguration.html#cfn-cognito-userpool-deviceconfiguration-deviceonlyrememberedonuserprompt
+                type: boolean
+                customAttributes:
+                  template: DeviceOnlyRememberedOnUserPrompt
+                  immutable: false
+          emailConfiguration:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cognito-userpool.html#cfn-cognito-userpool-emailconfiguration
+            type: object
+            customAttributes:
+              immutable: false
+            required: []
+            properties:
+              emailSendingAccount:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cognito-userpool-emailconfiguration.html#cfn-cognito-userpool-emailconfiguration-emailsendingaccount
+                type: string
+                customAttributes:
+                  template: EmailSendingAccount
+                  immutable: false
+              replyToEmailAddress:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cognito-userpool-emailconfiguration.html#cfn-cognito-userpool-emailconfiguration-replytoemailaddress
+                type: string
+                customAttributes:
+                  template: ReplyToEmailAddress
+                  immutable: false
+              sourceRef:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cognito-userpool-emailconfiguration.html#cfn-cognito-userpool-emailconfiguration-sourcearn
+                type: string
+                customAttributes:
+                  template: SourceArn
+                  immutable: false
+          emailVerificationMessage:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cognito-userpool.html#cfn-cognito-userpool-emailverificationmessage
+            type: string
+            customAttributes:
+              template: EmailVerificationMessage
+              immutable: false
+          emailVerificationSubject:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cognito-userpool.html#cfn-cognito-userpool-emailverificationsubject
+            type: string
+            customAttributes:
+              template: EmailVerificationSubject
+              immutable: false
+          lambdaConfig:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cognito-userpool.html#cfn-cognito-userpool-lambdaconfig
+            type: object
+            customAttributes:
+              immutable: false
+            required: []
+            properties:
+              createAuthChallenge:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cognito-userpool-lambdaconfig.html#cfn-cognito-userpool-lambdaconfig-createauthchallenge
+                type: string
+                customAttributes:
+                  template: CreateAuthChallenge
+                  immutable: false
+              customMessage:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cognito-userpool-lambdaconfig.html#cfn-cognito-userpool-lambdaconfig-custommessage
+                type: string
+                customAttributes:
+                  template: CustomMessage
+                  immutable: false
+              defineAuthChallenge:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cognito-userpool-lambdaconfig.html#cfn-cognito-userpool-lambdaconfig-defineauthchallenge
+                type: string
+                customAttributes:
+                  template: DefineAuthChallenge
+                  immutable: false
+              postAuthentication:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cognito-userpool-lambdaconfig.html#cfn-cognito-userpool-lambdaconfig-postauthentication
+                type: string
+                customAttributes:
+                  template: PostAuthentication
+                  immutable: false
+              postConfirmation:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cognito-userpool-lambdaconfig.html#cfn-cognito-userpool-lambdaconfig-postconfirmation
+                type: string
+                customAttributes:
+                  template: PostConfirmation
+                  immutable: false
+              preAuthentication:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cognito-userpool-lambdaconfig.html#cfn-cognito-userpool-lambdaconfig-preauthentication
+                type: string
+                customAttributes:
+                  template: PreAuthentication
+                  immutable: false
+              preSignUp:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cognito-userpool-lambdaconfig.html#cfn-cognito-userpool-lambdaconfig-presignup
+                type: string
+                customAttributes:
+                  template: PreSignUp
+                  immutable: false
+              verifyAuthChallengeResponse:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cognito-userpool-lambdaconfig.html#cfn-cognito-userpool-lambdaconfig-verifyauthchallengeresponse
+                type: string
+                customAttributes:
+                  template: VerifyAuthChallengeResponse
+                  immutable: false
+          mfaConfiguration:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cognito-userpool.html#cfn-cognito-userpool-mfaconfiguration
+            type: string
+            customAttributes:
+              template: MfaConfiguration
+              immutable: false
+            enum:
+            - 'OFF'
+            - 'ON'
+            - OPTIONAL
+          policies:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cognito-userpool.html#cfn-cognito-userpool-policies
+            type: object
+            customAttributes:
+              immutable: false
+            required: []
+            properties:
+              passwordPolicy:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cognito-userpool-policies.html#cfn-cognito-userpool-policies-passwordpolicy
+                type: object
+                customAttributes:
+                  immutable: false
+                required: []
+                properties:
+                  minimumLength:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cognito-userpool-passwordpolicy.html#cfn-cognito-userpool-passwordpolicy-minimumlength
+                    type: integer
+                    format: int32
+                    customAttributes:
+                      template: MinimumLength
+                      immutable: false
+                  requireLowercase:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cognito-userpool-passwordpolicy.html#cfn-cognito-userpool-passwordpolicy-requirelowercase
+                    type: boolean
+                    customAttributes:
+                      template: RequireLowercase
+                      immutable: false
+                  requireNumbers:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cognito-userpool-passwordpolicy.html#cfn-cognito-userpool-passwordpolicy-requirenumbers
+                    type: boolean
+                    customAttributes:
+                      template: RequireNumbers
+                      immutable: false
+                  requireSymbols:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cognito-userpool-passwordpolicy.html#cfn-cognito-userpool-passwordpolicy-requiresymbols
+                    type: boolean
+                    customAttributes:
+                      template: RequireSymbols
+                      immutable: false
+                  requireUppercase:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cognito-userpool-passwordpolicy.html#cfn-cognito-userpool-passwordpolicy-requireuppercase
+                    type: boolean
+                    customAttributes:
+                      template: RequireUppercase
+                      immutable: false
+                  temporaryPasswordValidityDays:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cognito-userpool-passwordpolicy.html#cfn-cognito-userpool-passwordpolicy-temporarypasswordvaliditydays
+                    type: integer
+                    format: double
+                    customAttributes:
+                      template: TemporaryPasswordValidityDays
+                      immutable: false
+          schema:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cognito-userpool.html#cfn-cognito-userpool-schema
+            type: array
+            customAttributes:
+              template: Schema
+              immutable: true
+            items:
+              type: object
+              properties:
+                attributeDataType:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cognito-userpool-schemaattribute.html#cfn-cognito-userpool-schemaattribute-attributedatatype
+                  type: string
+                  customAttributes:
+                    template: AttributeDataType
+                    immutable: false
+                  enum:
+                  - Boolean
+                  - DateTime
+                  - Number
+                  - String
+                developerOnlyAttribute:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cognito-userpool-schemaattribute.html#cfn-cognito-userpool-schemaattribute-developeronlyattribute
+                  type: boolean
+                  customAttributes:
+                    template: DeveloperOnlyAttribute
+                    immutable: false
+                mutable:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cognito-userpool-schemaattribute.html#cfn-cognito-userpool-schemaattribute-mutable
+                  type: boolean
+                  customAttributes:
+                    template: Mutable
+                    immutable: false
+                name:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cognito-userpool-schemaattribute.html#cfn-cognito-userpool-schemaattribute-name
+                  type: string
+                  customAttributes:
+                    template: Name
+                    immutable: false
+                numberAttributeConstraints:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cognito-userpool-schemaattribute.html#cfn-cognito-userpool-schemaattribute-numberattributeconstraints
+                  type: object
+                  customAttributes:
+                    immutable: false
+                  required: []
+                  properties:
+                    maxValue:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cognito-userpool-numberattributeconstraints.html#cfn-cognito-userpool-numberattributeconstraints-maxvalue
+                      type: string
+                      customAttributes:
+                        template: MaxValue
+                        immutable: false
+                    minValue:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cognito-userpool-numberattributeconstraints.html#cfn-cognito-userpool-numberattributeconstraints-minvalue
+                      type: string
+                      customAttributes:
+                        template: MinValue
+                        immutable: false
+                required:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cognito-userpool-schemaattribute.html#cfn-cognito-userpool-schemaattribute-required
+                  type: boolean
+                  customAttributes:
+                    template: Required
+                    immutable: false
+                stringAttributeConstraints:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cognito-userpool-schemaattribute.html#cfn-cognito-userpool-schemaattribute-stringattributeconstraints
+                  type: object
+                  customAttributes:
+                    immutable: false
+                  required: []
+                  properties:
+                    maxLength:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cognito-userpool-stringattributeconstraints.html#cfn-cognito-userpool-stringattributeconstraints-maxlength
+                      type: string
+                      customAttributes:
+                        template: MaxLength
+                        immutable: false
+                    minLength:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cognito-userpool-stringattributeconstraints.html#cfn-cognito-userpool-stringattributeconstraints-minlength
+                      type: string
+                      customAttributes:
+                        template: MinLength
+                        immutable: false
+          smsAuthenticationMessage:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cognito-userpool.html#cfn-cognito-userpool-smsauthenticationmessage
+            type: string
+            customAttributes:
+              template: SmsAuthenticationMessage
+              immutable: false
+          smsConfiguration:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cognito-userpool.html#cfn-cognito-userpool-smsconfiguration
+            type: object
+            customAttributes:
+              immutable: false
+            required:
+            - externalId
+            properties:
+              externalRef:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cognito-userpool-smsconfiguration.html#cfn-cognito-userpool-smsconfiguration-externalid
+                type: string
+                customAttributes:
+                  template: ExternalId
+                  immutable: false
+              snsCallerRef:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cognito-userpool-smsconfiguration.html#cfn-cognito-userpool-smsconfiguration-snscallerarn
+                type: string
+                customAttributes:
+                  template: SnsCallerArn
+                  immutable: false
+          smsVerificationMessage:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cognito-userpool.html#cfn-cognito-userpool-smsverificationmessage
+            type: string
+            customAttributes:
+              template: SmsVerificationMessage
+              immutable: false
+          userPoolName:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cognito-userpool.html#cfn-cognito-userpool-userpoolname
+            type: string
+            customAttributes:
+              template: UserPoolName
+              resourceName: true
+              immutable: true
+          userPoolTags:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cognito-userpool.html#cfn-cognito-userpool-userpooltags
+            customAttributes:
+              template: UserPoolTags
+              immutable: false
+          usernameAttributes:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cognito-userpool.html#cfn-cognito-userpool-usernameattributes
+            type: array
+            customAttributes:
+              template: UsernameAttributes
+              immutable: true
+            items:
+              type: string
+            enum: *1

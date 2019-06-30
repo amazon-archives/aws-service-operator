@@ -1,0 +1,119 @@
+---
+apiVersion: models.awsoperator.io/v1alpha1
+kind: ModelFile
+metadata:
+  name: sagemaker-notebookinstance-resource
+  creationTimestamp: '2019-06-13T16:59:30-07:00'
+  resourceVersion: 3.3.0
+spec:
+  resource:
+    kind: NotebookInstance
+    scope: Namespaced
+    apiGroup:
+      apiVersion: sagemaker.awsoperator.io/v1alpha1
+      group: sagemaker
+      region: us-east-1
+      domain: awsoperator.io
+      versions:
+      - name: v1alpha1
+        served: true
+        storage: true
+    names:
+      singular: notebookinstance
+      plural: notebookinstances
+      shortNames: []
+  openAPIV3Schema:
+    properties:
+      spec:
+        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sagemaker-notebookinstance.html
+        type: object
+        customAttributes: {}
+        required:
+        - instanceType
+        - roleArn
+        properties:
+          directInternetAccess:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sagemaker-notebookinstance.html#cfn-sagemaker-notebookinstance-directinternetaccess
+            type: string
+            customAttributes:
+              template: DirectInternetAccess
+              immutable: true
+          instanceType:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sagemaker-notebookinstance.html#cfn-sagemaker-notebookinstance-instancetype
+            type: string
+            customAttributes:
+              template: InstanceType
+              immutable: false
+          kmsKeyRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sagemaker-notebookinstance.html#cfn-sagemaker-notebookinstance-kmskeyid
+            type: string
+            customAttributes:
+              template: KmsKeyId
+              immutable: true
+          lifecycleConfigName:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sagemaker-notebookinstance.html#cfn-sagemaker-notebookinstance-lifecycleconfigname
+            type: string
+            customAttributes:
+              template: LifecycleConfigName
+              immutable: false
+          notebookInstanceName:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sagemaker-notebookinstance.html#cfn-sagemaker-notebookinstance-notebookinstancename
+            type: string
+            customAttributes:
+              template: NotebookInstanceName
+              resourceName: true
+              immutable: true
+          roleRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sagemaker-notebookinstance.html#cfn-sagemaker-notebookinstance-rolearn
+            type: string
+            customAttributes:
+              template: RoleArn
+              immutable: false
+          rootAccess:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sagemaker-notebookinstance.html#cfn-sagemaker-notebookinstance-rootaccess
+            type: string
+            customAttributes:
+              template: RootAccess
+              immutable: true
+          securityGroupRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sagemaker-notebookinstance.html#cfn-sagemaker-notebookinstance-securitygroupids
+            type: array
+            customAttributes:
+              template: SecurityGroupIds
+              immutable: true
+            items:
+              type: string
+          subnetRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sagemaker-notebookinstance.html#cfn-sagemaker-notebookinstance-subnetid
+            type: string
+            customAttributes:
+              template: SubnetId
+              immutable: true
+          tags:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sagemaker-notebookinstance.html#cfn-sagemaker-notebookinstance-tags
+            type: array
+            customAttributes:
+              template: Tags
+              immutable: false
+            items:
+              type: object
+              properties:
+                key:
+                  description: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-resource-tags.html#cfn-resource-tags-key
+                  type: string
+                  customAttributes:
+                    template: Key
+                    immutable: false
+                value:
+                  description: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-resource-tags.html#cfn-resource-tags-value
+                  type: string
+                  customAttributes:
+                    template: Value
+                    immutable: false
+          volumeSizeInGB:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-sagemaker-notebookinstance.html#cfn-sagemaker-notebookinstance-volumesizeingb
+            type: integer
+            format: int32
+            customAttributes:
+              template: VolumeSizeInGB
+              immutable: false

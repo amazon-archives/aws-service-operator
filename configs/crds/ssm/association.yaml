@@ -1,0 +1,99 @@
+---
+apiVersion: apiextensions.k8s.io/v1beta1
+kind: CustomResourceDefinition
+metadata:
+  name: associations.ssm.awsoperator.io
+spec:
+  group: ssm.awsoperator.io
+  versions:
+  - name: v1alpha1
+    served: true
+    storage: true
+  scope: Namespaced
+  names:
+    plural: associations
+    singular: association
+    kind: Association
+    shortNames: []
+    categories:
+    - aws
+    - ssm
+  additionalPrinterColumns:
+  - name: Status
+    type: string
+    description: Status for the AWS CloudFormation stack.
+    JSONPath: ".status.reason"
+  - name: Message
+    type: string
+    description: Message accompanying it's current stack status.
+    JSONPath: ".status.message"
+    priority: 1
+  - name: Created At
+    type: date
+    description: When the resource was created
+    JSONPath: ".metadata.creationTimestamp"
+  subresources:
+    status: {}
+  validation:
+    openAPIV3Schema:
+      properties:
+        spec:
+          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ssm-association.html
+          type: object
+          required:
+          - name
+          properties:
+            associationName:
+              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ssm-association.html#cfn-ssm-association-associationname
+              type: string
+            documentVersion:
+              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ssm-association.html#cfn-ssm-association-documentversion
+              type: string
+            instanceRef:
+              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ssm-association.html#cfn-ssm-association-instanceid
+              type: string
+            name:
+              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ssm-association.html#cfn-ssm-association-name
+              type: string
+            outputLocation:
+              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ssm-association.html#cfn-ssm-association-outputlocation
+              type: object
+              required: []
+              properties:
+                s3Location:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ssm-association-instanceassociationoutputlocation.html#cfn-ssm-association-instanceassociationoutputlocation-s3location
+                  type: object
+                  required: []
+                  properties:
+                    outputS3BucketName:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ssm-association-s3outputlocation.html#cfn-ssm-association-s3outputlocation-outputs3bucketname
+                      type: string
+                    outputS3KeyPrefix:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ssm-association-s3outputlocation.html#cfn-ssm-association-s3outputlocation-outputs3keyprefix
+                      type: string
+            parameters:
+              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ssm-association.html#cfn-ssm-association-parameters
+              type: json
+            scheduleExpression:
+              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ssm-association.html#cfn-ssm-association-scheduleexpression
+              type: string
+            targets:
+              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ssm-association.html#cfn-ssm-association-targets
+              type: array
+              items:
+                type: object
+                properties:
+                  key:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ssm-association-target.html#cfn-ssm-association-target-key
+                    type: string
+                    customAttributes:
+                      template: Key
+                      immutable: true
+                  values:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ssm-association-target.html#cfn-ssm-association-target-values
+                    type: array
+                    customAttributes:
+                      template: Values
+                      immutable: true
+                    items:
+                      type: string

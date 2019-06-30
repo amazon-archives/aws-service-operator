@@ -1,0 +1,362 @@
+---
+apiVersion: apiextensions.k8s.io/v1beta1
+kind: CustomResourceDefinition
+metadata:
+  name: deploymentgroups.codedeploy.awsoperator.io
+spec:
+  group: codedeploy.awsoperator.io
+  versions:
+  - name: v1alpha1
+    served: true
+    storage: true
+  scope: Namespaced
+  names:
+    plural: deploymentgroups
+    singular: deploymentgroup
+    kind: DeploymentGroup
+    shortNames: []
+    categories:
+    - aws
+    - codedeploy
+  additionalPrinterColumns:
+  - name: Status
+    type: string
+    description: Status for the AWS CloudFormation stack.
+    JSONPath: ".status.reason"
+  - name: Message
+    type: string
+    description: Message accompanying it's current stack status.
+    JSONPath: ".status.message"
+    priority: 1
+  - name: Created At
+    type: date
+    description: When the resource was created
+    JSONPath: ".metadata.creationTimestamp"
+  subresources:
+    status: {}
+  validation:
+    openAPIV3Schema:
+      properties:
+        spec:
+          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-codedeploy-deploymentgroup.html
+          type: object
+          required:
+          - applicationName
+          - serviceRoleArn
+          properties:
+            alarmConfiguration:
+              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-codedeploy-deploymentgroup.html#cfn-codedeploy-deploymentgroup-alarmconfiguration
+              type: object
+              required: []
+              properties:
+                alarms:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codedeploy-deploymentgroup-alarmconfiguration.html#cfn-codedeploy-deploymentgroup-alarmconfiguration-alarms
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      name:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codedeploy-deploymentgroup-alarm.html#cfn-codedeploy-deploymentgroup-alarm-name
+                        type: string
+                        customAttributes:
+                          template: Name
+                          immutable: false
+                enabled:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codedeploy-deploymentgroup-alarmconfiguration.html#cfn-codedeploy-deploymentgroup-alarmconfiguration-enabled
+                  type: boolean
+                ignorePollAlarmFailure:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codedeploy-deploymentgroup-alarmconfiguration.html#cfn-codedeploy-deploymentgroup-alarmconfiguration-ignorepollalarmfailure
+                  type: boolean
+            applicationName:
+              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-codedeploy-deploymentgroup.html#cfn-codedeploy-deploymentgroup-applicationname
+              type: string
+            autoRollbackConfiguration:
+              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-codedeploy-deploymentgroup.html#cfn-codedeploy-deploymentgroup-autorollbackconfiguration
+              type: object
+              required: []
+              properties:
+                enabled:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codedeploy-deploymentgroup-autorollbackconfiguration.html#cfn-codedeploy-deploymentgroup-autorollbackconfiguration-enabled
+                  type: boolean
+                events:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codedeploy-deploymentgroup-autorollbackconfiguration.html#cfn-codedeploy-deploymentgroup-autorollbackconfiguration-events
+                  type: array
+                  items:
+                    type: string
+                  enum:
+                  - DEPLOYMENT_FAILURE
+                  - DEPLOYMENT_STOP_ON_ALARM
+                  - DEPLOYMENT_STOP_ON_REQUEST
+            autoScalingGroups:
+              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-codedeploy-deploymentgroup.html#cfn-codedeploy-deploymentgroup-autoscalinggroups
+              type: array
+              items:
+                type: string
+            deployment:
+              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-codedeploy-deploymentgroup.html#cfn-codedeploy-deploymentgroup-deployment
+              type: object
+              required:
+              - revision
+              properties:
+                description:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codedeploy-deploymentgroup-deployment.html#cfn-properties-codedeploy-deploymentgroup-deployment-description
+                  type: string
+                ignoreApplicationStopFailures:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codedeploy-deploymentgroup-deployment.html#cfn-properties-codedeploy-deploymentgroup-deployment-ignoreapplicationstopfailures
+                  type: boolean
+                revision:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codedeploy-deploymentgroup-deployment.html#cfn-properties-codedeploy-deploymentgroup-deployment-revision
+                  type: object
+                  required: []
+                  properties:
+                    gitHubLocation:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codedeploy-deploymentgroup-deployment-revision.html#cfn-properties-codedeploy-deploymentgroup-deployment-revision-githublocation
+                      type: object
+                      required:
+                      - commitId
+                      - repository
+                      properties:
+                        commitRef:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codedeploy-deploymentgroup-deployment-revision-githublocation.html#cfn-properties-codedeploy-deploymentgroup-deployment-revision-githublocation-commitid
+                          type: string
+                        repository:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codedeploy-deploymentgroup-deployment-revision-githublocation.html#cfn-properties-codedeploy-deploymentgroup-deployment-revision-githublocation-repository
+                          type: string
+                    revisionType:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codedeploy-deploymentgroup-deployment-revision.html#cfn-properties-codedeploy-deploymentgroup-deployment-revision-revisiontype
+                      type: string
+                    s3Location:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codedeploy-deploymentgroup-deployment-revision.html#cfn-properties-codedeploy-deploymentgroup-deployment-revision-s3location
+                      type: object
+                      required:
+                      - bucket
+                      - key
+                      properties:
+                        bucket:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codedeploy-deploymentgroup-deployment-revision-s3location.html#cfn-properties-codedeploy-deploymentgroup-deployment-revision-s3location-bucket
+                          type: string
+                        bundleType:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codedeploy-deploymentgroup-deployment-revision-s3location.html#cfn-properties-codedeploy-deploymentgroup-deployment-revision-s3location-bundletype
+                          type: string
+                        eTag:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codedeploy-deploymentgroup-deployment-revision-s3location.html#cfn-properties-codedeploy-deploymentgroup-deployment-revision-s3location-etag
+                          type: string
+                        key:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codedeploy-deploymentgroup-deployment-revision-s3location.html#cfn-properties-codedeploy-deploymentgroup-deployment-revision-s3location-key
+                          type: string
+                        version:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codedeploy-deploymentgroup-deployment-revision-s3location.html#cfn-properties-codedeploy-deploymentgroup-deployment-revision-s3location-value
+                          type: string
+            deploymentConfigName:
+              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-codedeploy-deploymentgroup.html#cfn-codedeploy-deploymentgroup-deploymentconfigname
+              type: string
+            deploymentStyle:
+              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-codedeploy-deploymentgroup.html#cfn-codedeploy-deploymentgroup-deploymentstyle
+              type: object
+              required: []
+              properties:
+                deploymentOption:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codedeploy-deploymentgroup-deploymentstyle.html#cfn-codedeploy-deploymentgroup-deploymentstyle-deploymentoption
+                  type: string
+                  enum:
+                  - WITH_TRAFFIC_CONTROL
+                  - WITHOUT_TRAFFIC_CONTROL
+                deploymentType:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codedeploy-deploymentgroup-deploymentstyle.html#cfn-codedeploy-deploymentgroup-deploymentstyle-deploymenttype
+                  type: string
+                  enum:
+                  - BLUE_GREEN
+                  - IN_PLACE
+            ec2TagFilters:
+              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-codedeploy-deploymentgroup.html#cfn-codedeploy-deploymentgroup-ec2tagfilters
+              type: array
+              items:
+                type: object
+                properties:
+                  key:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codedeploy-deploymentgroup-ec2tagfilter.html#cfn-codedeploy-deploymentgroup-ec2tagfilter-key
+                    type: string
+                    customAttributes:
+                      template: Key
+                      immutable: false
+                  type:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codedeploy-deploymentgroup-ec2tagfilter.html#cfn-codedeploy-deploymentgroup-ec2tagfilter-type
+                    type: string
+                    customAttributes:
+                      template: Type
+                      immutable: false
+                  value:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codedeploy-deploymentgroup-ec2tagfilter.html#cfn-codedeploy-deploymentgroup-ec2tagfilter-value
+                    type: string
+                    customAttributes:
+                      template: Value
+                      immutable: false
+            ec2TagSet:
+              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-codedeploy-deploymentgroup.html#cfn-codedeploy-deploymentgroup-ec2tagset
+              type: object
+              required: []
+              properties:
+                ec2TagSetList:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codedeploy-deploymentgroup-ec2tagset.html#cfn-codedeploy-deploymentgroup-ec2tagset-ec2tagsetlist
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      ec2TagGroup:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codedeploy-deploymentgroup-ec2tagsetlistobject.html#cfn-codedeploy-deploymentgroup-ec2tagsetlistobject-ec2taggroup
+                        type: array
+                        customAttributes:
+                          template: Ec2TagGroup
+                          immutable: false
+                        items:
+                          type: object
+                          properties:
+                            key:
+                              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codedeploy-deploymentgroup-ec2tagfilter.html#cfn-codedeploy-deploymentgroup-ec2tagfilter-key
+                              type: string
+                              customAttributes:
+                                template: Key
+                                immutable: false
+                            type:
+                              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codedeploy-deploymentgroup-ec2tagfilter.html#cfn-codedeploy-deploymentgroup-ec2tagfilter-type
+                              type: string
+                              customAttributes:
+                                template: Type
+                                immutable: false
+                            value:
+                              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codedeploy-deploymentgroup-ec2tagfilter.html#cfn-codedeploy-deploymentgroup-ec2tagfilter-value
+                              type: string
+                              customAttributes:
+                                template: Value
+                                immutable: false
+            loadBalancerInfo:
+              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-codedeploy-deploymentgroup.html#cfn-codedeploy-deploymentgroup-loadbalancerinfo
+              type: object
+              required: []
+              properties:
+                elbInfoList:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codedeploy-deploymentgroup-loadbalancerinfo.html#cfn-codedeploy-deploymentgroup-loadbalancerinfo-elbinfolist
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      name:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codedeploy-deploymentgroup-elbinfo.html#cfn-codedeploy-deploymentgroup-elbinfo-name
+                        type: string
+                        customAttributes:
+                          template: Name
+                          immutable: false
+                targetGroupInfoList:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codedeploy-deploymentgroup-loadbalancerinfo.html#cfn-codedeploy-deploymentgroup-loadbalancerinfo-targetgroupinfolist
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      name:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codedeploy-deploymentgroup-targetgroupinfo.html#cfn-codedeploy-deploymentgroup-targetgroupinfo-name
+                        type: string
+                        customAttributes:
+                          template: Name
+                          immutable: false
+            onPremisesInstanceTagFilters:
+              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-codedeploy-deploymentgroup.html#cfn-codedeploy-deploymentgroup-onpremisesinstancetagfilters
+              type: array
+              items:
+                type: object
+                properties:
+                  key:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codedeploy-deploymentgroup-tagfilter.html#cfn-codedeploy-deploymentgroup-tagfilter-key
+                    type: string
+                    customAttributes:
+                      template: Key
+                      immutable: false
+                  type:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codedeploy-deploymentgroup-tagfilter.html#cfn-codedeploy-deploymentgroup-tagfilter-type
+                    type: string
+                    customAttributes:
+                      template: Type
+                      immutable: false
+                  value:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codedeploy-deploymentgroup-tagfilter.html#cfn-codedeploy-deploymentgroup-tagfilter-value
+                    type: string
+                    customAttributes:
+                      template: Value
+                      immutable: false
+            onPremisesTagSet:
+              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-codedeploy-deploymentgroup.html#cfn-codedeploy-deploymentgroup-onpremisestagset
+              type: object
+              required: []
+              properties:
+                onPremisesTagSetList:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codedeploy-deploymentgroup-onpremisestagset.html#cfn-codedeploy-deploymentgroup-onpremisestagset-onpremisestagsetlist
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      onPremisesTagGroup:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codedeploy-deploymentgroup-onpremisestagsetlistobject.html#cfn-codedeploy-deploymentgroup-onpremisestagsetlistobject-onpremisestaggroup
+                        type: array
+                        customAttributes:
+                          template: OnPremisesTagGroup
+                          immutable: false
+                        items:
+                          type: object
+                          properties:
+                            key:
+                              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codedeploy-deploymentgroup-tagfilter.html#cfn-codedeploy-deploymentgroup-tagfilter-key
+                              type: string
+                              customAttributes:
+                                template: Key
+                                immutable: false
+                            type:
+                              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codedeploy-deploymentgroup-tagfilter.html#cfn-codedeploy-deploymentgroup-tagfilter-type
+                              type: string
+                              customAttributes:
+                                template: Type
+                                immutable: false
+                            value:
+                              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codedeploy-deploymentgroup-tagfilter.html#cfn-codedeploy-deploymentgroup-tagfilter-value
+                              type: string
+                              customAttributes:
+                                template: Value
+                                immutable: false
+            serviceRoleRef:
+              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-codedeploy-deploymentgroup.html#cfn-codedeploy-deploymentgroup-servicerolearn
+              type: string
+            triggerConfigurations:
+              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-codedeploy-deploymentgroup.html#cfn-codedeploy-deploymentgroup-triggerconfigurations
+              type: array
+              items:
+                type: object
+                properties:
+                  triggerEvents:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codedeploy-deploymentgroup-triggerconfig.html#cfn-codedeploy-deploymentgroup-triggerconfig-triggerevents
+                    type: array
+                    customAttributes:
+                      template: TriggerEvents
+                      immutable: false
+                    items:
+                      type: string
+                    enum:
+                    - DeploymentFailure
+                    - DeploymentReady
+                    - DeploymentRollback
+                    - DeploymentStart
+                    - DeploymentStop
+                    - DeploymentSuccess
+                    - InstanceFailure
+                    - InstanceReady
+                    - InstanceStart
+                    - InstanceSuccess
+                  triggerName:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codedeploy-deploymentgroup-triggerconfig.html#cfn-codedeploy-deploymentgroup-triggerconfig-triggername
+                    type: string
+                    customAttributes:
+                      template: TriggerName
+                      immutable: false
+                  triggerTargetRef:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codedeploy-deploymentgroup-triggerconfig.html#cfn-codedeploy-deploymentgroup-triggerconfig-triggertargetarn
+                    type: string
+                    customAttributes:
+                      template: TriggerTargetArn
+                      immutable: false

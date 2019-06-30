@@ -1,0 +1,137 @@
+---
+apiVersion: apiextensions.k8s.io/v1beta1
+kind: CustomResourceDefinition
+metadata:
+  name: optiongroups.rds.awsoperator.io
+spec:
+  group: rds.awsoperator.io
+  versions:
+  - name: v1alpha1
+    served: true
+    storage: true
+  scope: Namespaced
+  names:
+    plural: optiongroups
+    singular: optiongroup
+    kind: OptionGroup
+    shortNames: []
+    categories:
+    - aws
+    - rds
+  additionalPrinterColumns:
+  - name: Status
+    type: string
+    description: Status for the AWS CloudFormation stack.
+    JSONPath: ".status.reason"
+  - name: Message
+    type: string
+    description: Message accompanying it's current stack status.
+    JSONPath: ".status.message"
+    priority: 1
+  - name: Created At
+    type: date
+    description: When the resource was created
+    JSONPath: ".metadata.creationTimestamp"
+  subresources:
+    status: {}
+  validation:
+    openAPIV3Schema:
+      properties:
+        spec:
+          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-optiongroup.html
+          type: object
+          required:
+          - engineName
+          - majorEngineVersion
+          - optionConfigurations
+          - optionGroupDescription
+          properties:
+            engineName:
+              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-optiongroup.html#cfn-rds-optiongroup-enginename
+              type: string
+            majorEngineVersion:
+              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-optiongroup.html#cfn-rds-optiongroup-majorengineversion
+              type: string
+            optionConfigurations:
+              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-optiongroup.html#cfn-rds-optiongroup-optionconfigurations
+              type: array
+              items:
+                type: object
+                properties:
+                  dBSecurityGroupMemberships:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-optiongroup-optionconfigurations.html#cfn-rds-optiongroup-optionconfigurations-dbsecuritygroupmemberships
+                    type: array
+                    customAttributes:
+                      template: DBSecurityGroupMemberships
+                      immutable: false
+                    items:
+                      type: string
+                  optionName:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-optiongroup-optionconfigurations.html#cfn-rds-optiongroup-optionconfigurations-optionname
+                    type: string
+                    customAttributes:
+                      template: OptionName
+                      immutable: false
+                  optionSettings:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-optiongroup-optionconfigurations.html#cfn-rds-optiongroup-optionconfigurations-optionsettings
+                    type: array
+                    customAttributes:
+                      template: OptionSettings
+                      immutable: false
+                    items:
+                      type: object
+                      properties:
+                        name:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-optiongroup-optionconfigurations-optionsettings.html#cfn-rds-optiongroup-optionconfigurations-optionsettings-name
+                          type: string
+                          customAttributes:
+                            template: Name
+                            immutable: false
+                        value:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-optiongroup-optionconfigurations-optionsettings.html#cfn-rds-optiongroup-optionconfigurations-optionsettings-value
+                          type: string
+                          customAttributes:
+                            template: Value
+                            immutable: false
+                  optionVersion:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-optiongroup-optionconfigurations.html#cfn-rds-optiongroup-optionconfiguration-optionversion
+                    type: string
+                    customAttributes:
+                      template: OptionVersion
+                      immutable: false
+                  port:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-optiongroup-optionconfigurations.html#cfn-rds-optiongroup-optionconfigurations-port
+                    type: integer
+                    format: int32
+                    customAttributes:
+                      template: Port
+                      immutable: false
+                  vpcSecurityGroupMemberships:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-optiongroup-optionconfigurations.html#cfn-rds-optiongroup-optionconfigurations-vpcsecuritygroupmemberships
+                    type: array
+                    customAttributes:
+                      template: VpcSecurityGroupMemberships
+                      immutable: false
+                    items:
+                      type: string
+            optionGroupDescription:
+              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-optiongroup.html#cfn-rds-optiongroup-optiongroupdescription
+              type: string
+            tags:
+              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-optiongroup.html#cfn-rds-optiongroup-tags
+              type: array
+              items:
+                type: object
+                properties:
+                  key:
+                    description: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-resource-tags.html#cfn-resource-tags-key
+                    type: string
+                    customAttributes:
+                      template: Key
+                      immutable: false
+                  value:
+                    description: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-resource-tags.html#cfn-resource-tags-value
+                    type: string
+                    customAttributes:
+                      template: Value
+                      immutable: false

@@ -1,0 +1,76 @@
+---
+apiVersion: models.awsoperator.io/v1alpha1
+kind: ModelFile
+metadata:
+  name: docdb-dbsubnetgroup-resource
+  creationTimestamp: '2019-06-13T16:59:29-07:00'
+  resourceVersion: 3.3.0
+spec:
+  resource:
+    kind: DBSubnetGroup
+    scope: Namespaced
+    apiGroup:
+      apiVersion: docdb.awsoperator.io/v1alpha1
+      group: docdb
+      region: us-east-1
+      domain: awsoperator.io
+      versions:
+      - name: v1alpha1
+        served: true
+        storage: true
+    names:
+      singular: dbsubnetgroup
+      plural: dbsubnetgroups
+      shortNames: []
+  openAPIV3Schema:
+    properties:
+      spec:
+        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-docdb-dbsubnetgroup.html
+        type: object
+        customAttributes: {}
+        required:
+        - dBSubnetGroupDescription
+        - subnetIds
+        properties:
+          dBSubnetGroupDescription:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-docdb-dbsubnetgroup.html#cfn-docdb-dbsubnetgroup-dbsubnetgroupdescription
+            type: string
+            customAttributes:
+              template: DBSubnetGroupDescription
+              immutable: false
+          dBSubnetGroupName:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-docdb-dbsubnetgroup.html#cfn-docdb-dbsubnetgroup-dbsubnetgroupname
+            type: string
+            customAttributes:
+              template: DBSubnetGroupName
+              resourceName: true
+              immutable: true
+          subnetRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-docdb-dbsubnetgroup.html#cfn-docdb-dbsubnetgroup-subnetids
+            type: array
+            customAttributes:
+              template: SubnetIds
+              immutable: false
+            items:
+              type: string
+          tags:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-docdb-dbsubnetgroup.html#cfn-docdb-dbsubnetgroup-tags
+            type: array
+            customAttributes:
+              template: Tags
+              immutable: false
+            items:
+              type: object
+              properties:
+                key:
+                  description: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-resource-tags.html#cfn-resource-tags-key
+                  type: string
+                  customAttributes:
+                    template: Key
+                    immutable: false
+                value:
+                  description: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-resource-tags.html#cfn-resource-tags-value
+                  type: string
+                  customAttributes:
+                    template: Value
+                    immutable: false

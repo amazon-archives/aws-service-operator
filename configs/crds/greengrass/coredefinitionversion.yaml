@@ -1,0 +1,79 @@
+---
+apiVersion: apiextensions.k8s.io/v1beta1
+kind: CustomResourceDefinition
+metadata:
+  name: coredefinitionversions.greengrass.awsoperator.io
+spec:
+  group: greengrass.awsoperator.io
+  versions:
+  - name: v1alpha1
+    served: true
+    storage: true
+  scope: Namespaced
+  names:
+    plural: coredefinitionversions
+    singular: coredefinitionversion
+    kind: CoreDefinitionVersion
+    shortNames: []
+    categories:
+    - aws
+    - greengrass
+  additionalPrinterColumns:
+  - name: Status
+    type: string
+    description: Status for the AWS CloudFormation stack.
+    JSONPath: ".status.reason"
+  - name: Message
+    type: string
+    description: Message accompanying it's current stack status.
+    JSONPath: ".status.message"
+    priority: 1
+  - name: Created At
+    type: date
+    description: When the resource was created
+    JSONPath: ".metadata.creationTimestamp"
+  subresources:
+    status: {}
+  validation:
+    openAPIV3Schema:
+      properties:
+        spec:
+          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-greengrass-coredefinitionversion.html
+          type: object
+          required:
+          - coreDefinitionId
+          - cores
+          properties:
+            coreDefinitionRef:
+              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-greengrass-coredefinitionversion.html#cfn-greengrass-coredefinitionversion-coredefinitionid
+              type: string
+            cores:
+              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-greengrass-coredefinitionversion.html#cfn-greengrass-coredefinitionversion-cores
+              type: array
+              items:
+                type: object
+                properties:
+                  certificateRef:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-greengrass-coredefinitionversion-core.html#cfn-greengrass-coredefinitionversion-core-certificatearn
+                    type: string
+                    customAttributes:
+                      template: CertificateArn
+                      immutable: true
+                  id:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-greengrass-coredefinitionversion-core.html#cfn-greengrass-coredefinitionversion-core-id
+                    type: string
+                    customAttributes:
+                      template: Id
+                      immutable: true
+                  syncShadow:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-greengrass-coredefinitionversion-core.html#cfn-greengrass-coredefinitionversion-core-syncshadow
+                    type: boolean
+                    customAttributes:
+                      template: SyncShadow
+                      immutable: true
+                  thingRef:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-greengrass-coredefinitionversion-core.html#cfn-greengrass-coredefinitionversion-core-thingarn
+                    type: string
+                    customAttributes:
+                      template: ThingArn
+                      immutable: true

@@ -1,0 +1,299 @@
+---
+apiVersion: apiextensions.k8s.io/v1beta1
+kind: CustomResourceDefinition
+metadata:
+  name: instancegroupconfigs.emr.awsoperator.io
+spec:
+  group: emr.awsoperator.io
+  versions:
+  - name: v1alpha1
+    served: true
+    storage: true
+  scope: Namespaced
+  names:
+    plural: instancegroupconfigs
+    singular: instancegroupconfig
+    kind: InstanceGroupConfig
+    shortNames: []
+    categories:
+    - aws
+    - emr
+  additionalPrinterColumns:
+  - name: Status
+    type: string
+    description: Status for the AWS CloudFormation stack.
+    JSONPath: ".status.reason"
+  - name: Message
+    type: string
+    description: Message accompanying it's current stack status.
+    JSONPath: ".status.message"
+    priority: 1
+  - name: Created At
+    type: date
+    description: When the resource was created
+    JSONPath: ".metadata.creationTimestamp"
+  subresources:
+    status: {}
+  validation:
+    openAPIV3Schema:
+      properties:
+        spec:
+          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-emr-instancegroupconfig.html
+          type: object
+          required:
+          - instanceCount
+          - instanceRole
+          - instanceType
+          - jobFlowId
+          properties:
+            autoScalingPolicy:
+              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-emr-instancegroupconfig.html#cfn-elasticmapreduce-instancegroupconfig-autoscalingpolicy
+              type: object
+              required:
+              - constraints
+              - rules
+              properties:
+                constraints:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-instancegroupconfig-autoscalingpolicy.html#cfn-elasticmapreduce-instancegroupconfig-autoscalingpolicy-constraints
+                  type: object
+                  required:
+                  - maxCapacity
+                  - minCapacity
+                  properties:
+                    maxCapacity:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-instancegroupconfig-scalingconstraints.html#cfn-elasticmapreduce-instancegroupconfig-scalingconstraints-maxcapacity
+                      type: integer
+                      format: int32
+                    minCapacity:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-instancegroupconfig-scalingconstraints.html#cfn-elasticmapreduce-instancegroupconfig-scalingconstraints-mincapacity
+                      type: integer
+                      format: int32
+                rules:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-instancegroupconfig-autoscalingpolicy.html#cfn-elasticmapreduce-instancegroupconfig-autoscalingpolicy-rules
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      action:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-instancegroupconfig-scalingrule.html#cfn-elasticmapreduce-instancegroupconfig-scalingrule-action
+                        type: object
+                        customAttributes:
+                          immutable: false
+                        required:
+                        - simpleScalingPolicyConfiguration
+                        properties:
+                          market:
+                            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-instancegroupconfig-scalingaction.html#cfn-elasticmapreduce-instancegroupconfig-scalingaction-market
+                            type: string
+                            customAttributes:
+                              template: Market
+                              immutable: false
+                          simpleScalingPolicyConfiguration:
+                            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-instancegroupconfig-scalingaction.html#cfn-elasticmapreduce-instancegroupconfig-scalingaction-simplescalingpolicyconfiguration
+                            type: object
+                            customAttributes:
+                              immutable: false
+                            required:
+                            - scalingAdjustment
+                            properties:
+                              adjustmentType:
+                                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-instancegroupconfig-simplescalingpolicyconfiguration.html#cfn-elasticmapreduce-instancegroupconfig-simplescalingpolicyconfiguration-adjustmenttype
+                                type: string
+                                customAttributes:
+                                  template: AdjustmentType
+                                  immutable: false
+                              coolDown:
+                                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-instancegroupconfig-simplescalingpolicyconfiguration.html#cfn-elasticmapreduce-instancegroupconfig-simplescalingpolicyconfiguration-cooldown
+                                type: integer
+                                format: int32
+                                customAttributes:
+                                  template: CoolDown
+                                  immutable: false
+                              scalingAdjustment:
+                                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-instancegroupconfig-simplescalingpolicyconfiguration.html#cfn-elasticmapreduce-instancegroupconfig-simplescalingpolicyconfiguration-scalingadjustment
+                                type: integer
+                                format: int32
+                                customAttributes:
+                                  template: ScalingAdjustment
+                                  immutable: false
+                      description:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-instancegroupconfig-scalingrule.html#cfn-elasticmapreduce-instancegroupconfig-scalingrule-description
+                        type: string
+                        customAttributes:
+                          template: Description
+                          immutable: false
+                      name:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-instancegroupconfig-scalingrule.html#cfn-elasticmapreduce-instancegroupconfig-scalingrule-name
+                        type: string
+                        customAttributes:
+                          template: Name
+                          immutable: false
+                      trigger:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-instancegroupconfig-scalingrule.html#cfn-elasticmapreduce-instancegroupconfig-scalingrule-trigger
+                        type: object
+                        customAttributes:
+                          immutable: false
+                        required:
+                        - cloudWatchAlarmDefinition
+                        properties:
+                          cloudWatchAlarmDefinition:
+                            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-instancegroupconfig-scalingtrigger.html#cfn-elasticmapreduce-instancegroupconfig-scalingtrigger-cloudwatchalarmdefinition
+                            type: object
+                            customAttributes:
+                              immutable: false
+                            required:
+                            - comparisonOperator
+                            - metricName
+                            - period
+                            - threshold
+                            properties:
+                              comparisonOperator:
+                                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-instancegroupconfig-cloudwatchalarmdefinition.html#cfn-elasticmapreduce-instancegroupconfig-cloudwatchalarmdefinition-comparisonoperator
+                                type: string
+                                customAttributes:
+                                  template: ComparisonOperator
+                                  immutable: false
+                              dimensions:
+                                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-instancegroupconfig-cloudwatchalarmdefinition.html#cfn-elasticmapreduce-instancegroupconfig-cloudwatchalarmdefinition-dimensions
+                                type: array
+                                customAttributes:
+                                  template: Dimensions
+                                  immutable: false
+                                items:
+                                  type: object
+                                  properties:
+                                    key:
+                                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-instancegroupconfig-metricdimension.html#cfn-elasticmapreduce-instancegroupconfig-metricdimension-key
+                                      type: string
+                                      customAttributes:
+                                        template: Key
+                                        immutable: false
+                                    value:
+                                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-instancegroupconfig-metricdimension.html#cfn-elasticmapreduce-instancegroupconfig-metricdimension-value
+                                      type: string
+                                      customAttributes:
+                                        template: Value
+                                        immutable: false
+                              evaluationPeriods:
+                                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-instancegroupconfig-cloudwatchalarmdefinition.html#cfn-elasticmapreduce-instancegroupconfig-cloudwatchalarmdefinition-evaluationperiods
+                                type: integer
+                                format: int32
+                                customAttributes:
+                                  template: EvaluationPeriods
+                                  immutable: false
+                              metricName:
+                                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-instancegroupconfig-cloudwatchalarmdefinition.html#cfn-elasticmapreduce-instancegroupconfig-cloudwatchalarmdefinition-metricname
+                                type: string
+                                customAttributes:
+                                  template: MetricName
+                                  immutable: false
+                              namespace:
+                                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-instancegroupconfig-cloudwatchalarmdefinition.html#cfn-elasticmapreduce-instancegroupconfig-cloudwatchalarmdefinition-namespace
+                                type: string
+                                customAttributes:
+                                  template: Namespace
+                                  immutable: false
+                              period:
+                                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-instancegroupconfig-cloudwatchalarmdefinition.html#cfn-elasticmapreduce-instancegroupconfig-cloudwatchalarmdefinition-period
+                                type: integer
+                                format: int32
+                                customAttributes:
+                                  template: Period
+                                  immutable: false
+                              statistic:
+                                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-instancegroupconfig-cloudwatchalarmdefinition.html#cfn-elasticmapreduce-instancegroupconfig-cloudwatchalarmdefinition-statistic
+                                type: string
+                                customAttributes:
+                                  template: Statistic
+                                  immutable: false
+                              threshold:
+                                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-instancegroupconfig-cloudwatchalarmdefinition.html#cfn-elasticmapreduce-instancegroupconfig-cloudwatchalarmdefinition-threshold
+                                type: integer
+                                format: double
+                                customAttributes:
+                                  template: Threshold
+                                  immutable: false
+                              unit:
+                                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticmapreduce-instancegroupconfig-cloudwatchalarmdefinition.html#cfn-elasticmapreduce-instancegroupconfig-cloudwatchalarmdefinition-unit
+                                type: string
+                                customAttributes:
+                                  template: Unit
+                                  immutable: false
+            bidPrice:
+              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-emr-instancegroupconfig.html#cfn-emr-instancegroupconfig-bidprice
+              type: string
+            configurations:
+              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-emr-instancegroupconfig.html#cfn-emr-instancegroupconfig-configurations
+              type: array
+              items:
+                type: object
+                properties: {}
+            ebsConfiguration:
+              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-emr-instancegroupconfig.html#cfn-emr-instancegroupconfig-ebsconfiguration
+              type: object
+              required: []
+              properties:
+                ebsBlockDeviceConfigs:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-emr-ebsconfiguration.html#cfn-emr-ebsconfiguration-ebsblockdeviceconfigs
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      volumeSpecification:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-emr-ebsconfiguration-ebsblockdeviceconfig.html#cfn-emr-ebsconfiguration-ebsblockdeviceconfig-volumespecification
+                        type: object
+                        customAttributes:
+                          immutable: false
+                        required:
+                        - sizeInGB
+                        - volumeType
+                        properties:
+                          iops:
+                            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-emr-ebsconfiguration-ebsblockdeviceconfig-volumespecification.html#cfn-emr-ebsconfiguration-ebsblockdeviceconfig-volumespecification-iops
+                            type: integer
+                            format: int32
+                            customAttributes:
+                              template: Iops
+                              immutable: false
+                          sizeInGB:
+                            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-emr-ebsconfiguration-ebsblockdeviceconfig-volumespecification.html#cfn-emr-ebsconfiguration-ebsblockdeviceconfig-volumespecification-sizeingb
+                            type: integer
+                            format: int32
+                            customAttributes:
+                              template: SizeInGB
+                              immutable: false
+                          volumeType:
+                            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-emr-ebsconfiguration-ebsblockdeviceconfig-volumespecification.html#cfn-emr-ebsconfiguration-ebsblockdeviceconfig-volumespecification-volumetype
+                            type: string
+                            customAttributes:
+                              template: VolumeType
+                              immutable: false
+                      volumesPerInstance:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-emr-ebsconfiguration-ebsblockdeviceconfig.html#cfn-emr-ebsconfiguration-ebsblockdeviceconfig-volumesperinstance
+                        type: integer
+                        format: int32
+                        customAttributes:
+                          template: VolumesPerInstance
+                          immutable: false
+                ebsOptimized:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-emr-ebsconfiguration.html#cfn-emr-ebsconfiguration-ebsoptimized
+                  type: boolean
+            instanceCount:
+              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-emr-instancegroupconfig.html#cfn-emr-instancegroupconfiginstancecount-
+              type: integer
+              format: int32
+            instanceRole:
+              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-emr-instancegroupconfig.html#cfn-emr-instancegroupconfig-instancerole
+              type: string
+            instanceType:
+              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-emr-instancegroupconfig.html#cfn-emr-instancegroupconfig-instancetype
+              type: string
+            jobFlowRef:
+              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-emr-instancegroupconfig.html#cfn-emr-instancegroupconfig-jobflowid
+              type: string
+            market:
+              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-emr-instancegroupconfig.html#cfn-emr-instancegroupconfig-market
+              type: string
+            name:
+              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-emr-instancegroupconfig.html#cfn-emr-instancegroupconfig-name
+              type: string

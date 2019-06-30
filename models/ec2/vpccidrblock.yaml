@@ -1,0 +1,51 @@
+---
+apiVersion: models.awsoperator.io/v1alpha1
+kind: ModelFile
+metadata:
+  name: ec2-vpccidrblock-resource
+  creationTimestamp: '2019-06-13T16:59:29-07:00'
+  resourceVersion: 3.3.0
+spec:
+  resource:
+    kind: VPCCidrBlock
+    scope: Namespaced
+    apiGroup:
+      apiVersion: ec2.awsoperator.io/v1alpha1
+      group: ec2
+      region: us-east-1
+      domain: awsoperator.io
+      versions:
+      - name: v1alpha1
+        served: true
+        storage: true
+    names:
+      singular: vpccidrblock
+      plural: vpccidrblocks
+      shortNames: []
+  openAPIV3Schema:
+    properties:
+      spec:
+        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-vpccidrblock.html
+        type: object
+        customAttributes: {}
+        required:
+        - vpcId
+        properties:
+          amazonProvidedIpv6CidrBlock:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-vpccidrblock.html#cfn-ec2-vpccidrblock-amazonprovidedipv6cidrblock
+            type: boolean
+            customAttributes:
+              template: AmazonProvidedIpv6CidrBlock
+              immutable: true
+          cidrBlock:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-vpccidrblock.html#cfn-ec2-vpccidrblock-cidrblock
+            type: string
+            customAttributes:
+              template: CidrBlock
+              immutable: true
+          vpcRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-vpccidrblock.html#cfn-ec2-vpccidrblock-vpcid
+            type: string
+            customAttributes:
+              template: VpcId
+              immutable: true

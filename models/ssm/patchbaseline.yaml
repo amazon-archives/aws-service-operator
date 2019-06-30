@@ -1,0 +1,238 @@
+---
+apiVersion: models.awsoperator.io/v1alpha1
+kind: ModelFile
+metadata:
+  name: ssm-patchbaseline-resource
+  creationTimestamp: '2019-06-13T16:59:30-07:00'
+  resourceVersion: 3.3.0
+spec:
+  resource:
+    kind: PatchBaseline
+    scope: Namespaced
+    apiGroup:
+      apiVersion: ssm.awsoperator.io/v1alpha1
+      group: ssm
+      region: us-east-1
+      domain: awsoperator.io
+      versions:
+      - name: v1alpha1
+        served: true
+        storage: true
+    names:
+      singular: patchbaseline
+      plural: patchbaselines
+      shortNames: []
+  openAPIV3Schema:
+    properties:
+      spec:
+        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ssm-patchbaseline.html
+        type: object
+        customAttributes: {}
+        required:
+        - name
+        properties:
+          approvalRules:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ssm-patchbaseline.html#cfn-ssm-patchbaseline-approvalrules
+            type: object
+            customAttributes:
+              immutable: false
+            required: []
+            properties:
+              patchRules:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ssm-patchbaseline-rulegroup.html#cfn-ssm-patchbaseline-rulegroup-patchrules
+                type: array
+                customAttributes:
+                  template: PatchRules
+                  immutable: false
+                items:
+                  type: object
+                  properties:
+                    approveAfterDays:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ssm-patchbaseline-rule.html#cfn-ssm-patchbaseline-rule-approveafterdays
+                      type: integer
+                      format: int32
+                      customAttributes:
+                        template: ApproveAfterDays
+                        immutable: false
+                    complianceLevel:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ssm-patchbaseline-rule.html#cfn-ssm-patchbaseline-rule-compliancelevel
+                      type: string
+                      customAttributes:
+                        template: ComplianceLevel
+                        immutable: false
+                    enableNonSecurity:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ssm-patchbaseline-rule.html#cfn-ssm-patchbaseline-rule-enablenonsecurity
+                      type: boolean
+                      customAttributes:
+                        template: EnableNonSecurity
+                        immutable: false
+                    patchFilterGroup:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ssm-patchbaseline-rule.html#cfn-ssm-patchbaseline-rule-patchfiltergroup
+                      type: object
+                      customAttributes:
+                        immutable: false
+                      required: []
+                      properties:
+                        patchFilters:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ssm-patchbaseline-patchfiltergroup.html#cfn-ssm-patchbaseline-patchfiltergroup-patchfilters
+                          type: array
+                          customAttributes:
+                            template: PatchFilters
+                            immutable: false
+                          items:
+                            type: object
+                            properties:
+                              key:
+                                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ssm-patchbaseline-patchfilter.html#cfn-ssm-patchbaseline-patchfilter-key
+                                type: string
+                                customAttributes:
+                                  template: Key
+                                  immutable: false
+                              values:
+                                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ssm-patchbaseline-patchfilter.html#cfn-ssm-patchbaseline-patchfilter-values
+                                type: array
+                                customAttributes:
+                                  template: Values
+                                  immutable: false
+                                items:
+                                  type: string
+          approvedPatches:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ssm-patchbaseline.html#cfn-ssm-patchbaseline-approvedpatches
+            type: array
+            customAttributes:
+              template: ApprovedPatches
+              immutable: false
+            items:
+              type: string
+          approvedPatchesComplianceLevel:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ssm-patchbaseline.html#cfn-ssm-patchbaseline-approvedpatchescompliancelevel
+            type: string
+            customAttributes:
+              template: ApprovedPatchesComplianceLevel
+              immutable: false
+          approvedPatchesEnableNonSecurity:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ssm-patchbaseline.html#cfn-ssm-patchbaseline-approvedpatchesenablenonsecurity
+            type: boolean
+            customAttributes:
+              template: ApprovedPatchesEnableNonSecurity
+              immutable: false
+          description:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ssm-patchbaseline.html#cfn-ssm-patchbaseline-description
+            type: string
+            customAttributes:
+              template: Description
+              immutable: false
+          globalFilters:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ssm-patchbaseline.html#cfn-ssm-patchbaseline-globalfilters
+            type: object
+            customAttributes:
+              immutable: false
+            required: []
+            properties:
+              patchFilters:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ssm-patchbaseline-patchfiltergroup.html#cfn-ssm-patchbaseline-patchfiltergroup-patchfilters
+                type: array
+                customAttributes:
+                  template: PatchFilters
+                  immutable: false
+                items:
+                  type: object
+                  properties:
+                    key:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ssm-patchbaseline-patchfilter.html#cfn-ssm-patchbaseline-patchfilter-key
+                      type: string
+                      customAttributes:
+                        template: Key
+                        immutable: false
+                    values:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ssm-patchbaseline-patchfilter.html#cfn-ssm-patchbaseline-patchfilter-values
+                      type: array
+                      customAttributes:
+                        template: Values
+                        immutable: false
+                      items:
+                        type: string
+          name:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ssm-patchbaseline.html#cfn-ssm-patchbaseline-name
+            type: string
+            customAttributes:
+              template: Name
+              immutable: false
+          operatingSystem:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ssm-patchbaseline.html#cfn-ssm-patchbaseline-operatingsystem
+            type: string
+            customAttributes:
+              template: OperatingSystem
+              immutable: true
+          patchGroups:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ssm-patchbaseline.html#cfn-ssm-patchbaseline-patchgroups
+            type: array
+            customAttributes:
+              template: PatchGroups
+              immutable: false
+            items:
+              type: string
+          rejectedPatches:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ssm-patchbaseline.html#cfn-ssm-patchbaseline-rejectedpatches
+            type: array
+            customAttributes:
+              template: RejectedPatches
+              immutable: false
+            items:
+              type: string
+          rejectedPatchesAction:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ssm-patchbaseline.html#cfn-ssm-patchbaseline-rejectedpatchesaction
+            type: string
+            customAttributes:
+              template: RejectedPatchesAction
+              immutable: false
+          sources:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ssm-patchbaseline.html#cfn-ssm-patchbaseline-sources
+            type: array
+            customAttributes:
+              template: Sources
+              immutable: false
+            items:
+              type: object
+              properties:
+                configuration:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ssm-patchbaseline-patchsource.html#cfn-ssm-patchbaseline-patchsource-configuration
+                  type: string
+                  customAttributes:
+                    template: Configuration
+                    immutable: false
+                name:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ssm-patchbaseline-patchsource.html#cfn-ssm-patchbaseline-patchsource-name
+                  type: string
+                  customAttributes:
+                    template: Name
+                    immutable: false
+                products:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ssm-patchbaseline-patchsource.html#cfn-ssm-patchbaseline-patchsource-products
+                  type: array
+                  customAttributes:
+                    template: Products
+                    immutable: false
+                  items:
+                    type: string
+          tags:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ssm-patchbaseline.html#cfn-ssm-patchbaseline-tags
+            type: array
+            customAttributes:
+              template: Tags
+              immutable: false
+            items:
+              type: object
+              properties:
+                key:
+                  description: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-resource-tags.html#cfn-resource-tags-key
+                  type: string
+                  customAttributes:
+                    template: Key
+                    immutable: false
+                value:
+                  description: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-resource-tags.html#cfn-resource-tags-value
+                  type: string
+                  customAttributes:
+                    template: Value
+                    immutable: false

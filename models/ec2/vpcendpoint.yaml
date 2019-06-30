@@ -1,0 +1,90 @@
+---
+apiVersion: models.awsoperator.io/v1alpha1
+kind: ModelFile
+metadata:
+  name: ec2-vpcendpoint-resource
+  creationTimestamp: '2019-06-13T16:59:29-07:00'
+  resourceVersion: 3.3.0
+spec:
+  resource:
+    kind: VPCEndpoint
+    scope: Namespaced
+    apiGroup:
+      apiVersion: ec2.awsoperator.io/v1alpha1
+      group: ec2
+      region: us-east-1
+      domain: awsoperator.io
+      versions:
+      - name: v1alpha1
+        served: true
+        storage: true
+    names:
+      singular: vpcendpoint
+      plural: vpcendpoints
+      shortNames: []
+  openAPIV3Schema:
+    properties:
+      spec:
+        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-vpcendpoint.html
+        type: object
+        customAttributes: {}
+        required:
+        - serviceName
+        - vpcId
+        properties:
+          policyDocument:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-vpcendpoint.html#cfn-ec2-vpcendpoint-policydocument
+            customAttributes:
+              template: PolicyDocument
+              immutable: false
+          privateDnsEnabled:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-vpcendpoint.html#cfn-ec2-vpcendpoint-privatednsenabled
+            type: boolean
+            customAttributes:
+              template: PrivateDnsEnabled
+              immutable: false
+          routeTableRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-vpcendpoint.html#cfn-ec2-vpcendpoint-routetableids
+            type: array
+            customAttributes:
+              template: RouteTableIds
+              immutable: false
+            items:
+              type: string
+          securityGroupRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-vpcendpoint.html#cfn-ec2-vpcendpoint-securitygroupids
+            type: array
+            customAttributes:
+              template: SecurityGroupIds
+              immutable: false
+            items:
+              type: string
+          serviceName:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-vpcendpoint.html#cfn-ec2-vpcendpoint-servicename
+            type: string
+            customAttributes:
+              template: ServiceName
+              immutable: true
+          subnetRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-vpcendpoint.html#cfn-ec2-vpcendpoint-subnetids
+            type: array
+            customAttributes:
+              template: SubnetIds
+              immutable: false
+            items:
+              type: string
+          vpcEndpointType:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-vpcendpoint.html#cfn-ec2-vpcendpoint-vpcendpointtype
+            type: string
+            customAttributes:
+              template: VpcEndpointType
+              immutable: true
+            enum:
+            - Gateway
+            - Interface
+          vpcRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-vpcendpoint.html#cfn-ec2-vpcendpoint-vpcid
+            type: string
+            customAttributes:
+              template: VpcId
+              immutable: true

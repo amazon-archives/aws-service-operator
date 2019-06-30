@@ -1,0 +1,64 @@
+---
+apiVersion: models.awsoperator.io/v1alpha1
+kind: ModelFile
+metadata:
+  name: ses-template-resource
+  creationTimestamp: '2019-06-13T16:59:30-07:00'
+  resourceVersion: 3.3.0
+spec:
+  resource:
+    kind: Template
+    scope: Namespaced
+    apiGroup:
+      apiVersion: ses.awsoperator.io/v1alpha1
+      group: ses
+      region: us-east-1
+      domain: awsoperator.io
+      versions:
+      - name: v1alpha1
+        served: true
+        storage: true
+    names:
+      singular: template
+      plural: templates
+      shortNames: []
+  openAPIV3Schema:
+    properties:
+      spec:
+        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ses-template.html
+        type: object
+        customAttributes: {}
+        required: []
+        properties:
+          template:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ses-template.html#cfn-ses-template-template
+            type: object
+            customAttributes:
+              immutable: false
+            required: []
+            properties:
+              htmlPart:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ses-template-template.html#cfn-ses-template-template-htmlpart
+                type: string
+                customAttributes:
+                  template: HtmlPart
+                  immutable: false
+              subjectPart:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ses-template-template.html#cfn-ses-template-template-subjectpart
+                type: string
+                customAttributes:
+                  template: SubjectPart
+                  immutable: false
+              templateName:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ses-template-template.html#cfn-ses-template-template-templatename
+                type: string
+                customAttributes:
+                  template: TemplateName
+                  resourceName: true
+                  immutable: true
+              textPart:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ses-template-template.html#cfn-ses-template-template-textpart
+                type: string
+                customAttributes:
+                  template: TextPart
+                  immutable: false

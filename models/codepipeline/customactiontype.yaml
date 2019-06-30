@@ -1,0 +1,194 @@
+---
+apiVersion: models.awsoperator.io/v1alpha1
+kind: ModelFile
+metadata:
+  name: codepipeline-customactiontype-resource
+  creationTimestamp: '2019-06-13T16:59:28-07:00'
+  resourceVersion: 3.3.0
+spec:
+  resource:
+    kind: CustomActionType
+    scope: Namespaced
+    apiGroup:
+      apiVersion: codepipeline.awsoperator.io/v1alpha1
+      group: codepipeline
+      region: us-east-1
+      domain: awsoperator.io
+      versions:
+      - name: v1alpha1
+        served: true
+        storage: true
+    names:
+      singular: customactiontype
+      plural: customactiontypes
+      shortNames: []
+  openAPIV3Schema:
+    properties:
+      spec:
+        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-codepipeline-customactiontype.html
+        type: object
+        customAttributes: {}
+        required:
+        - category
+        - inputArtifactDetails
+        - outputArtifactDetails
+        - provider
+        - version
+        properties:
+          category:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-codepipeline-customactiontype.html#cfn-codepipeline-customactiontype-category
+            type: string
+            customAttributes:
+              template: Category
+              immutable: true
+            enum:
+            - Approval
+            - Build
+            - Deploy
+            - Invoke
+            - Source
+            - Test
+          configurationProperties:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-codepipeline-customactiontype.html#cfn-codepipeline-customactiontype-configurationproperties
+            type: array
+            customAttributes:
+              template: ConfigurationProperties
+              immutable: true
+            items:
+              type: object
+              properties:
+                description:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codepipeline-customactiontype-configurationproperties.html#cfn-codepipeline-customactiontype-configurationproperties-description
+                  type: string
+                  customAttributes:
+                    template: Description
+                    immutable: false
+                key:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codepipeline-customactiontype-configurationproperties.html#cfn-codepipeline-customactiontype-configurationproperties-key
+                  type: boolean
+                  customAttributes:
+                    template: Key
+                    immutable: false
+                name:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codepipeline-customactiontype-configurationproperties.html#cfn-codepipeline-customactiontype-configurationproperties-name
+                  type: string
+                  customAttributes:
+                    template: Name
+                    immutable: false
+                queryable:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codepipeline-customactiontype-configurationproperties.html#cfn-codepipeline-customactiontype-configurationproperties-queryable
+                  type: boolean
+                  customAttributes:
+                    template: Queryable
+                    immutable: false
+                required:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codepipeline-customactiontype-configurationproperties.html#cfn-codepipeline-customactiontype-configurationproperties-required
+                  type: boolean
+                  customAttributes:
+                    template: Required
+                    immutable: false
+                secret:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codepipeline-customactiontype-configurationproperties.html#cfn-codepipeline-customactiontype-configurationproperties-secret
+                  type: boolean
+                  customAttributes:
+                    template: Secret
+                    immutable: false
+                type:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codepipeline-customactiontype-configurationproperties.html#cfn-codepipeline-customactiontype-configurationproperties-type
+                  type: string
+                  customAttributes:
+                    template: Type
+                    immutable: false
+                  enum:
+                  - Boolean
+                  - Number
+                  - String
+          inputArtifactDetails:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-codepipeline-customactiontype.html#cfn-codepipeline-customactiontype-inputartifactdetails
+            type: object
+            customAttributes:
+              immutable: true
+            required:
+            - maximumCount
+            - minimumCount
+            properties:
+              maximumCount:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codepipeline-customactiontype-artifactdetails.html#cfn-codepipeline-customactiontype-artifactdetails-maximumcount
+                type: integer
+                format: int32
+                customAttributes:
+                  template: MaximumCount
+                  immutable: false
+              minimumCount:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codepipeline-customactiontype-artifactdetails.html#cfn-codepipeline-customactiontype-artifactdetails-minimumcount
+                type: integer
+                format: int32
+                customAttributes:
+                  template: MinimumCount
+                  immutable: false
+          outputArtifactDetails:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-codepipeline-customactiontype.html#cfn-codepipeline-customactiontype-outputartifactdetails
+            type: object
+            customAttributes:
+              immutable: true
+            required:
+            - maximumCount
+            - minimumCount
+            properties:
+              maximumCount:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codepipeline-customactiontype-artifactdetails.html#cfn-codepipeline-customactiontype-artifactdetails-maximumcount
+                type: integer
+                format: int32
+                customAttributes:
+                  template: MaximumCount
+                  immutable: false
+              minimumCount:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codepipeline-customactiontype-artifactdetails.html#cfn-codepipeline-customactiontype-artifactdetails-minimumcount
+                type: integer
+                format: int32
+                customAttributes:
+                  template: MinimumCount
+                  immutable: false
+          provider:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-codepipeline-customactiontype.html#cfn-codepipeline-customactiontype-provider
+            type: string
+            customAttributes:
+              template: Provider
+              immutable: true
+          settings:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-codepipeline-customactiontype.html#cfn-codepipeline-customactiontype-settings
+            type: object
+            customAttributes:
+              immutable: true
+            required: []
+            properties:
+              entityUrlTemplate:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codepipeline-customactiontype-settings.html#cfn-codepipeline-customactiontype-settings-entityurltemplate
+                type: string
+                customAttributes:
+                  template: EntityUrlTemplate
+                  immutable: false
+              executionUrlTemplate:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codepipeline-customactiontype-settings.html#cfn-codepipeline-customactiontype-settings-executionurltemplate
+                type: string
+                customAttributes:
+                  template: ExecutionUrlTemplate
+                  immutable: false
+              revisionUrlTemplate:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codepipeline-customactiontype-settings.html#cfn-codepipeline-customactiontype-settings-revisionurltemplate
+                type: string
+                customAttributes:
+                  template: RevisionUrlTemplate
+                  immutable: false
+              thirdPartyConfigurationUrl:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-codepipeline-customactiontype-settings.html#cfn-codepipeline-customactiontype-settings-thirdpartyconfigurationurl
+                type: string
+                customAttributes:
+                  template: ThirdPartyConfigurationUrl
+                  immutable: false
+          version:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-codepipeline-customactiontype.html#cfn-codepipeline-customactiontype-version
+            type: string
+            customAttributes:
+              template: Version
+              immutable: true

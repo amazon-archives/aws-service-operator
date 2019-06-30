@@ -1,0 +1,107 @@
+---
+apiVersion: models.awsoperator.io/v1alpha1
+kind: ModelFile
+metadata:
+  name: route53-hostedzone-resource
+  creationTimestamp: '2019-06-13T16:59:29-07:00'
+  resourceVersion: 3.3.0
+spec:
+  resource:
+    kind: HostedZone
+    scope: Namespaced
+    apiGroup:
+      apiVersion: route53.awsoperator.io/v1alpha1
+      group: route53
+      region: us-east-1
+      domain: awsoperator.io
+      versions:
+      - name: v1alpha1
+        served: true
+        storage: true
+    names:
+      singular: hostedzone
+      plural: hostedzones
+      shortNames: []
+  openAPIV3Schema:
+    properties:
+      spec:
+        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-route53-hostedzone.html
+        type: object
+        customAttributes: {}
+        required:
+        - name
+        properties:
+          hostedZoneConfig:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-route53-hostedzone.html#cfn-route53-hostedzone-hostedzoneconfig
+            type: object
+            customAttributes:
+              immutable: false
+            required: []
+            properties:
+              comment:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-route53-hostedzone-hostedzoneconfig.html#cfn-route53-hostedzone-hostedzoneconfig-comment
+                type: string
+                customAttributes:
+                  template: Comment
+                  immutable: false
+          hostedZoneTags:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-route53-hostedzone.html#cfn-route53-hostedzone-hostedzonetags
+            type: array
+            customAttributes:
+              template: HostedZoneTags
+              immutable: false
+            items:
+              type: object
+              properties:
+                key:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-route53-hostedzone-hostedzonetags.html#cfn-route53-hostedzonetags-key
+                  type: string
+                  customAttributes:
+                    template: Key
+                    immutable: false
+                value:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-route53-hostedzone-hostedzonetags.html#cfn-route53-hostedzonetags-value
+                  type: string
+                  customAttributes:
+                    template: Value
+                    immutable: false
+          name:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-route53-hostedzone.html#cfn-route53-hostedzone-name
+            type: string
+            customAttributes:
+              template: Name
+              immutable: true
+          queryLoggingConfig:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-route53-hostedzone.html#cfn-route53-hostedzone-queryloggingconfig
+            type: object
+            customAttributes:
+              immutable: false
+            required:
+            - cloudWatchLogsLogGroupArn
+            properties:
+              cloudWatchLogsLogGroupRef:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-route53-hostedzone-queryloggingconfig.html#cfn-route53-hostedzone-queryloggingconfig-cloudwatchlogsloggrouparn
+                type: string
+                customAttributes:
+                  template: CloudWatchLogsLogGroupArn
+                  immutable: false
+          vPCs:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-route53-hostedzone.html#cfn-route53-hostedzone-vpcs
+            type: array
+            customAttributes:
+              template: VPCs
+            items:
+              type: object
+              properties:
+                vPCRef:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-route53-hostedzone-hostedzonevpcs.html#cfn-route53-hostedzone-hostedzonevpcs-vpcid
+                  type: string
+                  customAttributes:
+                    template: VPCId
+                    immutable: false
+                vPCRegion:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-route53-hostedzone-hostedzonevpcs.html#cfn-route53-hostedzone-hostedzonevpcs-vpcregion
+                  type: string
+                  customAttributes:
+                    template: VPCRegion
+                    immutable: false

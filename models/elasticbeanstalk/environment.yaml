@@ -1,0 +1,160 @@
+---
+apiVersion: models.awsoperator.io/v1alpha1
+kind: ModelFile
+metadata:
+  name: elasticbeanstalk-environment-resource
+  creationTimestamp: '2019-06-13T16:59:29-07:00'
+  resourceVersion: 3.3.0
+spec:
+  resource:
+    kind: Environment
+    scope: Namespaced
+    apiGroup:
+      apiVersion: elasticbeanstalk.awsoperator.io/v1alpha1
+      group: elasticbeanstalk
+      region: us-east-1
+      domain: awsoperator.io
+      versions:
+      - name: v1alpha1
+        served: true
+        storage: true
+    names:
+      singular: environment
+      plural: environments
+      shortNames: []
+  openAPIV3Schema:
+    properties:
+      spec:
+        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-beanstalk-environment.html
+        type: object
+        customAttributes: {}
+        required:
+        - applicationName
+        properties:
+          applicationName:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-beanstalk-environment.html#cfn-beanstalk-environment-applicationname
+            type: string
+            customAttributes:
+              template: ApplicationName
+              immutable: true
+          cNAMEPrefix:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-beanstalk-environment.html#cfn-beanstalk-environment-cnameprefix
+            type: string
+            customAttributes:
+              template: CNAMEPrefix
+              immutable: true
+          description:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-beanstalk-environment.html#cfn-beanstalk-environment-description
+            type: string
+            customAttributes:
+              template: Description
+              immutable: false
+          environmentName:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-beanstalk-environment.html#cfn-beanstalk-environment-name
+            type: string
+            customAttributes:
+              template: EnvironmentName
+              resourceName: true
+              immutable: true
+          optionSettings:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-beanstalk-environment.html#cfn-beanstalk-environment-optionsettings
+            type: array
+            customAttributes:
+              template: OptionSettings
+              immutable: false
+            items:
+              type: object
+              properties:
+                namespace:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-beanstalk-option-settings.html#cfn-beanstalk-optionsettings-namespace
+                  type: string
+                  customAttributes:
+                    template: Namespace
+                    immutable: false
+                optionName:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-beanstalk-option-settings.html#cfn-beanstalk-optionsettings-optionname
+                  type: string
+                  customAttributes:
+                    template: OptionName
+                    immutable: false
+                resourceName:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-beanstalk-option-settings.html#cfn-elasticbeanstalk-environment-optionsetting-resourcename
+                  type: string
+                  customAttributes:
+                    template: ResourceName
+                    immutable: false
+                value:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-beanstalk-option-settings.html#cfn-beanstalk-optionsettings-value
+                  type: string
+                  customAttributes:
+                    template: Value
+                    immutable: false
+          platformRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-beanstalk-environment.html#cfn-beanstalk-environment-platformarn
+            type: string
+            customAttributes:
+              template: PlatformArn
+              immutable: false
+          solutionStackName:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-beanstalk-environment.html#cfn-beanstalk-environment-solutionstackname
+            type: string
+            customAttributes:
+              template: SolutionStackName
+              immutable: true
+          tags:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-beanstalk-environment.html#cfn-elasticbeanstalk-environment-tags
+            type: array
+            customAttributes:
+              template: Tags
+              immutable: false
+            items:
+              type: object
+              properties:
+                key:
+                  description: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-resource-tags.html#cfn-resource-tags-key
+                  type: string
+                  customAttributes:
+                    template: Key
+                    immutable: false
+                value:
+                  description: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-resource-tags.html#cfn-resource-tags-value
+                  type: string
+                  customAttributes:
+                    template: Value
+                    immutable: false
+          templateName:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-beanstalk-environment.html#cfn-beanstalk-environment-templatename
+            type: string
+            customAttributes:
+              template: TemplateName
+              immutable: false
+          tier:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-beanstalk-environment.html#cfn-beanstalk-environment-tier
+            type: object
+            customAttributes: {}
+            required: []
+            properties:
+              name:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-beanstalk-environment-tier.html#cfn-beanstalk-env-tier-name
+                type: string
+                customAttributes:
+                  template: Name
+                  immutable: true
+              type:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-beanstalk-environment-tier.html#cfn-beanstalk-env-tier-type
+                type: string
+                customAttributes:
+                  template: Type
+                  immutable: true
+              version:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-beanstalk-environment-tier.html#cfn-beanstalk-env-tier-version
+                type: string
+                customAttributes:
+                  template: Version
+                  immutable: false
+          versionLabel:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-beanstalk-environment.html#cfn-beanstalk-environment-versionlabel
+            type: string
+            customAttributes:
+              template: VersionLabel
+              immutable: false

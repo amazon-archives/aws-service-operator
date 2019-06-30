@@ -1,0 +1,88 @@
+---
+apiVersion: models.awsoperator.io/v1alpha1
+kind: ModelFile
+metadata:
+  name: waf-sizeconstraintset-resource
+  creationTimestamp: '2019-06-13T16:59:30-07:00'
+  resourceVersion: 3.3.0
+spec:
+  resource:
+    kind: SizeConstraintSet
+    scope: Namespaced
+    apiGroup:
+      apiVersion: waf.awsoperator.io/v1alpha1
+      group: waf
+      region: us-east-1
+      domain: awsoperator.io
+      versions:
+      - name: v1alpha1
+        served: true
+        storage: true
+    names:
+      singular: sizeconstraintset
+      plural: sizeconstraintsets
+      shortNames: []
+  openAPIV3Schema:
+    properties:
+      spec:
+        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-waf-sizeconstraintset.html
+        type: object
+        customAttributes: {}
+        required:
+        - name
+        - sizeConstraints
+        properties:
+          name:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-waf-sizeconstraintset.html#cfn-waf-sizeconstraintset-name
+            type: string
+            customAttributes:
+              template: Name
+              immutable: true
+          sizeConstraints:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-waf-sizeconstraintset.html#cfn-waf-sizeconstraintset-sizeconstraints
+            type: array
+            customAttributes:
+              template: SizeConstraints
+              immutable: false
+            items:
+              type: object
+              properties:
+                comparisonOperator:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-waf-sizeconstraintset-sizeconstraint.html#cfn-waf-sizeconstraintset-sizeconstraint-comparisonoperator
+                  type: string
+                  customAttributes:
+                    template: ComparisonOperator
+                    immutable: false
+                fieldToMatch:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-waf-sizeconstraintset-sizeconstraint.html#cfn-waf-sizeconstraintset-sizeconstraint-fieldtomatch
+                  type: object
+                  customAttributes:
+                    immutable: false
+                  required:
+                  - type
+                  properties:
+                    data:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-waf-sizeconstraintset-sizeconstraint-fieldtomatch.html#cfn-waf-sizeconstraintset-sizeconstraint-fieldtomatch-data
+                      type: string
+                      customAttributes:
+                        template: Data
+                        immutable: false
+                    type:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-waf-sizeconstraintset-sizeconstraint-fieldtomatch.html#cfn-waf-sizeconstraintset-sizeconstraint-fieldtomatch-type
+                      type: string
+                      customAttributes:
+                        template: Type
+                        immutable: false
+                size:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-waf-sizeconstraintset-sizeconstraint.html#cfn-waf-sizeconstraintset-sizeconstraint-size
+                  type: integer
+                  format: int32
+                  customAttributes:
+                    template: Size
+                    immutable: false
+                textTransformation:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-waf-sizeconstraintset-sizeconstraint.html#cfn-waf-sizeconstraintset-sizeconstraint-texttransformation
+                  type: string
+                  customAttributes:
+                    template: TextTransformation
+                    immutable: false

@@ -1,0 +1,263 @@
+---
+apiVersion: models.awsoperator.io/v1alpha1
+kind: ModelFile
+metadata:
+  name: redshift-cluster-resource
+  creationTimestamp: '2019-06-13T16:59:29-07:00'
+  resourceVersion: 3.3.0
+spec:
+  resource:
+    kind: Cluster
+    scope: Namespaced
+    apiGroup:
+      apiVersion: redshift.awsoperator.io/v1alpha1
+      group: redshift
+      region: us-east-1
+      domain: awsoperator.io
+      versions:
+      - name: v1alpha1
+        served: true
+        storage: true
+    names:
+      singular: cluster
+      plural: clusters
+      shortNames: []
+  openAPIV3Schema:
+    properties:
+      spec:
+        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-redshift-cluster.html
+        type: object
+        customAttributes: {}
+        required:
+        - clusterType
+        - dBName
+        - masterUserPassword
+        - masterUsername
+        - nodeType
+        properties:
+          allowVersionUpgrade:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-redshift-cluster.html#cfn-redshift-cluster-allowversionupgrade
+            type: boolean
+            customAttributes:
+              template: AllowVersionUpgrade
+              immutable: false
+          automatedSnapshotRetentionPeriod:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-redshift-cluster.html#cfn-redshift-cluster-automatedsnapshotretentionperiod
+            type: integer
+            format: int32
+            customAttributes:
+              template: AutomatedSnapshotRetentionPeriod
+              immutable: false
+          availabilityZone:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-redshift-cluster.html#cfn-redshift-cluster-availabilityzone
+            type: string
+            customAttributes:
+              template: AvailabilityZone
+              immutable: true
+          clusterentifierRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-redshift-cluster.html#cfn-redshift-cluster-clusteridentifier
+            type: string
+            customAttributes:
+              template: ClusterIdentifier
+              immutable: true
+          clusterParameterGroupName:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-redshift-cluster.html#cfn-redshift-cluster-clusterparametergroupname
+            type: string
+            customAttributes:
+              template: ClusterParameterGroupName
+              immutable: false
+          clusterSecurityGroups:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-redshift-cluster.html#cfn-redshift-cluster-clustersecuritygroups
+            type: array
+            customAttributes:
+              template: ClusterSecurityGroups
+              immutable: false
+            items:
+              type: string
+          clusterSubnetGroupName:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-redshift-cluster.html#cfn-redshift-cluster-clustersubnetgroupname
+            type: string
+            customAttributes:
+              template: ClusterSubnetGroupName
+              immutable: true
+          clusterType:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-redshift-cluster.html#cfn-redshift-cluster-clustertype
+            type: string
+            customAttributes:
+              template: ClusterType
+              immutable: false
+            enum:
+            - multi-node
+            - single-node
+          clusterVersion:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-redshift-cluster.html#cfn-redshift-cluster-clusterversion
+            type: string
+            customAttributes:
+              template: ClusterVersion
+              immutable: false
+            enum:
+            - '1.0'
+          dBName:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-redshift-cluster.html#cfn-redshift-cluster-dbname
+            type: string
+            customAttributes:
+              template: DBName
+              immutable: true
+          elasticIp:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-redshift-cluster.html#cfn-redshift-cluster-elasticip
+            type: string
+            customAttributes:
+              template: ElasticIp
+              immutable: true
+          encrypted:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-redshift-cluster.html#cfn-redshift-cluster-encrypted
+            type: boolean
+            customAttributes:
+              template: Encrypted
+              immutable: true
+          hsmClientCertificateentifierRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-redshift-cluster.html#cfn-redshift-cluster-hsmclientcertidentifier
+            type: string
+            customAttributes:
+              template: HsmClientCertificateIdentifier
+              immutable: false
+          hsmConfigurationentifierRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-redshift-cluster.html#cfn-redshift-cluster-HsmConfigurationIdentifier
+            type: string
+            customAttributes:
+              template: HsmConfigurationIdentifier
+              immutable: false
+          iamRoles:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-redshift-cluster.html#cfn-redshift-cluster-iamroles
+            type: array
+            customAttributes:
+              template: IamRoles
+              immutable: false
+            items:
+              type: string
+          kmsKeyRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-redshift-cluster.html#cfn-redshift-cluster-kmskeyid
+            type: string
+            customAttributes:
+              template: KmsKeyId
+              immutable: true
+          loggingProperties:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-redshift-cluster.html#cfn-redshift-cluster-loggingproperties
+            type: object
+            customAttributes:
+              immutable: false
+            required:
+            - bucketName
+            properties:
+              bucketName:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-redshift-cluster-loggingproperties.html#cfn-redshift-cluster-loggingproperties-bucketname
+                type: string
+                customAttributes:
+                  template: BucketName
+                  immutable: false
+              s3KeyPrefix:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-redshift-cluster-loggingproperties.html#cfn-redshift-cluster-loggingproperties-s3keyprefix
+                type: string
+                customAttributes:
+                  template: S3KeyPrefix
+                  immutable: false
+          masterUserPassword:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-redshift-cluster.html#cfn-redshift-cluster-masteruserpassword
+            type: string
+            customAttributes:
+              template: MasterUserPassword
+              immutable: false
+          masterUsername:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-redshift-cluster.html#cfn-redshift-cluster-masterusername
+            type: string
+            customAttributes:
+              template: MasterUsername
+              immutable: true
+          nodeType:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-redshift-cluster.html#cfn-redshift-cluster-nodetype
+            type: string
+            customAttributes:
+              template: NodeType
+              immutable: false
+            enum:
+            - dc1.8xlarge
+            - dc1.large
+            - dc2.8xlarge
+            - dc2.large
+            - ds1.8xlarge
+            - ds1.xlarge
+            - ds2.8xlarge
+            - ds2.xlarge
+          numberOfNodes:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-redshift-cluster.html#cfn-redshift-cluster-nodetype
+            type: integer
+            format: int32
+            customAttributes:
+              template: NumberOfNodes
+              immutable: false
+          ownerAccount:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-redshift-cluster.html#cfn-redshift-cluster-owneraccount
+            type: string
+            customAttributes:
+              template: OwnerAccount
+              immutable: true
+          port:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-redshift-cluster.html#cfn-redshift-cluster-port
+            type: integer
+            format: int32
+            customAttributes:
+              template: Port
+              immutable: true
+          preferredMaintenanceWindow:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-redshift-cluster.html#cfn-redshift-cluster-preferredmaintenancewindow
+            type: string
+            customAttributes:
+              template: PreferredMaintenanceWindow
+              immutable: false
+          publiclyAccessible:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-redshift-cluster.html#cfn-redshift-cluster-publiclyaccessible
+            type: boolean
+            customAttributes:
+              template: PubliclyAccessible
+              immutable: false
+          snapshotClusterentifierRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-redshift-cluster.html#cfn-redshift-cluster-snapshotclusteridentifier
+            type: string
+            customAttributes:
+              template: SnapshotClusterIdentifier
+              immutable: true
+          snapshotentifierRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-redshift-cluster.html#cfn-redshift-cluster-snapshotidentifier
+            type: string
+            customAttributes:
+              template: SnapshotIdentifier
+              immutable: true
+          tags:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-redshift-cluster.html#cfn-redshift-cluster-tags
+            type: array
+            customAttributes:
+              template: Tags
+              immutable: false
+            items:
+              type: object
+              properties:
+                key:
+                  description: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-resource-tags.html#cfn-resource-tags-key
+                  type: string
+                  customAttributes:
+                    template: Key
+                    immutable: false
+                value:
+                  description: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-resource-tags.html#cfn-resource-tags-value
+                  type: string
+                  customAttributes:
+                    template: Value
+                    immutable: false
+          vpcSecurityGroupRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-redshift-cluster.html#cfn-redshift-cluster-vpcsecuritygroupids
+            type: array
+            customAttributes:
+              template: VpcSecurityGroupIds
+              immutable: false
+            items:
+              type: string

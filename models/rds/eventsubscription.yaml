@@ -1,0 +1,66 @@
+---
+apiVersion: models.awsoperator.io/v1alpha1
+kind: ModelFile
+metadata:
+  name: rds-eventsubscription-resource
+  creationTimestamp: '2019-06-13T16:59:29-07:00'
+  resourceVersion: 3.3.0
+spec:
+  resource:
+    kind: EventSubscription
+    scope: Namespaced
+    apiGroup:
+      apiVersion: rds.awsoperator.io/v1alpha1
+      group: rds
+      region: us-east-1
+      domain: awsoperator.io
+      versions:
+      - name: v1alpha1
+        served: true
+        storage: true
+    names:
+      singular: eventsubscription
+      plural: eventsubscriptions
+      shortNames: []
+  openAPIV3Schema:
+    properties:
+      spec:
+        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-eventsubscription.html
+        type: object
+        customAttributes: {}
+        required:
+        - snsTopicArn
+        properties:
+          enabled:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-eventsubscription.html#cfn-rds-eventsubscription-enabled
+            type: boolean
+            customAttributes:
+              template: Enabled
+              immutable: false
+          eventCategories:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-eventsubscription.html#cfn-rds-eventsubscription-eventcategories
+            type: array
+            customAttributes:
+              template: EventCategories
+              immutable: false
+            items:
+              type: string
+          snsTopicRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-eventsubscription.html#cfn-rds-eventsubscription-snstopicarn
+            type: string
+            customAttributes:
+              template: SnsTopicArn
+              immutable: true
+          sourceRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-eventsubscription.html#cfn-rds-eventsubscription-sourceids
+            type: array
+            customAttributes:
+              template: SourceIds
+              immutable: false
+            items:
+              type: string
+          sourceType:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-rds-eventsubscription.html#cfn-rds-eventsubscription-sourcetype
+            type: string
+            customAttributes:
+              template: SourceType

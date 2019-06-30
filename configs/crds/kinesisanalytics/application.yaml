@@ -1,0 +1,245 @@
+---
+apiVersion: apiextensions.k8s.io/v1beta1
+kind: CustomResourceDefinition
+metadata:
+  name: applications.kinesisanalytics.awsoperator.io
+spec:
+  group: kinesisanalytics.awsoperator.io
+  versions:
+  - name: v1alpha1
+    served: true
+    storage: true
+  scope: Namespaced
+  names:
+    plural: applications
+    singular: application
+    kind: Application
+    shortNames: []
+    categories:
+    - aws
+    - kinesisanalytics
+  additionalPrinterColumns:
+  - name: Status
+    type: string
+    description: Status for the AWS CloudFormation stack.
+    JSONPath: ".status.reason"
+  - name: Message
+    type: string
+    description: Message accompanying it's current stack status.
+    JSONPath: ".status.message"
+    priority: 1
+  - name: Created At
+    type: date
+    description: When the resource was created
+    JSONPath: ".metadata.creationTimestamp"
+  subresources:
+    status: {}
+  validation:
+    openAPIV3Schema:
+      properties:
+        spec:
+          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-kinesisanalytics-application.html
+          type: object
+          required:
+          - inputs
+          properties:
+            applicationCode:
+              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-kinesisanalytics-application.html#cfn-kinesisanalytics-application-applicationcode
+              type: string
+            applicationDescription:
+              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-kinesisanalytics-application.html#cfn-kinesisanalytics-application-applicationdescription
+              type: string
+            inputs:
+              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-kinesisanalytics-application.html#cfn-kinesisanalytics-application-inputs
+              type: array
+              items:
+                type: object
+                properties:
+                  inputParallelism:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisanalytics-application-input.html#cfn-kinesisanalytics-application-input-inputparallelism
+                    type: object
+                    customAttributes:
+                      immutable: false
+                    required: []
+                    properties:
+                      count:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisanalytics-application-inputparallelism.html#cfn-kinesisanalytics-application-inputparallelism-count
+                        type: integer
+                        format: int32
+                        customAttributes:
+                          template: Count
+                          immutable: false
+                  inputProcessingConfiguration:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisanalytics-application-input.html#cfn-kinesisanalytics-application-input-inputprocessingconfiguration
+                    type: object
+                    customAttributes:
+                      immutable: false
+                    required: []
+                    properties:
+                      inputLambdaProcessor:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisanalytics-application-inputprocessingconfiguration.html#cfn-kinesisanalytics-application-inputprocessingconfiguration-inputlambdaprocessor
+                        type: object
+                        customAttributes:
+                          immutable: false
+                        required:
+                        - resourceARN
+                        - roleARN
+                        properties:
+                          resourceARN:
+                            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisanalytics-application-inputlambdaprocessor.html#cfn-kinesisanalytics-application-inputlambdaprocessor-resourcearn
+                            type: string
+                            customAttributes:
+                              template: ResourceARN
+                              immutable: false
+                          roleARN:
+                            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisanalytics-application-inputlambdaprocessor.html#cfn-kinesisanalytics-application-inputlambdaprocessor-rolearn
+                            type: string
+                            customAttributes:
+                              template: RoleARN
+                              immutable: false
+                  inputSchema:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisanalytics-application-input.html#cfn-kinesisanalytics-application-input-inputschema
+                    type: object
+                    customAttributes:
+                      immutable: false
+                    required:
+                    - recordColumns
+                    - recordFormat
+                    properties:
+                      recordColumns:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisanalytics-application-inputschema.html#cfn-kinesisanalytics-application-inputschema-recordcolumns
+                        type: array
+                        customAttributes:
+                          template: RecordColumns
+                          immutable: false
+                        items:
+                          type: object
+                          properties:
+                            mapping:
+                              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisanalytics-application-recordcolumn.html#cfn-kinesisanalytics-application-recordcolumn-mapping
+                              type: string
+                              customAttributes:
+                                template: Mapping
+                                immutable: false
+                            name:
+                              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisanalytics-application-recordcolumn.html#cfn-kinesisanalytics-application-recordcolumn-name
+                              type: string
+                              customAttributes:
+                                template: Name
+                                immutable: false
+                            sqlType:
+                              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisanalytics-application-recordcolumn.html#cfn-kinesisanalytics-application-recordcolumn-sqltype
+                              type: string
+                              customAttributes:
+                                template: SqlType
+                                immutable: false
+                      recordEncoding:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisanalytics-application-inputschema.html#cfn-kinesisanalytics-application-inputschema-recordencoding
+                        type: string
+                        customAttributes:
+                          template: RecordEncoding
+                          immutable: false
+                      recordFormat:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisanalytics-application-inputschema.html#cfn-kinesisanalytics-application-inputschema-recordformat
+                        type: object
+                        customAttributes:
+                          immutable: false
+                        required:
+                        - recordFormatType
+                        properties:
+                          mappingParameters:
+                            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisanalytics-application-recordformat.html#cfn-kinesisanalytics-application-recordformat-mappingparameters
+                            type: object
+                            customAttributes:
+                              immutable: false
+                            required: []
+                            properties:
+                              cSVMappingParameters:
+                                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisanalytics-application-mappingparameters.html#cfn-kinesisanalytics-application-mappingparameters-csvmappingparameters
+                                type: object
+                                customAttributes:
+                                  immutable: false
+                                required:
+                                - recordColumnDelimiter
+                                - recordRowDelimiter
+                                properties:
+                                  recordColumnDelimiter:
+                                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisanalytics-application-csvmappingparameters.html#cfn-kinesisanalytics-application-csvmappingparameters-recordcolumndelimiter
+                                    type: string
+                                    customAttributes:
+                                      template: RecordColumnDelimiter
+                                      immutable: false
+                                  recordRowDelimiter:
+                                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisanalytics-application-csvmappingparameters.html#cfn-kinesisanalytics-application-csvmappingparameters-recordrowdelimiter
+                                    type: string
+                                    customAttributes:
+                                      template: RecordRowDelimiter
+                                      immutable: false
+                              jSONMappingParameters:
+                                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisanalytics-application-mappingparameters.html#cfn-kinesisanalytics-application-mappingparameters-jsonmappingparameters
+                                type: object
+                                customAttributes:
+                                  immutable: false
+                                required:
+                                - recordRowPath
+                                properties:
+                                  recordRowPath:
+                                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisanalytics-application-jsonmappingparameters.html#cfn-kinesisanalytics-application-jsonmappingparameters-recordrowpath
+                                    type: string
+                                    customAttributes:
+                                      template: RecordRowPath
+                                      immutable: false
+                          recordFormatType:
+                            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisanalytics-application-recordformat.html#cfn-kinesisanalytics-application-recordformat-recordformattype
+                            type: string
+                            customAttributes:
+                              template: RecordFormatType
+                              immutable: false
+                  kinesisFirehoseInput:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisanalytics-application-input.html#cfn-kinesisanalytics-application-input-kinesisfirehoseinput
+                    type: object
+                    customAttributes:
+                      immutable: false
+                    required:
+                    - resourceARN
+                    - roleARN
+                    properties:
+                      resourceARN:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisanalytics-application-kinesisfirehoseinput.html#cfn-kinesisanalytics-application-kinesisfirehoseinput-resourcearn
+                        type: string
+                        customAttributes:
+                          template: ResourceARN
+                          immutable: false
+                      roleARN:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisanalytics-application-kinesisfirehoseinput.html#cfn-kinesisanalytics-application-kinesisfirehoseinput-rolearn
+                        type: string
+                        customAttributes:
+                          template: RoleARN
+                          immutable: false
+                  kinesisStreamsInput:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisanalytics-application-input.html#cfn-kinesisanalytics-application-input-kinesisstreamsinput
+                    type: object
+                    customAttributes:
+                      immutable: false
+                    required:
+                    - resourceARN
+                    - roleARN
+                    properties:
+                      resourceARN:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisanalytics-application-kinesisstreamsinput.html#cfn-kinesisanalytics-application-kinesisstreamsinput-resourcearn
+                        type: string
+                        customAttributes:
+                          template: ResourceARN
+                          immutable: false
+                      roleARN:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisanalytics-application-kinesisstreamsinput.html#cfn-kinesisanalytics-application-kinesisstreamsinput-rolearn
+                        type: string
+                        customAttributes:
+                          template: RoleARN
+                          immutable: false
+                  namePrefix:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisanalytics-application-input.html#cfn-kinesisanalytics-application-input-nameprefix
+                    type: string
+                    customAttributes:
+                      template: NamePrefix
+                      immutable: false

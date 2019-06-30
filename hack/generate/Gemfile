@@ -1,0 +1,7 @@
+source :rubygems
+
+gem "git"
+
+gem "rspec"
+
+gem 'hana'

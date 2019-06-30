@@ -1,0 +1,104 @@
+---
+apiVersion: models.awsoperator.io/v1alpha1
+kind: ModelFile
+metadata:
+  name: directoryservice-simplead-resource
+  creationTimestamp: '2019-06-13T16:59:29-07:00'
+  resourceVersion: 3.3.0
+spec:
+  resource:
+    kind: SimpleAD
+    scope: Namespaced
+    apiGroup:
+      apiVersion: directoryservice.awsoperator.io/v1alpha1
+      group: directoryservice
+      region: us-east-1
+      domain: awsoperator.io
+      versions:
+      - name: v1alpha1
+        served: true
+        storage: true
+    names:
+      singular: simplead
+      plural: simpleads
+      shortNames: []
+  openAPIV3Schema:
+    properties:
+      spec:
+        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-directoryservice-simplead.html
+        type: object
+        customAttributes: {}
+        required:
+        - name
+        - password
+        - size
+        - vpcSettings
+        properties:
+          createAlias:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-directoryservice-simplead.html#cfn-directoryservice-simplead-createalias
+            type: boolean
+            customAttributes:
+              template: CreateAlias
+              immutable: true
+          description:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-directoryservice-simplead.html#cfn-directoryservice-simplead-description
+            type: string
+            customAttributes:
+              template: Description
+              immutable: true
+          enableSso:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-directoryservice-simplead.html#cfn-directoryservice-simplead-enablesso
+            type: boolean
+            customAttributes:
+              template: EnableSso
+              immutable: false
+          name:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-directoryservice-simplead.html#cfn-directoryservice-simplead-name
+            type: string
+            customAttributes:
+              template: Name
+              immutable: true
+          password:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-directoryservice-simplead.html#cfn-directoryservice-simplead-password
+            type: string
+            customAttributes:
+              template: Password
+              immutable: true
+          shortName:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-directoryservice-simplead.html#cfn-directoryservice-simplead-shortname
+            type: string
+            customAttributes:
+              template: ShortName
+              immutable: true
+          size:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-directoryservice-simplead.html#cfn-directoryservice-simplead-size
+            type: string
+            customAttributes:
+              template: Size
+              immutable: true
+            enum:
+            - Large
+            - Small
+          vpcSettings:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-directoryservice-simplead.html#cfn-directoryservice-simplead-vpcsettings
+            type: object
+            customAttributes:
+              immutable: true
+            required:
+            - subnetIds
+            - vpcId
+            properties:
+              subnetRef:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-directoryservice-simplead-vpcsettings.html#cfn-directoryservice-simplead-vpcsettings-subnetids
+                type: array
+                customAttributes:
+                  template: SubnetIds
+                  immutable: false
+                items:
+                  type: string
+              vpcRef:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-directoryservice-simplead-vpcsettings.html#cfn-directoryservice-simplead-vpcsettings-vpcid
+                type: string
+                customAttributes:
+                  template: VpcId
+                  immutable: false

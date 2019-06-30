@@ -1,0 +1,216 @@
+---
+apiVersion: models.awsoperator.io/v1alpha1
+kind: ModelFile
+metadata:
+  name: route53-recordsetgroup-resource
+  creationTimestamp: '2019-06-13T16:59:29-07:00'
+  resourceVersion: 3.3.0
+spec:
+  resource:
+    kind: RecordSetGroup
+    scope: Namespaced
+    apiGroup:
+      apiVersion: route53.awsoperator.io/v1alpha1
+      group: route53
+      region: us-east-1
+      domain: awsoperator.io
+      versions:
+      - name: v1alpha1
+        served: true
+        storage: true
+    names:
+      singular: recordsetgroup
+      plural: recordsetgroups
+      shortNames: []
+  openAPIV3Schema:
+    properties:
+      spec:
+        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-route53-recordsetgroup.html
+        type: object
+        customAttributes: {}
+        required: []
+        properties:
+          comment:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-route53-recordsetgroup.html#cfn-route53-recordsetgroup-comment
+            type: string
+            customAttributes:
+              template: Comment
+              immutable: false
+          hostedZoneRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-route53-recordsetgroup.html#cfn-route53-recordsetgroup-hostedzoneid
+            type: string
+            customAttributes:
+              template: HostedZoneId
+              immutable: true
+          hostedZoneName:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-route53-recordsetgroup.html#cfn-route53-recordsetgroup-hostedzonename
+            type: string
+            customAttributes:
+              template: HostedZoneName
+              immutable: true
+          recordSets:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-route53-recordsetgroup.html#cfn-route53-recordsetgroup-recordsets
+            type: array
+            customAttributes:
+              template: RecordSets
+              immutable: false
+            items:
+              type: object
+              properties:
+                aliasTarget:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-route53-recordset.html#cfn-route53-recordset-aliastarget
+                  type: object
+                  customAttributes:
+                    immutable: false
+                  required:
+                  - dNSName
+                  - hostedZoneId
+                  properties:
+                    dNSName:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-route53-aliastarget.html#cfn-route53-aliastarget-dnshostname
+                      type: string
+                      customAttributes:
+                        template: DNSName
+                        immutable: false
+                    evaluateTargetHealth:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-route53-aliastarget.html#cfn-route53-aliastarget-evaluatetargethealth
+                      type: boolean
+                      customAttributes:
+                        template: EvaluateTargetHealth
+                        immutable: false
+                    hostedZoneRef:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-route53-aliastarget.html#cfn-route53-aliastarget-hostedzoneid
+                      type: string
+                      customAttributes:
+                        template: HostedZoneId
+                        immutable: false
+                comment:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-route53-recordset.html#cfn-route53-recordset-comment
+                  type: string
+                  customAttributes:
+                    template: Comment
+                    immutable: false
+                failover:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-route53-recordset.html#cfn-route53-recordset-failover
+                  type: string
+                  customAttributes:
+                    template: Failover
+                    immutable: false
+                  enum:
+                  - PRIMARY
+                  - SECONDARY
+                geoLocation:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-route53-recordset.html#cfn-route53-recordset-geolocation
+                  type: object
+                  customAttributes:
+                    immutable: false
+                  required: []
+                  properties:
+                    continentCode:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-route53-recordset-geolocation.html#cfn-route53-recordsetgroup-geolocation-continentcode
+                      type: string
+                      customAttributes:
+                        template: ContinentCode
+                        immutable: false
+                      enum:
+                      - AF
+                      - AN
+                      - AS
+                      - EU
+                      - NA
+                      - OC
+                      - SA
+                    countryCode:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-route53-recordset-geolocation.html#cfn-route53-recordset-geolocation-countrycode
+                      type: string
+                      customAttributes:
+                        template: CountryCode
+                        immutable: false
+                    subdivisionCode:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-route53-recordset-geolocation.html#cfn-route53-recordset-geolocation-subdivisioncode
+                      type: string
+                      customAttributes:
+                        template: SubdivisionCode
+                        immutable: false
+                healthCheckRef:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-route53-recordset.html#cfn-route53-recordset-healthcheckid
+                  type: string
+                  customAttributes:
+                    template: HealthCheckId
+                    immutable: false
+                hostedZoneRef:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-route53-recordset.html#cfn-route53-recordset-hostedzoneid
+                  type: string
+                  customAttributes:
+                    template: HostedZoneId
+                    immutable: false
+                hostedZoneName:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-route53-recordset.html#cfn-route53-recordset-hostedzonename
+                  type: string
+                  customAttributes:
+                    template: HostedZoneName
+                    immutable: false
+                multiValueAnswer:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-route53-recordset.html#cfn-route53-recordset-multivalueanswer
+                  type: boolean
+                  customAttributes:
+                    template: MultiValueAnswer
+                    immutable: false
+                name:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-route53-recordset.html#cfn-route53-recordset-name
+                  type: string
+                  customAttributes:
+                    template: Name
+                    immutable: false
+                region:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-route53-recordset.html#cfn-route53-recordset-region
+                  type: string
+                  customAttributes:
+                    template: Region
+                    immutable: false
+                resourceRecords:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-route53-recordset.html#cfn-route53-recordset-resourcerecords
+                  type: array
+                  customAttributes:
+                    template: ResourceRecords
+                    immutable: false
+                  items:
+                    type: string
+                setentifierRef:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-route53-recordset.html#cfn-route53-recordset-setidentifier
+                  type: string
+                  customAttributes:
+                    template: SetIdentifier
+                    immutable: false
+                tTL:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-route53-recordset.html#cfn-route53-recordset-ttl
+                  type: string
+                  customAttributes:
+                    template: TTL
+                    immutable: false
+                type:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-route53-recordset.html#cfn-route53-recordset-type
+                  type: string
+                  customAttributes:
+                    template: Type
+                    immutable: false
+                  enum:
+                  - A
+                  - AAAA
+                  - CAA
+                  - CNAME
+                  - MX
+                  - NAPTR
+                  - NS
+                  - PTR
+                  - SOA
+                  - SPF
+                  - SRV
+                  - TXT
+                weight:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-route53-recordset.html#cfn-route53-recordset-weight
+                  type: integer
+                  format: int32
+                  customAttributes:
+                    template: Weight
+                    immutable: false

@@ -1,0 +1,235 @@
+---
+apiVersion: models.awsoperator.io/v1alpha1
+kind: ModelFile
+metadata:
+  name: appsync-datasource-resource
+  creationTimestamp: '2019-06-13T16:59:28-07:00'
+  resourceVersion: 3.3.0
+spec:
+  resource:
+    kind: DataSource
+    scope: Namespaced
+    apiGroup:
+      apiVersion: appsync.awsoperator.io/v1alpha1
+      group: appsync
+      region: us-east-1
+      domain: awsoperator.io
+      versions:
+      - name: v1alpha1
+        served: true
+        storage: true
+    names:
+      singular: datasource
+      plural: datasources
+      shortNames: []
+  openAPIV3Schema:
+    properties:
+      spec:
+        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-appsync-datasource.html
+        type: object
+        customAttributes: {}
+        required:
+        - apiId
+        - name
+        - type
+        properties:
+          apiRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-appsync-datasource.html#cfn-appsync-datasource-apiid
+            type: string
+            customAttributes:
+              template: ApiId
+              immutable: true
+          description:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-appsync-datasource.html#cfn-appsync-datasource-description
+            type: string
+            customAttributes:
+              template: Description
+              immutable: false
+          dynamoDBConfig:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-appsync-datasource.html#cfn-appsync-datasource-dynamodbconfig
+            type: object
+            customAttributes:
+              immutable: false
+            required:
+            - awsRegion
+            - tableName
+            properties:
+              awsRegion:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-appsync-datasource-dynamodbconfig.html#cfn-appsync-datasource-dynamodbconfig-awsregion
+                type: string
+                customAttributes:
+                  template: AwsRegion
+                  immutable: false
+              tableName:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-appsync-datasource-dynamodbconfig.html#cfn-appsync-datasource-dynamodbconfig-tablename
+                type: string
+                customAttributes:
+                  template: TableName
+                  immutable: false
+              useCallerCredentials:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-appsync-datasource-dynamodbconfig.html#cfn-appsync-datasource-dynamodbconfig-usecallercredentials
+                type: boolean
+                customAttributes:
+                  template: UseCallerCredentials
+                  immutable: false
+          elasticsearchConfig:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-appsync-datasource.html#cfn-appsync-datasource-elasticsearchconfig
+            type: object
+            customAttributes:
+              immutable: false
+            required:
+            - awsRegion
+            - endpoint
+            properties:
+              awsRegion:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-appsync-datasource-elasticsearchconfig.html#cfn-appsync-datasource-elasticsearchconfig-awsregion
+                type: string
+                customAttributes:
+                  template: AwsRegion
+                  immutable: false
+              endpoint:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-appsync-datasource-elasticsearchconfig.html#cfn-appsync-datasource-elasticsearchconfig-endpoint
+                type: string
+                customAttributes:
+                  template: Endpoint
+                  immutable: false
+          httpConfig:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-appsync-datasource.html#cfn-appsync-datasource-httpconfig
+            type: object
+            customAttributes:
+              immutable: false
+            required:
+            - endpoint
+            properties:
+              authorizationConfig:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-appsync-datasource-httpconfig.html#cfn-appsync-datasource-httpconfig-authorizationconfig
+                type: object
+                customAttributes:
+                  immutable: false
+                required:
+                - authorizationType
+                properties:
+                  authorizationType:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-appsync-datasource-authorizationconfig.html#cfn-appsync-datasource-authorizationconfig-authorizationtype
+                    type: string
+                    customAttributes:
+                      template: AuthorizationType
+                      immutable: false
+                  awsIamConfig:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-appsync-datasource-authorizationconfig.html#cfn-appsync-datasource-authorizationconfig-awsiamconfig
+                    type: object
+                    customAttributes:
+                      immutable: false
+                    required: []
+                    properties:
+                      signingRegion:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-appsync-datasource-awsiamconfig.html#cfn-appsync-datasource-awsiamconfig-signingregion
+                        type: string
+                        customAttributes:
+                          template: SigningRegion
+                          immutable: false
+                      signingServiceName:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-appsync-datasource-awsiamconfig.html#cfn-appsync-datasource-awsiamconfig-signingservicename
+                        type: string
+                        customAttributes:
+                          template: SigningServiceName
+                          immutable: false
+              endpoint:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-appsync-datasource-httpconfig.html#cfn-appsync-datasource-httpconfig-endpoint
+                type: string
+                customAttributes:
+                  template: Endpoint
+                  immutable: false
+          lambdaConfig:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-appsync-datasource.html#cfn-appsync-datasource-lambdaconfig
+            type: object
+            customAttributes:
+              immutable: false
+            required:
+            - lambdaFunctionArn
+            properties:
+              lambdaFunctionRef:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-appsync-datasource-lambdaconfig.html#cfn-appsync-datasource-lambdaconfig-lambdafunctionarn
+                type: string
+                customAttributes:
+                  template: LambdaFunctionArn
+                  immutable: false
+          name:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-appsync-datasource.html#cfn-appsync-datasource-name
+            type: string
+            customAttributes:
+              template: Name
+              immutable: true
+          relationalDatabaseConfig:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-appsync-datasource.html#cfn-appsync-datasource-relationaldatabaseconfig
+            type: object
+            customAttributes:
+              immutable: false
+            required:
+            - relationalDatabaseSourceType
+            properties:
+              rdsHttpEndpointConfig:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-appsync-datasource-relationaldatabaseconfig.html#cfn-appsync-datasource-relationaldatabaseconfig-rdshttpendpointconfig
+                type: object
+                customAttributes:
+                  immutable: false
+                required:
+                - awsRegion
+                - awsSecretStoreArn
+                - dbClusterIdentifier
+                properties:
+                  awsRegion:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-appsync-datasource-rdshttpendpointconfig.html#cfn-appsync-datasource-rdshttpendpointconfig-awsregion
+                    type: string
+                    customAttributes:
+                      template: AwsRegion
+                      immutable: false
+                  awsSecretStoreRef:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-appsync-datasource-rdshttpendpointconfig.html#cfn-appsync-datasource-rdshttpendpointconfig-awssecretstorearn
+                    type: string
+                    customAttributes:
+                      template: AwsSecretStoreArn
+                      immutable: false
+                  databaseName:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-appsync-datasource-rdshttpendpointconfig.html#cfn-appsync-datasource-rdshttpendpointconfig-databasename
+                    type: string
+                    customAttributes:
+                      template: DatabaseName
+                      immutable: false
+                  dbClusterentifierRef:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-appsync-datasource-rdshttpendpointconfig.html#cfn-appsync-datasource-rdshttpendpointconfig-dbclusteridentifier
+                    type: string
+                    customAttributes:
+                      template: DbClusterIdentifier
+                      immutable: false
+                  schema:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-appsync-datasource-rdshttpendpointconfig.html#cfn-appsync-datasource-rdshttpendpointconfig-schema
+                    type: string
+                    customAttributes:
+                      template: Schema
+                      immutable: false
+              relationalDatabaseSourceType:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-appsync-datasource-relationaldatabaseconfig.html#cfn-appsync-datasource-relationaldatabaseconfig-relationaldatabasesourcetype
+                type: string
+                customAttributes:
+                  template: RelationalDatabaseSourceType
+                  immutable: false
+          serviceRoleRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-appsync-datasource.html#cfn-appsync-datasource-servicerolearn
+            type: string
+            customAttributes:
+              template: ServiceRoleArn
+              immutable: false
+          type:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-appsync-datasource.html#cfn-appsync-datasource-type
+            type: string
+            customAttributes:
+              template: Type
+              immutable: false
+            enum:
+            - AMAZON_DYNAMODB
+            - AMAZON_ELASTICSEARCH
+            - AWS_LAMBDA
+            - HTTP
+            - NONE
+            - RELATIONAL_DATABASE

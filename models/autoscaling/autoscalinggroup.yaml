@@ -1,0 +1,405 @@
+---
+apiVersion: models.awsoperator.io/v1alpha1
+kind: ModelFile
+metadata:
+  name: autoscaling-autoscalinggroup-resource
+  creationTimestamp: '2019-06-13T16:59:28-07:00'
+  resourceVersion: 3.3.0
+spec:
+  resource:
+    kind: AutoScalingGroup
+    scope: Namespaced
+    apiGroup:
+      apiVersion: autoscaling.awsoperator.io/v1alpha1
+      group: autoscaling
+      region: us-east-1
+      domain: awsoperator.io
+      versions:
+      - name: v1alpha1
+        served: true
+        storage: true
+    names:
+      singular: autoscalinggroup
+      plural: autoscalinggroups
+      shortNames: []
+  openAPIV3Schema:
+    properties:
+      spec:
+        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-as-group.html
+        type: object
+        customAttributes: {}
+        required:
+        - maxSize
+        - minSize
+        properties:
+          autoScalingGroupName:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-as-group.html#cfn-autoscaling-autoscalinggroup-autoscalinggroupname
+            type: string
+            customAttributes:
+              template: AutoScalingGroupName
+              resourceName: true
+              immutable: true
+          availabilityZones:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-as-group.html#cfn-as-group-availabilityzones
+            type: array
+            customAttributes:
+              template: AvailabilityZones
+              immutable: false
+            items:
+              type: string
+          cooldown:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-as-group.html#cfn-as-group-cooldown
+            type: string
+            customAttributes:
+              template: Cooldown
+              immutable: false
+          desiredCapacity:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-as-group.html#cfn-as-group-desiredcapacity
+            type: string
+            customAttributes:
+              template: DesiredCapacity
+              immutable: false
+          healthCheckGracePeriod:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-as-group.html#cfn-as-group-healthcheckgraceperiod
+            type: integer
+            format: int32
+            customAttributes:
+              template: HealthCheckGracePeriod
+              immutable: false
+          healthCheckType:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-as-group.html#cfn-as-group-healthchecktype
+            type: string
+            customAttributes:
+              template: HealthCheckType
+              immutable: false
+            enum:
+            - EC2
+            - ELB
+          instanceRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-as-group.html#cfn-as-group-instanceid
+            type: string
+            customAttributes:
+              template: InstanceId
+              immutable: true
+          launchConfigurationName:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-as-group.html#cfn-as-group-launchconfigurationname
+            type: string
+            customAttributes:
+              template: LaunchConfigurationName
+              immutable: false
+          launchTemplate:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-as-group.html#cfn-as-group-launchtemplate
+            type: object
+            customAttributes:
+              immutable: false
+            required:
+            - version
+            properties:
+              launchTemplateRef:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-autoscaling-autoscalinggroup-launchtemplatespecification.html#cfn-autoscaling-autoscalinggroup-launchtemplatespecification-launchtemplateid
+                type: string
+                customAttributes:
+                  template: LaunchTemplateId
+                  immutable: false
+              launchTemplateName:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-autoscaling-autoscalinggroup-launchtemplatespecification.html#cfn-autoscaling-autoscalinggroup-launchtemplatespecification-launchtemplatename
+                type: string
+                customAttributes:
+                  template: LaunchTemplateName
+                  immutable: false
+              version:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-autoscaling-autoscalinggroup-launchtemplatespecification.html#cfn-autoscaling-autoscalinggroup-launchtemplatespecification-version
+                type: string
+                customAttributes:
+                  template: Version
+                  immutable: false
+          lifecycleHookSpecificationList:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-as-group.html#cfn-autoscaling-autoscalinggroup-lifecyclehookspecificationlist
+            type: array
+            customAttributes:
+              template: LifecycleHookSpecificationList
+              immutable: false
+            items:
+              type: object
+              properties:
+                defaultResult:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-autoscaling-autoscalinggroup-lifecyclehookspecification.html#cfn-autoscaling-autoscalinggroup-lifecyclehookspecification-defaultresult
+                  type: string
+                  customAttributes:
+                    template: DefaultResult
+                    immutable: false
+                  enum:
+                  - ABANDON
+                  - CONTINUE
+                heartbeatTimeout:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-autoscaling-autoscalinggroup-lifecyclehookspecification.html#cfn-autoscaling-autoscalinggroup-lifecyclehookspecification-heartbeattimeout
+                  type: integer
+                  format: int32
+                  customAttributes:
+                    template: HeartbeatTimeout
+                    immutable: false
+                lifecycleHookName:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-autoscaling-autoscalinggroup-lifecyclehookspecification.html#cfn-autoscaling-autoscalinggroup-lifecyclehookspecification-lifecyclehookname
+                  type: string
+                  customAttributes:
+                    template: LifecycleHookName
+                    immutable: false
+                lifecycleTransition:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-autoscaling-autoscalinggroup-lifecyclehookspecification.html#cfn-autoscaling-autoscalinggroup-lifecyclehookspecification-lifecycletransition
+                  type: string
+                  customAttributes:
+                    template: LifecycleTransition
+                    immutable: false
+                  enum:
+                  - autoscaling:EC2_INSTANCE_LAUNCHING
+                  - autoscaling:EC2_INSTANCE_TERMINATING
+                notificationMetadata:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-autoscaling-autoscalinggroup-lifecyclehookspecification.html#cfn-autoscaling-autoscalinggroup-lifecyclehookspecification-notificationmetadata
+                  type: string
+                  customAttributes:
+                    template: NotificationMetadata
+                    immutable: false
+                notificationTargetARN:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-autoscaling-autoscalinggroup-lifecyclehookspecification.html#cfn-autoscaling-autoscalinggroup-lifecyclehookspecification-notificationtargetarn
+                  type: string
+                  customAttributes:
+                    template: NotificationTargetARN
+                    immutable: false
+                roleARN:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-autoscaling-autoscalinggroup-lifecyclehookspecification.html#cfn-autoscaling-autoscalinggroup-lifecyclehookspecification-rolearn
+                  type: string
+                  customAttributes:
+                    template: RoleARN
+                    immutable: false
+          loadBalancerNames:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-as-group.html#cfn-as-group-loadbalancernames
+            type: array
+            customAttributes:
+              template: LoadBalancerNames
+              immutable: false
+            items:
+              type: string
+          maxSize:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-as-group.html#cfn-as-group-maxsize
+            type: string
+            customAttributes:
+              template: MaxSize
+              immutable: false
+          metricsCollection:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-as-group.html#cfn-as-group-metricscollection
+            type: array
+            customAttributes:
+              template: MetricsCollection
+              immutable: false
+            items:
+              type: object
+              properties:
+                granularity:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-as-metricscollection.html#cfn-as-metricscollection-granularity
+                  type: string
+                  customAttributes:
+                    template: Granularity
+                    immutable: false
+                metrics:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-as-metricscollection.html#cfn-as-metricscollection-metrics
+                  type: array
+                  customAttributes:
+                    template: Metrics
+                    immutable: false
+                  items:
+                    type: string
+          minSize:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-as-group.html#cfn-as-group-minsize
+            type: string
+            customAttributes:
+              template: MinSize
+              immutable: false
+          mixedInstancesPolicy:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-as-group.html#cfn-as-group-mixedinstancespolicy
+            type: object
+            customAttributes:
+              immutable: false
+            required:
+            - launchTemplate
+            properties:
+              instancesDistribution:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-as-group-mixedinstancespolicy.html#cfn-as-mixedinstancespolicy-instancesdistribution
+                type: object
+                customAttributes:
+                  immutable: false
+                required: []
+                properties:
+                  onDemandAllocationStrategy:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-as-mixedinstancespolicy-instancesdistribution.html#cfn-autoscaling-autoscalinggroup-instancesdistribution-ondemandallocationstrategy
+                    type: string
+                    customAttributes:
+                      template: OnDemandAllocationStrategy
+                      immutable: false
+                  onDemandBaseCapacity:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-as-mixedinstancespolicy-instancesdistribution.html#cfn-autoscaling-autoscalinggroup-instancesdistribution-ondemandbasecapacity
+                    type: integer
+                    format: int32
+                    customAttributes:
+                      template: OnDemandBaseCapacity
+                      immutable: false
+                  onDemandPercentageAboveBaseCapacity:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-as-mixedinstancespolicy-instancesdistribution.html#cfn-autoscaling-autoscalinggroup-instancesdistribution-ondemandpercentageabovebasecapacity
+                    type: integer
+                    format: int32
+                    customAttributes:
+                      template: OnDemandPercentageAboveBaseCapacity
+                      immutable: false
+                  spotAllocationStrategy:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-as-mixedinstancespolicy-instancesdistribution.html#cfn-autoscaling-autoscalinggroup-instancesdistribution-spotallocationstrategy
+                    type: string
+                    customAttributes:
+                      template: SpotAllocationStrategy
+                      immutable: false
+                  spotInstancePools:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-as-mixedinstancespolicy-instancesdistribution.html#cfn-autoscaling-autoscalinggroup-instancesdistribution-spotinstancepools
+                    type: integer
+                    format: int32
+                    customAttributes:
+                      template: SpotInstancePools
+                      immutable: false
+                  spotMaxPrice:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-as-mixedinstancespolicy-instancesdistribution.html#cfn-autoscaling-autoscalinggroup-instancesdistribution-spotmaxprice
+                    type: string
+                    customAttributes:
+                      template: SpotMaxPrice
+                      immutable: false
+              launchTemplate:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-as-group-mixedinstancespolicy.html#cfn-as-mixedinstancespolicy-launchtemplate
+                type: object
+                customAttributes:
+                  immutable: false
+                required:
+                - launchTemplateSpecification
+                properties:
+                  launchTemplateSpecification:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-as-mixedinstancespolicy-launchtemplate.html#cfn-as-group-launchtemplate
+                    type: object
+                    customAttributes:
+                      immutable: false
+                    required:
+                    - version
+                    properties:
+                      launchTemplateRef:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-autoscaling-autoscalinggroup-launchtemplatespecification.html#cfn-autoscaling-autoscalinggroup-launchtemplatespecification-launchtemplateid
+                        type: string
+                        customAttributes:
+                          template: LaunchTemplateId
+                          immutable: false
+                      launchTemplateName:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-autoscaling-autoscalinggroup-launchtemplatespecification.html#cfn-autoscaling-autoscalinggroup-launchtemplatespecification-launchtemplatename
+                        type: string
+                        customAttributes:
+                          template: LaunchTemplateName
+                          immutable: false
+                      version:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-autoscaling-autoscalinggroup-launchtemplatespecification.html#cfn-autoscaling-autoscalinggroup-launchtemplatespecification-version
+                        type: string
+                        customAttributes:
+                          template: Version
+                          immutable: false
+                  overrides:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-as-mixedinstancespolicy-launchtemplate.html#cfn-as-mixedinstancespolicy-overrides
+                    type: array
+                    customAttributes:
+                      template: Overrides
+                      immutable: false
+                    items:
+                      type: object
+                      properties:
+                        instanceType:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/cfn-as-mixedinstancespolicy-launchtemplateoverrides.html#cfn-autoscaling-autoscalinggroup-launchtemplateoverrides-instancetype
+                          type: string
+                          customAttributes:
+                            template: InstanceType
+                            immutable: false
+          notificationConfigurations:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-as-group.html#cfn-as-group-notificationconfigurations
+            type: array
+            customAttributes:
+              template: NotificationConfigurations
+              immutable: false
+            items:
+              type: object
+              properties:
+                notificationTypes:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-as-notificationconfigurations.html#cfn-as-group-notificationconfigurations-notificationtypes
+                  type: array
+                  customAttributes:
+                    template: NotificationTypes
+                    immutable: false
+                  items:
+                    type: string
+                topicARN:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-as-notificationconfigurations.html#cfn-autoscaling-autoscalinggroup-notificationconfigurations-topicarn
+                  type: string
+                  customAttributes:
+                    template: TopicARN
+                    immutable: false
+          placementGroup:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-as-group.html#cfn-as-group-placementgroup
+            type: string
+            customAttributes:
+              template: PlacementGroup
+              immutable: false
+          serviceLinkedRoleARN:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-as-group.html#cfn-autoscaling-autoscalinggroup-servicelinkedrolearn
+            type: string
+            customAttributes:
+              template: ServiceLinkedRoleARN
+              immutable: false
+          tags:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-as-group.html#cfn-as-group-tags
+            type: array
+            customAttributes:
+              template: Tags
+              immutable: false
+            items:
+              type: object
+              properties:
+                key:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-as-tags.html#cfn-as-tags-Key
+                  type: string
+                  customAttributes:
+                    template: Key
+                    immutable: false
+                propagateAtLaunch:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-as-tags.html#cfn-as-tags-PropagateAtLaunch
+                  type: boolean
+                  customAttributes:
+                    template: PropagateAtLaunch
+                    immutable: false
+                value:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-as-tags.html#cfn-as-tags-Value
+                  type: string
+                  customAttributes:
+                    template: Value
+                    immutable: false
+          targetGroupARNs:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-as-group.html#cfn-as-group-targetgrouparns
+            type: array
+            customAttributes:
+              template: TargetGroupARNs
+              immutable: false
+            items:
+              type: string
+          terminationPolicies:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-as-group.html#cfn-as-group-termpolicy
+            type: array
+            customAttributes:
+              template: TerminationPolicies
+              immutable: false
+            items:
+              type: string
+          vPCZoneentifierRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-as-group.html#cfn-as-group-vpczoneidentifier
+            type: array
+            customAttributes:
+              template: VPCZoneIdentifier
+              immutable: false
+            items:
+              type: string

@@ -1,0 +1,58 @@
+---
+apiVersion: models.awsoperator.io/v1alpha1
+kind: ModelFile
+metadata:
+  name: ec2-eipassociation-resource
+  creationTimestamp: '2019-06-13T16:59:29-07:00'
+  resourceVersion: 3.3.0
+spec:
+  resource:
+    kind: EIPAssociation
+    scope: Namespaced
+    apiGroup:
+      apiVersion: ec2.awsoperator.io/v1alpha1
+      group: ec2
+      region: us-east-1
+      domain: awsoperator.io
+      versions:
+      - name: v1alpha1
+        served: true
+        storage: true
+    names:
+      singular: eipassociation
+      plural: eipassociations
+      shortNames: []
+  openAPIV3Schema:
+    properties:
+      spec:
+        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-eip-association.html
+        type: object
+        customAttributes: {}
+        required: []
+        properties:
+          allocationRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-eip-association.html#cfn-ec2-eipassociation-allocationid
+            type: string
+            customAttributes:
+              template: AllocationId
+          eIP:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-eip-association.html#cfn-ec2-eipassociation-eip
+            type: string
+            customAttributes:
+              template: EIP
+          instanceRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-eip-association.html#cfn-ec2-eipassociation-instanceid
+            type: string
+            customAttributes:
+              template: InstanceId
+          networkInterfaceRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-eip-association.html#cfn-ec2-eipassociation-networkinterfaceid
+            type: string
+            customAttributes:
+              template: NetworkInterfaceId
+          privateIpAddress:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-eip-association.html#cfn-ec2-eipassociation-PrivateIpAddress
+            type: string
+            customAttributes:
+              template: PrivateIpAddress
+              immutable: false

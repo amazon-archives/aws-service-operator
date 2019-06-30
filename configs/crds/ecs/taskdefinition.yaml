@@ -1,0 +1,674 @@
+---
+apiVersion: apiextensions.k8s.io/v1beta1
+kind: CustomResourceDefinition
+metadata:
+  name: taskdefinitions.ecs.awsoperator.io
+spec:
+  group: ecs.awsoperator.io
+  versions:
+  - name: v1alpha1
+    served: true
+    storage: true
+  scope: Namespaced
+  names:
+    plural: taskdefinitions
+    singular: taskdefinition
+    kind: TaskDefinition
+    shortNames: []
+    categories:
+    - aws
+    - ecs
+  additionalPrinterColumns:
+  - name: Status
+    type: string
+    description: Status for the AWS CloudFormation stack.
+    JSONPath: ".status.reason"
+  - name: Message
+    type: string
+    description: Message accompanying it's current stack status.
+    JSONPath: ".status.message"
+    priority: 1
+  - name: Created At
+    type: date
+    description: When the resource was created
+    JSONPath: ".metadata.creationTimestamp"
+  subresources:
+    status: {}
+  validation:
+    openAPIV3Schema:
+      properties:
+        spec:
+          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ecs-taskdefinition.html
+          type: object
+          required: []
+          properties:
+            containerDefinitions:
+              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ecs-taskdefinition.html#cfn-ecs-taskdefinition-containerdefinitions
+              type: array
+              items:
+                type: object
+                properties:
+                  command:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-taskdefinition-containerdefinitions.html#cfn-ecs-taskdefinition-containerdefinition-command
+                    type: array
+                    customAttributes:
+                      template: Command
+                      immutable: true
+                    items:
+                      type: string
+                  cpu:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-taskdefinition-containerdefinitions.html#cfn-ecs-taskdefinition-containerdefinition-cpu
+                    type: integer
+                    format: int32
+                    customAttributes:
+                      template: Cpu
+                      immutable: true
+                  dependsOn:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-taskdefinition-containerdefinitions.html#cfn-ecs-taskdefinition-containerdefinition-dependson
+                    type: array
+                    customAttributes:
+                      template: DependsOn
+                      immutable: true
+                    items:
+                      type: object
+                      properties:
+                        condition:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-taskdefinition-containerdependency.html#cfn-ecs-taskdefinition-containerdependency-condition
+                          type: string
+                          customAttributes:
+                            template: Condition
+                            immutable: true
+                        containerName:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-taskdefinition-containerdependency.html#cfn-ecs-taskdefinition-containerdependency-containername
+                          type: string
+                          customAttributes:
+                            template: ContainerName
+                            immutable: true
+                  disableNetworking:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-taskdefinition-containerdefinitions.html#cfn-ecs-taskdefinition-containerdefinition-disablenetworking
+                    type: boolean
+                    customAttributes:
+                      template: DisableNetworking
+                      immutable: true
+                  dnsSearchDomains:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-taskdefinition-containerdefinitions.html#cfn-ecs-taskdefinition-containerdefinition-dnssearchdomains
+                    type: array
+                    customAttributes:
+                      template: DnsSearchDomains
+                      immutable: true
+                    items:
+                      type: string
+                  dnsServers:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-taskdefinition-containerdefinitions.html#cfn-ecs-taskdefinition-containerdefinition-dnsservers
+                    type: array
+                    customAttributes:
+                      template: DnsServers
+                      immutable: true
+                    items:
+                      type: string
+                  dockerLabels:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-taskdefinition-containerdefinitions.html#cfn-ecs-taskdefinition-containerdefinition-dockerlabels
+                    type: json
+                    customAttributes:
+                      template: DockerLabels
+                      immutable: true
+                  dockerSecurityOptions:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-taskdefinition-containerdefinitions.html#cfn-ecs-taskdefinition-containerdefinition-dockersecurityoptions
+                    type: array
+                    customAttributes:
+                      template: DockerSecurityOptions
+                      immutable: true
+                    items:
+                      type: string
+                  entryPoint:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-taskdefinition-containerdefinitions.html#cfn-ecs-taskdefinition-containerdefinition-entrypoint
+                    type: array
+                    customAttributes:
+                      template: EntryPoint
+                      immutable: true
+                    items:
+                      type: string
+                  environment:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-taskdefinition-containerdefinitions.html#cfn-ecs-taskdefinition-containerdefinition-environment
+                    type: array
+                    customAttributes:
+                      template: Environment
+                      immutable: true
+                    items:
+                      type: object
+                      properties:
+                        name:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-taskdefinition-containerdefinitions-environment.html#cfn-ecs-taskdefinition-containerdefinition-environment-name
+                          type: string
+                          customAttributes:
+                            template: Name
+                            immutable: true
+                        value:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-taskdefinition-containerdefinitions-environment.html#cfn-ecs-taskdefinition-containerdefinition-environment-value
+                          type: string
+                          customAttributes:
+                            template: Value
+                            immutable: true
+                  essential:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-taskdefinition-containerdefinitions.html#cfn-ecs-taskdefinition-containerdefinition-essential
+                    type: boolean
+                    customAttributes:
+                      template: Essential
+                      immutable: true
+                  extraHosts:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-taskdefinition-containerdefinitions.html#cfn-ecs-taskdefinition-containerdefinition-extrahosts
+                    type: array
+                    customAttributes:
+                      template: ExtraHosts
+                      immutable: true
+                    items:
+                      type: object
+                      properties:
+                        hostname:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-taskdefinition-containerdefinitions-hostentry.html#cfn-ecs-taskdefinition-containerdefinition-hostentry-hostname
+                          type: string
+                          customAttributes:
+                            template: Hostname
+                            immutable: true
+                        ipAddress:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-taskdefinition-containerdefinitions-hostentry.html#cfn-ecs-taskdefinition-containerdefinition-hostentry-ipaddress
+                          type: string
+                          customAttributes:
+                            template: IpAddress
+                            immutable: true
+                  healthCheck:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-taskdefinition-containerdefinitions.html#cfn-ecs-taskdefinition-containerdefinition-healthcheck
+                    type: object
+                    customAttributes:
+                      immutable: true
+                    required:
+                    - command
+                    properties:
+                      command:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-taskdefinition-healthcheck.html#cfn-ecs-taskdefinition-healthcheck-command
+                        type: array
+                        customAttributes:
+                          template: Command
+                          immutable: true
+                        items:
+                          type: string
+                      interval:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-taskdefinition-healthcheck.html#cfn-ecs-taskdefinition-healthcheck-interval
+                        type: integer
+                        format: int32
+                        customAttributes:
+                          template: Interval
+                          immutable: true
+                      retries:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-taskdefinition-healthcheck.html#cfn-ecs-taskdefinition-healthcheck-retries
+                        type: integer
+                        format: int32
+                        customAttributes:
+                          template: Retries
+                          immutable: true
+                      startPeriod:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-taskdefinition-healthcheck.html#cfn-ecs-taskdefinition-healthcheck-startperiod
+                        type: integer
+                        format: int32
+                        customAttributes:
+                          template: StartPeriod
+                          immutable: true
+                      timeout:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-taskdefinition-healthcheck.html#cfn-ecs-taskdefinition-healthcheck-timeout
+                        type: integer
+                        format: int32
+                        customAttributes:
+                          template: Timeout
+                          immutable: true
+                  hostname:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-taskdefinition-containerdefinitions.html#cfn-ecs-taskdefinition-containerdefinition-hostname
+                    type: string
+                    customAttributes:
+                      template: Hostname
+                      immutable: true
+                  image:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-taskdefinition-containerdefinitions.html#cfn-ecs-taskdefinition-containerdefinition-image
+                    type: string
+                    customAttributes:
+                      template: Image
+                      immutable: true
+                  links:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-taskdefinition-containerdefinitions.html#cfn-ecs-taskdefinition-containerdefinition-links
+                    type: array
+                    customAttributes:
+                      template: Links
+                      immutable: true
+                    items:
+                      type: string
+                  linuxParameters:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-taskdefinition-containerdefinitions.html#cfn-ecs-taskdefinition-containerdefinition-linuxparameters
+                    type: object
+                    customAttributes:
+                      immutable: true
+                    required: []
+                    properties:
+                      capabilities:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-taskdefinition-linuxparameters.html#cfn-ecs-taskdefinition-linuxparameters-capabilities
+                        type: object
+                        customAttributes:
+                          immutable: true
+                        required: []
+                        properties:
+                          add:
+                            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-taskdefinition-kernelcapabilities.html#cfn-ecs-taskdefinition-kernelcapabilities-add
+                            type: array
+                            customAttributes:
+                              template: Add
+                              immutable: true
+                            items:
+                              type: string
+                          drop:
+                            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-taskdefinition-kernelcapabilities.html#cfn-ecs-taskdefinition-kernelcapabilities-drop
+                            type: array
+                            customAttributes:
+                              template: Drop
+                              immutable: true
+                            items:
+                              type: string
+                      devices:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-taskdefinition-linuxparameters.html#cfn-ecs-taskdefinition-linuxparameters-devices
+                        type: array
+                        customAttributes:
+                          template: Devices
+                          immutable: true
+                        items:
+                          type: object
+                          properties:
+                            containerPath:
+                              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-taskdefinition-device.html#cfn-ecs-taskdefinition-device-containerpath
+                              type: string
+                              customAttributes:
+                                template: ContainerPath
+                                immutable: true
+                            hostPath:
+                              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-taskdefinition-device.html#cfn-ecs-taskdefinition-device-hostpath
+                              type: string
+                              customAttributes:
+                                template: HostPath
+                                immutable: true
+                            permissions:
+                              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-taskdefinition-device.html#cfn-ecs-taskdefinition-device-permissions
+                              type: array
+                              customAttributes:
+                                template: Permissions
+                                immutable: true
+                              items:
+                                type: string
+                      initProcessEnabled:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-taskdefinition-linuxparameters.html#cfn-ecs-taskdefinition-linuxparameters-initprocessenabled
+                        type: boolean
+                        customAttributes:
+                          template: InitProcessEnabled
+                          immutable: true
+                      sharedMemorySize:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-taskdefinition-linuxparameters.html#cfn-ecs-taskdefinition-linuxparameters-sharedmemorysize
+                        type: integer
+                        format: int32
+                        customAttributes:
+                          template: SharedMemorySize
+                          immutable: true
+                      tmpfs:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-taskdefinition-linuxparameters.html#cfn-ecs-taskdefinition-linuxparameters-tmpfs
+                        type: array
+                        customAttributes:
+                          template: Tmpfs
+                          immutable: true
+                        items:
+                          type: object
+                          properties:
+                            containerPath:
+                              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-taskdefinition-tmpfs.html#cfn-ecs-taskdefinition-tmpfs-containerpath
+                              type: string
+                              customAttributes:
+                                template: ContainerPath
+                                immutable: true
+                            mountOptions:
+                              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-taskdefinition-tmpfs.html#cfn-ecs-taskdefinition-tmpfs-mountoptions
+                              type: array
+                              customAttributes:
+                                template: MountOptions
+                                immutable: true
+                              items:
+                                type: string
+                            size:
+                              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-taskdefinition-tmpfs.html#cfn-ecs-taskdefinition-tmpfs-size
+                              type: integer
+                              format: int32
+                              customAttributes:
+                                template: Size
+                                immutable: true
+                  logConfiguration:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-taskdefinition-containerdefinitions.html#cfn-ecs-taskdefinition-containerdefinition-logconfiguration
+                    type: object
+                    customAttributes:
+                      immutable: true
+                    required:
+                    - logDriver
+                    properties:
+                      logDriver:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-taskdefinition-containerdefinitions-logconfiguration.html#cfn-ecs-taskdefinition-containerdefinition-logconfiguration-logdriver
+                        type: string
+                        customAttributes:
+                          template: LogDriver
+                          immutable: true
+                      options:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-taskdefinition-containerdefinitions-logconfiguration.html#cfn-ecs-taskdefinition-containerdefinition-logconfiguration-options
+                        type: json
+                        customAttributes:
+                          template: Options
+                          immutable: true
+                  memory:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-taskdefinition-containerdefinitions.html#cfn-ecs-taskdefinition-containerdefinition-memory
+                    type: integer
+                    format: int32
+                    customAttributes:
+                      template: Memory
+                      immutable: true
+                  memoryReservation:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-taskdefinition-containerdefinitions.html#cfn-ecs-taskdefinition-containerdefinition-memoryreservation
+                    type: integer
+                    format: int32
+                    customAttributes:
+                      template: MemoryReservation
+                      immutable: true
+                  mountPoints:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-taskdefinition-containerdefinitions.html#cfn-ecs-taskdefinition-containerdefinition-mountpoints
+                    type: array
+                    customAttributes:
+                      template: MountPoints
+                      immutable: true
+                    items:
+                      type: object
+                      properties:
+                        containerPath:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-taskdefinition-containerdefinitions-mountpoints.html#cfn-ecs-taskdefinition-containerdefinition-mountpoints-containerpath
+                          type: string
+                          customAttributes:
+                            template: ContainerPath
+                            immutable: true
+                        readOnly:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-taskdefinition-containerdefinitions-mountpoints.html#cfn-ecs-taskdefinition-containerdefinition-mountpoints-readonly
+                          type: boolean
+                          customAttributes:
+                            template: ReadOnly
+                            immutable: true
+                        sourceVolume:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-taskdefinition-containerdefinitions-mountpoints.html#cfn-ecs-taskdefinition-containerdefinition-mountpoints-sourcevolume
+                          type: string
+                          customAttributes:
+                            template: SourceVolume
+                            immutable: true
+                  name:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-taskdefinition-containerdefinitions.html#cfn-ecs-taskdefinition-containerdefinition-name
+                    type: string
+                    customAttributes:
+                      template: Name
+                      immutable: true
+                  portMappings:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-taskdefinition-containerdefinitions.html#cfn-ecs-taskdefinition-containerdefinition-portmappings
+                    type: array
+                    customAttributes:
+                      template: PortMappings
+                      immutable: true
+                    items:
+                      type: object
+                      properties:
+                        containerPort:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-taskdefinition-containerdefinitions-portmappings.html#cfn-ecs-taskdefinition-containerdefinition-portmappings-containerport
+                          type: integer
+                          format: int32
+                          customAttributes:
+                            template: ContainerPort
+                            immutable: true
+                        hostPort:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-taskdefinition-containerdefinitions-portmappings.html#cfn-ecs-taskdefinition-containerdefinition-portmappings-readonly
+                          type: integer
+                          format: int32
+                          customAttributes:
+                            template: HostPort
+                            immutable: true
+                        protocol:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-taskdefinition-containerdefinitions-portmappings.html#cfn-ecs-taskdefinition-containerdefinition-portmappings-sourcevolume
+                          type: string
+                          customAttributes:
+                            template: Protocol
+                            immutable: true
+                  privileged:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-taskdefinition-containerdefinitions.html#cfn-ecs-taskdefinition-containerdefinition-privileged
+                    type: boolean
+                    customAttributes:
+                      template: Privileged
+                      immutable: true
+                  readonlyRootFilesystem:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-taskdefinition-containerdefinitions.html#cfn-ecs-taskdefinition-containerdefinition-readonlyrootfilesystem
+                    type: boolean
+                    customAttributes:
+                      template: ReadonlyRootFilesystem
+                      immutable: true
+                  repositoryCredentials:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-taskdefinition-containerdefinitions.html#cfn-ecs-taskdefinition-containerdefinition-repositorycredentials
+                    type: object
+                    customAttributes:
+                      immutable: true
+                    required: []
+                    properties:
+                      credentialsParameter:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-taskdefinition-repositorycredentials.html#cfn-ecs-taskdefinition-repositorycredentials-credentialsparameter
+                        type: string
+                        customAttributes:
+                          template: CredentialsParameter
+                          immutable: true
+                  startTimeout:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-taskdefinition-containerdefinitions.html#cfn-ecs-taskdefinition-containerdefinition-starttimeout
+                    type: integer
+                    format: int32
+                    customAttributes:
+                      template: StartTimeout
+                      immutable: true
+                  stopTimeout:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-taskdefinition-containerdefinitions.html#cfn-ecs-taskdefinition-containerdefinition-stoptimeout
+                    type: integer
+                    format: int32
+                    customAttributes:
+                      template: StopTimeout
+                      immutable: true
+                  ulimits:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-taskdefinition-containerdefinitions.html#cfn-ecs-taskdefinition-containerdefinition-ulimits
+                    type: array
+                    customAttributes:
+                      template: Ulimits
+                      immutable: true
+                    items:
+                      type: object
+                      properties:
+                        hardLimit:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-taskdefinition-containerdefinitions-ulimit.html#cfn-ecs-taskdefinition-containerdefinition-ulimit-hardlimit
+                          type: integer
+                          format: int32
+                          customAttributes:
+                            template: HardLimit
+                            immutable: true
+                        name:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-taskdefinition-containerdefinitions-ulimit.html#cfn-ecs-taskdefinition-containerdefinition-ulimit-name
+                          type: string
+                          customAttributes:
+                            template: Name
+                            immutable: true
+                        softLimit:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-taskdefinition-containerdefinitions-ulimit.html#cfn-ecs-taskdefinition-containerdefinition-ulimit-softlimit
+                          type: integer
+                          format: int32
+                          customAttributes:
+                            template: SoftLimit
+                            immutable: true
+                  user:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-taskdefinition-containerdefinitions.html#cfn-ecs-taskdefinition-containerdefinition-user
+                    type: string
+                    customAttributes:
+                      template: User
+                      immutable: true
+                  volumesFrom:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-taskdefinition-containerdefinitions.html#cfn-ecs-taskdefinition-containerdefinition-volumesfrom
+                    type: array
+                    customAttributes:
+                      template: VolumesFrom
+                      immutable: true
+                    items:
+                      type: object
+                      properties:
+                        readOnly:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-taskdefinition-containerdefinitions-volumesfrom.html#cfn-ecs-taskdefinition-containerdefinition-volumesfrom-readonly
+                          type: boolean
+                          customAttributes:
+                            template: ReadOnly
+                            immutable: true
+                        sourceContainer:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-taskdefinition-containerdefinitions-volumesfrom.html#cfn-ecs-taskdefinition-containerdefinition-volumesfrom-sourcecontainer
+                          type: string
+                          customAttributes:
+                            template: SourceContainer
+                            immutable: true
+                  workingDirectory:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-taskdefinition-containerdefinitions.html#cfn-ecs-taskdefinition-containerdefinition-workingdirectory
+                    type: string
+                    customAttributes:
+                      template: WorkingDirectory
+                      immutable: true
+            cpu:
+              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ecs-taskdefinition.html#cfn-ecs-taskdefinition-cpu
+              type: string
+            executionRoleRef:
+              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ecs-taskdefinition.html#cfn-ecs-taskdefinition-executionrolearn
+              type: string
+            family:
+              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ecs-taskdefinition.html#cfn-ecs-taskdefinition-family
+              type: string
+            memory:
+              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ecs-taskdefinition.html#cfn-ecs-taskdefinition-memory
+              type: string
+            networkMode:
+              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ecs-taskdefinition.html#cfn-ecs-taskdefinition-networkmode
+              type: string
+            placementConstraints:
+              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ecs-taskdefinition.html#cfn-ecs-taskdefinition-placementconstraints
+              type: array
+              items:
+                type: object
+                properties:
+                  expression:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-taskdefinition-taskdefinitionplacementconstraint.html#cfn-ecs-taskdefinition-taskdefinitionplacementconstraint-expression
+                    type: string
+                    customAttributes:
+                      template: Expression
+                      immutable: true
+                  type:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-taskdefinition-taskdefinitionplacementconstraint.html#cfn-ecs-taskdefinition-taskdefinitionplacementconstraint-type
+                    type: string
+                    customAttributes:
+                      template: Type
+                      immutable: true
+            proxyConfiguration:
+              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ecs-taskdefinition.html#cfn-ecs-taskdefinition-proxyconfiguration
+              type: object
+              required:
+              - containerName
+              properties:
+                containerName:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-taskdefinition-proxyconfiguration.html#cfn-ecs-taskdefinition-proxyconfiguration-containername
+                  type: string
+                proxyConfigurationProperties:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-taskdefinition-proxyconfiguration.html#cfn-ecs-taskdefinition-proxyconfiguration-proxyconfigurationproperties
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      name:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-taskdefinition-containerdefinitions-environment.html#cfn-ecs-taskdefinition-containerdefinition-environment-name
+                        type: string
+                        customAttributes:
+                          template: Name
+                          immutable: true
+                      value:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-taskdefinition-containerdefinitions-environment.html#cfn-ecs-taskdefinition-containerdefinition-environment-value
+                        type: string
+                        customAttributes:
+                          template: Value
+                          immutable: true
+                type:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-taskdefinition-proxyconfiguration.html#cfn-ecs-taskdefinition-proxyconfiguration-type
+                  type: string
+            requiresCompatibilities:
+              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ecs-taskdefinition.html#cfn-ecs-taskdefinition-requirescompatibilities
+              type: array
+              items:
+                type: string
+            taskRoleRef:
+              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ecs-taskdefinition.html#cfn-ecs-taskdefinition-taskrolearn
+              type: string
+            volumes:
+              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ecs-taskdefinition.html#cfn-ecs-taskdefinition-volumes
+              type: array
+              items:
+                type: object
+                properties:
+                  dockerVolumeConfiguration:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-taskdefinition-volumes.html#cfn-ecs-taskdefinition-volume-dockervolumeconfiguration
+                    type: object
+                    customAttributes:
+                      immutable: true
+                    required: []
+                    properties:
+                      autoprovision:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-taskdefinition-dockervolumeconfiguration.html#cfn-ecs-taskdefinition-dockervolumeconfiguration-autoprovision
+                        type: boolean
+                        customAttributes:
+                          template: Autoprovision
+                          immutable: true
+                      driver:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-taskdefinition-dockervolumeconfiguration.html#cfn-ecs-taskdefinition-dockervolumeconfiguration-driver
+                        type: string
+                        customAttributes:
+                          template: Driver
+                          immutable: true
+                      driverOpts:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-taskdefinition-dockervolumeconfiguration.html#cfn-ecs-taskdefinition-dockervolumeconfiguration-driveropts
+                        type: json
+                        customAttributes:
+                          template: DriverOpts
+                          immutable: true
+                      labels:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-taskdefinition-dockervolumeconfiguration.html#cfn-ecs-taskdefinition-dockervolumeconfiguration-labels
+                        type: json
+                        customAttributes:
+                          template: Labels
+                          immutable: true
+                      scope:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-taskdefinition-dockervolumeconfiguration.html#cfn-ecs-taskdefinition-dockervolumeconfiguration-scope
+                        type: string
+                        customAttributes:
+                          template: Scope
+                          immutable: true
+                  host:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-taskdefinition-volumes.html#cfn-ecs-taskdefinition-volumes-host
+                    type: object
+                    customAttributes:
+                      immutable: true
+                    required: []
+                    properties:
+                      sourcePath:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-taskdefinition-volumes-host.html#cfn-ecs-taskdefinition-volumes-host-sourcepath
+                        type: string
+                        customAttributes:
+                          template: SourcePath
+                          immutable: true
+                  name:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ecs-taskdefinition-volumes.html#cfn-ecs-taskdefinition-volumes-name
+                    type: string
+                    customAttributes:
+                      template: Name
+                      immutable: true

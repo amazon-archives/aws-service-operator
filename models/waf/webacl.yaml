@@ -1,0 +1,97 @@
+---
+apiVersion: models.awsoperator.io/v1alpha1
+kind: ModelFile
+metadata:
+  name: waf-webacl-resource
+  creationTimestamp: '2019-06-13T16:59:30-07:00'
+  resourceVersion: 3.3.0
+spec:
+  resource:
+    kind: WebACL
+    scope: Namespaced
+    apiGroup:
+      apiVersion: waf.awsoperator.io/v1alpha1
+      group: waf
+      region: us-east-1
+      domain: awsoperator.io
+      versions:
+      - name: v1alpha1
+        served: true
+        storage: true
+    names:
+      singular: webacl
+      plural: webacls
+      shortNames: []
+  openAPIV3Schema:
+    properties:
+      spec:
+        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-waf-webacl.html
+        type: object
+        customAttributes: {}
+        required:
+        - defaultAction
+        - metricName
+        - name
+        properties:
+          defaultAction:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-waf-webacl.html#cfn-waf-webacl-defaultaction
+            type: object
+            customAttributes:
+              immutable: false
+            required:
+            - type
+            properties:
+              type:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-waf-webacl-action.html#cfn-waf-webacl-action-type
+                type: string
+                customAttributes:
+                  template: Type
+                  immutable: false
+          metricName:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-waf-webacl.html#cfn-waf-webacl-metricname
+            type: string
+            customAttributes:
+              template: MetricName
+              immutable: true
+          name:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-waf-webacl.html#cfn-waf-webacl-name
+            type: string
+            customAttributes:
+              template: Name
+              immutable: true
+          rules:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-waf-webacl.html#cfn-waf-webacl-rules
+            type: array
+            customAttributes:
+              template: Rules
+              immutable: false
+            items:
+              type: object
+              properties:
+                action:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-waf-webacl-rules.html#cfn-waf-webacl-rules-action
+                  type: object
+                  customAttributes:
+                    immutable: false
+                  required:
+                  - type
+                  properties:
+                    type:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-waf-webacl-action.html#cfn-waf-webacl-action-type
+                      type: string
+                      customAttributes:
+                        template: Type
+                        immutable: false
+                priority:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-waf-webacl-rules.html#cfn-waf-webacl-rules-priority
+                  type: integer
+                  format: int32
+                  customAttributes:
+                    template: Priority
+                    immutable: false
+                ruleRef:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-waf-webacl-rules.html#cfn-waf-webacl-rules-ruleid
+                  type: string
+                  customAttributes:
+                    template: RuleId
+                    immutable: false

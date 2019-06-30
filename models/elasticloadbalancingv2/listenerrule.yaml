@@ -1,0 +1,309 @@
+---
+apiVersion: models.awsoperator.io/v1alpha1
+kind: ModelFile
+metadata:
+  name: elasticloadbalancingv2-listenerrule-resource
+  creationTimestamp: '2019-06-13T16:59:29-07:00'
+  resourceVersion: 3.3.0
+spec:
+  resource:
+    kind: ListenerRule
+    scope: Namespaced
+    apiGroup:
+      apiVersion: elasticloadbalancingv2.awsoperator.io/v1alpha1
+      group: elasticloadbalancingv2
+      region: us-east-1
+      domain: awsoperator.io
+      versions:
+      - name: v1alpha1
+        served: true
+        storage: true
+    names:
+      singular: listenerrule
+      plural: listenerrules
+      shortNames: []
+  openAPIV3Schema:
+    properties:
+      spec:
+        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticloadbalancingv2-listenerrule.html
+        type: object
+        customAttributes: {}
+        required:
+        - actions
+        - conditions
+        - listenerArn
+        - priority
+        properties:
+          actions:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticloadbalancingv2-listenerrule.html#cfn-elasticloadbalancingv2-listenerrule-actions
+            type: array
+            customAttributes:
+              template: Actions
+              immutable: false
+            items:
+              type: object
+              properties:
+                authenticateCognitoConfig:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticloadbalancingv2-listenerrule-actions.html#cfn-elasticloadbalancingv2-listenerrule-action-authenticatecognitoconfig
+                  type: object
+                  customAttributes:
+                    immutable: false
+                  required:
+                  - userPoolArn
+                  - userPoolClientId
+                  - userPoolDomain
+                  properties:
+                    authenticationRequestExtraParams:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticloadbalancingv2-listenerrule-authenticatecognitoconfig.html#cfn-elasticloadbalancingv2-listenerrule-authenticatecognitoconfig-authenticationrequestextraparams
+                      type: json
+                      customAttributes:
+                        template: AuthenticationRequestExtraParams
+                        immutable: false
+                    onUnauthenticatedRequest:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticloadbalancingv2-listenerrule-authenticatecognitoconfig.html#cfn-elasticloadbalancingv2-listenerrule-authenticatecognitoconfig-onunauthenticatedrequest
+                      type: string
+                      customAttributes:
+                        template: OnUnauthenticatedRequest
+                        immutable: false
+                    scope:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticloadbalancingv2-listenerrule-authenticatecognitoconfig.html#cfn-elasticloadbalancingv2-listenerrule-authenticatecognitoconfig-scope
+                      type: string
+                      customAttributes:
+                        template: Scope
+                        immutable: false
+                    sessionCookieName:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticloadbalancingv2-listenerrule-authenticatecognitoconfig.html#cfn-elasticloadbalancingv2-listenerrule-authenticatecognitoconfig-sessioncookiename
+                      type: string
+                      customAttributes:
+                        template: SessionCookieName
+                        immutable: false
+                    sessionTimeout:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticloadbalancingv2-listenerrule-authenticatecognitoconfig.html#cfn-elasticloadbalancingv2-listenerrule-authenticatecognitoconfig-sessiontimeout
+                      type: integer
+                      format: int64
+                      customAttributes:
+                        template: SessionTimeout
+                        immutable: false
+                    userPoolRef:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticloadbalancingv2-listenerrule-authenticatecognitoconfig.html#cfn-elasticloadbalancingv2-listenerrule-authenticatecognitoconfig-userpoolarn
+                      type: string
+                      customAttributes:
+                        template: UserPoolArn
+                        immutable: false
+                    userPoolClientRef:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticloadbalancingv2-listenerrule-authenticatecognitoconfig.html#cfn-elasticloadbalancingv2-listenerrule-authenticatecognitoconfig-userpoolclientid
+                      type: string
+                      customAttributes:
+                        template: UserPoolClientId
+                        immutable: false
+                    userPoolDomain:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticloadbalancingv2-listenerrule-authenticatecognitoconfig.html#cfn-elasticloadbalancingv2-listenerrule-authenticatecognitoconfig-userpooldomain
+                      type: string
+                      customAttributes:
+                        template: UserPoolDomain
+                        immutable: false
+                authenticateOidcConfig:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticloadbalancingv2-listenerrule-actions.html#cfn-elasticloadbalancingv2-listenerrule-action-authenticateoidcconfig
+                  type: object
+                  customAttributes:
+                    immutable: false
+                  required:
+                  - authorizationEndpoint
+                  - clientId
+                  - clientSecret
+                  - issuer
+                  - tokenEndpoint
+                  - userInfoEndpoint
+                  properties:
+                    authenticationRequestExtraParams:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticloadbalancingv2-listenerrule-authenticateoidcconfig.html#cfn-elasticloadbalancingv2-listenerrule-authenticateoidcconfig-authenticationrequestextraparams
+                      type: json
+                      customAttributes:
+                        template: AuthenticationRequestExtraParams
+                        immutable: false
+                    authorizationEndpoint:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticloadbalancingv2-listenerrule-authenticateoidcconfig.html#cfn-elasticloadbalancingv2-listenerrule-authenticateoidcconfig-authorizationendpoint
+                      type: string
+                      customAttributes:
+                        template: AuthorizationEndpoint
+                        immutable: false
+                    clientRef:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticloadbalancingv2-listenerrule-authenticateoidcconfig.html#cfn-elasticloadbalancingv2-listenerrule-authenticateoidcconfig-clientid
+                      type: string
+                      customAttributes:
+                        template: ClientId
+                        immutable: false
+                    clientSecret:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticloadbalancingv2-listenerrule-authenticateoidcconfig.html#cfn-elasticloadbalancingv2-listenerrule-authenticateoidcconfig-clientsecret
+                      type: string
+                      customAttributes:
+                        template: ClientSecret
+                        immutable: false
+                    issuer:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticloadbalancingv2-listenerrule-authenticateoidcconfig.html#cfn-elasticloadbalancingv2-listenerrule-authenticateoidcconfig-issuer
+                      type: string
+                      customAttributes:
+                        template: Issuer
+                        immutable: false
+                    onUnauthenticatedRequest:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticloadbalancingv2-listenerrule-authenticateoidcconfig.html#cfn-elasticloadbalancingv2-listenerrule-authenticateoidcconfig-onunauthenticatedrequest
+                      type: string
+                      customAttributes:
+                        template: OnUnauthenticatedRequest
+                        immutable: false
+                    scope:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticloadbalancingv2-listenerrule-authenticateoidcconfig.html#cfn-elasticloadbalancingv2-listenerrule-authenticateoidcconfig-scope
+                      type: string
+                      customAttributes:
+                        template: Scope
+                        immutable: false
+                    sessionCookieName:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticloadbalancingv2-listenerrule-authenticateoidcconfig.html#cfn-elasticloadbalancingv2-listenerrule-authenticateoidcconfig-sessioncookiename
+                      type: string
+                      customAttributes:
+                        template: SessionCookieName
+                        immutable: false
+                    sessionTimeout:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticloadbalancingv2-listenerrule-authenticateoidcconfig.html#cfn-elasticloadbalancingv2-listenerrule-authenticateoidcconfig-sessiontimeout
+                      type: integer
+                      format: int64
+                      customAttributes:
+                        template: SessionTimeout
+                        immutable: false
+                    tokenEndpoint:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticloadbalancingv2-listenerrule-authenticateoidcconfig.html#cfn-elasticloadbalancingv2-listenerrule-authenticateoidcconfig-tokenendpoint
+                      type: string
+                      customAttributes:
+                        template: TokenEndpoint
+                        immutable: false
+                    userInfoEndpoint:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticloadbalancingv2-listenerrule-authenticateoidcconfig.html#cfn-elasticloadbalancingv2-listenerrule-authenticateoidcconfig-userinfoendpoint
+                      type: string
+                      customAttributes:
+                        template: UserInfoEndpoint
+                        immutable: false
+                fixedResponseConfig:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticloadbalancingv2-listenerrule-actions.html#cfn-elasticloadbalancingv2-listenerrule-action-fixedresponseconfig
+                  type: object
+                  customAttributes:
+                    immutable: false
+                  required:
+                  - statusCode
+                  properties:
+                    contentType:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticloadbalancingv2-listenerrule-fixedresponseconfig.html#cfn-elasticloadbalancingv2-listenerrule-fixedresponseconfig-contenttype
+                      type: string
+                      customAttributes:
+                        template: ContentType
+                        immutable: false
+                    messageBody:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticloadbalancingv2-listenerrule-fixedresponseconfig.html#cfn-elasticloadbalancingv2-listenerrule-fixedresponseconfig-messagebody
+                      type: string
+                      customAttributes:
+                        template: MessageBody
+                        immutable: false
+                    statusCode:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticloadbalancingv2-listenerrule-fixedresponseconfig.html#cfn-elasticloadbalancingv2-listenerrule-fixedresponseconfig-statuscode
+                      type: string
+                      customAttributes:
+                        template: StatusCode
+                        immutable: false
+                order:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticloadbalancingv2-listenerrule-actions.html#cfn-elasticloadbalancingv2-listenerrule-action-order
+                  type: integer
+                  format: int32
+                  customAttributes:
+                    template: Order
+                    immutable: false
+                redirectConfig:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticloadbalancingv2-listenerrule-actions.html#cfn-elasticloadbalancingv2-listenerrule-action-redirectconfig
+                  type: object
+                  customAttributes:
+                    immutable: false
+                  required:
+                  - statusCode
+                  properties:
+                    host:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticloadbalancingv2-listenerrule-redirectconfig.html#cfn-elasticloadbalancingv2-listenerrule-redirectconfig-host
+                      type: string
+                      customAttributes:
+                        template: Host
+                        immutable: false
+                    path:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticloadbalancingv2-listenerrule-redirectconfig.html#cfn-elasticloadbalancingv2-listenerrule-redirectconfig-path
+                      type: string
+                      customAttributes:
+                        template: Path
+                        immutable: false
+                    port:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticloadbalancingv2-listenerrule-redirectconfig.html#cfn-elasticloadbalancingv2-listenerrule-redirectconfig-port
+                      type: string
+                      customAttributes:
+                        template: Port
+                        immutable: false
+                    protocol:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticloadbalancingv2-listenerrule-redirectconfig.html#cfn-elasticloadbalancingv2-listenerrule-redirectconfig-protocol
+                      type: string
+                      customAttributes:
+                        template: Protocol
+                        immutable: false
+                    query:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticloadbalancingv2-listenerrule-redirectconfig.html#cfn-elasticloadbalancingv2-listenerrule-redirectconfig-query
+                      type: string
+                      customAttributes:
+                        template: Query
+                        immutable: false
+                    statusCode:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticloadbalancingv2-listenerrule-redirectconfig.html#cfn-elasticloadbalancingv2-listenerrule-redirectconfig-statuscode
+                      type: string
+                      customAttributes:
+                        template: StatusCode
+                        immutable: false
+                targetGroupRef:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticloadbalancingv2-listenerrule-actions.html#cfn-elasticloadbalancingv2-listener-actions-targetgrouparn
+                  type: string
+                  customAttributes:
+                    template: TargetGroupArn
+                    immutable: false
+                type:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticloadbalancingv2-listenerrule-actions.html#cfn-elasticloadbalancingv2-listener-actions-type
+                  type: string
+                  customAttributes:
+                    template: Type
+                    immutable: false
+          conditions:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticloadbalancingv2-listenerrule.html#cfn-elasticloadbalancingv2-listenerrule-conditions
+            type: array
+            customAttributes:
+              template: Conditions
+              immutable: false
+            items:
+              type: object
+              properties:
+                field:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticloadbalancingv2-listenerrule-conditions.html#cfn-elasticloadbalancingv2-listenerrule-conditions-field
+                  type: string
+                  customAttributes:
+                    template: Field
+                    immutable: false
+                values:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticloadbalancingv2-listenerrule-conditions.html#cfn-elasticloadbalancingv2-listenerrule-conditions-values
+                  type: array
+                  customAttributes:
+                    template: Values
+                    immutable: false
+                  items:
+                    type: string
+          listenerRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticloadbalancingv2-listenerrule.html#cfn-elasticloadbalancingv2-listenerrule-listenerarn
+            type: string
+            customAttributes:
+              template: ListenerArn
+              immutable: true
+          priority:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticloadbalancingv2-listenerrule.html#cfn-elasticloadbalancingv2-listenerrule-priority
+            type: integer
+            format: int32
+            customAttributes:
+              template: Priority
+              immutable: false

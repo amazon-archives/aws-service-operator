@@ -1,0 +1,114 @@
+---
+apiVersion: models.awsoperator.io/v1alpha1
+kind: ModelFile
+metadata:
+  name: ask-skill-resource
+  creationTimestamp: '2019-06-13T16:59:30-07:00'
+  resourceVersion: 3.3.0
+spec:
+  resource:
+    kind: Skill
+    scope: Namespaced
+    apiGroup:
+      apiVersion: ask.awsoperator.io/v1alpha1
+      group: ask
+      region: us-east-1
+      domain: awsoperator.io
+      versions:
+      - name: v1alpha1
+        served: true
+        storage: true
+    names:
+      singular: skill
+      plural: skills
+      shortNames: []
+  openAPIV3Schema:
+    properties:
+      spec:
+        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ask-skill.html
+        type: object
+        customAttributes: {}
+        required:
+        - authenticationConfiguration
+        - skillPackage
+        - vendorId
+        properties:
+          authenticationConfiguration:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ask-skill.html#cfn-ask-skill-authenticationconfiguration
+            type: object
+            customAttributes:
+              immutable: false
+            required:
+            - clientId
+            - clientSecret
+            - refreshToken
+            properties:
+              clientRef:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ask-skill-authenticationconfiguration.html#cfn-ask-skill-authenticationconfiguration-clientid
+                type: string
+                customAttributes:
+                  template: ClientId
+                  immutable: false
+              clientSecret:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ask-skill-authenticationconfiguration.html#cfn-ask-skill-authenticationconfiguration-clientsecret
+                type: string
+                customAttributes:
+                  template: ClientSecret
+                  immutable: false
+              refreshToken:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ask-skill-authenticationconfiguration.html#cfn-ask-skill-authenticationconfiguration-refreshtoken
+                type: string
+                customAttributes:
+                  template: RefreshToken
+                  immutable: false
+          skillPackage:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ask-skill.html#cfn-ask-skill-skillpackage
+            type: object
+            customAttributes:
+              immutable: false
+            required:
+            - s3Bucket
+            - s3Key
+            properties:
+              overrides:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ask-skill-skillpackage.html#cfn-ask-skill-skillpackage-overrides
+                type: object
+                customAttributes:
+                  immutable: false
+                required: []
+                properties:
+                  manifest:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ask-skill-overrides.html#cfn-ask-skill-overrides-manifest
+                    customAttributes:
+                      template: Manifest
+                      immutable: false
+              s3Bucket:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ask-skill-skillpackage.html#cfn-ask-skill-skillpackage-s3bucket
+                type: string
+                customAttributes:
+                  template: S3Bucket
+                  immutable: false
+              s3BucketRole:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ask-skill-skillpackage.html#cfn-ask-skill-skillpackage-s3bucketrole
+                type: string
+                customAttributes:
+                  template: S3BucketRole
+                  immutable: false
+              s3Key:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ask-skill-skillpackage.html#cfn-ask-skill-skillpackage-s3key
+                type: string
+                customAttributes:
+                  template: S3Key
+                  immutable: false
+              s3ObjectVersion:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ask-skill-skillpackage.html#cfn-ask-skill-skillpackage-s3objectversion
+                type: string
+                customAttributes:
+                  template: S3ObjectVersion
+                  immutable: false
+          vendorRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ask-skill.html#cfn-ask-skill-vendorid
+            type: string
+            customAttributes:
+              template: VendorId
+              immutable: true

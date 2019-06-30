@@ -1,0 +1,60 @@
+[source,yaml]
+----
+apiVersion: models.awsoperator.io/v1alpha1
+kind: ModelFile
+metadata:
+  name: {group}-{resource}-resource
+spec:
+  resource:
+    kind: {kind}
+    scope: {scope}
+    apiGroup:
+      group: {group}
+      apiVersion: {apiVersion}
+      region: {region}
+      domain: awsoperator.io
+      versions:
+      - name: v1alpha1
+        served: true
+        storage: true
+    names:
+      singular: {resource}
+      plural: {resource.plural}
+      shortNames:
+        - name: {alias}
+  # OpenAPI V3 Schema used for declaring the full object
+  openAPIV3Schema:
+    properties:
+      # custom type for specifying the resource name as CRD name
+      resourceName:
+        type: {propertyType}
+        format: {propertyFormat}
+        description: {propertyDescription}
+        template: {propertyTemplateKey}
+        immutable: {propertyImmutable}
+      spec:
+        type: object
+        required:
+        - {property}
+        examples:
+          {propertyName}:
+            summary: {propertyExampleSummary}
+            value: {propertyExampleValue}
+        properties:
+          {propertyName}:
+            type: {propertyType}
+            format: {propertyFormat}
+            description: {propertyDescription}
+            template: {propertyTemplateKey}
+            # optional used for later validation
+            enum:
+            - {propertyEnum}
+            default: {propertyDefault}
+            minimum: {propertyMinimum}
+            maximum: {propertyMaximum}
+            pattern: {propertyPattern}
+            immutable: {propertyImmutable}
+            resourceName: {propertyResourceName}
+----
+
+

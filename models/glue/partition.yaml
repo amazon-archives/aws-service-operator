@@ -1,0 +1,233 @@
+---
+apiVersion: models.awsoperator.io/v1alpha1
+kind: ModelFile
+metadata:
+  name: glue-partition-resource
+  creationTimestamp: '2019-06-13T16:59:29-07:00'
+  resourceVersion: 3.3.0
+spec:
+  resource:
+    kind: Partition
+    scope: Namespaced
+    apiGroup:
+      apiVersion: glue.awsoperator.io/v1alpha1
+      group: glue
+      region: us-east-1
+      domain: awsoperator.io
+      versions:
+      - name: v1alpha1
+        served: true
+        storage: true
+    names:
+      singular: partition
+      plural: partitions
+      shortNames: []
+  openAPIV3Schema:
+    properties:
+      spec:
+        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-glue-partition.html
+        type: object
+        customAttributes: {}
+        required:
+        - catalogId
+        - databaseName
+        - partitionInput
+        - tableName
+        properties:
+          catalogRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-glue-partition.html#cfn-glue-partition-catalogid
+            type: string
+            customAttributes:
+              template: CatalogId
+              immutable: true
+          databaseName:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-glue-partition.html#cfn-glue-partition-databasename
+            type: string
+            customAttributes:
+              template: DatabaseName
+              immutable: true
+          partitionInput:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-glue-partition.html#cfn-glue-partition-partitioninput
+            type: object
+            customAttributes:
+              immutable: false
+            required:
+            - values
+            properties:
+              parameters:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-glue-partition-partitioninput.html#cfn-glue-partition-partitioninput-parameters
+                customAttributes:
+                  template: Parameters
+                  immutable: false
+              storageDescriptor:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-glue-partition-partitioninput.html#cfn-glue-partition-partitioninput-storagedescriptor
+                type: object
+                customAttributes:
+                  immutable: false
+                required: []
+                properties:
+                  bucketColumns:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-glue-partition-storagedescriptor.html#cfn-glue-partition-storagedescriptor-bucketcolumns
+                    type: array
+                    customAttributes:
+                      template: BucketColumns
+                      immutable: false
+                    items:
+                      type: string
+                  columns:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-glue-partition-storagedescriptor.html#cfn-glue-partition-storagedescriptor-columns
+                    type: array
+                    customAttributes:
+                      template: Columns
+                      immutable: false
+                    items:
+                      type: object
+                      properties:
+                        comment:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-glue-partition-column.html#cfn-glue-partition-column-comment
+                          type: string
+                          customAttributes:
+                            template: Comment
+                            immutable: false
+                        name:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-glue-partition-column.html#cfn-glue-partition-column-name
+                          type: string
+                          customAttributes:
+                            template: Name
+                            immutable: false
+                        type:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-glue-partition-column.html#cfn-glue-partition-column-type
+                          type: string
+                          customAttributes:
+                            template: Type
+                            immutable: false
+                  compressed:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-glue-partition-storagedescriptor.html#cfn-glue-partition-storagedescriptor-compressed
+                    type: boolean
+                    customAttributes:
+                      template: Compressed
+                      immutable: false
+                  inputFormat:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-glue-partition-storagedescriptor.html#cfn-glue-partition-storagedescriptor-inputformat
+                    type: string
+                    customAttributes:
+                      template: InputFormat
+                      immutable: false
+                  location:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-glue-partition-storagedescriptor.html#cfn-glue-partition-storagedescriptor-location
+                    type: string
+                    customAttributes:
+                      template: Location
+                      immutable: false
+                  numberOfBuckets:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-glue-partition-storagedescriptor.html#cfn-glue-partition-storagedescriptor-numberofbuckets
+                    type: integer
+                    format: int32
+                    customAttributes:
+                      template: NumberOfBuckets
+                      immutable: false
+                  outputFormat:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-glue-partition-storagedescriptor.html#cfn-glue-partition-storagedescriptor-outputformat
+                    type: string
+                    customAttributes:
+                      template: OutputFormat
+                      immutable: false
+                  parameters:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-glue-partition-storagedescriptor.html#cfn-glue-partition-storagedescriptor-parameters
+                    customAttributes:
+                      template: Parameters
+                      immutable: false
+                  serdeInfo:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-glue-partition-storagedescriptor.html#cfn-glue-partition-storagedescriptor-serdeinfo
+                    type: object
+                    customAttributes:
+                      immutable: false
+                    required: []
+                    properties:
+                      name:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-glue-partition-serdeinfo.html#cfn-glue-partition-serdeinfo-name
+                        type: string
+                        customAttributes:
+                          template: Name
+                          immutable: false
+                      parameters:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-glue-partition-serdeinfo.html#cfn-glue-partition-serdeinfo-parameters
+                        customAttributes:
+                          template: Parameters
+                          immutable: false
+                      serializationLibrary:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-glue-partition-serdeinfo.html#cfn-glue-partition-serdeinfo-serializationlibrary
+                        type: string
+                        customAttributes:
+                          template: SerializationLibrary
+                          immutable: false
+                  skewedInfo:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-glue-partition-storagedescriptor.html#cfn-glue-partition-storagedescriptor-skewedinfo
+                    type: object
+                    customAttributes:
+                      immutable: false
+                    required: []
+                    properties:
+                      skewedColumnNames:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-glue-partition-skewedinfo.html#cfn-glue-partition-skewedinfo-skewedcolumnnames
+                        type: array
+                        customAttributes:
+                          template: SkewedColumnNames
+                          immutable: false
+                        items:
+                          type: string
+                      skewedColumnValueLocationMaps:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-glue-partition-skewedinfo.html#cfn-glue-partition-skewedinfo-skewedcolumnvaluelocationmaps
+                        customAttributes:
+                          template: SkewedColumnValueLocationMaps
+                          immutable: false
+                      skewedColumnValues:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-glue-partition-skewedinfo.html#cfn-glue-partition-skewedinfo-skewedcolumnvalues
+                        type: array
+                        customAttributes:
+                          template: SkewedColumnValues
+                          immutable: false
+                        items:
+                          type: string
+                  sortColumns:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-glue-partition-storagedescriptor.html#cfn-glue-partition-storagedescriptor-sortcolumns
+                    type: array
+                    customAttributes:
+                      template: SortColumns
+                      immutable: false
+                    items:
+                      type: object
+                      properties:
+                        column:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-glue-partition-order.html#cfn-glue-partition-order-column
+                          type: string
+                          customAttributes:
+                            template: Column
+                            immutable: false
+                        sortOrder:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-glue-partition-order.html#cfn-glue-partition-order-sortorder
+                          type: integer
+                          format: int32
+                          customAttributes:
+                            template: SortOrder
+                            immutable: false
+                  storedAsSubDirectories:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-glue-partition-storagedescriptor.html#cfn-glue-partition-storagedescriptor-storedassubdirectories
+                    type: boolean
+                    customAttributes:
+                      template: StoredAsSubDirectories
+                      immutable: false
+              values:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-glue-partition-partitioninput.html#cfn-glue-partition-partitioninput-values
+                type: array
+                customAttributes:
+                  template: Values
+                  immutable: true
+                items:
+                  type: string
+          tableName:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-glue-partition.html#cfn-glue-partition-tablename
+            type: string
+            customAttributes:
+              template: TableName
+              immutable: true

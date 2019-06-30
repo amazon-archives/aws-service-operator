@@ -1,0 +1,668 @@
+---
+apiVersion: apiextensions.k8s.io/v1beta1
+kind: CustomResourceDefinition
+metadata:
+  name: launchtemplates.ec2.awsoperator.io
+spec:
+  group: ec2.awsoperator.io
+  versions:
+  - name: v1alpha1
+    served: true
+    storage: true
+  scope: Namespaced
+  names:
+    plural: launchtemplates
+    singular: launchtemplate
+    kind: LaunchTemplate
+    shortNames: []
+    categories:
+    - aws
+    - ec2
+  additionalPrinterColumns:
+  - name: Status
+    type: string
+    description: Status for the AWS CloudFormation stack.
+    JSONPath: ".status.reason"
+  - name: Message
+    type: string
+    description: Message accompanying it's current stack status.
+    JSONPath: ".status.message"
+    priority: 1
+  - name: Created At
+    type: date
+    description: When the resource was created
+    JSONPath: ".metadata.creationTimestamp"
+  subresources:
+    status: {}
+  validation:
+    openAPIV3Schema:
+      properties:
+        spec:
+          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-launchtemplate.html
+          type: object
+          required: []
+          properties:
+            launchTemplateData:
+              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-launchtemplate.html#cfn-ec2-launchtemplate-launchtemplatedata
+              type: object
+              required: []
+              properties:
+                blockDeviceMappings:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-launchtemplate-launchtemplatedata.html#cfn-ec2-launchtemplate-launchtemplatedata-blockdevicemappings
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      deviceName:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-launchtemplate-blockdevicemapping.html#cfn-ec2-launchtemplate-blockdevicemapping-devicename
+                        type: string
+                        customAttributes:
+                          template: DeviceName
+                          immutable: false
+                      ebs:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-launchtemplate-blockdevicemapping.html#cfn-ec2-launchtemplate-blockdevicemapping-ebs
+                        type: object
+                        customAttributes:
+                          immutable: false
+                        required: []
+                        properties:
+                          deleteOnTermination:
+                            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-launchtemplate-blockdevicemapping-ebs.html#cfn-ec2-launchtemplate-blockdevicemapping-ebs-deleteontermination
+                            type: boolean
+                            customAttributes:
+                              template: DeleteOnTermination
+                              immutable: false
+                          encrypted:
+                            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-launchtemplate-blockdevicemapping-ebs.html#cfn-ec2-launchtemplate-blockdevicemapping-ebs-encrypted
+                            type: boolean
+                            customAttributes:
+                              template: Encrypted
+                              immutable: false
+                          iops:
+                            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-launchtemplate-blockdevicemapping-ebs.html#cfn-ec2-launchtemplate-blockdevicemapping-ebs-iops
+                            type: integer
+                            format: int32
+                            customAttributes:
+                              template: Iops
+                              immutable: false
+                          kmsKeyRef:
+                            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-launchtemplate-blockdevicemapping-ebs.html#cfn-ec2-launchtemplate-blockdevicemapping-ebs-kmskeyid
+                            type: string
+                            customAttributes:
+                              template: KmsKeyId
+                              immutable: false
+                          snapshotRef:
+                            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-launchtemplate-blockdevicemapping-ebs.html#cfn-ec2-launchtemplate-blockdevicemapping-ebs-snapshotid
+                            type: string
+                            customAttributes:
+                              template: SnapshotId
+                              immutable: false
+                          volumeSize:
+                            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-launchtemplate-blockdevicemapping-ebs.html#cfn-ec2-launchtemplate-blockdevicemapping-ebs-volumesize
+                            type: integer
+                            format: int32
+                            customAttributes:
+                              template: VolumeSize
+                              immutable: false
+                          volumeType:
+                            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-launchtemplate-blockdevicemapping-ebs.html#cfn-ec2-launchtemplate-blockdevicemapping-ebs-volumetype
+                            type: string
+                            customAttributes:
+                              template: VolumeType
+                              immutable: false
+                            enum:
+                            - gp2
+                            - io1
+                            - sc1
+                            - st1
+                            - standard
+                      noDevice:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-launchtemplate-blockdevicemapping.html#cfn-ec2-launchtemplate-blockdevicemapping-nodevice
+                        type: string
+                        customAttributes:
+                          template: NoDevice
+                          immutable: false
+                      virtualName:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-launchtemplate-blockdevicemapping.html#cfn-ec2-launchtemplate-blockdevicemapping-virtualname
+                        type: string
+                        customAttributes:
+                          template: VirtualName
+                          immutable: false
+                capacityReservationSpecification:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-launchtemplate-launchtemplatedata.html#cfn-ec2-launchtemplate-launchtemplatedata-capacityreservationspecification
+                  type: object
+                  required: []
+                  properties:
+                    capacityReservationPreference:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-launchtemplate-launchtemplatedata-capacityreservationspecification.html#cfn-ec2-launchtemplate-launchtemplatedata-capacityreservationspecification-capacityreservationpreference
+                      type: string
+                    capacityReservationTarget:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-launchtemplate-launchtemplatedata-capacityreservationspecification.html#cfn-ec2-launchtemplate-launchtemplatedata-capacityreservationspecification-capacityreservationtarget
+                      type: object
+                      required: []
+                      properties:
+                        capacityReservationRef:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-launchtemplate-capacityreservationtarget.html#cfn-ec2-launchtemplate-capacityreservationtarget-capacityreservationid
+                          type: string
+                cpuOptions:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-launchtemplate-launchtemplatedata.html#cfn-ec2-launchtemplate-launchtemplatedata-cpuoptions
+                  type: object
+                  required: []
+                  properties:
+                    coreCount:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-launchtemplate-launchtemplatedata-cpuoptions.html#cfn-ec2-launchtemplate-launchtemplatedata-cpuoptions-corecount
+                      type: integer
+                      format: int32
+                    threadsPerCore:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-launchtemplate-launchtemplatedata-cpuoptions.html#cfn-ec2-launchtemplate-launchtemplatedata-cpuoptions-threadspercore
+                      type: integer
+                      format: int32
+                creditSpecification:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-launchtemplate-launchtemplatedata.html#cfn-ec2-launchtemplate-launchtemplatedata-creditspecification
+                  type: object
+                  required: []
+                  properties:
+                    cpuCredits:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-launchtemplate-launchtemplatedata-creditspecification.html#cfn-ec2-launchtemplate-launchtemplatedata-creditspecification-cpucredits
+                      type: string
+                      enum:
+                      - standard
+                      - unlimited
+                disableApiTermination:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-launchtemplate-launchtemplatedata.html#cfn-ec2-launchtemplate-launchtemplatedata-disableapitermination
+                  type: boolean
+                ebsOptimized:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-launchtemplate-launchtemplatedata.html#cfn-ec2-launchtemplate-launchtemplatedata-ebsoptimized
+                  type: boolean
+                elasticGpuSpecifications:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-launchtemplate-launchtemplatedata.html#cfn-ec2-launchtemplate-launchtemplatedata-elasticgpuspecifications
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      type:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-launchtemplate-elasticgpuspecification.html#cfn-ec2-launchtemplate-elasticgpuspecification-type
+                        type: string
+                        customAttributes:
+                          template: Type
+                          immutable: false
+                elasticInferenceAccelerators:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-launchtemplate-launchtemplatedata.html#cfn-ec2-launchtemplate-launchtemplatedata-elasticinferenceaccelerators
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      type:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-launchtemplate-launchtemplateelasticinferenceaccelerator.html#cfn-ec2-launchtemplate-launchtemplateelasticinferenceaccelerator-type
+                        type: string
+                        customAttributes:
+                          template: Type
+                          immutable: false
+                hibernationOptions:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-launchtemplate-launchtemplatedata.html#cfn-ec2-launchtemplate-launchtemplatedata-hibernationoptions
+                  type: object
+                  required: []
+                  properties:
+                    configured:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-launchtemplate-launchtemplatedata-hibernationoptions.html#cfn-ec2-launchtemplate-launchtemplatedata-hibernationoptions-configured
+                      type: boolean
+                iamInstanceProfile:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-launchtemplate-launchtemplatedata.html#cfn-ec2-launchtemplate-launchtemplatedata-iaminstanceprofile
+                  type: object
+                  required: []
+                  properties:
+                    arn:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-launchtemplate-launchtemplatedata-iaminstanceprofile.html#cfn-ec2-launchtemplate-launchtemplatedata-iaminstanceprofile-arn
+                      type: string
+                    name:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-launchtemplate-launchtemplatedata-iaminstanceprofile.html#cfn-ec2-launchtemplate-launchtemplatedata-iaminstanceprofile-name
+                      type: string
+                imageRef:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-launchtemplate-launchtemplatedata.html#cfn-ec2-launchtemplate-launchtemplatedata-imageid
+                  type: string
+                instanceInitiatedShutdownBehavior:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-launchtemplate-launchtemplatedata.html#cfn-ec2-launchtemplate-launchtemplatedata-instanceinitiatedshutdownbehavior
+                  type: string
+                  enum:
+                  - stop
+                  - terminate
+                instanceMarketOptions:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-launchtemplate-launchtemplatedata.html#cfn-ec2-launchtemplate-launchtemplatedata-instancemarketoptions
+                  type: object
+                  required: []
+                  properties:
+                    marketType:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-launchtemplate-launchtemplatedata-instancemarketoptions.html#cfn-ec2-launchtemplate-launchtemplatedata-instancemarketoptions-markettype
+                      type: string
+                      enum:
+                      - spot
+                    spotOptions:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-launchtemplate-launchtemplatedata-instancemarketoptions.html#cfn-ec2-launchtemplate-launchtemplatedata-instancemarketoptions-spotoptions
+                      type: object
+                      required: []
+                      properties:
+                        instanceInterruptionBehavior:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-launchtemplate-launchtemplatedata-instancemarketoptions-spotoptions.html#cfn-ec2-launchtemplate-launchtemplatedata-instancemarketoptions-spotoptions-instanceinterruptionbehavior
+                          type: string
+                          enum:
+                          - hibernate
+                          - stop
+                          - terminate
+                        maxPrice:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-launchtemplate-launchtemplatedata-instancemarketoptions-spotoptions.html#cfn-ec2-launchtemplate-launchtemplatedata-instancemarketoptions-spotoptions-maxprice
+                          type: string
+                        spotInstanceType:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-launchtemplate-launchtemplatedata-instancemarketoptions-spotoptions.html#cfn-ec2-launchtemplate-launchtemplatedata-instancemarketoptions-spotoptions-spotinstancetype
+                          type: string
+                          enum:
+                          - one-time
+                          - persistent
+                instanceType:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-launchtemplate-launchtemplatedata.html#cfn-ec2-launchtemplate-launchtemplatedata-instancetype
+                  type: string
+                  enum:
+                  - a1.2xlarge
+                  - a1.4xlarge
+                  - a1.large
+                  - a1.medium
+                  - a1.xlarge
+                  - c1.medium
+                  - c1.xlarge
+                  - c3.2xlarge
+                  - c3.4xlarge
+                  - c3.8xlarge
+                  - c3.large
+                  - c3.xlarge
+                  - c4.2xlarge
+                  - c4.4xlarge
+                  - c4.8xlarge
+                  - c4.large
+                  - c4.xlarge
+                  - c5.18xlarge
+                  - c5.2xlarge
+                  - c5.4xlarge
+                  - c5.9xlarge
+                  - c5.large
+                  - c5.xlarge
+                  - c5d.18xlarge
+                  - c5d.2xlarge
+                  - c5d.4xlarge
+                  - c5d.9xlarge
+                  - c5d.large
+                  - c5d.xlarge
+                  - c5n.18xlarge
+                  - c5n.2xlarge
+                  - c5n.4xlarge
+                  - c5n.9xlarge
+                  - c5n.large
+                  - c5n.xlarge
+                  - cc2.8xlarge
+                  - cr1.8xlarge
+                  - d2.2xlarge
+                  - d2.4xlarge
+                  - d2.8xlarge
+                  - d2.xlarge
+                  - f1.16xlarge
+                  - f1.2xlarge
+                  - f1.4xlarge
+                  - g2.2xlarge
+                  - g2.8xlarge
+                  - g3.16xlarge
+                  - g3.4xlarge
+                  - g3.8xlarge
+                  - g3s.xlarge
+                  - h1.16xlarge
+                  - h1.2xlarge
+                  - h1.4xlarge
+                  - h1.8xlarge
+                  - hs1.8xlarge
+                  - i2.2xlarge
+                  - i2.4xlarge
+                  - i2.8xlarge
+                  - i2.xlarge
+                  - i3.16xlarge
+                  - i3.2xlarge
+                  - i3.4xlarge
+                  - i3.8xlarge
+                  - i3.large
+                  - i3.xlarge
+                  - i3en.12xlarge
+                  - i3en.24xlarge
+                  - i3en.2xlarge
+                  - i3en.3xlarge
+                  - i3en.6xlarge
+                  - i3en.large
+                  - i3en.xlarge
+                  - m1.large
+                  - m1.medium
+                  - m1.small
+                  - m1.xlarge
+                  - m2.2xlarge
+                  - m2.4xlarge
+                  - m2.xlarge
+                  - m3.2xlarge
+                  - m3.large
+                  - m3.medium
+                  - m3.xlarge
+                  - m4.10xlarge
+                  - m4.16xlarge
+                  - m4.2xlarge
+                  - m4.4xlarge
+                  - m4.large
+                  - m4.xlarge
+                  - m5.12xlarge
+                  - m5.24xlarge
+                  - m5.2xlarge
+                  - m5.4xlarge
+                  - m5.large
+                  - m5.metal
+                  - m5.xlarge
+                  - m5a.12xlarge
+                  - m5a.24xlarge
+                  - m5a.2xlarge
+                  - m5a.4xlarge
+                  - m5a.large
+                  - m5a.xlarge
+                  - m5ad.12xlarge
+                  - m5ad.24xlarge
+                  - m5ad.2xlarge
+                  - m5ad.4xlarge
+                  - m5ad.large
+                  - m5ad.xlarge
+                  - m5d.12xlarge
+                  - m5d.24xlarge
+                  - m5d.2xlarge
+                  - m5d.4xlarge
+                  - m5d.large
+                  - m5d.metal
+                  - m5d.xlarge
+                  - p2.16xlarge
+                  - p2.8xlarge
+                  - p2.xlarge
+                  - p3.16xlarge
+                  - p3.2xlarge
+                  - p3.8xlarge
+                  - p3dn.24xlarge
+                  - r3.2xlarge
+                  - r3.4xlarge
+                  - r3.8xlarge
+                  - r3.large
+                  - r3.xlarge
+                  - r4.16xlarge
+                  - r4.2xlarge
+                  - r4.4xlarge
+                  - r4.8xlarge
+                  - r4.large
+                  - r4.xlarge
+                  - r5.12xlarge
+                  - r5.24xlarge
+                  - r5.2xlarge
+                  - r5.4xlarge
+                  - r5.large
+                  - r5.xlarge
+                  - r5a.12xlarge
+                  - r5a.24xlarge
+                  - r5a.2xlarge
+                  - r5a.4xlarge
+                  - r5a.large
+                  - r5a.xlarge
+                  - r5ad.12xlarge
+                  - r5ad.24xlarge
+                  - r5ad.2xlarge
+                  - r5ad.4xlarge
+                  - r5ad.large
+                  - r5ad.xlarge
+                  - r5d.12xlarge
+                  - r5d.24xlarge
+                  - r5d.2xlarge
+                  - r5d.4xlarge
+                  - r5d.large
+                  - r5d.xlarge
+                  - t1.micro
+                  - t2.2xlarge
+                  - t2.large
+                  - t2.medium
+                  - t2.micro
+                  - t2.nano
+                  - t2.small
+                  - t2.xlarge
+                  - t3.2xlarge
+                  - t3.large
+                  - t3.medium
+                  - t3.micro
+                  - t3.nano
+                  - t3.small
+                  - t3.xlarge
+                  - t3a.2xlarge
+                  - t3a.large
+                  - t3a.medium
+                  - t3a.micro
+                  - t3a.nano
+                  - t3a.small
+                  - t3a.xlarge
+                  - x1.16xlarge
+                  - x1.32xlarge
+                  - x1e.16xlarge
+                  - x1e.2xlarge
+                  - x1e.32xlarge
+                  - x1e.4xlarge
+                  - x1e.8xlarge
+                  - x1e.xlarge
+                  - z1d.12xlarge
+                  - z1d.2xlarge
+                  - z1d.3xlarge
+                  - z1d.6xlarge
+                  - z1d.large
+                  - z1d.xlarge
+                kernelRef:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-launchtemplate-launchtemplatedata.html#cfn-ec2-launchtemplate-launchtemplatedata-kernelid
+                  type: string
+                keyName:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-launchtemplate-launchtemplatedata.html#cfn-ec2-launchtemplate-launchtemplatedata-keyname
+                  type: string
+                licenseSpecifications:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-launchtemplate-launchtemplatedata.html#cfn-ec2-launchtemplate-launchtemplatedata-licensespecifications
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      licenseConfigurationRef:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-launchtemplate-licensespecification.html#cfn-ec2-launchtemplate-licensespecification-licenseconfigurationarn
+                        type: string
+                        customAttributes:
+                          template: LicenseConfigurationArn
+                          immutable: false
+                monitoring:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-launchtemplate-launchtemplatedata.html#cfn-ec2-launchtemplate-launchtemplatedata-monitoring
+                  type: object
+                  required: []
+                  properties:
+                    enabled:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-launchtemplate-launchtemplatedata-monitoring.html#cfn-ec2-launchtemplate-launchtemplatedata-monitoring-enabled
+                      type: boolean
+                networkInterfaces:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-launchtemplate-launchtemplatedata.html#cfn-ec2-launchtemplate-launchtemplatedata-networkinterfaces
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      associatePublicIpAddress:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-launchtemplate-networkinterface.html#cfn-ec2-launchtemplate-networkinterface-associatepublicipaddress
+                        type: boolean
+                        customAttributes:
+                          template: AssociatePublicIpAddress
+                          immutable: false
+                      deleteOnTermination:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-launchtemplate-networkinterface.html#cfn-ec2-launchtemplate-networkinterface-deleteontermination
+                        type: boolean
+                        customAttributes:
+                          template: DeleteOnTermination
+                          immutable: false
+                      description:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-launchtemplate-networkinterface.html#cfn-ec2-launchtemplate-networkinterface-description
+                        type: string
+                        customAttributes:
+                          template: Description
+                          immutable: false
+                      deviceIndex:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-launchtemplate-networkinterface.html#cfn-ec2-launchtemplate-networkinterface-deviceindex
+                        type: integer
+                        format: int32
+                        customAttributes:
+                          template: DeviceIndex
+                          immutable: false
+                      groups:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-launchtemplate-networkinterface.html#cfn-ec2-launchtemplate-networkinterface-groups
+                        type: array
+                        customAttributes:
+                          template: Groups
+                          immutable: false
+                        items:
+                          type: string
+                      interfaceType:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-launchtemplate-networkinterface.html#cfn-ec2-launchtemplate-networkinterface-interfacetype
+                        type: string
+                        customAttributes:
+                          template: InterfaceType
+                          immutable: false
+                      ipv6AddressCount:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-launchtemplate-networkinterface.html#cfn-ec2-launchtemplate-networkinterface-ipv6addresscount
+                        type: integer
+                        format: int32
+                        customAttributes:
+                          template: Ipv6AddressCount
+                          immutable: false
+                      ipv6Addresses:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-launchtemplate-networkinterface.html#cfn-ec2-launchtemplate-networkinterface-ipv6addresses
+                        type: array
+                        customAttributes:
+                          template: Ipv6Addresses
+                          immutable: false
+                        items:
+                          type: object
+                          properties:
+                            ipv6Address:
+                              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-launchtemplate-ipv6add.html#cfn-ec2-launchtemplate-ipv6add-ipv6address
+                              type: string
+                              customAttributes:
+                                template: Ipv6Address
+                                immutable: false
+                      networkInterfaceRef:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-launchtemplate-networkinterface.html#cfn-ec2-launchtemplate-networkinterface-networkinterfaceid
+                        type: string
+                        customAttributes:
+                          template: NetworkInterfaceId
+                          immutable: false
+                      privateIpAddress:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-launchtemplate-networkinterface.html#cfn-ec2-launchtemplate-networkinterface-privateipaddress
+                        type: string
+                        customAttributes:
+                          template: PrivateIpAddress
+                          immutable: false
+                      privateIpAddresses:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-launchtemplate-networkinterface.html#cfn-ec2-launchtemplate-networkinterface-privateipaddresses
+                        type: array
+                        customAttributes:
+                          template: PrivateIpAddresses
+                          immutable: false
+                        items:
+                          type: object
+                          properties:
+                            primary:
+                              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-launchtemplate-privateipadd.html#cfn-ec2-launchtemplate-privateipadd-primary
+                              type: boolean
+                              customAttributes:
+                                template: Primary
+                                immutable: false
+                            privateIpAddress:
+                              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-launchtemplate-privateipadd.html#cfn-ec2-launchtemplate-privateipadd-privateipaddress
+                              type: string
+                              customAttributes:
+                                template: PrivateIpAddress
+                                immutable: false
+                      secondaryPrivateIpAddressCount:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-launchtemplate-networkinterface.html#cfn-ec2-launchtemplate-networkinterface-secondaryprivateipaddresscount
+                        type: integer
+                        format: int32
+                        customAttributes:
+                          template: SecondaryPrivateIpAddressCount
+                          immutable: false
+                      subnetRef:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-launchtemplate-networkinterface.html#cfn-ec2-launchtemplate-networkinterface-subnetid
+                        type: string
+                        customAttributes:
+                          template: SubnetId
+                          immutable: false
+                placement:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-launchtemplate-launchtemplatedata.html#cfn-ec2-launchtemplate-launchtemplatedata-placement
+                  type: object
+                  required: []
+                  properties:
+                    affinity:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-launchtemplate-launchtemplatedata-placement.html#cfn-ec2-launchtemplate-launchtemplatedata-placement-affinity
+                      type: string
+                    availabilityZone:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-launchtemplate-launchtemplatedata-placement.html#cfn-ec2-launchtemplate-launchtemplatedata-placement-availabilityzone
+                      type: string
+                    groupName:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-launchtemplate-launchtemplatedata-placement.html#cfn-ec2-launchtemplate-launchtemplatedata-placement-groupname
+                      type: string
+                    hostRef:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-launchtemplate-launchtemplatedata-placement.html#cfn-ec2-launchtemplate-launchtemplatedata-placement-hostid
+                      type: string
+                    tenancy:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-launchtemplate-launchtemplatedata-placement.html#cfn-ec2-launchtemplate-launchtemplatedata-placement-tenancy
+                      type: string
+                      enum:
+                      - dedicated
+                      - default
+                      - host
+                ramDiskRef:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-launchtemplate-launchtemplatedata.html#cfn-ec2-launchtemplate-launchtemplatedata-ramdiskid
+                  type: string
+                securityGroupRef:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-launchtemplate-launchtemplatedata.html#cfn-ec2-launchtemplate-launchtemplatedata-securitygroupids
+                  type: array
+                  items:
+                    type: string
+                securityGroupsRef:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-launchtemplate-launchtemplatedata.html#cfn-ec2-launchtemplate-launchtemplatedata-securitygroups
+                  type: array
+                  items:
+                    type: string
+                tagSpecifications:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-launchtemplate-launchtemplatedata.html#cfn-ec2-launchtemplate-launchtemplatedata-tagspecifications
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      resourceType:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-launchtemplate-tagspecification.html#cfn-ec2-launchtemplate-tagspecification-resourcetype
+                        type: string
+                        customAttributes:
+                          template: ResourceType
+                          immutable: false
+                      tags:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-launchtemplate-tagspecification.html#cfn-ec2-launchtemplate-tagspecification-tags
+                        type: array
+                        customAttributes:
+                          template: Tags
+                          immutable: false
+                        items:
+                          type: object
+                          properties:
+                            key:
+                              description: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-resource-tags.html#cfn-resource-tags-key
+                              type: string
+                              customAttributes:
+                                template: Key
+                                immutable: false
+                            value:
+                              description: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-resource-tags.html#cfn-resource-tags-value
+                              type: string
+                              customAttributes:
+                                template: Value
+                                immutable: false
+                userData:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-launchtemplate-launchtemplatedata.html#cfn-ec2-launchtemplate-launchtemplatedata-userdata
+                  type: string

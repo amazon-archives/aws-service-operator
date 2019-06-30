@@ -1,0 +1,58 @@
+---
+apiVersion: models.awsoperator.io/v1alpha1
+kind: ModelFile
+metadata:
+  name: servicecatalog-portfolioproductassociation-resource
+  creationTimestamp: '2019-06-13T16:59:30-07:00'
+  resourceVersion: 3.3.0
+spec:
+  resource:
+    kind: PortfolioProductAssociation
+    scope: Namespaced
+    apiGroup:
+      apiVersion: servicecatalog.awsoperator.io/v1alpha1
+      group: servicecatalog
+      region: us-east-1
+      domain: awsoperator.io
+      versions:
+      - name: v1alpha1
+        served: true
+        storage: true
+    names:
+      singular: portfolioproductassociation
+      plural: portfolioproductassociations
+      shortNames: []
+  openAPIV3Schema:
+    properties:
+      spec:
+        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-servicecatalog-portfolioproductassociation.html
+        type: object
+        customAttributes: {}
+        required:
+        - portfolioId
+        - productId
+        properties:
+          acceptLanguage:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-servicecatalog-portfolioproductassociation.html#cfn-servicecatalog-portfolioproductassociation-acceptlanguage
+            type: string
+            customAttributes:
+              template: AcceptLanguage
+              immutable: true
+          portfolioRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-servicecatalog-portfolioproductassociation.html#cfn-servicecatalog-portfolioproductassociation-portfolioid
+            type: string
+            customAttributes:
+              template: PortfolioId
+              immutable: true
+          productRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-servicecatalog-portfolioproductassociation.html#cfn-servicecatalog-portfolioproductassociation-productid
+            type: string
+            customAttributes:
+              template: ProductId
+              immutable: true
+          sourcePortfolioRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-servicecatalog-portfolioproductassociation.html#cfn-servicecatalog-portfolioproductassociation-sourceportfolioid
+            type: string
+            customAttributes:
+              template: SourcePortfolioId
+              immutable: true

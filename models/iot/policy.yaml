@@ -1,0 +1,45 @@
+---
+apiVersion: models.awsoperator.io/v1alpha1
+kind: ModelFile
+metadata:
+  name: iot-policy-resource
+  creationTimestamp: '2019-06-13T16:59:29-07:00'
+  resourceVersion: 3.3.0
+spec:
+  resource:
+    kind: Policy
+    scope: Namespaced
+    apiGroup:
+      apiVersion: iot.awsoperator.io/v1alpha1
+      group: iot
+      region: us-east-1
+      domain: awsoperator.io
+      versions:
+      - name: v1alpha1
+        served: true
+        storage: true
+    names:
+      singular: policy
+      plural: policies
+      shortNames: []
+  openAPIV3Schema:
+    properties:
+      spec:
+        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iot-policy.html
+        type: object
+        customAttributes: {}
+        required:
+        - policyDocument
+        properties:
+          policyDocument:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iot-policy.html#cfn-iot-policy-policydocument
+            customAttributes:
+              template: PolicyDocument
+              immutable: true
+          policyName:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iot-policy.html#cfn-iot-policy-policyname
+            type: string
+            customAttributes:
+              template: PolicyName
+              resourceName: true
+              immutable: true

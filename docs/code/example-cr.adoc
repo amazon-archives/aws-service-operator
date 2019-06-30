@@ -1,0 +1,180 @@
+[source,yaml]
+----
+apiVersion: "s3.awsoperator.io/v1alpha"
+kind: "Bucket"
+metadata:
+  name: "example-s3bucket" # converts to BucketName (Immutable, for the operator all [kind]Name are treated this way)
+  namespace: "default"
+spec:
+  accelerate:
+    accelerationStatus: "Enabled"
+  accessControl: "PublicRead"
+  analytics:
+  - id: "test-analytics-id"
+    prefix: "users"
+    storageClassAnalysis:
+      dataExport:
+        outputSchemaVersion: "V_1"
+        destination:
+          accountId: # if a key has the resource name in it, remove the resource name like `bucketAccountId` to `accountId`
+          bucket: # when a resource uses [name]Arn this should be converted into an object with an `arn` and a `[name]Ref.name` value
+            arn: "[some arn]"
+            bucketRef:
+              name: "example-s3bucket"
+              namespace: "default"
+          format: "csv"
+          prefix: "test"
+    tagFilters:
+    - key: "login"
+      value: "chris"
+  encryption: # remove bucket from this key
+    serverSideEncryption: # consider removing Configuration(s)
+    - byDefault: # nested under ServerSideEncryptionConfiguration so remove ServerSideEncryption
+        sseAlgorithm: "aws:kms"
+        kmsMasterKeyID: "[some key id]"
+  cors:
+    rules: # nested under corsConfigurations so remove `cors`
+    - allowedHeaders:
+      - "Authorization"
+    - allowedMethods:
+      - "GET"
+    - allowedOrigins:
+      - "localhost"
+    - exposedHeaders:
+      - "XMLHttpRequest"
+    - id: "allow-authorization-request"
+    - maxAge: 60
+  inventory:
+  - destination: # this is the same as the above destination for `analyticsConfigurations..storageClassAnalysis.dataExport.destination`
+      accountId: # if a key has the resource name in it, remove the resource name like `bucketAccountId` to `accountId`
+      bucket: # when a resource uses [name]Arn this should be converted into an object with an `arn` and a `[name]Ref.name` value
+        arn: "[some arn]"
+        bucketRef:
+          name: "example-s3bucket"
+          namespace: "default"
+      format: "csv"
+      prefix: "test"
+    enabled: true
+    id: "test-inventory-configuration"
+    includedObjectVersions: "All"
+    optionalFields:
+    - "Size"
+    prefix: "test"
+    scheduleFrequency: "Daily"
+  lifecycle:
+  - rules:
+    - abortIncompleteMultipartUpload:
+        daysAfterInitiation: 5
+      expirationDate: "2008-09-15T15:53:00"
+      expirationInDays: 5
+      id: "expire-all-keys"
+      noncurrentVersionExpirationInDays: 5
+      noncurrentVersionTransition:
+        storageClass: "GLACIER"
+        transitionInDays: 5
+      noncurrentVersionTransitions:
+      - storageClass: "GLACIER"
+        transitionInDays: 5
+      prefix: "test"
+      status: "Enabled"
+      tagFilters: # same as used in the analytics
+      - key: "login"
+        value: "chris"
+      transition:
+        storageClass: "GLACIER"
+        transitionDate: "2008-09-15T15:53:00"
+        transitionInDays: 5
+      transitions:
+      - storageClass: "GLACIER"
+        transitionDate: "2008-09-15T15:53:00"
+        transitionInDays: 5
+  logging:
+    destinationBucketName: "example-s3bucket"
+    logFilePrefix: "example"
+  metrics:
+  - id: "user-metrics"
+    prefix: "users"
+    tagFilters: # same as used in the analyticsConfigurations
+    - key: "login"
+      value: "chris"
+  notification:
+    lambda:
+    - event: "s3:ObjectCreated:*"
+      filter:
+        s3key:
+          rules:
+          - key: "suffix"
+            value: "zip"
+      function:
+        arn: "[some lambda function arn]"
+        functionRef:
+          name: "example-function"
+          namespace: "default"
+    queue:
+    - event: "s3:ObjectCreated:*"
+      filter:
+        s3key:
+          rules:
+          - key: "suffix"
+            value: "zip"
+      queue:
+        arn: "[some queue arn]"
+        queueRef:
+          name: "example-queue"
+          namespace: "default"
+    topic:
+    - event: "s3:ObjectCreated:*"
+      filter:
+        s3key:
+          rules:
+          - key: "suffix"
+            value: "zip"
+      topic:
+        arn: "[some topic arn]"
+        topicRef:
+          name: "example-topic"
+          namespace: "default"
+  publicAccessBlock: # consider removing Configuration(s)
+    blockPublicAcls: true
+    blockPublicPolicy: true
+    ignorePublicAcls: true
+    restrictPublicBuckets: true
+  replication:
+    role: "[iam role arn]"
+    rules:
+    - destination:
+        accessControlTranslation:
+          owner: "Destination"
+        account: "[some account id]"
+        bucket: "us-west-2-example-bucket"
+        encryption:
+          replicaKmsKeyID:
+        storageClass: "STANDARD"
+      id: "replicate-us-west-2"
+      prefix: "users"
+      sourceSelectionCriteria:
+        sseKmsEncryptedObjects:
+          status: "Enabled"
+      status: "Enabled"
+  tags: # note the operator will automatically tag resources `aws:operator:name`, `aws:operator:namespace`, `aws:operator:resource-version`, `aws:operator:cluster-name`
+  - name: "team" # should these be prefixed with `aws:operator:[name]` or should only the operator specific ones use this... probably only the operator specific
+    value: "operations"
+  versioning:
+    status: "Enabled"
+  website:
+    errorDocument: "error.html"
+    indexDocument: "index.html"
+    redirectAllRequestsTo:
+      hostName: "awsoperator.io"
+      protocol: "https"
+    routingRules:
+    - redirectRule:
+        hostName: "awsoperator.io"
+        httpRedirectCode: 301
+        protocol: "https"
+        replaceKeyPrefixWith: "/docs"
+        replaceKeyWith: "/docs"
+      routingRuleCondition:
+        httpErrorCodeReturnedEquals: 403
+        keyPrefixEquals: "/docs"
+----

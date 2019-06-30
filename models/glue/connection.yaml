@@ -1,0 +1,110 @@
+---
+apiVersion: models.awsoperator.io/v1alpha1
+kind: ModelFile
+metadata:
+  name: glue-connection-resource
+  creationTimestamp: '2019-06-13T16:59:29-07:00'
+  resourceVersion: 3.3.0
+spec:
+  resource:
+    kind: Connection
+    scope: Namespaced
+    apiGroup:
+      apiVersion: glue.awsoperator.io/v1alpha1
+      group: glue
+      region: us-east-1
+      domain: awsoperator.io
+      versions:
+      - name: v1alpha1
+        served: true
+        storage: true
+    names:
+      singular: connection
+      plural: connections
+      shortNames: []
+  openAPIV3Schema:
+    properties:
+      spec:
+        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-glue-connection.html
+        type: object
+        customAttributes: {}
+        required:
+        - catalogId
+        - connectionInput
+        properties:
+          catalogRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-glue-connection.html#cfn-glue-connection-catalogid
+            type: string
+            customAttributes:
+              template: CatalogId
+              immutable: true
+          connectionInput:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-glue-connection.html#cfn-glue-connection-connectioninput
+            type: object
+            customAttributes:
+              immutable: false
+            required:
+            - connectionProperties
+            - connectionType
+            properties:
+              connectionProperties:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-glue-connection-connectioninput.html#cfn-glue-connection-connectioninput-connectionproperties
+                customAttributes:
+                  template: ConnectionProperties
+                  immutable: false
+              connectionType:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-glue-connection-connectioninput.html#cfn-glue-connection-connectioninput-connectiontype
+                type: string
+                customAttributes:
+                  template: ConnectionType
+                  immutable: false
+                enum:
+                - JDBC
+                - SFTP
+              description:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-glue-connection-connectioninput.html#cfn-glue-connection-connectioninput-description
+                type: string
+                customAttributes:
+                  template: Description
+                  immutable: false
+              matchCriteria:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-glue-connection-connectioninput.html#cfn-glue-connection-connectioninput-matchcriteria
+                type: array
+                customAttributes:
+                  template: MatchCriteria
+                  immutable: false
+                items:
+                  type: string
+              name:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-glue-connection-connectioninput.html#cfn-glue-connection-connectioninput-name
+                type: string
+                customAttributes:
+                  template: Name
+                  immutable: true
+              physicalConnectionRequirements:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-glue-connection-connectioninput.html#cfn-glue-connection-connectioninput-physicalconnectionrequirements
+                type: object
+                customAttributes:
+                  immutable: false
+                required: []
+                properties:
+                  availabilityZone:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-glue-connection-physicalconnectionrequirements.html#cfn-glue-connection-physicalconnectionrequirements-availabilityzone
+                    type: string
+                    customAttributes:
+                      template: AvailabilityZone
+                      immutable: false
+                  securityGroupListRef:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-glue-connection-physicalconnectionrequirements.html#cfn-glue-connection-physicalconnectionrequirements-securitygroupidlist
+                    type: array
+                    customAttributes:
+                      template: SecurityGroupIdList
+                      immutable: false
+                    items:
+                      type: string
+                  subnetRef:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-glue-connection-physicalconnectionrequirements.html#cfn-glue-connection-physicalconnectionrequirements-subnetid
+                    type: string
+                    customAttributes:
+                      template: SubnetId
+                      immutable: false

@@ -1,0 +1,100 @@
+---
+apiVersion: models.awsoperator.io/v1alpha1
+kind: ModelFile
+metadata:
+  name: rds-dbsecuritygroup-resource
+  creationTimestamp: '2019-06-13T16:59:29-07:00'
+  resourceVersion: 3.3.0
+spec:
+  resource:
+    kind: DBSecurityGroup
+    scope: Namespaced
+    apiGroup:
+      apiVersion: rds.awsoperator.io/v1alpha1
+      group: rds
+      region: us-east-1
+      domain: awsoperator.io
+      versions:
+      - name: v1alpha1
+        served: true
+        storage: true
+    names:
+      singular: dbsecuritygroup
+      plural: dbsecuritygroups
+      shortNames: []
+  openAPIV3Schema:
+    properties:
+      spec:
+        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-security-group.html
+        type: object
+        customAttributes: {}
+        required:
+        - dBSecurityGroupIngress
+        - groupDescription
+        properties:
+          dBSecurityGroupIngress:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-security-group.html#cfn-rds-dbsecuritygroup-dbsecuritygroupingress
+            type: array
+            customAttributes:
+              template: DBSecurityGroupIngress
+              immutable: false
+            items:
+              type: object
+              properties:
+                cIDRIP:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-security-group-rule.html#cfn-rds-securitygroup-cidrip
+                  type: string
+                  customAttributes:
+                    template: CIDRIP
+                    immutable: false
+                eC2SecurityGroupRef:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-security-group-rule.html#cfn-rds-securitygroup-ec2securitygroupid
+                  type: string
+                  customAttributes:
+                    template: EC2SecurityGroupId
+                    immutable: true
+                eC2SecurityGroupName:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-security-group-rule.html#cfn-rds-securitygroup-ec2securitygroupname
+                  type: string
+                  customAttributes:
+                    template: EC2SecurityGroupName
+                    immutable: true
+                eC2SecurityGroupOwnerRef:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-security-group-rule.html#cfn-rds-securitygroup-ec2securitygroupownerid
+                  type: string
+                  customAttributes:
+                    template: EC2SecurityGroupOwnerId
+                    immutable: true
+          eC2VpcRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-security-group.html#cfn-rds-dbsecuritygroup-ec2vpcid
+            type: string
+            customAttributes:
+              template: EC2VpcId
+              immutable: true
+          groupDescription:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-security-group.html#cfn-rds-dbsecuritygroup-groupdescription
+            type: string
+            customAttributes:
+              template: GroupDescription
+              immutable: true
+          tags:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-rds-security-group.html#cfn-rds-dbsecuritygroup-tags
+            type: array
+            customAttributes:
+              template: Tags
+              immutable: false
+            items:
+              type: object
+              properties:
+                key:
+                  description: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-resource-tags.html#cfn-resource-tags-key
+                  type: string
+                  customAttributes:
+                    template: Key
+                    immutable: false
+                value:
+                  description: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-resource-tags.html#cfn-resource-tags-value
+                  type: string
+                  customAttributes:
+                    template: Value
+                    immutable: false

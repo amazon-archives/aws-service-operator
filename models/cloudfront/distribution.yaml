@@ -1,0 +1,988 @@
+---
+apiVersion: models.awsoperator.io/v1alpha1
+kind: ModelFile
+metadata:
+  name: cloudfront-distribution-resource
+  creationTimestamp: '2019-06-13T16:59:28-07:00'
+  resourceVersion: 3.3.0
+spec:
+  resource:
+    kind: Distribution
+    scope: Namespaced
+    apiGroup:
+      apiVersion: cloudfront.awsoperator.io/v1alpha1
+      group: cloudfront
+      region: us-east-1
+      domain: awsoperator.io
+      versions:
+      - name: v1alpha1
+        served: true
+        storage: true
+    names:
+      singular: distribution
+      plural: distributions
+      shortNames: []
+  openAPIV3Schema:
+    properties:
+      spec:
+        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cloudfront-distribution.html
+        type: object
+        customAttributes: {}
+        required:
+        - distributionConfig
+        properties:
+          distributionConfig:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cloudfront-distribution.html#cfn-cloudfront-distribution-distributionconfig
+            type: object
+            customAttributes:
+              immutable: false
+            required:
+            - defaultCacheBehavior
+            - enabled
+            - origins
+            properties:
+              aliases:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudfront-distribution-distributionconfig.html#cfn-cloudfront-distribution-distributionconfig-aliases
+                type: array
+                customAttributes:
+                  template: Aliases
+                  immutable: false
+                items:
+                  type: string
+              cacheBehaviors:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudfront-distribution-distributionconfig.html#cfn-cloudfront-distribution-distributionconfig-cachebehaviors
+                type: array
+                customAttributes:
+                  template: CacheBehaviors
+                  immutable: false
+                items:
+                  type: object
+                  properties:
+                    allowedMethods:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudfront-distribution-cachebehavior.html#cfn-cloudfront-distribution-cachebehavior-allowedmethods
+                      type: array
+                      customAttributes:
+                        template: AllowedMethods
+                        immutable: false
+                      items:
+                        type: string
+                    cachedMethods:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudfront-distribution-cachebehavior.html#cfn-cloudfront-distribution-cachebehavior-cachedmethods
+                      type: array
+                      customAttributes:
+                        template: CachedMethods
+                        immutable: false
+                      items:
+                        type: string
+                    compress:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudfront-distribution-cachebehavior.html#cfn-cloudfront-distribution-cachebehavior-compress
+                      type: boolean
+                      customAttributes:
+                        template: Compress
+                        immutable: false
+                    defaultTTL:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudfront-distribution-cachebehavior.html#cfn-cloudfront-distribution-cachebehavior-defaultttl
+                      type: integer
+                      format: double
+                      customAttributes:
+                        template: DefaultTTL
+                        immutable: false
+                    fieldLevelEncryptionRef:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudfront-distribution-cachebehavior.html#cfn-cloudfront-distribution-cachebehavior-fieldlevelencryptionid
+                      type: string
+                      customAttributes:
+                        template: FieldLevelEncryptionId
+                        immutable: false
+                    forwardedValues:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudfront-distribution-cachebehavior.html#cfn-cloudfront-distribution-cachebehavior-forwardedvalues
+                      type: object
+                      customAttributes:
+                        immutable: false
+                      required:
+                      - queryString
+                      properties:
+                        cookies:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudfront-distribution-forwardedvalues.html#cfn-cloudfront-distribution-forwardedvalues-cookies
+                          type: object
+                          customAttributes:
+                            immutable: false
+                          required:
+                          - forward
+                          properties:
+                            forward:
+                              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudfront-distribution-cookies.html#cfn-cloudfront-distribution-cookies-forward
+                              type: string
+                              customAttributes:
+                                template: Forward
+                                immutable: false
+                            whitelistedNames:
+                              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudfront-distribution-cookies.html#cfn-cloudfront-distribution-cookies-whitelistednames
+                              type: array
+                              customAttributes:
+                                template: WhitelistedNames
+                                immutable: false
+                              items:
+                                type: string
+                        headers:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudfront-distribution-forwardedvalues.html#cfn-cloudfront-distribution-forwardedvalues-headers
+                          type: array
+                          customAttributes:
+                            template: Headers
+                            immutable: false
+                          items:
+                            type: string
+                        queryString:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudfront-distribution-forwardedvalues.html#cfn-cloudfront-distribution-forwardedvalues-querystring
+                          type: boolean
+                          customAttributes:
+                            template: QueryString
+                            immutable: false
+                        queryStringCacheKeys:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudfront-distribution-forwardedvalues.html#cfn-cloudfront-distribution-forwardedvalues-querystringcachekeys
+                          type: array
+                          customAttributes:
+                            template: QueryStringCacheKeys
+                            immutable: false
+                          items:
+                            type: string
+                    lambdaFunctionAssociations:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudfront-distribution-cachebehavior.html#cfn-cloudfront-distribution-cachebehavior-lambdafunctionassociations
+                      type: array
+                      customAttributes:
+                        template: LambdaFunctionAssociations
+                        immutable: false
+                      items:
+                        type: object
+                        properties:
+                          eventType:
+                            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudfront-distribution-lambdafunctionassociation.html#cfn-cloudfront-distribution-lambdafunctionassociation-eventtype
+                            type: string
+                            customAttributes:
+                              template: EventType
+                              immutable: false
+                            enum: &1
+                            - origin-request
+                            - origin-response
+                            - viewer-request
+                            - viewer-response
+                          lambdaFunctionARN:
+                            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudfront-distribution-lambdafunctionassociation.html#cfn-cloudfront-distribution-lambdafunctionassociation-lambdafunctionarn
+                            type: string
+                            customAttributes:
+                              template: LambdaFunctionARN
+                              immutable: false
+                    maxTTL:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudfront-distribution-cachebehavior.html#cfn-cloudfront-distribution-cachebehavior-maxttl
+                      type: integer
+                      format: double
+                      customAttributes:
+                        template: MaxTTL
+                        immutable: false
+                    minTTL:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudfront-distribution-cachebehavior.html#cfn-cloudfront-distribution-cachebehavior-minttl
+                      type: integer
+                      format: double
+                      customAttributes:
+                        template: MinTTL
+                        immutable: false
+                    pathPattern:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudfront-distribution-cachebehavior.html#cfn-cloudfront-distribution-cachebehavior-pathpattern
+                      type: string
+                      customAttributes:
+                        template: PathPattern
+                        immutable: false
+                    smoothStreaming:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudfront-distribution-cachebehavior.html#cfn-cloudfront-distribution-cachebehavior-smoothstreaming
+                      type: boolean
+                      customAttributes:
+                        template: SmoothStreaming
+                        immutable: false
+                    targetOriginRef:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudfront-distribution-cachebehavior.html#cfn-cloudfront-distribution-cachebehavior-targetoriginid
+                      type: string
+                      customAttributes:
+                        template: TargetOriginId
+                        immutable: false
+                    trustedSigners:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudfront-distribution-cachebehavior.html#cfn-cloudfront-distribution-cachebehavior-trustedsigners
+                      type: array
+                      customAttributes:
+                        template: TrustedSigners
+                        immutable: false
+                      items:
+                        type: string
+                    viewerProtocolPolicy:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudfront-distribution-cachebehavior.html#cfn-cloudfront-distribution-cachebehavior-viewerprotocolpolicy
+                      type: string
+                      customAttributes:
+                        template: ViewerProtocolPolicy
+                        immutable: false
+                      enum: &2
+                      - allow-all
+                      - https-only
+                      - redirect-to-https
+              comment:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudfront-distribution-distributionconfig.html#cfn-cloudfront-distribution-distributionconfig-comment
+                type: string
+                customAttributes:
+                  template: Comment
+                  immutable: false
+              customErrorResponses:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudfront-distribution-distributionconfig.html#cfn-cloudfront-distribution-distributionconfig-customerrorresponses
+                type: array
+                customAttributes:
+                  template: CustomErrorResponses
+                  immutable: false
+                items:
+                  type: object
+                  properties:
+                    errorCachingMinTTL:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudfront-distribution-customerrorresponse.html#cfn-cloudfront-distribution-customerrorresponse-errorcachingminttl
+                      type: integer
+                      format: double
+                      customAttributes:
+                        template: ErrorCachingMinTTL
+                        immutable: false
+                    errorCode:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudfront-distribution-customerrorresponse.html#cfn-cloudfront-distribution-customerrorresponse-errorcode
+                      type: integer
+                      format: int32
+                      customAttributes:
+                        template: ErrorCode
+                        immutable: false
+                      enum:
+                      - '400'
+                      - '403'
+                      - '404'
+                      - '405'
+                      - '414'
+                      - '500'
+                      - '501'
+                      - '502'
+                      - '503'
+                      - '504'
+                    responseCode:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudfront-distribution-customerrorresponse.html#cfn-cloudfront-distribution-customerrorresponse-responsecode
+                      type: integer
+                      format: int32
+                      customAttributes:
+                        template: ResponseCode
+                        immutable: false
+                      enum:
+                      - '200'
+                      - '400'
+                      - '403'
+                      - '404'
+                      - '405'
+                      - '414'
+                      - '500'
+                      - '501'
+                      - '502'
+                      - '503'
+                      - '504'
+                    responsePagePath:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudfront-distribution-customerrorresponse.html#cfn-cloudfront-distribution-customerrorresponse-responsepagepath
+                      type: string
+                      customAttributes:
+                        template: ResponsePagePath
+                        immutable: false
+              defaultCacheBehavior:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudfront-distribution-distributionconfig.html#cfn-cloudfront-distribution-distributionconfig-defaultcachebehavior
+                type: object
+                customAttributes:
+                  immutable: false
+                required:
+                - forwardedValues
+                - targetOriginId
+                - viewerProtocolPolicy
+                properties:
+                  allowedMethods:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudfront-distribution-defaultcachebehavior.html#cfn-cloudfront-distribution-defaultcachebehavior-allowedmethods
+                    type: array
+                    customAttributes:
+                      template: AllowedMethods
+                      immutable: false
+                    items:
+                      type: string
+                  cachedMethods:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudfront-distribution-defaultcachebehavior.html#cfn-cloudfront-distribution-defaultcachebehavior-cachedmethods
+                    type: array
+                    customAttributes:
+                      template: CachedMethods
+                      immutable: false
+                    items:
+                      type: string
+                  compress:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudfront-distribution-defaultcachebehavior.html#cfn-cloudfront-distribution-defaultcachebehavior-compress
+                    type: boolean
+                    customAttributes:
+                      template: Compress
+                      immutable: false
+                  defaultTTL:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudfront-distribution-defaultcachebehavior.html#cfn-cloudfront-distribution-defaultcachebehavior-defaultttl
+                    type: integer
+                    format: double
+                    customAttributes:
+                      template: DefaultTTL
+                      immutable: false
+                  fieldLevelEncryptionRef:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudfront-distribution-defaultcachebehavior.html#cfn-cloudfront-distribution-defaultcachebehavior-fieldlevelencryptionid
+                    type: string
+                    customAttributes:
+                      template: FieldLevelEncryptionId
+                      immutable: false
+                  forwardedValues:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudfront-distribution-defaultcachebehavior.html#cfn-cloudfront-distribution-defaultcachebehavior-forwardedvalues
+                    type: object
+                    customAttributes:
+                      immutable: false
+                    required:
+                    - queryString
+                    properties:
+                      cookies:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudfront-distribution-forwardedvalues.html#cfn-cloudfront-distribution-forwardedvalues-cookies
+                        type: object
+                        customAttributes:
+                          immutable: false
+                        required:
+                        - forward
+                        properties:
+                          forward:
+                            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudfront-distribution-cookies.html#cfn-cloudfront-distribution-cookies-forward
+                            type: string
+                            customAttributes:
+                              template: Forward
+                              immutable: false
+                          whitelistedNames:
+                            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudfront-distribution-cookies.html#cfn-cloudfront-distribution-cookies-whitelistednames
+                            type: array
+                            customAttributes:
+                              template: WhitelistedNames
+                              immutable: false
+                            items:
+                              type: string
+                      headers:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudfront-distribution-forwardedvalues.html#cfn-cloudfront-distribution-forwardedvalues-headers
+                        type: array
+                        customAttributes:
+                          template: Headers
+                          immutable: false
+                        items:
+                          type: string
+                      queryString:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudfront-distribution-forwardedvalues.html#cfn-cloudfront-distribution-forwardedvalues-querystring
+                        type: boolean
+                        customAttributes:
+                          template: QueryString
+                          immutable: false
+                      queryStringCacheKeys:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudfront-distribution-forwardedvalues.html#cfn-cloudfront-distribution-forwardedvalues-querystringcachekeys
+                        type: array
+                        customAttributes:
+                          template: QueryStringCacheKeys
+                          immutable: false
+                        items:
+                          type: string
+                  lambdaFunctionAssociations:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudfront-distribution-defaultcachebehavior.html#cfn-cloudfront-distribution-defaultcachebehavior-lambdafunctionassociations
+                    type: array
+                    customAttributes:
+                      template: LambdaFunctionAssociations
+                      immutable: false
+                    items:
+                      type: object
+                      properties:
+                        eventType:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudfront-distribution-lambdafunctionassociation.html#cfn-cloudfront-distribution-lambdafunctionassociation-eventtype
+                          type: string
+                          customAttributes:
+                            template: EventType
+                            immutable: false
+                          enum: *1
+                        lambdaFunctionARN:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudfront-distribution-lambdafunctionassociation.html#cfn-cloudfront-distribution-lambdafunctionassociation-lambdafunctionarn
+                          type: string
+                          customAttributes:
+                            template: LambdaFunctionARN
+                            immutable: false
+                  maxTTL:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudfront-distribution-defaultcachebehavior.html#cfn-cloudfront-distribution-defaultcachebehavior-maxttl
+                    type: integer
+                    format: double
+                    customAttributes:
+                      template: MaxTTL
+                      immutable: false
+                  minTTL:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudfront-distribution-defaultcachebehavior.html#cfn-cloudfront-distribution-defaultcachebehavior-minttl
+                    type: integer
+                    format: double
+                    customAttributes:
+                      template: MinTTL
+                      immutable: false
+                  smoothStreaming:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudfront-distribution-defaultcachebehavior.html#cfn-cloudfront-distribution-defaultcachebehavior-smoothstreaming
+                    type: boolean
+                    customAttributes:
+                      template: SmoothStreaming
+                      immutable: false
+                  targetOriginRef:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudfront-distribution-defaultcachebehavior.html#cfn-cloudfront-distribution-defaultcachebehavior-targetoriginid
+                    type: string
+                    customAttributes:
+                      template: TargetOriginId
+                      immutable: false
+                  trustedSigners:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudfront-distribution-defaultcachebehavior.html#cfn-cloudfront-distribution-defaultcachebehavior-trustedsigners
+                    type: array
+                    customAttributes:
+                      template: TrustedSigners
+                      immutable: false
+                    items:
+                      type: string
+                  viewerProtocolPolicy:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudfront-distribution-defaultcachebehavior.html#cfn-cloudfront-distribution-defaultcachebehavior-viewerprotocolpolicy
+                    type: string
+                    customAttributes:
+                      template: ViewerProtocolPolicy
+                      immutable: false
+                    enum: *2
+              defaultRootObject:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudfront-distribution-distributionconfig.html#cfn-cloudfront-distribution-distributionconfig-defaultrootobject
+                type: string
+                customAttributes:
+                  template: DefaultRootObject
+                  immutable: false
+              enabled:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudfront-distribution-distributionconfig.html#cfn-cloudfront-distribution-distributionconfig-enabled
+                type: boolean
+                customAttributes:
+                  template: Enabled
+                  immutable: false
+              httpVersion:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudfront-distribution-distributionconfig.html#cfn-cloudfront-distribution-distributionconfig-httpversion
+                type: string
+                customAttributes:
+                  template: HttpVersion
+                  immutable: false
+                enum:
+                - http1.1
+                - http2
+              iPV6Enabled:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudfront-distribution-distributionconfig.html#cfn-cloudfront-distribution-distributionconfig-ipv6enabled
+                type: boolean
+                customAttributes:
+                  template: IPV6Enabled
+                  immutable: false
+              logging:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudfront-distribution-distributionconfig.html#cfn-cloudfront-distribution-distributionconfig-logging
+                type: object
+                customAttributes:
+                  immutable: false
+                required:
+                - bucket
+                properties:
+                  bucket:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudfront-distribution-logging.html#cfn-cloudfront-distribution-logging-bucket
+                    type: string
+                    customAttributes:
+                      template: Bucket
+                      immutable: false
+                  includeCookies:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudfront-distribution-logging.html#cfn-cloudfront-distribution-logging-includecookies
+                    type: boolean
+                    customAttributes:
+                      template: IncludeCookies
+                      immutable: false
+                  prefix:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudfront-distribution-logging.html#cfn-cloudfront-distribution-logging-prefix
+                    type: string
+                    customAttributes:
+                      template: Prefix
+                      immutable: false
+              origins:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudfront-distribution-distributionconfig.html#cfn-cloudfront-distribution-distributionconfig-origins
+                type: array
+                customAttributes:
+                  template: Origins
+                  immutable: false
+                items:
+                  type: object
+                  properties:
+                    customOriginConfig:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudfront-distribution-origin.html#cfn-cloudfront-distribution-origin-customoriginconfig
+                      type: object
+                      customAttributes:
+                        immutable: false
+                      required:
+                      - originProtocolPolicy
+                      properties:
+                        hTTPPort:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudfront-distribution-customoriginconfig.html#cfn-cloudfront-distribution-customoriginconfig-httpport
+                          type: integer
+                          format: int32
+                          customAttributes:
+                            template: HTTPPort
+                            immutable: false
+                        hTTPSPort:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudfront-distribution-customoriginconfig.html#cfn-cloudfront-distribution-customoriginconfig-httpsport
+                          type: integer
+                          format: int32
+                          customAttributes:
+                            template: HTTPSPort
+                            immutable: false
+                        originKeepaliveTimeout:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudfront-distribution-customoriginconfig.html#cfn-cloudfront-distribution-customoriginconfig-originkeepalivetimeout
+                          type: integer
+                          format: int32
+                          customAttributes:
+                            template: OriginKeepaliveTimeout
+                            immutable: false
+                        originProtocolPolicy:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudfront-distribution-customoriginconfig.html#cfn-cloudfront-distribution-customoriginconfig-originprotocolpolicy
+                          type: string
+                          customAttributes:
+                            template: OriginProtocolPolicy
+                            immutable: false
+                          enum:
+                          - http-only
+                          - https-only
+                          - match-viewer
+                        originReadTimeout:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudfront-distribution-customoriginconfig.html#cfn-cloudfront-distribution-customoriginconfig-originreadtimeout
+                          type: integer
+                          format: int32
+                          customAttributes:
+                            template: OriginReadTimeout
+                            immutable: false
+                        originSSLProtocols:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudfront-distribution-customoriginconfig.html#cfn-cloudfront-distribution-customoriginconfig-originsslprotocols
+                          type: array
+                          customAttributes:
+                            template: OriginSSLProtocols
+                            immutable: false
+                          items:
+                            type: string
+                          enum:
+                          - SSLv3
+                          - TLSv1.1
+                          - TLSv1.2
+                          - TLSv1
+                    domainName:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudfront-distribution-origin.html#cfn-cloudfront-distribution-origin-domainname
+                      type: string
+                      customAttributes:
+                        template: DomainName
+                        immutable: false
+                    id:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudfront-distribution-origin.html#cfn-cloudfront-distribution-origin-id
+                      type: string
+                      customAttributes:
+                        template: Id
+                        immutable: false
+                    originCustomHeaders:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudfront-distribution-origin.html#cfn-cloudfront-distribution-origin-origincustomheaders
+                      type: array
+                      customAttributes:
+                        template: OriginCustomHeaders
+                        immutable: false
+                      items:
+                        type: object
+                        properties:
+                          headerName:
+                            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudfront-distribution-origincustomheader.html#cfn-cloudfront-distribution-origincustomheader-headername
+                            type: string
+                            customAttributes:
+                              template: HeaderName
+                              immutable: false
+                          headerValue:
+                            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudfront-distribution-origincustomheader.html#cfn-cloudfront-distribution-origincustomheader-headervalue
+                            type: string
+                            customAttributes:
+                              template: HeaderValue
+                              immutable: false
+                    originPath:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudfront-distribution-origin.html#cfn-cloudfront-distribution-origin-originpath
+                      type: string
+                      customAttributes:
+                        template: OriginPath
+                        immutable: false
+                    s3OriginConfig:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudfront-distribution-origin.html#cfn-cloudfront-distribution-origin-s3originconfig
+                      type: object
+                      customAttributes:
+                        immutable: false
+                      required: []
+                      properties:
+                        originAccessentityRef:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudfront-distribution-s3originconfig.html#cfn-cloudfront-distribution-s3originconfig-originaccessidentity
+                          type: string
+                          customAttributes:
+                            template: OriginAccessIdentity
+                            immutable: false
+              priceClass:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudfront-distribution-distributionconfig.html#cfn-cloudfront-distribution-distributionconfig-priceclass
+                type: string
+                customAttributes:
+                  template: PriceClass
+                  immutable: false
+                enum:
+                - PriceClass_100
+                - PriceClass_200
+                - PriceClass_All
+              restrictions:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudfront-distribution-distributionconfig.html#cfn-cloudfront-distribution-distributionconfig-restrictions
+                type: object
+                customAttributes:
+                  immutable: false
+                required:
+                - geoRestriction
+                properties:
+                  geoRestriction:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudfront-distribution-restrictions.html#cfn-cloudfront-distribution-restrictions-georestriction
+                    type: object
+                    customAttributes:
+                      immutable: false
+                    required:
+                    - restrictionType
+                    properties:
+                      locations:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudfront-distribution-georestriction.html#cfn-cloudfront-distribution-georestriction-locations
+                        type: array
+                        customAttributes:
+                          template: Locations
+                          immutable: false
+                        items:
+                          type: string
+                        enum:
+                        - AD
+                        - AE
+                        - AF
+                        - AG
+                        - AI
+                        - AL
+                        - AM
+                        - AO
+                        - AQ
+                        - AR
+                        - AS
+                        - AT
+                        - AU
+                        - AW
+                        - AX
+                        - AZ
+                        - BA
+                        - BB
+                        - BD
+                        - BE
+                        - BF
+                        - BG
+                        - BH
+                        - BI
+                        - BJ
+                        - BL
+                        - BM
+                        - BN
+                        - BO
+                        - BQ
+                        - BR
+                        - BS
+                        - BT
+                        - BV
+                        - BW
+                        - BY
+                        - BZ
+                        - CA
+                        - CC
+                        - CD
+                        - CF
+                        - CG
+                        - CH
+                        - CI
+                        - CK
+                        - CL
+                        - CM
+                        - CN
+                        - CO
+                        - CR
+                        - CU
+                        - CV
+                        - CW
+                        - CX
+                        - CY
+                        - CZ
+                        - DE
+                        - DJ
+                        - DK
+                        - DM
+                        - DO
+                        - DZ
+                        - EC
+                        - EE
+                        - EG
+                        - EH
+                        - ER
+                        - ES
+                        - ET
+                        - FI
+                        - FJ
+                        - FK
+                        - FM
+                        - FO
+                        - FR
+                        - GA
+                        - GB
+                        - GD
+                        - GE
+                        - GF
+                        - GG
+                        - GH
+                        - GI
+                        - GL
+                        - GM
+                        - GN
+                        - GP
+                        - GQ
+                        - GR
+                        - GS
+                        - GT
+                        - GU
+                        - GW
+                        - GY
+                        - HK
+                        - HM
+                        - HN
+                        - HR
+                        - HT
+                        - HU
+                        - ID
+                        - IE
+                        - IL
+                        - IM
+                        - IN
+                        - IO
+                        - IQ
+                        - IR
+                        - IS
+                        - IT
+                        - JE
+                        - JM
+                        - JO
+                        - JP
+                        - KE
+                        - KG
+                        - KH
+                        - KI
+                        - KM
+                        - KN
+                        - KP
+                        - KR
+                        - KW
+                        - KY
+                        - KZ
+                        - LA
+                        - LB
+                        - LC
+                        - LI
+                        - LK
+                        - LR
+                        - LS
+                        - LT
+                        - LU
+                        - LV
+                        - LY
+                        - MA
+                        - MC
+                        - MD
+                        - ME
+                        - MF
+                        - MG
+                        - MH
+                        - MK
+                        - ML
+                        - MM
+                        - MN
+                        - MO
+                        - MP
+                        - MQ
+                        - MR
+                        - MS
+                        - MT
+                        - MU
+                        - MV
+                        - MW
+                        - MX
+                        - MY
+                        - MZ
+                        - NA
+                        - NC
+                        - NE
+                        - NF
+                        - NG
+                        - NI
+                        - NL
+                        - 'NO'
+                        - NP
+                        - NR
+                        - NU
+                        - NZ
+                        - OM
+                        - PA
+                        - PE
+                        - PF
+                        - PG
+                        - PH
+                        - PK
+                        - PL
+                        - PM
+                        - PN
+                        - PR
+                        - PS
+                        - PT
+                        - PW
+                        - PY
+                        - QA
+                        - RE
+                        - RO
+                        - RS
+                        - RU
+                        - RW
+                        - SA
+                        - SB
+                        - SC
+                        - SD
+                        - SE
+                        - SG
+                        - SH
+                        - SI
+                        - SJ
+                        - SK
+                        - SL
+                        - SM
+                        - SN
+                        - SO
+                        - SR
+                        - SS
+                        - ST
+                        - SV
+                        - SX
+                        - SY
+                        - SZ
+                        - TC
+                        - TD
+                        - TF
+                        - TG
+                        - TH
+                        - TJ
+                        - TK
+                        - TL
+                        - TM
+                        - TN
+                        - TO
+                        - TR
+                        - TT
+                        - TV
+                        - TW
+                        - TZ
+                        - UA
+                        - UG
+                        - UM
+                        - US
+                        - UY
+                        - UZ
+                        - VA
+                        - VC
+                        - VE
+                        - VG
+                        - VI
+                        - VN
+                        - VU
+                        - WF
+                        - WS
+                        - YE
+                        - YT
+                        - ZA
+                        - ZM
+                        - ZW
+                      restrictionType:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudfront-distribution-georestriction.html#cfn-cloudfront-distribution-georestriction-restrictiontype
+                        type: string
+                        customAttributes:
+                          template: RestrictionType
+                          immutable: false
+                        enum:
+                        - blacklist
+                        - none
+                        - whitelist
+              viewerCertificate:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudfront-distribution-distributionconfig.html#cfn-cloudfront-distribution-distributionconfig-viewercertificate
+                type: object
+                customAttributes:
+                  immutable: false
+                required: []
+                properties:
+                  acmCertificateRef:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudfront-distribution-viewercertificate.html#cfn-cloudfront-distribution-viewercertificate-acmcertificatearn
+                    type: string
+                    customAttributes:
+                      template: AcmCertificateArn
+                      immutable: false
+                  cloudFrontDefaultCertificate:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudfront-distribution-viewercertificate.html#cfn-cloudfront-distribution-viewercertificate-cloudfrontdefaultcertificate
+                    type: boolean
+                    customAttributes:
+                      template: CloudFrontDefaultCertificate
+                      immutable: false
+                  iamCertificateRef:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudfront-distribution-viewercertificate.html#cfn-cloudfront-distribution-viewercertificate-iamcertificateid
+                    type: string
+                    customAttributes:
+                      template: IamCertificateId
+                      immutable: false
+                  minimumProtocolVersion:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudfront-distribution-viewercertificate.html#cfn-cloudfront-distribution-viewercertificate-minimumprotocolversion
+                    type: string
+                    customAttributes:
+                      template: MinimumProtocolVersion
+                      immutable: false
+                    enum:
+                    - SSLv3
+                    - TLSv1
+                    - TLSv1_2016
+                    - TLSv1.1_2016
+                    - TLSv1.2_2018
+                  sslSupportMethod:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudfront-distribution-viewercertificate.html#cfn-cloudfront-distribution-viewercertificate-sslsupportmethod
+                    type: string
+                    customAttributes:
+                      template: SslSupportMethod
+                      immutable: false
+                    enum:
+                    - sni-only
+                    - vip
+              webACLRef:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-cloudfront-distribution-distributionconfig.html#cfn-cloudfront-distribution-distributionconfig-webaclid
+                type: string
+                customAttributes:
+                  template: WebACLId
+                  immutable: false
+          tags:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-cloudfront-distribution.html#cfn-cloudfront-distribution-tags
+            type: array
+            customAttributes:
+              template: Tags
+              immutable: false
+            items:
+              type: object
+              properties:
+                key:
+                  description: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-resource-tags.html#cfn-resource-tags-key
+                  type: string
+                  customAttributes:
+                    template: Key
+                    immutable: false
+                value:
+                  description: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-resource-tags.html#cfn-resource-tags-value
+                  type: string
+                  customAttributes:
+                    template: Value
+                    immutable: false

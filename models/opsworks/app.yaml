@@ -1,0 +1,207 @@
+---
+apiVersion: models.awsoperator.io/v1alpha1
+kind: ModelFile
+metadata:
+  name: opsworks-app-resource
+  creationTimestamp: '2019-06-13T16:59:29-07:00'
+  resourceVersion: 3.3.0
+spec:
+  resource:
+    kind: App
+    scope: Namespaced
+    apiGroup:
+      apiVersion: opsworks.awsoperator.io/v1alpha1
+      group: opsworks
+      region: us-east-1
+      domain: awsoperator.io
+      versions:
+      - name: v1alpha1
+        served: true
+        storage: true
+    names:
+      singular: app
+      plural: apps
+      shortNames: []
+  openAPIV3Schema:
+    properties:
+      spec:
+        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-opsworks-app.html
+        type: object
+        customAttributes: {}
+        required:
+        - name
+        - stackId
+        - type
+        properties:
+          appSource:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-opsworks-app.html#cfn-opsworks-app-appsource
+            type: object
+            customAttributes:
+              immutable: false
+            required: []
+            properties:
+              password:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-opsworks-stack-source.html#cfn-opsworks-custcookbooksource-pw
+                type: string
+                customAttributes:
+                  template: Password
+                  immutable: false
+              revision:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-opsworks-stack-source.html#cfn-opsworks-custcookbooksource-revision
+                type: string
+                customAttributes:
+                  template: Revision
+                  immutable: false
+              sshKey:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-opsworks-stack-source.html#cfn-opsworks-custcookbooksource-sshkey
+                type: string
+                customAttributes:
+                  template: SshKey
+                  immutable: false
+              type:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-opsworks-stack-source.html#cfn-opsworks-custcookbooksource-type
+                type: string
+                customAttributes:
+                  template: Type
+                  immutable: false
+              url:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-opsworks-stack-source.html#cfn-opsworks-custcookbooksource-url
+                type: string
+                customAttributes:
+                  template: Url
+                  immutable: false
+              username:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-opsworks-stack-source.html#cfn-opsworks-custcookbooksource-username
+                type: string
+                customAttributes:
+                  template: Username
+                  immutable: false
+          attributes:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-opsworks-app.html#cfn-opsworks-app-attributes
+            type: json
+            customAttributes:
+              template: Attributes
+              immutable: false
+          dataSources:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-opsworks-app.html#cfn-opsworks-app-datasources
+            type: array
+            customAttributes:
+              template: DataSources
+              immutable: false
+            items:
+              type: object
+              properties:
+                arn:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-opsworks-app-datasource.html#cfn-opsworks-app-datasource-arn
+                  type: string
+                  customAttributes:
+                    template: Arn
+                    immutable: false
+                databaseName:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-opsworks-app-datasource.html#cfn-opsworks-app-datasource-databasename
+                  type: string
+                  customAttributes:
+                    template: DatabaseName
+                    immutable: false
+                type:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-opsworks-app-datasource.html#cfn-opsworks-app-datasource-type
+                  type: string
+                  customAttributes:
+                    template: Type
+                    immutable: false
+          description:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-opsworks-app.html#cfn-opsworks-app-description
+            type: string
+            customAttributes:
+              template: Description
+              immutable: false
+          domains:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-opsworks-app.html#cfn-opsworks-app-domains
+            type: array
+            customAttributes:
+              template: Domains
+              immutable: false
+            items:
+              type: string
+          enableSsl:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-opsworks-app.html#cfn-opsworks-app-enablessl
+            type: boolean
+            customAttributes:
+              template: EnableSsl
+              immutable: false
+          environment:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-opsworks-app.html#cfn-opsworks-app-environment
+            type: array
+            customAttributes:
+              template: Environment
+              immutable: false
+            items:
+              type: object
+              properties:
+                key:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-opsworks-app-environment.html#cfn-opsworks-app-environment-key
+                  type: string
+                  customAttributes:
+                    template: Key
+                    immutable: false
+                secure:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-opsworks-app-environment.html#cfn-opsworks-app-environment-secure
+                  type: boolean
+                  customAttributes:
+                    template: Secure
+                    immutable: false
+                value:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-opsworks-app-environment.html#value
+                  type: string
+                  customAttributes:
+                    template: Value
+                    immutable: false
+          name:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-opsworks-app.html#cfn-opsworks-app-name
+            type: string
+            customAttributes:
+              template: Name
+              immutable: false
+          shortname:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-opsworks-app.html#cfn-opsworks-app-shortname
+            type: string
+            customAttributes:
+              template: Shortname
+              immutable: true
+          sslConfiguration:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-opsworks-app.html#cfn-opsworks-app-sslconfiguration
+            type: object
+            customAttributes:
+              immutable: false
+            required: []
+            properties:
+              certificate:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-opsworks-app-sslconfiguration.html#cfn-opsworks-app-sslconfig-certificate
+                type: string
+                customAttributes:
+                  template: Certificate
+                  immutable: false
+              chain:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-opsworks-app-sslconfiguration.html#cfn-opsworks-app-sslconfig-chain
+                type: string
+                customAttributes:
+                  template: Chain
+                  immutable: false
+              privateKey:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-opsworks-app-sslconfiguration.html#cfn-opsworks-app-sslconfig-privatekey
+                type: string
+                customAttributes:
+                  template: PrivateKey
+                  immutable: false
+          stackRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-opsworks-app.html#cfn-opsworks-app-stackid
+            type: string
+            customAttributes:
+              template: StackId
+              immutable: true
+          type:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-opsworks-app.html#cfn-opsworks-app-type
+            type: string
+            customAttributes:
+              template: Type
+              immutable: false

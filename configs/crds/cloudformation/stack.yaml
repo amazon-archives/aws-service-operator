@@ -1,0 +1,63 @@
+---
+apiVersion: apiextensions.k8s.io/v1beta1
+kind: CustomResourceDefinition
+metadata:
+  name: stacks.cloudformation.awsoperator.io
+spec:
+  group: cloudformation.awsoperator.io
+  versions:
+  - name: v1alpha1
+    served: true
+    storage: true
+  scope: Namespaced
+  names:
+    plural: stacks
+    singular: stack
+    kind: Stack
+    shortNames: []
+    categories:
+    - aws
+    - cloudformation
+  additionalPrinterColumns:
+  - name: Status
+    type: string
+    description: Status for the AWS CloudFormation stack.
+    JSONPath: ".status.status"
+  - name: Message
+    type: string
+    description: Message accompanying it's current stack status.
+    JSONPath: ".status.message"
+    priority: 1
+  - name: Created At
+    type: date
+    description: When the resource was created
+    JSONPath: ".metadata.creationTimestamp"
+  subresources:
+    status: {}
+  validation:
+    openAPIV3Schema:
+      properties:
+        spec:
+          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-stack.html
+          type: object
+          required:
+          - templateBody
+          properties:
+            region:
+              description: https://docs.aws.amazon.com/general/latest/gr/rande.html
+              type: string
+            onFailure:
+              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-stack.html#cfn-cloudformation-stack-timeoutinminuteshttps://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_CreateStack.html
+              type: string
+            terminationProtection:
+              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-stack.html#cfn-cloudformation-stack-timeoutinminuteshttps://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_CreateStack.html
+              type: boolean
+            parameters:
+              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-stack.html#cfn-cloudformation-stack-timeoutinminuteshttps://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_CreateStack.html
+              type: object
+            templateBody:
+              description: https://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_CreateStack.html
+              type: string
+            clientRequestToken:
+              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-stack.html#cfn-cloudformation-stack-timeoutinminuteshttps://docs.aws.amazon.com/AWSCloudFormation/latest/APIReference/API_CreateStack.html
+              type: string

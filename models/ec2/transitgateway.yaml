@@ -1,0 +1,103 @@
+---
+apiVersion: models.awsoperator.io/v1alpha1
+kind: ModelFile
+metadata:
+  name: ec2-transitgateway-resource
+  creationTimestamp: '2019-06-13T16:59:29-07:00'
+  resourceVersion: 3.3.0
+spec:
+  resource:
+    kind: TransitGateway
+    scope: Namespaced
+    apiGroup:
+      apiVersion: ec2.awsoperator.io/v1alpha1
+      group: ec2
+      region: us-east-1
+      domain: awsoperator.io
+      versions:
+      - name: v1alpha1
+        served: true
+        storage: true
+    names:
+      singular: transitgateway
+      plural: transitgateways
+      shortNames: []
+  openAPIV3Schema:
+    properties:
+      spec:
+        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-transitgateway.html
+        type: object
+        customAttributes: {}
+        required: []
+        properties:
+          amazonSideAsn:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-transitgateway.html#cfn-ec2-transitgateway-amazonsideasn
+            type: integer
+            format: int32
+            customAttributes:
+              template: AmazonSideAsn
+              immutable: true
+          autoAcceptSharedAttachments:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-transitgateway.html#cfn-ec2-transitgateway-autoacceptsharedattachments
+            type: string
+            customAttributes:
+              template: AutoAcceptSharedAttachments
+              immutable: true
+            enum: &1
+            - disable
+            - enable
+          defaultRouteTableAssociation:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-transitgateway.html#cfn-ec2-transitgateway-defaultroutetableassociation
+            type: string
+            customAttributes:
+              template: DefaultRouteTableAssociation
+              immutable: true
+            enum: *1
+          defaultRouteTablePropagation:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-transitgateway.html#cfn-ec2-transitgateway-defaultroutetablepropagation
+            type: string
+            customAttributes:
+              template: DefaultRouteTablePropagation
+              immutable: true
+            enum: *1
+          description:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-transitgateway.html#cfn-ec2-transitgateway-description
+            type: string
+            customAttributes:
+              template: Description
+              immutable: true
+          dnsSupport:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-transitgateway.html#cfn-ec2-transitgateway-dnssupport
+            type: string
+            customAttributes:
+              template: DnsSupport
+              immutable: true
+            enum: *1
+          tags:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-transitgateway.html#cfn-ec2-transitgateway-tags
+            type: array
+            customAttributes:
+              template: Tags
+              immutable: true
+            items:
+              type: object
+              properties:
+                key:
+                  description: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-resource-tags.html#cfn-resource-tags-key
+                  type: string
+                  customAttributes:
+                    template: Key
+                    immutable: false
+                value:
+                  description: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-resource-tags.html#cfn-resource-tags-value
+                  type: string
+                  customAttributes:
+                    template: Value
+                    immutable: false
+          vpnEcmpSupport:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ec2-transitgateway.html#cfn-ec2-transitgateway-vpnecmpsupport
+            type: string
+            customAttributes:
+              template: VpnEcmpSupport
+              immutable: true
+            enum: *1

@@ -1,0 +1,13 @@
+= Resources
+Chris Hein <heichris@amazon.com>
+v1, 2019-01-04
+:toc: right
+:imagesdir: images/
+:source-language: golang
+
+// This page is (going to be) auto generated.
+// TODO: Auto-generate this file based on the models.
+
+link:readme.adoc[AWS Service Operator] > link:resources.adoc[{doctitle}]
+
+

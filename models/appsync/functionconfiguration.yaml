@@ -1,0 +1,90 @@
+---
+apiVersion: models.awsoperator.io/v1alpha1
+kind: ModelFile
+metadata:
+  name: appsync-functionconfiguration-resource
+  creationTimestamp: '2019-06-13T16:59:28-07:00'
+  resourceVersion: 3.3.0
+spec:
+  resource:
+    kind: FunctionConfiguration
+    scope: Namespaced
+    apiGroup:
+      apiVersion: appsync.awsoperator.io/v1alpha1
+      group: appsync
+      region: us-east-1
+      domain: awsoperator.io
+      versions:
+      - name: v1alpha1
+        served: true
+        storage: true
+    names:
+      singular: functionconfiguration
+      plural: functionconfigurations
+      shortNames: []
+  openAPIV3Schema:
+    properties:
+      spec:
+        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-appsync-functionconfiguration.html
+        type: object
+        customAttributes: {}
+        required:
+        - apiId
+        - dataSourceName
+        - functionVersion
+        - name
+        properties:
+          apiRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-appsync-functionconfiguration.html#cfn-appsync-functionconfiguration-apiid
+            type: string
+            customAttributes:
+              template: ApiId
+              immutable: true
+          dataSourceName:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-appsync-functionconfiguration.html#cfn-appsync-functionconfiguration-datasourcename
+            type: string
+            customAttributes:
+              template: DataSourceName
+              immutable: false
+          description:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-appsync-functionconfiguration.html#cfn-appsync-functionconfiguration-description
+            type: string
+            customAttributes:
+              template: Description
+              immutable: false
+          functionVersion:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-appsync-functionconfiguration.html#cfn-appsync-functionconfiguration-functionversion
+            type: string
+            customAttributes:
+              template: FunctionVersion
+              immutable: false
+          name:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-appsync-functionconfiguration.html#cfn-appsync-functionconfiguration-name
+            type: string
+            customAttributes:
+              template: Name
+              immutable: false
+          requestMappingTemplate:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-appsync-functionconfiguration.html#cfn-appsync-functionconfiguration-requestmappingtemplate
+            type: string
+            customAttributes:
+              template: RequestMappingTemplate
+              immutable: false
+          requestMappingTemplateS3Location:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-appsync-functionconfiguration.html#cfn-appsync-functionconfiguration-requestmappingtemplates3location
+            type: string
+            customAttributes:
+              template: RequestMappingTemplateS3Location
+              immutable: false
+          responseMappingTemplate:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-appsync-functionconfiguration.html#cfn-appsync-functionconfiguration-responsemappingtemplate
+            type: string
+            customAttributes:
+              template: ResponseMappingTemplate
+              immutable: false
+          responseMappingTemplateS3Location:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-appsync-functionconfiguration.html#cfn-appsync-functionconfiguration-responsemappingtemplates3location
+            type: string
+            customAttributes:
+              template: ResponseMappingTemplateS3Location
+              immutable: false

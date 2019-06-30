@@ -1,6 +1,0 @@
-apiVersion: service-operator.aws/v1alpha1
-kind: SNSTopic
-metadata:
-  name: example-sns-topic-name
-spec:
-

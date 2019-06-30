@@ -1,0 +1,98 @@
+---
+apiVersion: apiextensions.k8s.io/v1beta1
+kind: CustomResourceDefinition
+metadata:
+  name: containers.mediastore.awsoperator.io
+spec:
+  group: mediastore.awsoperator.io
+  versions:
+  - name: v1alpha1
+    served: true
+    storage: true
+  scope: Namespaced
+  names:
+    plural: containers
+    singular: container
+    kind: Container
+    shortNames: []
+    categories:
+    - aws
+    - mediastore
+  additionalPrinterColumns:
+  - name: Status
+    type: string
+    description: Status for the AWS CloudFormation stack.
+    JSONPath: ".status.reason"
+  - name: Message
+    type: string
+    description: Message accompanying it's current stack status.
+    JSONPath: ".status.message"
+    priority: 1
+  - name: Created At
+    type: date
+    description: When the resource was created
+    JSONPath: ".metadata.creationTimestamp"
+  subresources:
+    status: {}
+  validation:
+    openAPIV3Schema:
+      properties:
+        spec:
+          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mediastore-container.html
+          type: object
+          required: []
+          properties:
+            accessLoggingEnabled:
+              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mediastore-container.html#cfn-mediastore-container-accessloggingenabled
+              type: boolean
+            corsPolicy:
+              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mediastore-container.html#cfn-mediastore-container-corspolicy
+              type: array
+              items:
+                type: object
+                properties:
+                  allowedHeaders:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-mediastore-container-corsrule.html#cfn-mediastore-container-corsrule-allowedheaders
+                    type: array
+                    customAttributes:
+                      template: AllowedHeaders
+                      immutable: false
+                    items:
+                      type: string
+                  allowedMethods:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-mediastore-container-corsrule.html#cfn-mediastore-container-corsrule-allowedmethods
+                    type: array
+                    customAttributes:
+                      template: AllowedMethods
+                      immutable: true
+                    items:
+                      type: string
+                  allowedOrigins:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-mediastore-container-corsrule.html#cfn-mediastore-container-corsrule-allowedorigins
+                    type: array
+                    customAttributes:
+                      template: AllowedOrigins
+                      immutable: false
+                    items:
+                      type: string
+                  exposeHeaders:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-mediastore-container-corsrule.html#cfn-mediastore-container-corsrule-exposeheaders
+                    type: array
+                    customAttributes:
+                      template: ExposeHeaders
+                      immutable: false
+                    items:
+                      type: string
+                  maxAgeSeconds:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-mediastore-container-corsrule.html#cfn-mediastore-container-corsrule-maxageseconds
+                    type: integer
+                    format: int32
+                    customAttributes:
+                      template: MaxAgeSeconds
+                      immutable: false
+            lifecyclePolicy:
+              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mediastore-container.html#cfn-mediastore-container-lifecyclepolicy
+              type: string
+            policy:
+              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-mediastore-container.html#cfn-mediastore-container-policy
+              type: string

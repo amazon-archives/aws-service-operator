@@ -1,0 +1,278 @@
+---
+apiVersion: models.awsoperator.io/v1alpha1
+kind: ModelFile
+metadata:
+  name: iotanalytics-dataset-resource
+  creationTimestamp: '2019-06-13T16:59:29-07:00'
+  resourceVersion: 3.3.0
+spec:
+  resource:
+    kind: Dataset
+    scope: Namespaced
+    apiGroup:
+      apiVersion: iotanalytics.awsoperator.io/v1alpha1
+      group: iotanalytics
+      region: us-east-1
+      domain: awsoperator.io
+      versions:
+      - name: v1alpha1
+        served: true
+        storage: true
+    names:
+      singular: dataset
+      plural: datasets
+      shortNames: []
+  openAPIV3Schema:
+    properties:
+      spec:
+        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iotanalytics-dataset.html
+        type: object
+        customAttributes: {}
+        required:
+        - actions
+        properties:
+          actions:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iotanalytics-dataset.html#cfn-iotanalytics-dataset-actions
+            type: array
+            customAttributes:
+              template: Actions
+              immutable: false
+            items:
+              type: object
+              properties:
+                actionName:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-iotanalytics-dataset-action.html#cfn-iotanalytics-dataset-action-actionname
+                  type: string
+                  customAttributes:
+                    template: ActionName
+                    immutable: false
+                containerAction:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-iotanalytics-dataset-action.html#cfn-iotanalytics-dataset-action-containeraction
+                  type: object
+                  customAttributes:
+                    immutable: false
+                  required:
+                  - executionRoleArn
+                  - image
+                  - resourceConfiguration
+                  properties:
+                    executionRoleRef:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-iotanalytics-dataset-containeraction.html#cfn-iotanalytics-dataset-containeraction-executionrolearn
+                      type: string
+                      customAttributes:
+                        template: ExecutionRoleArn
+                        immutable: false
+                    image:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-iotanalytics-dataset-containeraction.html#cfn-iotanalytics-dataset-containeraction-image
+                      type: string
+                      customAttributes:
+                        template: Image
+                        immutable: false
+                    resourceConfiguration:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-iotanalytics-dataset-containeraction.html#cfn-iotanalytics-dataset-containeraction-resourceconfiguration
+                      type: object
+                      customAttributes:
+                        immutable: false
+                      required:
+                      - computeType
+                      - volumeSizeInGB
+                      properties:
+                        computeType:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-iotanalytics-dataset-resourceconfiguration.html#cfn-iotanalytics-dataset-resourceconfiguration-computetype
+                          type: string
+                          customAttributes:
+                            template: ComputeType
+                            immutable: false
+                        volumeSizeInGB:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-iotanalytics-dataset-resourceconfiguration.html#cfn-iotanalytics-dataset-resourceconfiguration-volumesizeingb
+                          type: integer
+                          format: int32
+                          customAttributes:
+                            template: VolumeSizeInGB
+                            immutable: false
+                    variables:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-iotanalytics-dataset-containeraction.html#cfn-iotanalytics-dataset-containeraction-variables
+                      type: array
+                      customAttributes:
+                        template: Variables
+                        immutable: false
+                      items:
+                        type: object
+                        properties:
+                          datasetContentVersionValue:
+                            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-iotanalytics-dataset-variable.html#cfn-iotanalytics-dataset-variable-datasetcontentversionvalue
+                            type: object
+                            customAttributes:
+                              immutable: false
+                            required: []
+                            properties:
+                              datasetName:
+                                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-iotanalytics-dataset-variable-datasetcontentversionvalue.html#cfn-iotanalytics-dataset-variable-datasetcontentversionvalue-datasetname
+                                type: string
+                                customAttributes:
+                                  template: DatasetName
+                                  immutable: false
+                          doubleValue:
+                            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-iotanalytics-dataset-variable.html#cfn-iotanalytics-dataset-variable-doublevalue
+                            type: integer
+                            format: double
+                            customAttributes:
+                              template: DoubleValue
+                              immutable: false
+                          outputFileUriValue:
+                            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-iotanalytics-dataset-variable.html#cfn-iotanalytics-dataset-variable-outputfileurivalue
+                            type: object
+                            customAttributes:
+                              immutable: false
+                            required: []
+                            properties:
+                              fileName:
+                                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-iotanalytics-dataset-variable-outputfileurivalue.html#cfn-iotanalytics-dataset-variable-outputfileurivalue-filename
+                                type: string
+                                customAttributes:
+                                  template: FileName
+                                  immutable: false
+                          stringValue:
+                            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-iotanalytics-dataset-variable.html#cfn-iotanalytics-dataset-variable-stringvalue
+                            type: string
+                            customAttributes:
+                              template: StringValue
+                              immutable: false
+                          variableName:
+                            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-iotanalytics-dataset-variable.html#cfn-iotanalytics-dataset-variable-variablename
+                            type: string
+                            customAttributes:
+                              template: VariableName
+                              immutable: false
+                queryAction:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-iotanalytics-dataset-action.html#cfn-iotanalytics-dataset-action-queryaction
+                  type: object
+                  customAttributes:
+                    immutable: false
+                  required:
+                  - sqlQuery
+                  properties:
+                    filters:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-iotanalytics-dataset-queryaction.html#cfn-iotanalytics-dataset-queryaction-filters
+                      type: array
+                      customAttributes:
+                        template: Filters
+                        immutable: false
+                      items:
+                        type: object
+                        properties:
+                          deltaTime:
+                            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-iotanalytics-dataset-filter.html#cfn-iotanalytics-dataset-filter-deltatime
+                            type: object
+                            customAttributes:
+                              immutable: false
+                            required:
+                            - offsetSeconds
+                            - timeExpression
+                            properties:
+                              offsetSeconds:
+                                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-iotanalytics-dataset-deltatime.html#cfn-iotanalytics-dataset-deltatime-offsetseconds
+                                type: integer
+                                format: int32
+                                customAttributes:
+                                  template: OffsetSeconds
+                                  immutable: false
+                              timeExpression:
+                                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-iotanalytics-dataset-deltatime.html#cfn-iotanalytics-dataset-deltatime-timeexpression
+                                type: string
+                                customAttributes:
+                                  template: TimeExpression
+                                  immutable: false
+                    sqlQuery:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-iotanalytics-dataset-queryaction.html#cfn-iotanalytics-dataset-queryaction-sqlquery
+                      type: string
+                      customAttributes:
+                        template: SqlQuery
+                        immutable: false
+          datasetName:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iotanalytics-dataset.html#cfn-iotanalytics-dataset-datasetname
+            type: string
+            customAttributes:
+              template: DatasetName
+              resourceName: true
+              immutable: true
+          retentionPeriod:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iotanalytics-dataset.html#cfn-iotanalytics-dataset-retentionperiod
+            type: object
+            customAttributes:
+              immutable: false
+            required:
+            - numberOfDays
+            - unlimited
+            properties:
+              numberOfDays:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-iotanalytics-dataset-retentionperiod.html#cfn-iotanalytics-dataset-retentionperiod-numberofdays
+                type: integer
+                format: int32
+                customAttributes:
+                  template: NumberOfDays
+                  immutable: false
+              unlimited:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-iotanalytics-dataset-retentionperiod.html#cfn-iotanalytics-dataset-retentionperiod-unlimited
+                type: boolean
+                customAttributes:
+                  template: Unlimited
+                  immutable: false
+          tags:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iotanalytics-dataset.html#cfn-iotanalytics-dataset-tags
+            type: array
+            customAttributes:
+              template: Tags
+              immutable: false
+            items:
+              type: object
+              properties:
+                key:
+                  description: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-resource-tags.html#cfn-resource-tags-key
+                  type: string
+                  customAttributes:
+                    template: Key
+                    immutable: false
+                value:
+                  description: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-resource-tags.html#cfn-resource-tags-value
+                  type: string
+                  customAttributes:
+                    template: Value
+                    immutable: false
+          triggers:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iotanalytics-dataset.html#cfn-iotanalytics-dataset-triggers
+            type: array
+            customAttributes:
+              template: Triggers
+              immutable: false
+            items:
+              type: object
+              properties:
+                schedule:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-iotanalytics-dataset-trigger.html#cfn-iotanalytics-dataset-trigger-schedule
+                  type: object
+                  customAttributes:
+                    immutable: false
+                  required:
+                  - scheduleExpression
+                  properties:
+                    scheduleExpression:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-iotanalytics-dataset-trigger-schedule.html#cfn-iotanalytics-dataset-trigger-schedule-scheduleexpression
+                      type: string
+                      customAttributes:
+                        template: ScheduleExpression
+                        immutable: false
+                triggeringDataset:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-iotanalytics-dataset-trigger.html#cfn-iotanalytics-dataset-trigger-triggeringdataset
+                  type: object
+                  customAttributes:
+                    immutable: false
+                  required:
+                  - datasetName
+                  properties:
+                    datasetName:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-iotanalytics-dataset-triggeringdataset.html#cfn-iotanalytics-dataset-triggeringdataset-datasetname
+                      type: string
+                      customAttributes:
+                        template: DatasetName
+                        immutable: false

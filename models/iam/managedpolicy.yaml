@@ -1,0 +1,81 @@
+---
+apiVersion: models.awsoperator.io/v1alpha1
+kind: ModelFile
+metadata:
+  name: iam-managedpolicy-resource
+  creationTimestamp: '2019-06-13T16:59:29-07:00'
+  resourceVersion: 3.3.0
+spec:
+  resource:
+    kind: ManagedPolicy
+    scope: Namespaced
+    apiGroup:
+      apiVersion: iam.awsoperator.io/v1alpha1
+      group: iam
+      region: us-east-1
+      domain: awsoperator.io
+      versions:
+      - name: v1alpha1
+        served: true
+        storage: true
+    names:
+      singular: managedpolicy
+      plural: managedpolicies
+      shortNames: []
+  openAPIV3Schema:
+    properties:
+      spec:
+        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iam-managedpolicy.html
+        type: object
+        customAttributes: {}
+        required:
+        - policyDocument
+        properties:
+          description:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iam-managedpolicy.html#cfn-iam-managedpolicy-description
+            type: string
+            customAttributes:
+              template: Description
+              immutable: true
+          groups:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iam-managedpolicy.html#cfn-iam-managedpolicy-groups
+            type: array
+            customAttributes:
+              template: Groups
+              immutable: false
+            items:
+              type: string
+          managedPolicyName:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iam-managedpolicy.html#cfn-iam-managedpolicy-managedpolicyname
+            type: string
+            customAttributes:
+              template: ManagedPolicyName
+              resourceName: true
+              immutable: true
+          path:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iam-managedpolicy.html#cfn-ec2-dhcpoptions-path
+            type: string
+            customAttributes:
+              template: Path
+              immutable: true
+          policyDocument:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iam-managedpolicy.html#cfn-iam-managedpolicy-policydocument
+            customAttributes:
+              template: PolicyDocument
+              immutable: false
+          roles:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iam-managedpolicy.html#cfn-iam-managedpolicy-roles
+            type: array
+            customAttributes:
+              template: Roles
+              immutable: false
+            items:
+              type: string
+          users:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-iam-managedpolicy.html#cfn-iam-managedpolicy-users
+            type: array
+            customAttributes:
+              template: Users
+              immutable: false
+            items:
+              type: string

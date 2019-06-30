@@ -1,0 +1,117 @@
+---
+apiVersion: models.awsoperator.io/v1alpha1
+kind: ModelFile
+metadata:
+  name: elasticbeanstalk-configurationtemplate-resource
+  creationTimestamp: '2019-06-13T16:59:29-07:00'
+  resourceVersion: 3.3.0
+spec:
+  resource:
+    kind: ConfigurationTemplate
+    scope: Namespaced
+    apiGroup:
+      apiVersion: elasticbeanstalk.awsoperator.io/v1alpha1
+      group: elasticbeanstalk
+      region: us-east-1
+      domain: awsoperator.io
+      versions:
+      - name: v1alpha1
+        served: true
+        storage: true
+    names:
+      singular: configurationtemplate
+      plural: configurationtemplates
+      shortNames: []
+  openAPIV3Schema:
+    properties:
+      spec:
+        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticbeanstalk-configurationtemplate.html
+        type: object
+        customAttributes: {}
+        required:
+        - applicationName
+        properties:
+          applicationName:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticbeanstalk-configurationtemplate.html#cfn-elasticbeanstalk-configurationtemplate-applicationname
+            type: string
+            customAttributes:
+              template: ApplicationName
+              immutable: true
+          description:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticbeanstalk-configurationtemplate.html#cfn-elasticbeanstalk-configurationtemplate-description
+            type: string
+            customAttributes:
+              template: Description
+              immutable: false
+          environmentRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticbeanstalk-configurationtemplate.html#cfn-elasticbeanstalk-configurationtemplate-environmentid
+            type: string
+            customAttributes:
+              template: EnvironmentId
+              immutable: true
+          optionSettings:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticbeanstalk-configurationtemplate.html#cfn-elasticbeanstalk-configurationtemplate-optionsettings
+            type: array
+            customAttributes:
+              template: OptionSettings
+              immutable: false
+            items:
+              type: object
+              properties:
+                namespace:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticbeanstalk-configurationtemplate-configurationoptionsetting.html#cfn-elasticbeanstalk-configurationtemplate-configurationoptionsetting-namespace
+                  type: string
+                  customAttributes:
+                    template: Namespace
+                    immutable: false
+                optionName:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticbeanstalk-configurationtemplate-configurationoptionsetting.html#cfn-elasticbeanstalk-configurationtemplate-configurationoptionsetting-optionname
+                  type: string
+                  customAttributes:
+                    template: OptionName
+                    immutable: false
+                resourceName:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticbeanstalk-configurationtemplate-configurationoptionsetting.html#cfn-elasticbeanstalk-configurationtemplate-configurationoptionsetting-resourcename
+                  type: string
+                  customAttributes:
+                    template: ResourceName
+                    immutable: false
+                value:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticbeanstalk-configurationtemplate-configurationoptionsetting.html#cfn-elasticbeanstalk-configurationtemplate-configurationoptionsetting-value
+                  type: string
+                  customAttributes:
+                    template: Value
+                    immutable: false
+          platformRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticbeanstalk-configurationtemplate.html#cfn-elasticbeanstalk-configurationtemplate-platformarn
+            type: string
+            customAttributes:
+              template: PlatformArn
+              immutable: true
+          solutionStackName:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticbeanstalk-configurationtemplate.html#cfn-elasticbeanstalk-configurationtemplate-solutionstackname
+            type: string
+            customAttributes:
+              template: SolutionStackName
+              immutable: true
+          sourceConfiguration:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-elasticbeanstalk-configurationtemplate.html#cfn-elasticbeanstalk-configurationtemplate-sourceconfiguration
+            type: object
+            customAttributes:
+              immutable: true
+            required:
+            - applicationName
+            - templateName
+            properties:
+              applicationName:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticbeanstalk-configurationtemplate-sourceconfiguration.html#cfn-elasticbeanstalk-configurationtemplate-sourceconfiguration-applicationname
+                type: string
+                customAttributes:
+                  template: ApplicationName
+                  immutable: false
+              templateName:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-elasticbeanstalk-configurationtemplate-sourceconfiguration.html#cfn-elasticbeanstalk-configurationtemplate-sourceconfiguration-templatename
+                type: string
+                customAttributes:
+                  template: TemplateName
+                  immutable: false

@@ -1,0 +1,107 @@
+---
+apiVersion: models.awsoperator.io/v1alpha1
+kind: ModelFile
+metadata:
+  name: dms-replicationtask-resource
+  creationTimestamp: '2019-06-13T16:59:29-07:00'
+  resourceVersion: 3.3.0
+spec:
+  resource:
+    kind: ReplicationTask
+    scope: Namespaced
+    apiGroup:
+      apiVersion: dms.awsoperator.io/v1alpha1
+      group: dms
+      region: us-east-1
+      domain: awsoperator.io
+      versions:
+      - name: v1alpha1
+        served: true
+        storage: true
+    names:
+      singular: replicationtask
+      plural: replicationtasks
+      shortNames: []
+  openAPIV3Schema:
+    properties:
+      spec:
+        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-dms-replicationtask.html
+        type: object
+        customAttributes: {}
+        required:
+        - migrationType
+        - replicationInstanceArn
+        - sourceEndpointArn
+        - tableMappings
+        - targetEndpointArn
+        properties:
+          cdcStartTime:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-dms-replicationtask.html#cfn-dms-replicationtask-cdcstarttime
+            type: integer
+            format: double
+            customAttributes:
+              template: CdcStartTime
+              immutable: false
+          migrationType:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-dms-replicationtask.html#cfn-dms-replicationtask-migrationtype
+            type: string
+            customAttributes:
+              template: MigrationType
+              immutable: false
+          replicationInstanceRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-dms-replicationtask.html#cfn-dms-replicationtask-replicationinstancearn
+            type: string
+            customAttributes:
+              template: ReplicationInstanceArn
+              immutable: true
+          replicationTaskentifierRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-dms-replicationtask.html#cfn-dms-replicationtask-replicationtaskidentifier
+            type: string
+            customAttributes:
+              template: ReplicationTaskIdentifier
+              immutable: false
+          replicationTaskSettings:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-dms-replicationtask.html#cfn-dms-replicationtask-replicationtasksettings
+            type: string
+            customAttributes:
+              template: ReplicationTaskSettings
+              immutable: false
+          sourceEndpointRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-dms-replicationtask.html#cfn-dms-replicationtask-sourceendpointarn
+            type: string
+            customAttributes:
+              template: SourceEndpointArn
+              immutable: true
+          tableMappings:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-dms-replicationtask.html#cfn-dms-replicationtask-tablemappings
+            type: string
+            customAttributes:
+              template: TableMappings
+              immutable: false
+          tags:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-dms-replicationtask.html#cfn-dms-replicationtask-tags
+            type: array
+            customAttributes:
+              template: Tags
+              immutable: true
+            items:
+              type: object
+              properties:
+                key:
+                  description: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-resource-tags.html#cfn-resource-tags-key
+                  type: string
+                  customAttributes:
+                    template: Key
+                    immutable: false
+                value:
+                  description: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-resource-tags.html#cfn-resource-tags-value
+                  type: string
+                  customAttributes:
+                    template: Value
+                    immutable: false
+          targetEndpointRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-dms-replicationtask.html#cfn-dms-replicationtask-targetendpointarn
+            type: string
+            customAttributes:
+              template: TargetEndpointArn
+              immutable: true

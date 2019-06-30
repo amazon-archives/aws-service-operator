@@ -1,0 +1,123 @@
+---
+apiVersion: models.awsoperator.io/v1alpha1
+kind: ModelFile
+metadata:
+  name: ses-configurationseteventdestination-resource
+  creationTimestamp: '2019-06-13T16:59:30-07:00'
+  resourceVersion: 3.3.0
+spec:
+  resource:
+    kind: ConfigurationSetEventDestination
+    scope: Namespaced
+    apiGroup:
+      apiVersion: ses.awsoperator.io/v1alpha1
+      group: ses
+      region: us-east-1
+      domain: awsoperator.io
+      versions:
+      - name: v1alpha1
+        served: true
+        storage: true
+    names:
+      singular: configurationseteventdestination
+      plural: configurationseteventdestinations
+      shortNames: []
+  openAPIV3Schema:
+    properties:
+      spec:
+        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ses-configurationseteventdestination.html
+        type: object
+        customAttributes: {}
+        required:
+        - configurationSetName
+        - eventDestination
+        properties:
+          configurationSetName:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ses-configurationseteventdestination.html#cfn-ses-configurationseteventdestination-configurationsetname
+            type: string
+            customAttributes:
+              template: ConfigurationSetName
+              immutable: true
+          eventDestination:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ses-configurationseteventdestination.html#cfn-ses-configurationseteventdestination-eventdestination
+            type: object
+            customAttributes:
+              immutable: false
+            required:
+            - matchingEventTypes
+            properties:
+              cloudWatchDestination:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ses-configurationseteventdestination-eventdestination.html#cfn-ses-configurationseteventdestination-eventdestination-cloudwatchdestination
+                type: object
+                customAttributes:
+                  immutable: false
+                required: []
+                properties:
+                  dimensionConfigurations:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ses-configurationseteventdestination-cloudwatchdestination.html#cfn-ses-configurationseteventdestination-cloudwatchdestination-dimensionconfigurations
+                    type: array
+                    customAttributes:
+                      template: DimensionConfigurations
+                      immutable: false
+                    items:
+                      type: object
+                      properties:
+                        defaultDimensionValue:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ses-configurationseteventdestination-dimensionconfiguration.html#cfn-ses-configurationseteventdestination-dimensionconfiguration-defaultdimensionvalue
+                          type: string
+                          customAttributes:
+                            template: DefaultDimensionValue
+                            immutable: false
+                        dimensionName:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ses-configurationseteventdestination-dimensionconfiguration.html#cfn-ses-configurationseteventdestination-dimensionconfiguration-dimensionname
+                          type: string
+                          customAttributes:
+                            template: DimensionName
+                            immutable: false
+                        dimensionValueSource:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ses-configurationseteventdestination-dimensionconfiguration.html#cfn-ses-configurationseteventdestination-dimensionconfiguration-dimensionvaluesource
+                          type: string
+                          customAttributes:
+                            template: DimensionValueSource
+                            immutable: false
+              enabled:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ses-configurationseteventdestination-eventdestination.html#cfn-ses-configurationseteventdestination-eventdestination-enabled
+                type: boolean
+                customAttributes:
+                  template: Enabled
+                  immutable: false
+              kinesisFirehoseDestination:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ses-configurationseteventdestination-eventdestination.html#cfn-ses-configurationseteventdestination-eventdestination-kinesisfirehosedestination
+                type: object
+                customAttributes:
+                  immutable: false
+                required:
+                - deliveryStreamARN
+                - iAMRoleARN
+                properties:
+                  deliveryStreamARN:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ses-configurationseteventdestination-kinesisfirehosedestination.html#cfn-ses-configurationseteventdestination-kinesisfirehosedestination-deliverystreamarn
+                    type: string
+                    customAttributes:
+                      template: DeliveryStreamARN
+                      immutable: false
+                  iAMRoleARN:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ses-configurationseteventdestination-kinesisfirehosedestination.html#cfn-ses-configurationseteventdestination-kinesisfirehosedestination-iamrolearn
+                    type: string
+                    customAttributes:
+                      template: IAMRoleARN
+                      immutable: false
+              matchingEventTypes:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ses-configurationseteventdestination-eventdestination.html#cfn-ses-configurationseteventdestination-eventdestination-matchingeventtypes
+                type: array
+                customAttributes:
+                  template: MatchingEventTypes
+                  immutable: false
+                items:
+                  type: string
+              name:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ses-configurationseteventdestination-eventdestination.html#cfn-ses-configurationseteventdestination-eventdestination-name
+                type: string
+                customAttributes:
+                  template: Name
+                  immutable: false

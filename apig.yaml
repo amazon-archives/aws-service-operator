@@ -1,0 +1,7 @@
+apiVersion: apigateway.awsoperator.io/v1alpha1
+kind: Account
+metadata:
+  name: apig-account
+spec:
+  region: us-west-2
+  cloudWatchRoleRef: arn:aws:iam::XXXXXXXXXXXX:role/apig-role

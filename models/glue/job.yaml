@@ -1,0 +1,136 @@
+---
+apiVersion: models.awsoperator.io/v1alpha1
+kind: ModelFile
+metadata:
+  name: glue-job-resource
+  creationTimestamp: '2019-06-13T16:59:29-07:00'
+  resourceVersion: 3.3.0
+spec:
+  resource:
+    kind: Job
+    scope: Namespaced
+    apiGroup:
+      apiVersion: glue.awsoperator.io/v1alpha1
+      group: glue
+      region: us-east-1
+      domain: awsoperator.io
+      versions:
+      - name: v1alpha1
+        served: true
+        storage: true
+    names:
+      singular: job
+      plural: jobs
+      shortNames: []
+  openAPIV3Schema:
+    properties:
+      spec:
+        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-glue-job.html
+        type: object
+        customAttributes: {}
+        required:
+        - command
+        - role
+        properties:
+          allocatedCapacity:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-glue-job.html#cfn-glue-job-allocatedcapacity
+            type: integer
+            format: double
+            customAttributes:
+              template: AllocatedCapacity
+              immutable: false
+          command:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-glue-job.html#cfn-glue-job-command
+            type: object
+            customAttributes:
+              immutable: false
+            required: []
+            properties:
+              name:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-glue-job-jobcommand.html#cfn-glue-job-jobcommand-name
+                type: string
+                customAttributes:
+                  template: Name
+                  immutable: false
+              scriptLocation:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-glue-job-jobcommand.html#cfn-glue-job-jobcommand-scriptlocation
+                type: string
+                customAttributes:
+                  template: ScriptLocation
+                  immutable: false
+          connections:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-glue-job.html#cfn-glue-job-connections
+            type: object
+            customAttributes:
+              immutable: false
+            required: []
+            properties:
+              connections:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-glue-job-connectionslist.html#cfn-glue-job-connectionslist-connections
+                type: array
+                customAttributes:
+                  template: Connections
+                  immutable: false
+                items:
+                  type: string
+          defaultArguments:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-glue-job.html#cfn-glue-job-defaultarguments
+            customAttributes:
+              template: DefaultArguments
+              immutable: false
+          description:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-glue-job.html#cfn-glue-job-description
+            type: string
+            customAttributes:
+              template: Description
+              immutable: false
+          executionProperty:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-glue-job.html#cfn-glue-job-executionproperty
+            type: object
+            customAttributes:
+              immutable: false
+            required: []
+            properties:
+              maxConcurrentRuns:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-glue-job-executionproperty.html#cfn-glue-job-executionproperty-maxconcurrentruns
+                type: integer
+                format: double
+                customAttributes:
+                  template: MaxConcurrentRuns
+                  immutable: false
+          logUri:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-glue-job.html#cfn-glue-job-loguri
+            type: string
+            customAttributes:
+              template: LogUri
+              immutable: false
+          maxRetries:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-glue-job.html#cfn-glue-job-maxretries
+            type: integer
+            format: double
+            customAttributes:
+              template: MaxRetries
+              immutable: false
+          name:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-glue-job.html#cfn-glue-job-name
+            type: string
+            customAttributes:
+              template: Name
+              immutable: true
+          role:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-glue-job.html#cfn-glue-job-role
+            type: string
+            customAttributes:
+              template: Role
+              immutable: false
+          securityConfiguration:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-glue-job.html#cfn-glue-job-securityconfiguration
+            type: string
+            customAttributes:
+              template: SecurityConfiguration
+              immutable: false
+          tags:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-glue-job.html#cfn-glue-job-tags
+            customAttributes:
+              template: Tags
+              immutable: false

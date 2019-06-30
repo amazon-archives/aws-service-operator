@@ -1,0 +1,301 @@
+---
+apiVersion: models.awsoperator.io/v1alpha1
+kind: ModelFile
+metadata:
+  name: ssm-maintenancewindowtask-resource
+  creationTimestamp: '2019-06-13T16:59:30-07:00'
+  resourceVersion: 3.3.0
+spec:
+  resource:
+    kind: MaintenanceWindowTask
+    scope: Namespaced
+    apiGroup:
+      apiVersion: ssm.awsoperator.io/v1alpha1
+      group: ssm
+      region: us-east-1
+      domain: awsoperator.io
+      versions:
+      - name: v1alpha1
+        served: true
+        storage: true
+    names:
+      singular: maintenancewindowtask
+      plural: maintenancewindowtasks
+      shortNames: []
+  openAPIV3Schema:
+    properties:
+      spec:
+        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ssm-maintenancewindowtask.html
+        type: object
+        customAttributes: {}
+        required:
+        - maxConcurrency
+        - maxErrors
+        - priority
+        - serviceRoleArn
+        - targets
+        - taskArn
+        - taskType
+        properties:
+          description:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ssm-maintenancewindowtask.html#cfn-ssm-maintenancewindowtask-description
+            type: string
+            customAttributes:
+              template: Description
+              immutable: false
+          loggingInfo:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ssm-maintenancewindowtask.html#cfn-ssm-maintenancewindowtask-logginginfo
+            type: object
+            customAttributes:
+              immutable: false
+            required:
+            - region
+            - s3Bucket
+            properties:
+              region:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ssm-maintenancewindowtask-logginginfo.html#cfn-ssm-maintenancewindowtask-logginginfo-region
+                type: string
+                customAttributes:
+                  template: Region
+                  immutable: false
+              s3Bucket:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ssm-maintenancewindowtask-logginginfo.html#cfn-ssm-maintenancewindowtask-logginginfo-s3bucket
+                type: string
+                customAttributes:
+                  template: S3Bucket
+                  immutable: false
+              s3Prefix:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ssm-maintenancewindowtask-logginginfo.html#cfn-ssm-maintenancewindowtask-logginginfo-s3prefix
+                type: string
+                customAttributes:
+                  template: S3Prefix
+                  immutable: false
+          maxConcurrency:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ssm-maintenancewindowtask.html#cfn-ssm-maintenancewindowtask-maxconcurrency
+            type: string
+            customAttributes:
+              template: MaxConcurrency
+              immutable: false
+          maxErrors:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ssm-maintenancewindowtask.html#cfn-ssm-maintenancewindowtask-maxerrors
+            type: string
+            customAttributes:
+              template: MaxErrors
+              immutable: false
+          name:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ssm-maintenancewindowtask.html#cfn-ssm-maintenancewindowtask-name
+            type: string
+            customAttributes:
+              template: Name
+              immutable: false
+          priority:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ssm-maintenancewindowtask.html#cfn-ssm-maintenancewindowtask-priority
+            type: integer
+            format: int32
+            customAttributes:
+              template: Priority
+              immutable: false
+          serviceRoleRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ssm-maintenancewindowtask.html#cfn-ssm-maintenancewindowtask-servicerolearn
+            type: string
+            customAttributes:
+              template: ServiceRoleArn
+              immutable: false
+          targets:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ssm-maintenancewindowtask.html#cfn-ssm-maintenancewindowtask-targets
+            type: array
+            customAttributes:
+              template: Targets
+              immutable: false
+            items:
+              type: object
+              properties:
+                key:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ssm-maintenancewindowtask-target.html#cfn-ssm-maintenancewindowtask-target-key
+                  type: string
+                  customAttributes:
+                    template: Key
+                    immutable: false
+                values:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ssm-maintenancewindowtask-target.html#cfn-ssm-maintenancewindowtask-target-values
+                  type: array
+                  customAttributes:
+                    template: Values
+                    immutable: false
+                  items:
+                    type: string
+          taskRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ssm-maintenancewindowtask.html#cfn-ssm-maintenancewindowtask-taskarn
+            type: string
+            customAttributes:
+              template: TaskArn
+              immutable: false
+          taskInvocationParameters:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ssm-maintenancewindowtask.html#cfn-ssm-maintenancewindowtask-taskinvocationparameters
+            type: object
+            customAttributes:
+              immutable: false
+            required: []
+            properties:
+              maintenanceWindowAutomationParameters:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ssm-maintenancewindowtask-taskinvocationparameters.html#cfn-ssm-maintenancewindowtask-taskinvocationparameters-maintenancewindowautomationparameters
+                type: object
+                customAttributes:
+                  immutable: false
+                required: []
+                properties:
+                  documentVersion:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ssm-maintenancewindowtask-maintenancewindowautomationparameters.html#cfn-ssm-maintenancewindowtask-maintenancewindowautomationparameters-documentversion
+                    type: string
+                    customAttributes:
+                      template: DocumentVersion
+                      immutable: false
+                  parameters:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ssm-maintenancewindowtask-maintenancewindowautomationparameters.html#cfn-ssm-maintenancewindowtask-maintenancewindowautomationparameters-parameters
+                    customAttributes:
+                      template: Parameters
+                      immutable: false
+              maintenanceWindowLambdaParameters:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ssm-maintenancewindowtask-taskinvocationparameters.html#cfn-ssm-maintenancewindowtask-taskinvocationparameters-maintenancewindowlambdaparameters
+                type: object
+                customAttributes:
+                  immutable: false
+                required: []
+                properties:
+                  clientContext:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ssm-maintenancewindowtask-maintenancewindowlambdaparameters.html#cfn-ssm-maintenancewindowtask-maintenancewindowlambdaparameters-clientcontext
+                    type: string
+                    customAttributes:
+                      template: ClientContext
+                      immutable: false
+                  payload:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ssm-maintenancewindowtask-maintenancewindowlambdaparameters.html#cfn-ssm-maintenancewindowtask-maintenancewindowlambdaparameters-payload
+                    type: string
+                    customAttributes:
+                      template: Payload
+                      immutable: false
+                  qualifier:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ssm-maintenancewindowtask-maintenancewindowlambdaparameters.html#cfn-ssm-maintenancewindowtask-maintenancewindowlambdaparameters-qualifier
+                    type: string
+                    customAttributes:
+                      template: Qualifier
+                      immutable: false
+              maintenanceWindowRunCommandParameters:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ssm-maintenancewindowtask-taskinvocationparameters.html#cfn-ssm-maintenancewindowtask-taskinvocationparameters-maintenancewindowruncommandparameters
+                type: object
+                customAttributes:
+                  immutable: false
+                required: []
+                properties:
+                  comment:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ssm-maintenancewindowtask-maintenancewindowruncommandparameters.html#cfn-ssm-maintenancewindowtask-maintenancewindowruncommandparameters-comment
+                    type: string
+                    customAttributes:
+                      template: Comment
+                      immutable: false
+                  documentHash:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ssm-maintenancewindowtask-maintenancewindowruncommandparameters.html#cfn-ssm-maintenancewindowtask-maintenancewindowruncommandparameters-documenthash
+                    type: string
+                    customAttributes:
+                      template: DocumentHash
+                      immutable: false
+                  documentHashType:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ssm-maintenancewindowtask-maintenancewindowruncommandparameters.html#cfn-ssm-maintenancewindowtask-maintenancewindowruncommandparameters-documenthashtype
+                    type: string
+                    customAttributes:
+                      template: DocumentHashType
+                      immutable: false
+                  notificationConfig:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ssm-maintenancewindowtask-maintenancewindowruncommandparameters.html#cfn-ssm-maintenancewindowtask-maintenancewindowruncommandparameters-notificationconfig
+                    type: object
+                    customAttributes:
+                      immutable: false
+                    required:
+                    - notificationArn
+                    properties:
+                      notificationRef:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ssm-maintenancewindowtask-notificationconfig.html#cfn-ssm-maintenancewindowtask-notificationconfig-notificationarn
+                        type: string
+                        customAttributes:
+                          template: NotificationArn
+                          immutable: false
+                      notificationEvents:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ssm-maintenancewindowtask-notificationconfig.html#cfn-ssm-maintenancewindowtask-notificationconfig-notificationevents
+                        type: array
+                        customAttributes:
+                          template: NotificationEvents
+                          immutable: false
+                        items:
+                          type: string
+                      notificationType:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ssm-maintenancewindowtask-notificationconfig.html#cfn-ssm-maintenancewindowtask-notificationconfig-notificationtype
+                        type: string
+                        customAttributes:
+                          template: NotificationType
+                          immutable: false
+                  outputS3BucketName:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ssm-maintenancewindowtask-maintenancewindowruncommandparameters.html#cfn-ssm-maintenancewindowtask-maintenancewindowruncommandparameters-outputs3bucketname
+                    type: string
+                    customAttributes:
+                      template: OutputS3BucketName
+                      immutable: false
+                  outputS3KeyPrefix:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ssm-maintenancewindowtask-maintenancewindowruncommandparameters.html#cfn-ssm-maintenancewindowtask-maintenancewindowruncommandparameters-outputs3keyprefix
+                    type: string
+                    customAttributes:
+                      template: OutputS3KeyPrefix
+                      immutable: false
+                  parameters:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ssm-maintenancewindowtask-maintenancewindowruncommandparameters.html#cfn-ssm-maintenancewindowtask-maintenancewindowruncommandparameters-parameters
+                    customAttributes:
+                      template: Parameters
+                      immutable: false
+                  serviceRoleRef:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ssm-maintenancewindowtask-maintenancewindowruncommandparameters.html#cfn-ssm-maintenancewindowtask-maintenancewindowruncommandparameters-servicerolearn
+                    type: string
+                    customAttributes:
+                      template: ServiceRoleArn
+                      immutable: false
+                  timeoutSeconds:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ssm-maintenancewindowtask-maintenancewindowruncommandparameters.html#cfn-ssm-maintenancewindowtask-maintenancewindowruncommandparameters-timeoutseconds
+                    type: integer
+                    format: int32
+                    customAttributes:
+                      template: TimeoutSeconds
+                      immutable: false
+              maintenanceWindowStepFunctionsParameters:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ssm-maintenancewindowtask-taskinvocationparameters.html#cfn-ssm-maintenancewindowtask-taskinvocationparameters-maintenancewindowstepfunctionsparameters
+                type: object
+                customAttributes:
+                  immutable: false
+                required: []
+                properties:
+                  input:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ssm-maintenancewindowtask-maintenancewindowstepfunctionsparameters.html#cfn-ssm-maintenancewindowtask-maintenancewindowstepfunctionsparameters-input
+                    type: string
+                    customAttributes:
+                      template: Input
+                      immutable: false
+                  name:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ssm-maintenancewindowtask-maintenancewindowstepfunctionsparameters.html#cfn-ssm-maintenancewindowtask-maintenancewindowstepfunctionsparameters-name
+                    type: string
+                    customAttributes:
+                      template: Name
+                      immutable: false
+          taskParameters:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ssm-maintenancewindowtask.html#cfn-ssm-maintenancewindowtask-taskparameters
+            customAttributes:
+              template: TaskParameters
+              immutable: false
+          taskType:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ssm-maintenancewindowtask.html#cfn-ssm-maintenancewindowtask-tasktype
+            type: string
+            customAttributes:
+              template: TaskType
+              immutable: false
+          windowRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ssm-maintenancewindowtask.html#cfn-ssm-maintenancewindowtask-windowid
+            type: string
+            customAttributes:
+              template: WindowId
+              immutable: true

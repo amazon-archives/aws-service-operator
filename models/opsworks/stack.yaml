@@ -1,0 +1,300 @@
+---
+apiVersion: models.awsoperator.io/v1alpha1
+kind: ModelFile
+metadata:
+  name: opsworks-stack-resource
+  creationTimestamp: '2019-06-13T16:59:29-07:00'
+  resourceVersion: 3.3.0
+spec:
+  resource:
+    kind: Stack
+    scope: Namespaced
+    apiGroup:
+      apiVersion: opsworks.awsoperator.io/v1alpha1
+      group: opsworks
+      region: us-east-1
+      domain: awsoperator.io
+      versions:
+      - name: v1alpha1
+        served: true
+        storage: true
+    names:
+      singular: stack
+      plural: stacks
+      shortNames: []
+  openAPIV3Schema:
+    properties:
+      spec:
+        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-opsworks-stack.html
+        type: object
+        customAttributes: {}
+        required:
+        - defaultInstanceProfileArn
+        - name
+        - serviceRoleArn
+        properties:
+          agentVersion:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-opsworks-stack.html#cfn-opsworks-stack-agentversion
+            type: string
+            customAttributes:
+              template: AgentVersion
+              immutable: false
+          attributes:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-opsworks-stack.html#cfn-opsworks-stack-attributes
+            type: json
+            customAttributes:
+              template: Attributes
+              immutable: false
+          chefConfiguration:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-opsworks-stack.html#cfn-opsworks-stack-chefconfiguration
+            type: object
+            customAttributes:
+              immutable: false
+            required: []
+            properties:
+              berkshelfVersion:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-opsworks-stack-chefconfiguration.html#cfn-opsworks-chefconfiguration-berkshelfversion
+                type: string
+                customAttributes:
+                  template: BerkshelfVersion
+                  immutable: false
+              manageBerkshelf:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-opsworks-stack-chefconfiguration.html#cfn-opsworks-chefconfiguration-berkshelfversion
+                type: boolean
+                customAttributes:
+                  template: ManageBerkshelf
+                  immutable: false
+          cloneAppRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-opsworks-stack.html#cfn-opsworks-stack-cloneappids
+            type: array
+            customAttributes:
+              template: CloneAppIds
+              immutable: true
+            items:
+              type: string
+          clonePermissions:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-opsworks-stack.html#cfn-opsworks-stack-clonepermissions
+            type: boolean
+            customAttributes:
+              template: ClonePermissions
+              immutable: true
+          configurationManager:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-opsworks-stack.html#cfn-opsworks-stack-configmanager
+            type: object
+            customAttributes:
+              immutable: false
+            required: []
+            properties:
+              name:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-opsworks-stack-stackconfigmanager.html#cfn-opsworks-configmanager-name
+                type: string
+                customAttributes:
+                  template: Name
+                  immutable: false
+              version:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-opsworks-stack-stackconfigmanager.html#cfn-opsworks-configmanager-version
+                type: string
+                customAttributes:
+                  template: Version
+                  immutable: false
+          customCookbooksSource:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-opsworks-stack.html#cfn-opsworks-stack-custcookbooksource
+            type: object
+            customAttributes:
+              immutable: false
+            required: []
+            properties:
+              password:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-opsworks-stack-source.html#cfn-opsworks-custcookbooksource-password
+                type: string
+                customAttributes:
+                  template: Password
+                  immutable: false
+              revision:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-opsworks-stack-source.html#cfn-opsworks-custcookbooksource-revision
+                type: string
+                customAttributes:
+                  template: Revision
+                  immutable: false
+              sshKey:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-opsworks-stack-source.html#cfn-opsworks-custcookbooksource-sshkey
+                type: string
+                customAttributes:
+                  template: SshKey
+                  immutable: false
+              type:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-opsworks-stack-source.html#cfn-opsworks-custcookbooksource-type
+                type: string
+                customAttributes:
+                  template: Type
+                  immutable: false
+              url:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-opsworks-stack-source.html#cfn-opsworks-custcookbooksource-url
+                type: string
+                customAttributes:
+                  template: Url
+                  immutable: false
+              username:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-opsworks-stack-source.html#cfn-opsworks-custcookbooksource-username
+                type: string
+                customAttributes:
+                  template: Username
+                  immutable: false
+          customJson:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-opsworks-stack.html#cfn-opsworks-stack-custjson
+            customAttributes:
+              template: CustomJson
+              immutable: false
+          defaultAvailabilityZone:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-opsworks-stack.html#cfn-opsworks-stack-defaultaz
+            type: string
+            customAttributes:
+              template: DefaultAvailabilityZone
+              immutable: false
+          defaultInstanceProfileRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-opsworks-stack.html#cfn-opsworks-stack-defaultinstanceprof
+            type: string
+            customAttributes:
+              template: DefaultInstanceProfileArn
+              immutable: false
+          defaultOs:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-opsworks-stack.html#cfn-opsworks-stack-defaultos
+            type: string
+            customAttributes:
+              template: DefaultOs
+              immutable: false
+          defaultRootDeviceType:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-opsworks-stack.html#cfn-opsworks-stack-defaultrootdevicetype
+            type: string
+            customAttributes:
+              template: DefaultRootDeviceType
+              immutable: false
+          defaultSshKeyName:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-opsworks-stack.html#cfn-opsworks-stack-defaultsshkeyname
+            type: string
+            customAttributes:
+              template: DefaultSshKeyName
+              immutable: false
+          defaultSubnetRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-opsworks-stack.html#defaultsubnet
+            type: string
+            customAttributes:
+              template: DefaultSubnetId
+              immutable: false
+          ecsClusterRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-opsworks-stack.html#cfn-opsworks-stack-ecsclusterarn
+            type: string
+            customAttributes:
+              template: EcsClusterArn
+              immutable: false
+          elasticIps:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-opsworks-stack.html#cfn-opsworks-stack-elasticips
+            type: array
+            customAttributes:
+              template: ElasticIps
+              immutable: false
+            items:
+              type: object
+              properties:
+                ip:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-opsworks-stack-elasticip.html#cfn-opsworks-stack-elasticip-ip
+                  type: string
+                  customAttributes:
+                    template: Ip
+                    immutable: false
+                name:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-opsworks-stack-elasticip.html#cfn-opsworks-stack-elasticip-name
+                  type: string
+                  customAttributes:
+                    template: Name
+                    immutable: false
+          hostnameTheme:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-opsworks-stack.html#cfn-opsworks-stack-hostnametheme
+            type: string
+            customAttributes:
+              template: HostnameTheme
+              immutable: false
+          name:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-opsworks-stack.html#cfn-opsworks-stack-name
+            type: string
+            customAttributes:
+              template: Name
+              immutable: false
+          rdsDbInstances:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-opsworks-stack.html#cfn-opsworks-stack-rdsdbinstances
+            type: array
+            customAttributes:
+              template: RdsDbInstances
+              immutable: false
+            items:
+              type: object
+              properties:
+                dbPassword:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-opsworks-stack-rdsdbinstance.html#cfn-opsworks-stack-rdsdbinstance-dbpassword
+                  type: string
+                  customAttributes:
+                    template: DbPassword
+                    immutable: false
+                dbUser:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-opsworks-stack-rdsdbinstance.html#cfn-opsworks-stack-rdsdbinstance-dbuser
+                  type: string
+                  customAttributes:
+                    template: DbUser
+                    immutable: false
+                rdsDbInstanceRef:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-opsworks-stack-rdsdbinstance.html#cfn-opsworks-stack-rdsdbinstance-rdsdbinstancearn
+                  type: string
+                  customAttributes:
+                    template: RdsDbInstanceArn
+                    immutable: false
+          serviceRoleRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-opsworks-stack.html#cfn-opsworks-stack-servicerolearn
+            type: string
+            customAttributes:
+              template: ServiceRoleArn
+              immutable: true
+          sourceStackRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-opsworks-stack.html#cfn-opsworks-stack-sourcestackid
+            type: string
+            customAttributes:
+              template: SourceStackId
+              immutable: true
+          tags:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-opsworks-stack.html#cfn-opsworks-stack-tags
+            type: array
+            customAttributes:
+              template: Tags
+              immutable: false
+            items:
+              type: object
+              properties:
+                key:
+                  description: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-resource-tags.html#cfn-resource-tags-key
+                  type: string
+                  customAttributes:
+                    template: Key
+                    immutable: false
+                value:
+                  description: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-resource-tags.html#cfn-resource-tags-value
+                  type: string
+                  customAttributes:
+                    template: Value
+                    immutable: false
+          useCustomCookbooks:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-opsworks-stack.html#usecustcookbooks
+            type: boolean
+            customAttributes:
+              template: UseCustomCookbooks
+              immutable: false
+          useOpsworksSecurityGroups:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-opsworks-stack.html#cfn-opsworks-stack-useopsworkssecuritygroups
+            type: boolean
+            customAttributes:
+              template: UseOpsworksSecurityGroups
+              immutable: false
+          vpcRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-opsworks-stack.html#cfn-opsworks-stack-vpcid
+            type: string
+            customAttributes:
+              template: VpcId
+              immutable: true

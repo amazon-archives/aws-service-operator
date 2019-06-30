@@ -1,0 +1,80 @@
+---
+apiVersion: models.awsoperator.io/v1alpha1
+kind: ModelFile
+metadata:
+  name: greengrass-loggerdefinitionversion-resource
+  creationTimestamp: '2019-06-13T16:59:29-07:00'
+  resourceVersion: 3.3.0
+spec:
+  resource:
+    kind: LoggerDefinitionVersion
+    scope: Namespaced
+    apiGroup:
+      apiVersion: greengrass.awsoperator.io/v1alpha1
+      group: greengrass
+      region: us-east-1
+      domain: awsoperator.io
+      versions:
+      - name: v1alpha1
+        served: true
+        storage: true
+    names:
+      singular: loggerdefinitionversion
+      plural: loggerdefinitionversions
+      shortNames: []
+  openAPIV3Schema:
+    properties:
+      spec:
+        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-greengrass-loggerdefinitionversion.html
+        type: object
+        customAttributes: {}
+        required:
+        - loggerDefinitionId
+        - loggers
+        properties:
+          loggerDefinitionRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-greengrass-loggerdefinitionversion.html#cfn-greengrass-loggerdefinitionversion-loggerdefinitionid
+            type: string
+            customAttributes:
+              template: LoggerDefinitionId
+              immutable: true
+          loggers:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-greengrass-loggerdefinitionversion.html#cfn-greengrass-loggerdefinitionversion-loggers
+            type: array
+            customAttributes:
+              template: Loggers
+              immutable: true
+            items:
+              type: object
+              properties:
+                component:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-greengrass-loggerdefinitionversion-logger.html#cfn-greengrass-loggerdefinitionversion-logger-component
+                  type: string
+                  customAttributes:
+                    template: Component
+                    immutable: true
+                id:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-greengrass-loggerdefinitionversion-logger.html#cfn-greengrass-loggerdefinitionversion-logger-id
+                  type: string
+                  customAttributes:
+                    template: Id
+                    immutable: true
+                level:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-greengrass-loggerdefinitionversion-logger.html#cfn-greengrass-loggerdefinitionversion-logger-level
+                  type: string
+                  customAttributes:
+                    template: Level
+                    immutable: true
+                space:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-greengrass-loggerdefinitionversion-logger.html#cfn-greengrass-loggerdefinitionversion-logger-space
+                  type: integer
+                  format: int32
+                  customAttributes:
+                    template: Space
+                    immutable: true
+                type:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-greengrass-loggerdefinitionversion-logger.html#cfn-greengrass-loggerdefinitionversion-logger-type
+                  type: string
+                  customAttributes:
+                    template: Type
+                    immutable: true

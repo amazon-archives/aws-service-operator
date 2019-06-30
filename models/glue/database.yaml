@@ -1,0 +1,70 @@
+---
+apiVersion: models.awsoperator.io/v1alpha1
+kind: ModelFile
+metadata:
+  name: glue-database-resource
+  creationTimestamp: '2019-06-13T16:59:29-07:00'
+  resourceVersion: 3.3.0
+spec:
+  resource:
+    kind: Database
+    scope: Namespaced
+    apiGroup:
+      apiVersion: glue.awsoperator.io/v1alpha1
+      group: glue
+      region: us-east-1
+      domain: awsoperator.io
+      versions:
+      - name: v1alpha1
+        served: true
+        storage: true
+    names:
+      singular: database
+      plural: databases
+      shortNames: []
+  openAPIV3Schema:
+    properties:
+      spec:
+        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-glue-database.html
+        type: object
+        customAttributes: {}
+        required:
+        - catalogId
+        - databaseInput
+        properties:
+          catalogRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-glue-database.html#cfn-glue-database-catalogid
+            type: string
+            customAttributes:
+              template: CatalogId
+              immutable: true
+          databaseInput:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-glue-database.html#cfn-glue-database-databaseinput
+            type: object
+            customAttributes:
+              immutable: false
+            required: []
+            properties:
+              description:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-glue-database-databaseinput.html#cfn-glue-database-databaseinput-description
+                type: string
+                customAttributes:
+                  template: Description
+                  immutable: false
+              locationUri:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-glue-database-databaseinput.html#cfn-glue-database-databaseinput-locationuri
+                type: string
+                customAttributes:
+                  template: LocationUri
+                  immutable: false
+              name:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-glue-database-databaseinput.html#cfn-glue-database-databaseinput-name
+                type: string
+                customAttributes:
+                  template: Name
+                  immutable: true
+              parameters:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-glue-database-databaseinput.html#cfn-glue-database-databaseinput-parameters
+                customAttributes:
+                  template: Parameters
+                  immutable: false

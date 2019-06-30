@@ -1,0 +1,64 @@
+---
+apiVersion: models.awsoperator.io/v1alpha1
+kind: ModelFile
+metadata:
+  name: logs-loggroup-resource
+  creationTimestamp: '2019-06-13T16:59:29-07:00'
+  resourceVersion: 3.3.0
+spec:
+  resource:
+    kind: LogGroup
+    scope: Namespaced
+    apiGroup:
+      apiVersion: logs.awsoperator.io/v1alpha1
+      group: logs
+      region: us-east-1
+      domain: awsoperator.io
+      versions:
+      - name: v1alpha1
+        served: true
+        storage: true
+    names:
+      singular: loggroup
+      plural: loggroups
+      shortNames: []
+  openAPIV3Schema:
+    properties:
+      spec:
+        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-logs-loggroup.html
+        type: object
+        customAttributes: {}
+        required: []
+        properties:
+          logGroupName:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-logs-loggroup.html#cfn-cwl-loggroup-loggroupname
+            type: string
+            customAttributes:
+              template: LogGroupName
+              resourceName: true
+              immutable: true
+          retentionInDays:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-logs-loggroup.html#cfn-cwl-loggroup-retentionindays
+            type: integer
+            format: int32
+            customAttributes:
+              template: RetentionInDays
+              immutable: false
+            enum:
+            - '1'
+            - '3'
+            - '5'
+            - '7'
+            - '14'
+            - '30'
+            - '60'
+            - '90'
+            - '120'
+            - '150'
+            - '180'
+            - '365'
+            - '400'
+            - '545'
+            - '731'
+            - '1827'
+            - '3653'

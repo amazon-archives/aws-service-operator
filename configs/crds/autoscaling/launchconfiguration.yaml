@@ -1,0 +1,370 @@
+---
+apiVersion: apiextensions.k8s.io/v1beta1
+kind: CustomResourceDefinition
+metadata:
+  name: launchconfigurations.autoscaling.awsoperator.io
+spec:
+  group: autoscaling.awsoperator.io
+  versions:
+  - name: v1alpha1
+    served: true
+    storage: true
+  scope: Namespaced
+  names:
+    plural: launchconfigurations
+    singular: launchconfiguration
+    kind: LaunchConfiguration
+    shortNames: []
+    categories:
+    - aws
+    - autoscaling
+  additionalPrinterColumns:
+  - name: Status
+    type: string
+    description: Status for the AWS CloudFormation stack.
+    JSONPath: ".status.reason"
+  - name: Message
+    type: string
+    description: Message accompanying it's current stack status.
+    JSONPath: ".status.message"
+    priority: 1
+  - name: Created At
+    type: date
+    description: When the resource was created
+    JSONPath: ".metadata.creationTimestamp"
+  subresources:
+    status: {}
+  validation:
+    openAPIV3Schema:
+      properties:
+        spec:
+          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-as-launchconfig.html
+          type: object
+          required:
+          - imageId
+          - instanceType
+          properties:
+            associatePublicIpAddress:
+              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-as-launchconfig.html#cf-as-launchconfig-associatepubip
+              type: boolean
+            blockDeviceMappings:
+              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-as-launchconfig.html#cfn-as-launchconfig-blockdevicemappings
+              type: array
+              items:
+                type: object
+                properties:
+                  deviceName:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-as-launchconfig-blockdev-mapping.html#cfn-as-launchconfig-blockdev-mapping-devicename
+                    type: string
+                    customAttributes:
+                      template: DeviceName
+                      immutable: false
+                  ebs:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-as-launchconfig-blockdev-mapping.html#cfn-as-launchconfig-blockdev-mapping-ebs
+                    type: object
+                    customAttributes:
+                      immutable: false
+                    required: []
+                    properties:
+                      deleteOnTermination:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-as-launchconfig-blockdev-template.html#cfn-as-launchconfig-blockdev-template-deleteonterm
+                        type: boolean
+                        customAttributes:
+                          template: DeleteOnTermination
+                          immutable: false
+                      encrypted:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-as-launchconfig-blockdev-template.html#cfn-as-launchconfig-blockdev-template-encrypted
+                        type: boolean
+                        customAttributes:
+                          template: Encrypted
+                          immutable: false
+                      iops:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-as-launchconfig-blockdev-template.html#cfn-as-launchconfig-blockdev-template-iops
+                        type: integer
+                        format: int32
+                        customAttributes:
+                          template: Iops
+                          immutable: false
+                      snapshotRef:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-as-launchconfig-blockdev-template.html#cfn-as-launchconfig-blockdev-template-snapshotid
+                        type: string
+                        customAttributes:
+                          template: SnapshotId
+                          immutable: false
+                      volumeSize:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-as-launchconfig-blockdev-template.html#cfn-as-launchconfig-blockdev-template-volumesize
+                        type: integer
+                        format: int32
+                        customAttributes:
+                          template: VolumeSize
+                          immutable: false
+                      volumeType:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-as-launchconfig-blockdev-template.html#cfn-as-launchconfig-blockdev-template-volumetype
+                        type: string
+                        customAttributes:
+                          template: VolumeType
+                          immutable: false
+                        enum:
+                        - gp2
+                        - io1
+                        - sc1
+                        - st1
+                        - standard
+                  noDevice:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-as-launchconfig-blockdev-mapping.html#cfn-as-launchconfig-blockdev-mapping-nodevice
+                    type: boolean
+                    customAttributes:
+                      template: NoDevice
+                      immutable: false
+                  virtualName:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-as-launchconfig-blockdev-mapping.html#cfn-as-launchconfig-blockdev-mapping-virtualname
+                    type: string
+                    customAttributes:
+                      template: VirtualName
+                      immutable: false
+            classicLinkVPCRef:
+              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-as-launchconfig.html#cfn-as-launchconfig-classiclinkvpcid
+              type: string
+            classicLinkVPCSecurityGroups:
+              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-as-launchconfig.html#cfn-as-launchconfig-classiclinkvpcsecuritygroups
+              type: array
+              items:
+                type: string
+            ebsOptimized:
+              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-as-launchconfig.html#cfn-as-launchconfig-ebsoptimized
+              type: boolean
+            iamInstanceProfile:
+              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-as-launchconfig.html#cfn-as-launchconfig-iaminstanceprofile
+              type: string
+            imageRef:
+              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-as-launchconfig.html#cfn-as-launchconfig-imageid
+              type: string
+            instanceRef:
+              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-as-launchconfig.html#cfn-as-launchconfig-instanceid
+              type: string
+            instanceMonitoring:
+              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-as-launchconfig.html#cfn-as-launchconfig-instancemonitoring
+              type: boolean
+            instanceType:
+              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-as-launchconfig.html#cfn-as-launchconfig-instancetype
+              type: string
+              enum:
+              - a1.2xlarge
+              - a1.4xlarge
+              - a1.large
+              - a1.medium
+              - a1.xlarge
+              - c1.medium
+              - c1.xlarge
+              - c3.2xlarge
+              - c3.4xlarge
+              - c3.8xlarge
+              - c3.large
+              - c3.xlarge
+              - c4.2xlarge
+              - c4.4xlarge
+              - c4.8xlarge
+              - c4.large
+              - c4.xlarge
+              - c5.18xlarge
+              - c5.2xlarge
+              - c5.4xlarge
+              - c5.9xlarge
+              - c5.large
+              - c5.xlarge
+              - c5d.18xlarge
+              - c5d.2xlarge
+              - c5d.4xlarge
+              - c5d.9xlarge
+              - c5d.large
+              - c5d.xlarge
+              - c5n.18xlarge
+              - c5n.2xlarge
+              - c5n.4xlarge
+              - c5n.9xlarge
+              - c5n.large
+              - c5n.xlarge
+              - cc2.8xlarge
+              - cr1.8xlarge
+              - d2.2xlarge
+              - d2.4xlarge
+              - d2.8xlarge
+              - d2.xlarge
+              - f1.16xlarge
+              - f1.2xlarge
+              - f1.4xlarge
+              - g2.2xlarge
+              - g2.8xlarge
+              - g3.16xlarge
+              - g3.4xlarge
+              - g3.8xlarge
+              - g3s.xlarge
+              - h1.16xlarge
+              - h1.2xlarge
+              - h1.4xlarge
+              - h1.8xlarge
+              - hs1.8xlarge
+              - i2.2xlarge
+              - i2.4xlarge
+              - i2.8xlarge
+              - i2.xlarge
+              - i3.16xlarge
+              - i3.2xlarge
+              - i3.4xlarge
+              - i3.8xlarge
+              - i3.large
+              - i3.xlarge
+              - i3en.12xlarge
+              - i3en.24xlarge
+              - i3en.2xlarge
+              - i3en.3xlarge
+              - i3en.6xlarge
+              - i3en.large
+              - i3en.xlarge
+              - m1.large
+              - m1.medium
+              - m1.small
+              - m1.xlarge
+              - m2.2xlarge
+              - m2.4xlarge
+              - m2.xlarge
+              - m3.2xlarge
+              - m3.large
+              - m3.medium
+              - m3.xlarge
+              - m4.10xlarge
+              - m4.16xlarge
+              - m4.2xlarge
+              - m4.4xlarge
+              - m4.large
+              - m4.xlarge
+              - m5.12xlarge
+              - m5.24xlarge
+              - m5.2xlarge
+              - m5.4xlarge
+              - m5.large
+              - m5.metal
+              - m5.xlarge
+              - m5a.12xlarge
+              - m5a.24xlarge
+              - m5a.2xlarge
+              - m5a.4xlarge
+              - m5a.large
+              - m5a.xlarge
+              - m5ad.12xlarge
+              - m5ad.24xlarge
+              - m5ad.2xlarge
+              - m5ad.4xlarge
+              - m5ad.large
+              - m5ad.xlarge
+              - m5d.12xlarge
+              - m5d.24xlarge
+              - m5d.2xlarge
+              - m5d.4xlarge
+              - m5d.large
+              - m5d.metal
+              - m5d.xlarge
+              - p2.16xlarge
+              - p2.8xlarge
+              - p2.xlarge
+              - p3.16xlarge
+              - p3.2xlarge
+              - p3.8xlarge
+              - p3dn.24xlarge
+              - r3.2xlarge
+              - r3.4xlarge
+              - r3.8xlarge
+              - r3.large
+              - r3.xlarge
+              - r4.16xlarge
+              - r4.2xlarge
+              - r4.4xlarge
+              - r4.8xlarge
+              - r4.large
+              - r4.xlarge
+              - r5.12xlarge
+              - r5.24xlarge
+              - r5.2xlarge
+              - r5.4xlarge
+              - r5.large
+              - r5.xlarge
+              - r5a.12xlarge
+              - r5a.24xlarge
+              - r5a.2xlarge
+              - r5a.4xlarge
+              - r5a.large
+              - r5a.xlarge
+              - r5ad.12xlarge
+              - r5ad.24xlarge
+              - r5ad.2xlarge
+              - r5ad.4xlarge
+              - r5ad.large
+              - r5ad.xlarge
+              - r5d.12xlarge
+              - r5d.24xlarge
+              - r5d.2xlarge
+              - r5d.4xlarge
+              - r5d.large
+              - r5d.xlarge
+              - t1.micro
+              - t2.2xlarge
+              - t2.large
+              - t2.medium
+              - t2.micro
+              - t2.nano
+              - t2.small
+              - t2.xlarge
+              - t3.2xlarge
+              - t3.large
+              - t3.medium
+              - t3.micro
+              - t3.nano
+              - t3.small
+              - t3.xlarge
+              - t3a.2xlarge
+              - t3a.large
+              - t3a.medium
+              - t3a.micro
+              - t3a.nano
+              - t3a.small
+              - t3a.xlarge
+              - x1.16xlarge
+              - x1.32xlarge
+              - x1e.16xlarge
+              - x1e.2xlarge
+              - x1e.32xlarge
+              - x1e.4xlarge
+              - x1e.8xlarge
+              - x1e.xlarge
+              - z1d.12xlarge
+              - z1d.2xlarge
+              - z1d.3xlarge
+              - z1d.6xlarge
+              - z1d.large
+              - z1d.xlarge
+            kernelRef:
+              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-as-launchconfig.html#cfn-as-launchconfig-kernelid
+              type: string
+            keyName:
+              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-as-launchconfig.html#cfn-as-launchconfig-keyname
+              type: string
+            placementTenancy:
+              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-as-launchconfig.html#cfn-as-launchconfig-placementtenancy
+              type: string
+              enum:
+              - dedicated
+              - default
+            ramDiskRef:
+              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-as-launchconfig.html#cfn-as-launchconfig-ramdiskid
+              type: string
+            securityGroupsRef:
+              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-as-launchconfig.html#cfn-as-launchconfig-securitygroups
+              type: array
+              items:
+                type: string
+            spotPrice:
+              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-as-launchconfig.html#cfn-as-launchconfig-spotprice
+              type: string
+            userData:
+              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-as-launchconfig.html#cfn-as-launchconfig-userdata
+              type: string

@@ -1,0 +1,59 @@
+---
+apiVersion: models.awsoperator.io/v1alpha1
+kind: ModelFile
+metadata:
+  name: secretsmanager-rotationschedule-resource
+  creationTimestamp: '2019-06-13T16:59:30-07:00'
+  resourceVersion: 3.3.0
+spec:
+  resource:
+    kind: RotationSchedule
+    scope: Namespaced
+    apiGroup:
+      apiVersion: secretsmanager.awsoperator.io/v1alpha1
+      group: secretsmanager
+      region: us-east-1
+      domain: awsoperator.io
+      versions:
+      - name: v1alpha1
+        served: true
+        storage: true
+    names:
+      singular: rotationschedule
+      plural: rotationschedules
+      shortNames: []
+  openAPIV3Schema:
+    properties:
+      spec:
+        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-secretsmanager-rotationschedule.html
+        type: object
+        customAttributes: {}
+        required:
+        - secretId
+        properties:
+          rotationLambdaARN:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-secretsmanager-rotationschedule.html#cfn-secretsmanager-rotationschedule-rotationlambdaarn
+            type: string
+            customAttributes:
+              template: RotationLambdaARN
+              immutable: false
+          rotationRules:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-secretsmanager-rotationschedule.html#cfn-secretsmanager-rotationschedule-rotationrules
+            type: object
+            customAttributes:
+              immutable: false
+            required: []
+            properties:
+              automaticallyAfterDays:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-secretsmanager-rotationschedule-rotationrules.html#cfn-secretsmanager-rotationschedule-rotationrules-automaticallyafterdays
+                type: integer
+                format: int32
+                customAttributes:
+                  template: AutomaticallyAfterDays
+                  immutable: false
+          secretRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-secretsmanager-rotationschedule.html#cfn-secretsmanager-rotationschedule-secretid
+            type: string
+            customAttributes:
+              template: SecretId
+              immutable: true

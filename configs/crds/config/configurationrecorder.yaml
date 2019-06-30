@@ -1,0 +1,134 @@
+---
+apiVersion: apiextensions.k8s.io/v1beta1
+kind: CustomResourceDefinition
+metadata:
+  name: configurationrecorders.config.awsoperator.io
+spec:
+  group: config.awsoperator.io
+  versions:
+  - name: v1alpha1
+    served: true
+    storage: true
+  scope: Namespaced
+  names:
+    plural: configurationrecorders
+    singular: configurationrecorder
+    kind: ConfigurationRecorder
+    shortNames: []
+    categories:
+    - aws
+    - config
+  additionalPrinterColumns:
+  - name: Status
+    type: string
+    description: Status for the AWS CloudFormation stack.
+    JSONPath: ".status.reason"
+  - name: Message
+    type: string
+    description: Message accompanying it's current stack status.
+    JSONPath: ".status.message"
+    priority: 1
+  - name: Created At
+    type: date
+    description: When the resource was created
+    JSONPath: ".metadata.creationTimestamp"
+  subresources:
+    status: {}
+  validation:
+    openAPIV3Schema:
+      properties:
+        spec:
+          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-config-configurationrecorder.html
+          type: object
+          required:
+          - roleARN
+          properties:
+            name:
+              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-config-configurationrecorder.html#cfn-config-configurationrecorder-name
+              type: string
+            recordingGroup:
+              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-config-configurationrecorder.html#cfn-config-configurationrecorder-recordinggroup
+              type: object
+              required: []
+              properties:
+                allSupported:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-config-configurationrecorder-recordinggroup.html#cfn-config-configurationrecorder-recordinggroup-allsupported
+                  type: boolean
+                includeGlobalResourceTypes:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-config-configurationrecorder-recordinggroup.html#cfn-config-configurationrecorder-recordinggroup-includeglobalresourcetypes
+                  type: boolean
+                resourceTypes:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-config-configurationrecorder-recordinggroup.html#cfn-config-configurationrecorder-recordinggroup-resourcetypes
+                  type: array
+                  items:
+                    type: string
+                  enum:
+                  - AWS::ACM::Certificate
+                  - AWS::AutoScaling::AutoScalingGroup
+                  - AWS::AutoScaling::LaunchConfiguration
+                  - AWS::AutoScaling::ScalingPolicy
+                  - AWS::AutoScaling::ScheduledAction
+                  - AWS::CloudFormation::Stack
+                  - AWS::CloudFront::Distribution
+                  - AWS::CloudFront::StreamingDistribution
+                  - AWS::CloudTrail::Trail
+                  - AWS::CloudWatch::Alarm
+                  - AWS::CodeBuild::Project
+                  - AWS::CodePipeline::Pipeline
+                  - AWS::DynamoDB::Table
+                  - AWS::EC2::CustomerGateway
+                  - AWS::EC2::EIP
+                  - AWS::EC2::Host
+                  - AWS::EC2::Instance
+                  - AWS::EC2::InternetGateway
+                  - AWS::EC2::NetworkAcl
+                  - AWS::EC2::NetworkInterface
+                  - AWS::EC2::RouteTable
+                  - AWS::EC2::SecurityGroup
+                  - AWS::EC2::Subnet
+                  - AWS::EC2::Volume
+                  - AWS::EC2::VPC
+                  - AWS::EC2::VPNConnection
+                  - AWS::EC2::VPNGateway
+                  - AWS::ElasticBeanstalk::Application
+                  - AWS::ElasticBeanstalk::ApplicationVersion
+                  - AWS::ElasticBeanstalk::Environment
+                  - AWS::ElasticLoadBalancing::LoadBalancer
+                  - AWS::ElasticLoadBalancingV2::LoadBalancer
+                  - AWS::IAM::Group
+                  - AWS::IAM::Policy
+                  - AWS::IAM::Role
+                  - AWS::IAM::User
+                  - AWS::Lambda::Function
+                  - AWS::RDS::DBInstance
+                  - AWS::RDS::DBSecurityGroup
+                  - AWS::RDS::DBSnapshot
+                  - AWS::RDS::DBSubnetGroup
+                  - AWS::RDS::EventSubscription
+                  - AWS::Redshift::Cluster
+                  - AWS::Redshift::ClusterParameterGroup
+                  - AWS::Redshift::ClusterSecurityGroup
+                  - AWS::Redshift::ClusterSnapshot
+                  - AWS::Redshift::ClusterSubnetGroup
+                  - AWS::Redshift::EventSubscription
+                  - AWS::S3::Bucket
+                  - AWS::ServiceCatalog::CloudFormationProduct
+                  - AWS::ServiceCatalog::CloudFormationProvisionedProduct
+                  - AWS::ServiceCatalog::Portfolio
+                  - AWS::Shield::Protection
+                  - AWS::ShieldRegional::Protection
+                  - AWS::SSM::AssociationCompliance
+                  - AWS::SSM::ManagedInstanceInventory
+                  - AWS::SSM::PatchCompliance
+                  - AWS::WAF::RateBasedRule
+                  - AWS::WAF::Rule
+                  - AWS::WAF::RuleGroup
+                  - AWS::WAF::WebACL
+                  - AWS::WAFRegional::RateBasedRule
+                  - AWS::WAFRegional::Rule
+                  - AWS::WAFRegional::RuleGroup
+                  - AWS::WAFRegional::WebACL
+                  - AWS::XRay::EncryptionConfig
+            roleARN:
+              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-config-configurationrecorder.html#cfn-config-configurationrecorder-rolearn
+              type: string

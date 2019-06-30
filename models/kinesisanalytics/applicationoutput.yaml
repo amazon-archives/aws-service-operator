@@ -1,0 +1,130 @@
+---
+apiVersion: models.awsoperator.io/v1alpha1
+kind: ModelFile
+metadata:
+  name: kinesisanalytics-applicationoutput-resource
+  creationTimestamp: '2019-06-13T16:59:29-07:00'
+  resourceVersion: 3.3.0
+spec:
+  resource:
+    kind: ApplicationOutput
+    scope: Namespaced
+    apiGroup:
+      apiVersion: kinesisanalytics.awsoperator.io/v1alpha1
+      group: kinesisanalytics
+      region: us-east-1
+      domain: awsoperator.io
+      versions:
+      - name: v1alpha1
+        served: true
+        storage: true
+    names:
+      singular: applicationoutput
+      plural: applicationoutputs
+      shortNames: []
+  openAPIV3Schema:
+    properties:
+      spec:
+        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-kinesisanalytics-applicationoutput.html
+        type: object
+        customAttributes: {}
+        required:
+        - applicationName
+        - output
+        properties:
+          applicationName:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-kinesisanalytics-applicationoutput.html#cfn-kinesisanalytics-applicationoutput-applicationname
+            type: string
+            customAttributes:
+              template: ApplicationName
+              immutable: true
+          output:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-kinesisanalytics-applicationoutput.html#cfn-kinesisanalytics-applicationoutput-output
+            type: object
+            customAttributes:
+              immutable: false
+            required:
+            - destinationSchema
+            properties:
+              destinationSchema:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisanalytics-applicationoutput-output.html#cfn-kinesisanalytics-applicationoutput-output-destinationschema
+                type: object
+                customAttributes:
+                  immutable: false
+                required: []
+                properties:
+                  recordFormatType:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisanalytics-applicationoutput-destinationschema.html#cfn-kinesisanalytics-applicationoutput-destinationschema-recordformattype
+                    type: string
+                    customAttributes:
+                      template: RecordFormatType
+                      immutable: false
+              kinesisFirehoseOutput:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisanalytics-applicationoutput-output.html#cfn-kinesisanalytics-applicationoutput-output-kinesisfirehoseoutput
+                type: object
+                customAttributes:
+                  immutable: false
+                required:
+                - resourceARN
+                - roleARN
+                properties:
+                  resourceARN:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisanalytics-applicationoutput-kinesisfirehoseoutput.html#cfn-kinesisanalytics-applicationoutput-kinesisfirehoseoutput-resourcearn
+                    type: string
+                    customAttributes:
+                      template: ResourceARN
+                      immutable: false
+                  roleARN:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisanalytics-applicationoutput-kinesisfirehoseoutput.html#cfn-kinesisanalytics-applicationoutput-kinesisfirehoseoutput-rolearn
+                    type: string
+                    customAttributes:
+                      template: RoleARN
+                      immutable: false
+              kinesisStreamsOutput:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisanalytics-applicationoutput-output.html#cfn-kinesisanalytics-applicationoutput-output-kinesisstreamsoutput
+                type: object
+                customAttributes:
+                  immutable: false
+                required:
+                - resourceARN
+                - roleARN
+                properties:
+                  resourceARN:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisanalytics-applicationoutput-kinesisstreamsoutput.html#cfn-kinesisanalytics-applicationoutput-kinesisstreamsoutput-resourcearn
+                    type: string
+                    customAttributes:
+                      template: ResourceARN
+                      immutable: false
+                  roleARN:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisanalytics-applicationoutput-kinesisstreamsoutput.html#cfn-kinesisanalytics-applicationoutput-kinesisstreamsoutput-rolearn
+                    type: string
+                    customAttributes:
+                      template: RoleARN
+                      immutable: false
+              lambdaOutput:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisanalytics-applicationoutput-output.html#cfn-kinesisanalytics-applicationoutput-output-lambdaoutput
+                type: object
+                customAttributes:
+                  immutable: false
+                required:
+                - resourceARN
+                - roleARN
+                properties:
+                  resourceARN:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisanalytics-applicationoutput-lambdaoutput.html#cfn-kinesisanalytics-applicationoutput-lambdaoutput-resourcearn
+                    type: string
+                    customAttributes:
+                      template: ResourceARN
+                      immutable: false
+                  roleARN:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisanalytics-applicationoutput-lambdaoutput.html#cfn-kinesisanalytics-applicationoutput-lambdaoutput-rolearn
+                    type: string
+                    customAttributes:
+                      template: RoleARN
+                      immutable: false
+              name:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-kinesisanalytics-applicationoutput-output.html#cfn-kinesisanalytics-applicationoutput-output-name
+                type: string
+                customAttributes:
+                  template: Name
+                  immutable: true

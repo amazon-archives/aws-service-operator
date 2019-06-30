@@ -1,0 +1,69 @@
+---
+apiVersion: models.awsoperator.io/v1alpha1
+kind: ModelFile
+metadata:
+  name: apigatewayv2-routeresponse-resource
+  creationTimestamp: '2019-06-13T16:59:28-07:00'
+  resourceVersion: 3.3.0
+spec:
+  resource:
+    kind: RouteResponse
+    scope: Namespaced
+    apiGroup:
+      apiVersion: apigatewayv2.awsoperator.io/v1alpha1
+      group: apigatewayv2
+      region: us-east-1
+      domain: awsoperator.io
+      versions:
+      - name: v1alpha1
+        served: true
+        storage: true
+    names:
+      singular: routeresponse
+      plural: routeresponses
+      shortNames: []
+  openAPIV3Schema:
+    properties:
+      spec:
+        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigatewayv2-routeresponse.html
+        type: object
+        customAttributes: {}
+        required:
+        - apiId
+        - routeId
+        - routeResponseKey
+        properties:
+          apiRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigatewayv2-routeresponse.html#cfn-apigatewayv2-routeresponse-apiid
+            type: string
+            customAttributes:
+              template: ApiId
+              immutable: true
+          modelSelectionExpression:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigatewayv2-routeresponse.html#cfn-apigatewayv2-routeresponse-modelselectionexpression
+            type: string
+            customAttributes:
+              template: ModelSelectionExpression
+              immutable: false
+          responseModels:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigatewayv2-routeresponse.html#cfn-apigatewayv2-routeresponse-responsemodels
+            customAttributes:
+              template: ResponseModels
+              immutable: false
+          responseParameters:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigatewayv2-routeresponse.html#cfn-apigatewayv2-routeresponse-responseparameters
+            customAttributes:
+              template: ResponseParameters
+              immutable: false
+          routeRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigatewayv2-routeresponse.html#cfn-apigatewayv2-routeresponse-routeid
+            type: string
+            customAttributes:
+              template: RouteId
+              immutable: true
+          routeResponseKey:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigatewayv2-routeresponse.html#cfn-apigatewayv2-routeresponse-routeresponsekey
+            type: string
+            customAttributes:
+              template: RouteResponseKey
+              immutable: false

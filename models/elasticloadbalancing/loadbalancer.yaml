@@ -1,0 +1,347 @@
+---
+apiVersion: models.awsoperator.io/v1alpha1
+kind: ModelFile
+metadata:
+  name: elasticloadbalancing-loadbalancer-resource
+  creationTimestamp: '2019-06-13T16:59:29-07:00'
+  resourceVersion: 3.3.0
+spec:
+  resource:
+    kind: LoadBalancer
+    scope: Namespaced
+    apiGroup:
+      apiVersion: elasticloadbalancing.awsoperator.io/v1alpha1
+      group: elasticloadbalancing
+      region: us-east-1
+      domain: awsoperator.io
+      versions:
+      - name: v1alpha1
+        served: true
+        storage: true
+    names:
+      singular: loadbalancer
+      plural: loadbalancers
+      shortNames: []
+  openAPIV3Schema:
+    properties:
+      spec:
+        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-elb.html
+        type: object
+        customAttributes: {}
+        required:
+        - listeners
+        properties:
+          accessLoggingPolicy:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-elb.html#cfn-ec2-elb-accessloggingpolicy
+            type: object
+            customAttributes:
+              immutable: false
+            required:
+            - enabled
+            - s3BucketName
+            properties:
+              emitInterval:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-elb-accessloggingpolicy.html#cfn-elb-accessloggingpolicy-emitinterval
+                type: integer
+                format: int32
+                customAttributes:
+                  template: EmitInterval
+                  immutable: false
+              enabled:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-elb-accessloggingpolicy.html#cfn-elb-accessloggingpolicy-enabled
+                type: boolean
+                customAttributes:
+                  template: Enabled
+                  immutable: false
+              s3BucketName:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-elb-accessloggingpolicy.html#cfn-elb-accessloggingpolicy-s3bucketname
+                type: string
+                customAttributes:
+                  template: S3BucketName
+                  immutable: false
+              s3BucketPrefix:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-elb-accessloggingpolicy.html#cfn-elb-accessloggingpolicy-s3bucketprefix
+                type: string
+                customAttributes:
+                  template: S3BucketPrefix
+                  immutable: false
+          appCookieStickinessPolicy:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-elb.html#cfn-ec2-elb-appcookiestickinesspolicy
+            type: array
+            customAttributes:
+              template: AppCookieStickinessPolicy
+              immutable: false
+            items:
+              type: object
+              properties:
+                cookieName:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-elb-AppCookieStickinessPolicy.html#cfn-elb-appcookiestickinesspolicy-cookiename
+                  type: string
+                  customAttributes:
+                    template: CookieName
+                    immutable: false
+                policyName:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-elb-AppCookieStickinessPolicy.html#cfn-elb-appcookiestickinesspolicy-policyname
+                  type: string
+                  customAttributes:
+                    template: PolicyName
+                    immutable: false
+          availabilityZones:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-elb.html#cfn-ec2-elb-availabilityzones
+            type: array
+            customAttributes:
+              template: AvailabilityZones
+            items:
+              type: string
+          connectionDrainingPolicy:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-elb.html#cfn-ec2-elb-connectiondrainingpolicy
+            type: object
+            customAttributes:
+              immutable: false
+            required:
+            - enabled
+            properties:
+              enabled:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-elb-connectiondrainingpolicy.html#cfn-elb-connectiondrainingpolicy-enabled
+                type: boolean
+                customAttributes:
+                  template: Enabled
+                  immutable: false
+              timeout:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-elb-connectiondrainingpolicy.html#cfn-elb-connectiondrainingpolicy-timeout
+                type: integer
+                format: int32
+                customAttributes:
+                  template: Timeout
+                  immutable: false
+          connectionSettings:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-elb.html#cfn-ec2-elb-connectionsettings
+            type: object
+            customAttributes:
+              immutable: false
+            required:
+            - idleTimeout
+            properties:
+              leTimeoutRef:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-elb-connectionsettings.html#cfn-elb-connectionsettings-idletimeout
+                type: integer
+                format: int32
+                customAttributes:
+                  template: IdleTimeout
+                  immutable: false
+          crossZone:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-elb.html#cfn-ec2-elb-crosszone
+            type: boolean
+            customAttributes:
+              template: CrossZone
+              immutable: false
+          healthCheck:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-elb.html#cfn-ec2-elb-healthcheck
+            type: object
+            customAttributes: {}
+            required:
+            - healthyThreshold
+            - interval
+            - target
+            - timeout
+            - unhealthyThreshold
+            properties:
+              healthyThreshold:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-elb-health-check.html#cfn-elb-healthcheck-healthythreshold
+                type: string
+                customAttributes:
+                  template: HealthyThreshold
+                  immutable: false
+              interval:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-elb-health-check.html#cfn-elb-healthcheck-interval
+                type: string
+                customAttributes:
+                  template: Interval
+                  immutable: false
+              target:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-elb-health-check.html#cfn-elb-healthcheck-target
+                type: string
+                customAttributes:
+                  template: Target
+                  immutable: false
+              timeout:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-elb-health-check.html#cfn-elb-healthcheck-timeout
+                type: string
+                customAttributes:
+                  template: Timeout
+                  immutable: false
+              unhealthyThreshold:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-elb-health-check.html#cfn-elb-healthcheck-unhealthythreshold
+                type: string
+                customAttributes:
+                  template: UnhealthyThreshold
+                  immutable: false
+          instances:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-elb.html#cfn-ec2-elb-instances
+            type: array
+            customAttributes:
+              template: Instances
+              immutable: false
+            items:
+              type: string
+          lBCookieStickinessPolicy:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-elb.html#cfn-ec2-elb-lbcookiestickinesspolicy
+            type: array
+            customAttributes:
+              template: LBCookieStickinessPolicy
+              immutable: false
+            items:
+              type: object
+              properties:
+                cookieExpirationPeriod:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-elb-LBCookieStickinessPolicy.html#cfn-elb-lbcookiestickinesspolicy-cookieexpirationperiod
+                  type: string
+                  customAttributes:
+                    template: CookieExpirationPeriod
+                    immutable: false
+                policyName:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-elb-LBCookieStickinessPolicy.html#cfn-elb-lbcookiestickinesspolicy-policyname
+                  type: string
+                  customAttributes:
+                    template: PolicyName
+                    immutable: false
+          listeners:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-elb.html#cfn-ec2-elb-listeners
+            type: array
+            customAttributes:
+              template: Listeners
+              immutable: false
+            items:
+              type: object
+              properties:
+                instancePort:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-elb-listener.html#cfn-ec2-elb-listener-instanceport
+                  type: string
+                  customAttributes:
+                    template: InstancePort
+                    immutable: false
+                instanceProtocol:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-elb-listener.html#cfn-ec2-elb-listener-instanceprotocol
+                  type: string
+                  customAttributes:
+                    template: InstanceProtocol
+                    immutable: false
+                loadBalancerPort:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-elb-listener.html#cfn-ec2-elb-listener-loadbalancerport
+                  type: string
+                  customAttributes:
+                    template: LoadBalancerPort
+                    immutable: false
+                policyNames:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-elb-listener.html#cfn-ec2-elb-listener-policynames
+                  type: array
+                  customAttributes:
+                    template: PolicyNames
+                    immutable: false
+                  items:
+                    type: string
+                protocol:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-elb-listener.html#cfn-ec2-elb-listener-protocol
+                  type: string
+                  customAttributes:
+                    template: Protocol
+                    immutable: false
+                sSLCertificateRef:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-elb-listener.html#cfn-ec2-elb-listener-sslcertificateid
+                  type: string
+                  customAttributes:
+                    template: SSLCertificateId
+                    immutable: false
+          loadBalancerName:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-elb.html#cfn-ec2-elb-elbname
+            type: string
+            customAttributes:
+              template: LoadBalancerName
+              resourceName: true
+              immutable: true
+          policies:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-elb.html#cfn-ec2-elb-policies
+            type: array
+            customAttributes:
+              template: Policies
+              immutable: false
+            items:
+              type: object
+              properties:
+                attributes:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-elb-policy.html#cfn-ec2-elb-policy-attributes
+                  type: array
+                  customAttributes:
+                    template: Attributes
+                    immutable: false
+                  items: {}
+                instancePorts:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-elb-policy.html#cfn-ec2-elb-policy-instanceports
+                  type: array
+                  customAttributes:
+                    template: InstancePorts
+                    immutable: false
+                  items:
+                    type: string
+                loadBalancerPorts:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-elb-policy.html#cfn-ec2-elb-policy-loadbalancerports
+                  type: array
+                  customAttributes:
+                    template: LoadBalancerPorts
+                    immutable: false
+                  items:
+                    type: string
+                policyName:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-elb-policy.html#cfn-ec2-elb-policy-policyname
+                  type: string
+                  customAttributes:
+                    template: PolicyName
+                    immutable: false
+                policyType:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-elb-policy.html#cfn-ec2-elb-policy-policytype
+                  type: string
+                  customAttributes:
+                    template: PolicyType
+                    immutable: false
+          scheme:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-elb.html#cfn-ec2-elb-scheme
+            type: string
+            customAttributes:
+              template: Scheme
+              immutable: true
+          securityGroupsRef:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-elb.html#cfn-ec2-elb-securitygroups
+            type: array
+            customAttributes:
+              template: SecurityGroups
+              immutable: false
+            items:
+              type: string
+          subnets:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-elb.html#cfn-ec2-elb-subnets
+            type: array
+            customAttributes:
+              template: Subnets
+            items:
+              type: string
+          tags:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-ec2-elb.html#cfn-elasticloadbalancing-loadbalancer-tags
+            type: array
+            customAttributes:
+              template: Tags
+              immutable: false
+            items:
+              type: object
+              properties:
+                key:
+                  description: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-resource-tags.html#cfn-resource-tags-key
+                  type: string
+                  customAttributes:
+                    template: Key
+                    immutable: false
+                value:
+                  description: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-resource-tags.html#cfn-resource-tags-value
+                  type: string
+                  customAttributes:
+                    template: Value
+                    immutable: false

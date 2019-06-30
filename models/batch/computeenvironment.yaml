@@ -1,0 +1,191 @@
+---
+apiVersion: models.awsoperator.io/v1alpha1
+kind: ModelFile
+metadata:
+  name: batch-computeenvironment-resource
+  creationTimestamp: '2019-06-13T16:59:28-07:00'
+  resourceVersion: 3.3.0
+spec:
+  resource:
+    kind: ComputeEnvironment
+    scope: Namespaced
+    apiGroup:
+      apiVersion: batch.awsoperator.io/v1alpha1
+      group: batch
+      region: us-east-1
+      domain: awsoperator.io
+      versions:
+      - name: v1alpha1
+        served: true
+        storage: true
+    names:
+      singular: computeenvironment
+      plural: computeenvironments
+      shortNames: []
+  openAPIV3Schema:
+    properties:
+      spec:
+        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-batch-computeenvironment.html
+        type: object
+        customAttributes: {}
+        required:
+        - serviceRole
+        - type
+        properties:
+          computeEnvironmentName:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-batch-computeenvironment.html#cfn-batch-computeenvironment-computeenvironmentname
+            type: string
+            customAttributes:
+              template: ComputeEnvironmentName
+              resourceName: true
+              immutable: true
+          computeResources:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-batch-computeenvironment.html#cfn-batch-computeenvironment-computeresources
+            type: object
+            customAttributes:
+              immutable: false
+            required:
+            - instanceRole
+            - instanceTypes
+            - maxvCpus
+            - minvCpus
+            - securityGroupIds
+            - subnets
+            - type
+            properties:
+              bidPercentage:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-batch-computeenvironment-computeresources.html#cfn-batch-computeenvironment-computeresources-bidpercentage
+                type: integer
+                format: int32
+                customAttributes:
+                  template: BidPercentage
+                  immutable: true
+              desiredvCpus:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-batch-computeenvironment-computeresources.html#cfn-batch-computeenvironment-computeresources-desiredvcpus
+                type: integer
+                format: int32
+                customAttributes:
+                  template: DesiredvCpus
+                  immutable: false
+              ec2KeyPair:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-batch-computeenvironment-computeresources.html#cfn-batch-computeenvironment-computeresources-ec2keypair
+                type: string
+                customAttributes:
+                  template: Ec2KeyPair
+                  immutable: true
+              imageRef:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-batch-computeenvironment-computeresources.html#cfn-batch-computeenvironment-computeresources-imageid
+                type: string
+                customAttributes:
+                  template: ImageId
+                  immutable: true
+              instanceRole:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-batch-computeenvironment-computeresources.html#cfn-batch-computeenvironment-computeresources-instancerole
+                type: string
+                customAttributes:
+                  template: InstanceRole
+                  immutable: true
+              instanceTypes:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-batch-computeenvironment-computeresources.html#cfn-batch-computeenvironment-computeresources-instancetypes
+                type: array
+                customAttributes:
+                  template: InstanceTypes
+                  immutable: true
+                items:
+                  type: string
+              launchTemplate:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-batch-computeenvironment-computeresources.html#cfn-batch-computeenvironment-computeresources-launchtemplate
+                type: object
+                customAttributes:
+                  immutable: true
+                required: []
+                properties:
+                  launchTemplateRef:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-batch-computeenvironment-launchtemplatespecification.html#cfn-batch-computeenvironment-launchtemplatespecification-launchtemplateid
+                    type: string
+                    customAttributes:
+                      template: LaunchTemplateId
+                      immutable: true
+                  launchTemplateName:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-batch-computeenvironment-launchtemplatespecification.html#cfn-batch-computeenvironment-launchtemplatespecification-launchtemplatename
+                    type: string
+                    customAttributes:
+                      template: LaunchTemplateName
+                      immutable: true
+                  version:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-batch-computeenvironment-launchtemplatespecification.html#cfn-batch-computeenvironment-launchtemplatespecification-version
+                    type: string
+                    customAttributes:
+                      template: Version
+                      immutable: true
+              maxvCpus:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-batch-computeenvironment-computeresources.html#cfn-batch-computeenvironment-computeresources-maxvcpus
+                type: integer
+                format: int32
+                customAttributes:
+                  template: MaxvCpus
+                  immutable: false
+              minvCpus:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-batch-computeenvironment-computeresources.html#cfn-batch-computeenvironment-computeresources-minvcpus
+                type: integer
+                format: int32
+                customAttributes:
+                  template: MinvCpus
+                  immutable: false
+              placementGroup:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-batch-computeenvironment-computeresources.html#cfn-batch-computeenvironment-computeresources-placementgroup
+                type: string
+                customAttributes:
+                  template: PlacementGroup
+                  immutable: true
+              securityGroupRef:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-batch-computeenvironment-computeresources.html#cfn-batch-computeenvironment-computeresources-securitygroupids
+                type: array
+                customAttributes:
+                  template: SecurityGroupIds
+                  immutable: true
+                items:
+                  type: string
+              spotIamFleetRole:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-batch-computeenvironment-computeresources.html#cfn-batch-computeenvironment-computeresources-spotiamfleetrole
+                type: string
+                customAttributes:
+                  template: SpotIamFleetRole
+                  immutable: true
+              subnets:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-batch-computeenvironment-computeresources.html#cfn-batch-computeenvironment-computeresources-subnets
+                type: array
+                customAttributes:
+                  template: Subnets
+                  immutable: true
+                items:
+                  type: string
+              tags:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-batch-computeenvironment-computeresources.html#cfn-batch-computeenvironment-computeresources-tags
+                customAttributes:
+                  template: Tags
+                  immutable: true
+              type:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-batch-computeenvironment-computeresources.html#cfn-batch-computeenvironment-computeresources-type
+                type: string
+                customAttributes:
+                  template: Type
+                  immutable: true
+          serviceRole:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-batch-computeenvironment.html#cfn-batch-computeenvironment-servicerole
+            type: string
+            customAttributes:
+              template: ServiceRole
+              immutable: false
+          state:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-batch-computeenvironment.html#cfn-batch-computeenvironment-state
+            type: string
+            customAttributes:
+              template: State
+              immutable: false
+          type:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-batch-computeenvironment.html#cfn-batch-computeenvironment-type
+            type: string
+            customAttributes:
+              template: Type
+              immutable: true

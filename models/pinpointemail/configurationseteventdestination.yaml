@@ -1,0 +1,150 @@
+---
+apiVersion: models.awsoperator.io/v1alpha1
+kind: ModelFile
+metadata:
+  name: pinpointemail-configurationseteventdestination-resource
+  creationTimestamp: '2019-06-13T16:59:29-07:00'
+  resourceVersion: 3.3.0
+spec:
+  resource:
+    kind: ConfigurationSetEventDestination
+    scope: Namespaced
+    apiGroup:
+      apiVersion: pinpointemail.awsoperator.io/v1alpha1
+      group: pinpointemail
+      region: us-east-1
+      domain: awsoperator.io
+      versions:
+      - name: v1alpha1
+        served: true
+        storage: true
+    names:
+      singular: configurationseteventdestination
+      plural: configurationseteventdestinations
+      shortNames: []
+  openAPIV3Schema:
+    properties:
+      spec:
+        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-pinpointemail-configurationseteventdestination.html
+        type: object
+        customAttributes: {}
+        required:
+        - configurationSetName
+        - eventDestinationName
+        properties:
+          configurationSetName:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-pinpointemail-configurationseteventdestination.html#cfn-pinpointemail-configurationseteventdestination-configurationsetname
+            type: string
+            customAttributes:
+              template: ConfigurationSetName
+              immutable: true
+          eventDestination:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-pinpointemail-configurationseteventdestination.html#cfn-pinpointemail-configurationseteventdestination-eventdestination
+            type: object
+            customAttributes:
+              immutable: false
+            required:
+            - matchingEventTypes
+            properties:
+              cloudWatchDestination:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-pinpointemail-configurationseteventdestination-eventdestination.html#cfn-pinpointemail-configurationseteventdestination-eventdestination-cloudwatchdestination
+                type: object
+                customAttributes:
+                  immutable: false
+                required: []
+                properties:
+                  dimensionConfigurations:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-pinpointemail-configurationseteventdestination-cloudwatchdestination.html#cfn-pinpointemail-configurationseteventdestination-cloudwatchdestination-dimensionconfigurations
+                    type: array
+                    customAttributes:
+                      template: DimensionConfigurations
+                      immutable: false
+                    items:
+                      type: object
+                      properties:
+                        defaultDimensionValue:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-pinpointemail-configurationseteventdestination-dimensionconfiguration.html#cfn-pinpointemail-configurationseteventdestination-dimensionconfiguration-defaultdimensionvalue
+                          type: string
+                          customAttributes:
+                            template: DefaultDimensionValue
+                            immutable: false
+                        dimensionName:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-pinpointemail-configurationseteventdestination-dimensionconfiguration.html#cfn-pinpointemail-configurationseteventdestination-dimensionconfiguration-dimensionname
+                          type: string
+                          customAttributes:
+                            template: DimensionName
+                            immutable: false
+                        dimensionValueSource:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-pinpointemail-configurationseteventdestination-dimensionconfiguration.html#cfn-pinpointemail-configurationseteventdestination-dimensionconfiguration-dimensionvaluesource
+                          type: string
+                          customAttributes:
+                            template: DimensionValueSource
+                            immutable: false
+              enabled:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-pinpointemail-configurationseteventdestination-eventdestination.html#cfn-pinpointemail-configurationseteventdestination-eventdestination-enabled
+                type: boolean
+                customAttributes:
+                  template: Enabled
+                  immutable: false
+              kinesisFirehoseDestination:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-pinpointemail-configurationseteventdestination-eventdestination.html#cfn-pinpointemail-configurationseteventdestination-eventdestination-kinesisfirehosedestination
+                type: object
+                customAttributes:
+                  immutable: false
+                required:
+                - deliveryStreamArn
+                - iamRoleArn
+                properties:
+                  deliveryStreamRef:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-pinpointemail-configurationseteventdestination-kinesisfirehosedestination.html#cfn-pinpointemail-configurationseteventdestination-kinesisfirehosedestination-deliverystreamarn
+                    type: string
+                    customAttributes:
+                      template: DeliveryStreamArn
+                      immutable: false
+                  iamRoleRef:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-pinpointemail-configurationseteventdestination-kinesisfirehosedestination.html#cfn-pinpointemail-configurationseteventdestination-kinesisfirehosedestination-iamrolearn
+                    type: string
+                    customAttributes:
+                      template: IamRoleArn
+                      immutable: false
+              matchingEventTypes:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-pinpointemail-configurationseteventdestination-eventdestination.html#cfn-pinpointemail-configurationseteventdestination-eventdestination-matchingeventtypes
+                type: array
+                customAttributes:
+                  template: MatchingEventTypes
+                  immutable: false
+                items:
+                  type: string
+              pinpointDestination:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-pinpointemail-configurationseteventdestination-eventdestination.html#cfn-pinpointemail-configurationseteventdestination-eventdestination-pinpointdestination
+                type: object
+                customAttributes:
+                  immutable: false
+                required: []
+                properties:
+                  applicationRef:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-pinpointemail-configurationseteventdestination-pinpointdestination.html#cfn-pinpointemail-configurationseteventdestination-pinpointdestination-applicationarn
+                    type: string
+                    customAttributes:
+                      template: ApplicationArn
+                      immutable: false
+              snsDestination:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-pinpointemail-configurationseteventdestination-eventdestination.html#cfn-pinpointemail-configurationseteventdestination-eventdestination-snsdestination
+                type: object
+                customAttributes:
+                  immutable: false
+                required:
+                - topicArn
+                properties:
+                  topicRef:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-pinpointemail-configurationseteventdestination-snsdestination.html#cfn-pinpointemail-configurationseteventdestination-snsdestination-topicarn
+                    type: string
+                    customAttributes:
+                      template: TopicArn
+                      immutable: false
+          eventDestinationName:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-pinpointemail-configurationseteventdestination.html#cfn-pinpointemail-configurationseteventdestination-eventdestinationname
+            type: string
+            customAttributes:
+              template: EventDestinationName
+              immutable: true

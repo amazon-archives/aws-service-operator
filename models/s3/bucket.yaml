@@ -1,0 +1,1085 @@
+---
+apiVersion: models.awsoperator.io/v1alpha1
+kind: ModelFile
+metadata:
+  name: s3-bucket-resource
+  creationTimestamp: '2019-06-13T16:59:29-07:00'
+  resourceVersion: 3.3.0
+spec:
+  resource:
+    kind: Bucket
+    scope: Namespaced
+    apiGroup:
+      apiVersion: s3.awsoperator.io/v1alpha1
+      group: s3
+      region: us-east-1
+      domain: awsoperator.io
+      versions:
+      - name: v1alpha1
+        served: true
+        storage: true
+    names:
+      singular: bucket
+      plural: buckets
+      shortNames: []
+  openAPIV3Schema:
+    properties:
+      spec:
+        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket.html
+        type: object
+        customAttributes: {}
+        required: []
+        properties:
+          accelerateConfiguration:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket.html#cfn-s3-bucket-accelerateconfiguration
+            type: object
+            customAttributes:
+              immutable: false
+            required:
+            - accelerationStatus
+            properties:
+              accelerationStatus:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-accelerateconfiguration.html#cfn-s3-bucket-accelerateconfiguration-accelerationstatus
+                type: string
+                customAttributes:
+                  template: AccelerationStatus
+                  immutable: false
+                enum:
+                - Enabled
+                - Suspended
+          accessControl:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket.html#cfn-s3-bucket-accesscontrol
+            type: string
+            customAttributes:
+              template: AccessControl
+              immutable: false
+            enum:
+            - AuthenticatedRead
+            - AwsExecRead
+            - BucketOwnerFullControl
+            - BucketOwnerRead
+            - LogDeliveryWrite
+            - Private
+            - PublicRead
+            - PublicReadWrite
+          analyticsConfigurations:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket.html#cfn-s3-bucket-analyticsconfigurations
+            type: array
+            customAttributes:
+              template: AnalyticsConfigurations
+              immutable: false
+            items:
+              type: object
+              properties:
+                id:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-analyticsconfiguration.html#cfn-s3-bucket-analyticsconfiguration-id
+                  type: string
+                  customAttributes:
+                    template: Id
+                    immutable: false
+                prefix:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-analyticsconfiguration.html#cfn-s3-bucket-analyticsconfiguration-prefix
+                  type: string
+                  customAttributes:
+                    template: Prefix
+                    immutable: false
+                storageClassAnalysis:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-analyticsconfiguration.html#cfn-s3-bucket-analyticsconfiguration-storageclassanalysis
+                  type: object
+                  customAttributes:
+                    immutable: false
+                  required: []
+                  properties:
+                    dataExport:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-storageclassanalysis.html#cfn-s3-bucket-storageclassanalysis-dataexport
+                      type: object
+                      customAttributes:
+                        immutable: false
+                      required:
+                      - destination
+                      - outputSchemaVersion
+                      properties:
+                        destination:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-dataexport.html#cfn-s3-bucket-dataexport-destination
+                          type: object
+                          customAttributes:
+                            immutable: false
+                          required:
+                          - bucketArn
+                          - format
+                          properties:
+                            bucketAccountRef:
+                              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-destination.html#cfn-s3-bucket-destination-bucketaccountid
+                              type: string
+                              customAttributes:
+                                template: BucketAccountId
+                                immutable: false
+                            bucketRef:
+                              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-destination.html#cfn-s3-bucket-destination-bucketarn
+                              type: string
+                              customAttributes:
+                                template: BucketArn
+                                immutable: false
+                            format:
+                              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-destination.html#cfn-s3-bucket-destination-format
+                              type: string
+                              customAttributes:
+                                template: Format
+                                immutable: false
+                            prefix:
+                              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-destination.html#cfn-s3-bucket-destination-prefix
+                              type: string
+                              customAttributes:
+                                template: Prefix
+                                immutable: false
+                        outputSchemaVersion:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-dataexport.html#cfn-s3-bucket-dataexport-outputschemaversion
+                          type: string
+                          customAttributes:
+                            template: OutputSchemaVersion
+                            immutable: false
+                tagFilters:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-analyticsconfiguration.html#cfn-s3-bucket-analyticsconfiguration-tagfilters
+                  type: array
+                  customAttributes:
+                    template: TagFilters
+                    immutable: false
+                  items:
+                    type: object
+                    properties:
+                      key:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-tagfilter.html#cfn-s3-bucket-tagfilter-key
+                        type: string
+                        customAttributes:
+                          template: Key
+                          immutable: false
+                      value:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-tagfilter.html#cfn-s3-bucket-tagfilter-value
+                        type: string
+                        customAttributes:
+                          template: Value
+                          immutable: false
+          bucketEncryption:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket.html#cfn-s3-bucket-bucketencryption
+            type: object
+            customAttributes:
+              immutable: false
+            required:
+            - serverSideEncryptionConfiguration
+            properties:
+              serverSideEncryptionConfiguration:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-bucketencryption.html#cfn-s3-bucket-bucketencryption-serversideencryptionconfiguration
+                type: array
+                customAttributes:
+                  template: ServerSideEncryptionConfiguration
+                  immutable: false
+                items:
+                  type: object
+                  properties:
+                    serverSideEncryptionByDefault:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-serversideencryptionrule.html#cfn-s3-bucket-serversideencryptionrule-serversideencryptionbydefault
+                      type: object
+                      customAttributes:
+                        immutable: false
+                      required:
+                      - sSEAlgorithm
+                      properties:
+                        kMSMasterKeyID:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-serversideencryptionbydefault.html#cfn-s3-bucket-serversideencryptionbydefault-kmsmasterkeyid
+                          type: string
+                          customAttributes:
+                            template: KMSMasterKeyID
+                            immutable: false
+                        sSEAlgorithm:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-serversideencryptionbydefault.html#cfn-s3-bucket-serversideencryptionbydefault-ssealgorithm
+                          type: string
+                          customAttributes:
+                            template: SSEAlgorithm
+                            immutable: false
+                          enum:
+                          - AES256
+                          - aws:kms
+          bucketName:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket.html#cfn-s3-bucket-name
+            type: string
+            customAttributes:
+              template: BucketName
+              resourceName: true
+              immutable: true
+          corsConfiguration:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket.html#cfn-s3-bucket-crossoriginconfig
+            type: object
+            customAttributes:
+              immutable: false
+            required:
+            - corsRules
+            properties:
+              corsRules:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-cors.html#cfn-s3-bucket-cors-corsrule
+                type: array
+                customAttributes:
+                  template: CorsRules
+                  immutable: false
+                items:
+                  type: object
+                  properties:
+                    allowedHeaders:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-cors-corsrule.html#cfn-s3-bucket-cors-corsrule-allowedheaders
+                      type: array
+                      customAttributes:
+                        template: AllowedHeaders
+                        immutable: false
+                      items:
+                        type: string
+                    allowedMethods:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-cors-corsrule.html#cfn-s3-bucket-cors-corsrule-allowedmethods
+                      type: array
+                      customAttributes:
+                        template: AllowedMethods
+                        immutable: false
+                      items:
+                        type: string
+                    allowedOrigins:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-cors-corsrule.html#cfn-s3-bucket-cors-corsrule-allowedorigins
+                      type: array
+                      customAttributes:
+                        template: AllowedOrigins
+                        immutable: false
+                      items:
+                        type: string
+                    exposedHeaders:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-cors-corsrule.html#cfn-s3-bucket-cors-corsrule-exposedheaders
+                      type: array
+                      customAttributes:
+                        template: ExposedHeaders
+                        immutable: false
+                      items:
+                        type: string
+                    id:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-cors-corsrule.html#cfn-s3-bucket-cors-corsrule-id
+                      type: string
+                      customAttributes:
+                        template: Id
+                        immutable: false
+                    maxAge:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-cors-corsrule.html#cfn-s3-bucket-cors-corsrule-maxage
+                      type: integer
+                      format: int32
+                      customAttributes:
+                        template: MaxAge
+                        immutable: false
+          inventoryConfigurations:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket.html#cfn-s3-bucket-inventoryconfigurations
+            type: array
+            customAttributes:
+              template: InventoryConfigurations
+              immutable: false
+            items:
+              type: object
+              properties:
+                destination:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-inventoryconfiguration.html#cfn-s3-bucket-inventoryconfiguration-destination
+                  type: object
+                  customAttributes:
+                    immutable: false
+                  required:
+                  - bucketArn
+                  - format
+                  properties:
+                    bucketAccountRef:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-destination.html#cfn-s3-bucket-destination-bucketaccountid
+                      type: string
+                      customAttributes:
+                        template: BucketAccountId
+                        immutable: false
+                    bucketRef:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-destination.html#cfn-s3-bucket-destination-bucketarn
+                      type: string
+                      customAttributes:
+                        template: BucketArn
+                        immutable: false
+                    format:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-destination.html#cfn-s3-bucket-destination-format
+                      type: string
+                      customAttributes:
+                        template: Format
+                        immutable: false
+                    prefix:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-destination.html#cfn-s3-bucket-destination-prefix
+                      type: string
+                      customAttributes:
+                        template: Prefix
+                        immutable: false
+                enabled:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-inventoryconfiguration.html#cfn-s3-bucket-inventoryconfiguration-enabled
+                  type: boolean
+                  customAttributes:
+                    template: Enabled
+                    immutable: false
+                id:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-inventoryconfiguration.html#cfn-s3-bucket-inventoryconfiguration-id
+                  type: string
+                  customAttributes:
+                    template: Id
+                    immutable: false
+                includedObjectVersions:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-inventoryconfiguration.html#cfn-s3-bucket-inventoryconfiguration-includedobjectversions
+                  type: string
+                  customAttributes:
+                    template: IncludedObjectVersions
+                    immutable: false
+                optionalFields:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-inventoryconfiguration.html#cfn-s3-bucket-inventoryconfiguration-optionalfields
+                  type: array
+                  customAttributes:
+                    template: OptionalFields
+                    immutable: false
+                  items:
+                    type: string
+                prefix:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-inventoryconfiguration.html#cfn-s3-bucket-inventoryconfiguration-prefix
+                  type: string
+                  customAttributes:
+                    template: Prefix
+                    immutable: false
+                scheduleFrequency:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-inventoryconfiguration.html#cfn-s3-bucket-inventoryconfiguration-schedulefrequency
+                  type: string
+                  customAttributes:
+                    template: ScheduleFrequency
+                    immutable: false
+          lifecycleConfiguration:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket.html#cfn-s3-bucket-lifecycleconfig
+            type: object
+            customAttributes:
+              immutable: false
+            required:
+            - rules
+            properties:
+              rules:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-lifecycleconfig.html#cfn-s3-bucket-lifecycleconfig-rules
+                type: array
+                customAttributes:
+                  template: Rules
+                  immutable: false
+                items:
+                  type: object
+                  properties:
+                    abortIncompleteMultipartUpload:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-lifecycleconfig-rule.html#cfn-s3-bucket-rule-abortincompletemultipartupload
+                      type: object
+                      customAttributes:
+                        immutable: false
+                      required:
+                      - daysAfterInitiation
+                      properties:
+                        daysAfterInitiation:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-abortincompletemultipartupload.html#cfn-s3-bucket-abortincompletemultipartupload-daysafterinitiation
+                          type: integer
+                          format: int32
+                          customAttributes:
+                            template: DaysAfterInitiation
+                            immutable: false
+                    expirationDate:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-lifecycleconfig-rule.html#cfn-s3-bucket-lifecycleconfig-rule-expirationdate
+                      customAttributes:
+                        template: ExpirationDate
+                        immutable: false
+                    expirationInDays:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-lifecycleconfig-rule.html#cfn-s3-bucket-lifecycleconfig-rule-expirationindays
+                      type: integer
+                      format: int32
+                      customAttributes:
+                        template: ExpirationInDays
+                        immutable: false
+                    id:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-lifecycleconfig-rule.html#cfn-s3-bucket-lifecycleconfig-rule-id
+                      type: string
+                      customAttributes:
+                        template: Id
+                        immutable: false
+                    noncurrentVersionExpirationInDays:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-lifecycleconfig-rule.html#cfn-s3-bucket-lifecycleconfig-rule-noncurrentversionexpirationindays
+                      type: integer
+                      format: int32
+                      customAttributes:
+                        template: NoncurrentVersionExpirationInDays
+                        immutable: false
+                    noncurrentVersionTransition:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-lifecycleconfig-rule.html#cfn-s3-bucket-lifecycleconfig-rule-noncurrentversiontransition
+                      type: object
+                      customAttributes:
+                        immutable: false
+                      required:
+                      - storageClass
+                      - transitionInDays
+                      properties:
+                        storageClass:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-lifecycleconfig-rule-noncurrentversiontransition.html#cfn-s3-bucket-lifecycleconfig-rule-noncurrentversiontransition-storageclass
+                          type: string
+                          customAttributes:
+                            template: StorageClass
+                            immutable: false
+                        transitionInDays:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-lifecycleconfig-rule-noncurrentversiontransition.html#cfn-s3-bucket-lifecycleconfig-rule-noncurrentversiontransition-transitionindays
+                          type: integer
+                          format: int32
+                          customAttributes:
+                            template: TransitionInDays
+                            immutable: false
+                    noncurrentVersionTransitions:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-lifecycleconfig-rule.html#cfn-s3-bucket-lifecycleconfig-rule-noncurrentversiontransitions
+                      type: array
+                      customAttributes:
+                        template: NoncurrentVersionTransitions
+                        immutable: false
+                      items:
+                        type: object
+                        properties:
+                          storageClass:
+                            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-lifecycleconfig-rule-noncurrentversiontransition.html#cfn-s3-bucket-lifecycleconfig-rule-noncurrentversiontransition-storageclass
+                            type: string
+                            customAttributes:
+                              template: StorageClass
+                              immutable: false
+                          transitionInDays:
+                            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-lifecycleconfig-rule-noncurrentversiontransition.html#cfn-s3-bucket-lifecycleconfig-rule-noncurrentversiontransition-transitionindays
+                            type: integer
+                            format: int32
+                            customAttributes:
+                              template: TransitionInDays
+                              immutable: false
+                    prefix:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-lifecycleconfig-rule.html#cfn-s3-bucket-lifecycleconfig-rule-prefix
+                      type: string
+                      customAttributes:
+                        template: Prefix
+                        immutable: false
+                    status:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-lifecycleconfig-rule.html#cfn-s3-bucket-lifecycleconfig-rule-status
+                      type: string
+                      customAttributes:
+                        template: Status
+                        immutable: false
+                    tagFilters:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-lifecycleconfig-rule.html#cfn-s3-bucket-rule-tagfilters
+                      type: array
+                      customAttributes:
+                        template: TagFilters
+                        immutable: false
+                      items:
+                        type: object
+                        properties:
+                          key:
+                            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-tagfilter.html#cfn-s3-bucket-tagfilter-key
+                            type: string
+                            customAttributes:
+                              template: Key
+                              immutable: false
+                          value:
+                            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-tagfilter.html#cfn-s3-bucket-tagfilter-value
+                            type: string
+                            customAttributes:
+                              template: Value
+                              immutable: false
+                    transition:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-lifecycleconfig-rule.html#cfn-s3-bucket-lifecycleconfig-rule-transition
+                      type: object
+                      customAttributes:
+                        immutable: false
+                      required:
+                      - storageClass
+                      properties:
+                        storageClass:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-lifecycleconfig-rule-transition.html#cfn-s3-bucket-lifecycleconfig-rule-transition-storageclass
+                          type: string
+                          customAttributes:
+                            template: StorageClass
+                            immutable: false
+                        transitionDate:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-lifecycleconfig-rule-transition.html#cfn-s3-bucket-lifecycleconfig-rule-transition-transitiondate
+                          customAttributes:
+                            template: TransitionDate
+                            immutable: false
+                        transitionInDays:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-lifecycleconfig-rule-transition.html#cfn-s3-bucket-lifecycleconfig-rule-transition-transitionindays
+                          type: integer
+                          format: int32
+                          customAttributes:
+                            template: TransitionInDays
+                            immutable: false
+                    transitions:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-lifecycleconfig-rule.html#cfn-s3-bucket-lifecycleconfig-rule-transitions
+                      type: array
+                      customAttributes:
+                        template: Transitions
+                        immutable: false
+                      items:
+                        type: object
+                        properties:
+                          storageClass:
+                            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-lifecycleconfig-rule-transition.html#cfn-s3-bucket-lifecycleconfig-rule-transition-storageclass
+                            type: string
+                            customAttributes:
+                              template: StorageClass
+                              immutable: false
+                          transitionDate:
+                            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-lifecycleconfig-rule-transition.html#cfn-s3-bucket-lifecycleconfig-rule-transition-transitiondate
+                            customAttributes:
+                              template: TransitionDate
+                              immutable: false
+                          transitionInDays:
+                            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-lifecycleconfig-rule-transition.html#cfn-s3-bucket-lifecycleconfig-rule-transition-transitionindays
+                            type: integer
+                            format: int32
+                            customAttributes:
+                              template: TransitionInDays
+                              immutable: false
+          loggingConfiguration:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket.html#cfn-s3-bucket-loggingconfig
+            type: object
+            customAttributes:
+              immutable: false
+            required: []
+            properties:
+              destinationBucketName:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-loggingconfig.html#cfn-s3-bucket-loggingconfig-destinationbucketname
+                type: string
+                customAttributes:
+                  template: DestinationBucketName
+                  immutable: false
+              logFilePrefix:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-loggingconfig.html#cfn-s3-bucket-loggingconfig-logfileprefix
+                type: string
+                customAttributes:
+                  template: LogFilePrefix
+                  immutable: false
+          metricsConfigurations:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket.html#cfn-s3-bucket-metricsconfigurations
+            type: array
+            customAttributes:
+              template: MetricsConfigurations
+              immutable: false
+            items:
+              type: object
+              properties:
+                id:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-metricsconfiguration.html#cfn-s3-bucket-metricsconfiguration-id
+                  type: string
+                  customAttributes:
+                    template: Id
+                    immutable: false
+                prefix:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-metricsconfiguration.html#cfn-s3-bucket-metricsconfiguration-prefix
+                  type: string
+                  customAttributes:
+                    template: Prefix
+                    immutable: false
+                tagFilters:
+                  description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-metricsconfiguration.html#cfn-s3-bucket-metricsconfiguration-tagfilters
+                  type: array
+                  customAttributes:
+                    template: TagFilters
+                    immutable: false
+                  items:
+                    type: object
+                    properties:
+                      key:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-tagfilter.html#cfn-s3-bucket-tagfilter-key
+                        type: string
+                        customAttributes:
+                          template: Key
+                          immutable: false
+                      value:
+                        description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-tagfilter.html#cfn-s3-bucket-tagfilter-value
+                        type: string
+                        customAttributes:
+                          template: Value
+                          immutable: false
+          notificationConfiguration:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket.html#cfn-s3-bucket-notification
+            type: object
+            customAttributes:
+              immutable: false
+            required: []
+            properties:
+              lambdaConfigurations:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-notificationconfig.html#cfn-s3-bucket-notificationconfig-lambdaconfig
+                type: array
+                customAttributes:
+                  template: LambdaConfigurations
+                  immutable: false
+                items:
+                  type: object
+                  properties:
+                    event:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-notificationconfig-lambdaconfig.html#cfn-s3-bucket-notificationconfig-lambdaconfig-event
+                      type: string
+                      customAttributes:
+                        template: Event
+                        immutable: false
+                    filter:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-notificationconfig-lambdaconfig.html#cfn-s3-bucket-notificationconfig-lambdaconfig-filter
+                      type: object
+                      customAttributes:
+                        immutable: false
+                      required:
+                      - s3Key
+                      properties:
+                        s3Key:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-notificationconfiguration-config-filter.html#cfn-s3-bucket-notificationconfiguraiton-config-filter-s3key
+                          type: object
+                          customAttributes:
+                            immutable: false
+                          required:
+                          - rules
+                          properties:
+                            rules:
+                              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-notificationconfiguration-config-filter-s3key.html#cfn-s3-bucket-notificationconfiguraiton-config-filter-s3key-rules
+                              type: array
+                              customAttributes:
+                                template: Rules
+                                immutable: false
+                              items:
+                                type: object
+                                properties:
+                                  name:
+                                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-notificationconfiguration-config-filter-s3key-rules.html#cfn-s3-bucket-notificationconfiguraiton-config-filter-s3key-rules-name
+                                    type: string
+                                    customAttributes:
+                                      template: Name
+                                      immutable: false
+                                  value:
+                                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-notificationconfiguration-config-filter-s3key-rules.html#cfn-s3-bucket-notificationconfiguraiton-config-filter-s3key-rules-value
+                                    type: string
+                                    customAttributes:
+                                      template: Value
+                                      immutable: false
+                    function:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-notificationconfig-lambdaconfig.html#cfn-s3-bucket-notificationconfig-lambdaconfig-function
+                      type: string
+                      customAttributes:
+                        template: Function
+                        immutable: false
+              queueConfigurations:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-notificationconfig.html#cfn-s3-bucket-notificationconfig-queueconfig
+                type: array
+                customAttributes:
+                  template: QueueConfigurations
+                  immutable: false
+                items:
+                  type: object
+                  properties:
+                    event:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-notificationconfig-queueconfig.html#cfn-s3-bucket-notificationconfig-queueconfig-event
+                      type: string
+                      customAttributes:
+                        template: Event
+                        immutable: false
+                    filter:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-notificationconfig-queueconfig.html#cfn-s3-bucket-notificationconfig-queueconfig-filter
+                      type: object
+                      customAttributes:
+                        immutable: false
+                      required:
+                      - s3Key
+                      properties:
+                        s3Key:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-notificationconfiguration-config-filter.html#cfn-s3-bucket-notificationconfiguraiton-config-filter-s3key
+                          type: object
+                          customAttributes:
+                            immutable: false
+                          required:
+                          - rules
+                          properties:
+                            rules:
+                              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-notificationconfiguration-config-filter-s3key.html#cfn-s3-bucket-notificationconfiguraiton-config-filter-s3key-rules
+                              type: array
+                              customAttributes:
+                                template: Rules
+                                immutable: false
+                              items:
+                                type: object
+                                properties:
+                                  name:
+                                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-notificationconfiguration-config-filter-s3key-rules.html#cfn-s3-bucket-notificationconfiguraiton-config-filter-s3key-rules-name
+                                    type: string
+                                    customAttributes:
+                                      template: Name
+                                      immutable: false
+                                  value:
+                                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-notificationconfiguration-config-filter-s3key-rules.html#cfn-s3-bucket-notificationconfiguraiton-config-filter-s3key-rules-value
+                                    type: string
+                                    customAttributes:
+                                      template: Value
+                                      immutable: false
+                    queue:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-notificationconfig-queueconfig.html#cfn-s3-bucket-notificationconfig-queueconfig-queue
+                      type: string
+                      customAttributes:
+                        template: Queue
+                        immutable: false
+              topicConfigurations:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-notificationconfig.html#cfn-s3-bucket-notificationconfig-topicconfig
+                type: array
+                customAttributes:
+                  template: TopicConfigurations
+                  immutable: false
+                items:
+                  type: object
+                  properties:
+                    event:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-notificationconfig-topicconfig.html#cfn-s3-bucket-notificationconfig-topicconfig-event
+                      type: string
+                      customAttributes:
+                        template: Event
+                        immutable: false
+                      enum:
+                      - s3:ObjectCreated:*
+                      - s3:ObjectCreated:CompleteMultipartUpload
+                      - s3:ObjectCreated:Copy
+                      - s3:ObjectCreated:Post
+                      - s3:ObjectCreated:Put
+                      - s3:ObjectRemoved:*
+                      - s3:ObjectRemoved:Delete
+                      - s3:ObjectRemoved:DeleteMarkerCreated
+                      - s3:ObjectRestore:Completed
+                      - s3:ObjectRestore:Post
+                      - s3:ReducedRedundancyLostObject
+                    filter:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-notificationconfig-topicconfig.html#cfn-s3-bucket-notificationconfig-topicconfig-filter
+                      type: object
+                      customAttributes:
+                        immutable: false
+                      required:
+                      - s3Key
+                      properties:
+                        s3Key:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-notificationconfiguration-config-filter.html#cfn-s3-bucket-notificationconfiguraiton-config-filter-s3key
+                          type: object
+                          customAttributes:
+                            immutable: false
+                          required:
+                          - rules
+                          properties:
+                            rules:
+                              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-notificationconfiguration-config-filter-s3key.html#cfn-s3-bucket-notificationconfiguraiton-config-filter-s3key-rules
+                              type: array
+                              customAttributes:
+                                template: Rules
+                                immutable: false
+                              items:
+                                type: object
+                                properties:
+                                  name:
+                                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-notificationconfiguration-config-filter-s3key-rules.html#cfn-s3-bucket-notificationconfiguraiton-config-filter-s3key-rules-name
+                                    type: string
+                                    customAttributes:
+                                      template: Name
+                                      immutable: false
+                                  value:
+                                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-notificationconfiguration-config-filter-s3key-rules.html#cfn-s3-bucket-notificationconfiguraiton-config-filter-s3key-rules-value
+                                    type: string
+                                    customAttributes:
+                                      template: Value
+                                      immutable: false
+                    topic:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-notificationconfig-topicconfig.html#cfn-s3-bucket-notificationconfig-topicconfig-topic
+                      type: string
+                      customAttributes:
+                        template: Topic
+                        immutable: false
+          publicAccessBlockConfiguration:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket.html#cfn-s3-bucket-publicaccessblockconfiguration
+            type: object
+            customAttributes:
+              immutable: false
+            required: []
+            properties:
+              blockPublicAcls:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-publicaccessblockconfiguration.html#cfn-s3-bucket-publicaccessblockconfiguration-blockpublicacls
+                type: boolean
+                customAttributes:
+                  template: BlockPublicAcls
+                  immutable: false
+              blockPublicPolicy:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-publicaccessblockconfiguration.html#cfn-s3-bucket-publicaccessblockconfiguration-blockpublicpolicy
+                type: boolean
+                customAttributes:
+                  template: BlockPublicPolicy
+                  immutable: false
+              ignorePublicAcls:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-publicaccessblockconfiguration.html#cfn-s3-bucket-publicaccessblockconfiguration-ignorepublicacls
+                type: boolean
+                customAttributes:
+                  template: IgnorePublicAcls
+                  immutable: false
+              restrictPublicBuckets:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-publicaccessblockconfiguration.html#cfn-s3-bucket-publicaccessblockconfiguration-restrictpublicbuckets
+                type: boolean
+                customAttributes:
+                  template: RestrictPublicBuckets
+                  immutable: false
+          replicationConfiguration:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket.html#cfn-s3-bucket-replicationconfiguration
+            type: object
+            customAttributes:
+              immutable: false
+            required:
+            - role
+            - rules
+            properties:
+              role:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-replicationconfiguration.html#cfn-s3-bucket-replicationconfiguration-role
+                type: string
+                customAttributes:
+                  template: Role
+                  immutable: false
+              rules:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-replicationconfiguration.html#cfn-s3-bucket-replicationconfiguration-rules
+                type: array
+                customAttributes:
+                  template: Rules
+                  immutable: false
+                items:
+                  type: object
+                  properties:
+                    destination:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-replicationconfiguration-rules.html#cfn-s3-bucket-replicationconfiguration-rules-destination
+                      type: object
+                      customAttributes:
+                        immutable: false
+                      required:
+                      - bucket
+                      properties:
+                        accessControlTranslation:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-replicationconfiguration-rules-destination.html#cfn-s3-bucket-replicationdestination-accesscontroltranslation
+                          type: object
+                          customAttributes:
+                            immutable: false
+                          required:
+                          - owner
+                          properties:
+                            owner:
+                              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-accesscontroltranslation.html#cfn-s3-bucket-accesscontroltranslation-owner
+                              type: string
+                              customAttributes:
+                                template: Owner
+                                immutable: false
+                        account:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-replicationconfiguration-rules-destination.html#cfn-s3-bucket-replicationdestination-account
+                          type: string
+                          customAttributes:
+                            template: Account
+                            immutable: false
+                        bucket:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-replicationconfiguration-rules-destination.html#cfn-s3-bucket-replicationconfiguration-rules-destination-bucket
+                          type: string
+                          customAttributes:
+                            template: Bucket
+                            immutable: false
+                        encryptionConfiguration:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-replicationconfiguration-rules-destination.html#cfn-s3-bucket-replicationdestination-encryptionconfiguration
+                          type: object
+                          customAttributes:
+                            immutable: false
+                          required:
+                          - replicaKmsKeyID
+                          properties:
+                            replicaKmsKeyID:
+                              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-encryptionconfiguration.html#cfn-s3-bucket-encryptionconfiguration-replicakmskeyid
+                              type: string
+                              customAttributes:
+                                template: ReplicaKmsKeyID
+                                immutable: false
+                        storageClass:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-replicationconfiguration-rules-destination.html#cfn-s3-bucket-replicationconfiguration-rules-destination-storageclass
+                          type: string
+                          customAttributes:
+                            template: StorageClass
+                            immutable: false
+                    id:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-replicationconfiguration-rules.html#cfn-s3-bucket-replicationconfiguration-rules-id
+                      type: string
+                      customAttributes:
+                        template: Id
+                        immutable: false
+                    prefix:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-replicationconfiguration-rules.html#cfn-s3-bucket-replicationconfiguration-rules-prefix
+                      type: string
+                      customAttributes:
+                        template: Prefix
+                        immutable: false
+                    sourceSelectionCriteria:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-replicationconfiguration-rules.html#cfn-s3-bucket-replicationrule-sourceselectioncriteria
+                      type: object
+                      customAttributes:
+                        immutable: false
+                      required:
+                      - sseKmsEncryptedObjects
+                      properties:
+                        sseKmsEncryptedObjects:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-sourceselectioncriteria.html#cfn-s3-bucket-sourceselectioncriteria-ssekmsencryptedobjects
+                          type: object
+                          customAttributes:
+                            immutable: false
+                          required:
+                          - status
+                          properties:
+                            status:
+                              description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-ssekmsencryptedobjects.html#cfn-s3-bucket-ssekmsencryptedobjects-status
+                              type: string
+                              customAttributes:
+                                template: Status
+                                immutable: false
+                    status:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-replicationconfiguration-rules.html#cfn-s3-bucket-replicationconfiguration-rules-status
+                      type: string
+                      customAttributes:
+                        template: Status
+                        immutable: false
+          tags:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket.html#cfn-s3-bucket-tags
+            type: array
+            customAttributes:
+              template: Tags
+              immutable: false
+            items:
+              type: object
+              properties:
+                key:
+                  description: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-resource-tags.html#cfn-resource-tags-key
+                  type: string
+                  customAttributes:
+                    template: Key
+                    immutable: false
+                value:
+                  description: https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-resource-tags.html#cfn-resource-tags-value
+                  type: string
+                  customAttributes:
+                    template: Value
+                    immutable: false
+          versioningConfiguration:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket.html#cfn-s3-bucket-versioning
+            type: object
+            customAttributes:
+              immutable: false
+            required:
+            - status
+            properties:
+              status:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket-versioningconfig.html#cfn-s3-bucket-versioningconfig-status
+                type: string
+                customAttributes:
+                  template: Status
+                  immutable: false
+                enum:
+                - Enabled
+                - Suspended
+          websiteConfiguration:
+            description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-bucket.html#cfn-s3-bucket-websiteconfiguration
+            type: object
+            customAttributes:
+              immutable: false
+            required: []
+            properties:
+              errorDocument:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-websiteconfiguration.html#cfn-s3-websiteconfiguration-errordocument
+                type: string
+                customAttributes:
+                  template: ErrorDocument
+                  immutable: false
+              indexDocument:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-websiteconfiguration.html#cfn-s3-websiteconfiguration-indexdocument
+                type: string
+                customAttributes:
+                  template: IndexDocument
+                  immutable: false
+              redirectAllRequestsTo:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-websiteconfiguration.html#cfn-s3-websiteconfiguration-redirectallrequeststo
+                type: object
+                customAttributes:
+                  immutable: false
+                required:
+                - hostName
+                properties:
+                  hostName:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-websiteconfiguration-redirectallrequeststo.html#cfn-s3-websiteconfiguration-redirectallrequeststo-hostname
+                    type: string
+                    customAttributes:
+                      template: HostName
+                      immutable: false
+                  protocol:
+                    description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-websiteconfiguration-redirectallrequeststo.html#cfn-s3-websiteconfiguration-redirectallrequeststo-protocol
+                    type: string
+                    customAttributes:
+                      template: Protocol
+                      immutable: false
+                    enum:
+                    - http
+                    - https
+              routingRules:
+                description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-websiteconfiguration.html#cfn-s3-websiteconfiguration-routingrules
+                type: array
+                customAttributes:
+                  template: RoutingRules
+                  immutable: false
+                items:
+                  type: object
+                  properties:
+                    redirectRule:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-websiteconfiguration-routingrules.html#cfn-s3-websiteconfiguration-routingrules-redirectrule
+                      type: object
+                      customAttributes:
+                        immutable: false
+                      required: []
+                      properties:
+                        hostName:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-websiteconfiguration-routingrules-redirectrule.html#cfn-s3-websiteconfiguration-redirectrule-hostname
+                          type: string
+                          customAttributes:
+                            template: HostName
+                            immutable: false
+                        httpRedirectCode:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-websiteconfiguration-routingrules-redirectrule.html#cfn-s3-websiteconfiguration-redirectrule-httpredirectcode
+                          type: string
+                          customAttributes:
+                            template: HttpRedirectCode
+                            immutable: false
+                        protocol:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-websiteconfiguration-routingrules-redirectrule.html#cfn-s3-websiteconfiguration-redirectrule-protocol
+                          type: string
+                          customAttributes:
+                            template: Protocol
+                            immutable: false
+                        replaceKeyPrefixWith:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-websiteconfiguration-routingrules-redirectrule.html#cfn-s3-websiteconfiguration-redirectrule-replacekeyprefixwith
+                          type: string
+                          customAttributes:
+                            template: ReplaceKeyPrefixWith
+                            immutable: false
+                        replaceKeyWith:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-websiteconfiguration-routingrules-redirectrule.html#cfn-s3-websiteconfiguration-redirectrule-replacekeywith
+                          type: string
+                          customAttributes:
+                            template: ReplaceKeyWith
+                            immutable: false
+                    routingRuleCondition:
+                      description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-websiteconfiguration-routingrules.html#cfn-s3-websiteconfiguration-routingrules-routingrulecondition
+                      type: object
+                      customAttributes:
+                        immutable: false
+                      required: []
+                      properties:
+                        httpErrorCodeReturnedEquals:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-websiteconfiguration-routingrules-routingrulecondition.html#cfn-s3-websiteconfiguration-routingrules-routingrulecondition-httperrorcodereturnedequals
+                          type: string
+                          customAttributes:
+                            template: HttpErrorCodeReturnedEquals
+                            immutable: false
+                        keyPrefixEquals:
+                          description: http://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-properties-s3-websiteconfiguration-routingrules-routingrulecondition.html#cfn-s3-websiteconfiguration-routingrules-routingrulecondition-keyprefixequals
+                          type: string
+                          customAttributes:
+                            template: KeyPrefixEquals
+                            immutable: false
