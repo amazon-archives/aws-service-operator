@@ -49,7 +49,7 @@ func init() {
 	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "f", "Config file (default is $HOME/.aws-operator.yaml)")
 	rootCmd.PersistentFlags().StringVarP(&masterURL, "master-url", "u", "", "The address of the Kubernetes API server. Overrides any value in kubeconfig.")
 	rootCmd.PersistentFlags().StringVarP(&kubeconfig, "kubeconfig", "k", "", "Path to local kubeconfig file (mainly used for development)")
-	rootCmd.PersistentFlags().StringVarP(&awsRegion, "region", "r", "us-west-2", "AWS Region for resources to be created in")
+	rootCmd.PersistentFlags().StringVarP(&awsRegion, "region", "r", "", "AWS Region for resources to be created in")
 	rootCmd.PersistentFlags().StringVarP(&logLevel, "loglevel", "l", "Info", "Log level for the CLI")
 	rootCmd.PersistentFlags().StringVarP(&logFile, "logfile", "", "", "Log file for the CLI")
 	rootCmd.PersistentFlags().StringVarP(&resources, "resources", "", "cloudformationtemplate,dynamodb,ecrrepository,elasticache,s3bucket,snssubscription,snstopic,sqsqueue", "Comma delimited list of CRDs to deploy")
