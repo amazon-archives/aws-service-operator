@@ -4,7 +4,7 @@ repo ?= github.com/awslab/aws-service-operator
 
 .PHONY: build
 build:
-	go build -ldflags "-X main.commit=$(commitSHA) -X main.date=$(dateStr)" ./cmd/aws-service-operator
+	CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -ldflags '-X main.commit=$(commitSHA) -X main.date=$(dateStr) -extldflags "-static"' ./cmd/aws-service-operator
 
 .PHONY: release
 release:
