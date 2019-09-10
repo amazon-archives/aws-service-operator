@@ -1,5 +1,7 @@
 = AWS Service Operator
 
+*See https://github.com/aws/containers-roadmap/issues/456 for a discussion around the future of this project*
+
 The AWS Service Operator allows you to manage AWS resources using
 Kubernetes Custom Resource Definitions.
 
