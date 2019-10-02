@@ -89,11 +89,13 @@ func GetCloudFormationTemplate(config config.Config, rType string, name string, 
 	logger := config.Logger
 	clientSet, _ := awsclient.NewForConfig(config.RESTConfig)
 
-	var cName string
-	var cNamespace string
+	cName := name
+	cNamespace := namespace
+
 	if name == "" {
 		cName = rType
 	}
+
 	if namespace == "" {
 		cNamespace = config.DefaultNamespace
 	}
