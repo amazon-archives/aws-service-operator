@@ -37,6 +37,10 @@ func (c *FakeServiceoperatorV1alpha1) ECRRepositories(namespace string) v1alpha1
 	return &FakeECRRepositories{c, namespace}
 }
 
+func (c *FakeServiceoperatorV1alpha1) EKSNodeGroups(namespace string) v1alpha1.EKSNodeGroupInterface {
+	return &FakeEKSNodeGroups{c, namespace}
+}
+
 func (c *FakeServiceoperatorV1alpha1) ElastiCaches(namespace string) v1alpha1.ElastiCacheInterface {
 	return &FakeElastiCaches{c, namespace}
 }

@@ -52,7 +52,7 @@ func init() {
 	rootCmd.PersistentFlags().StringVarP(&awsRegion, "region", "r", "us-west-2", "AWS Region for resources to be created in")
 	rootCmd.PersistentFlags().StringVarP(&logLevel, "loglevel", "l", "Info", "Log level for the CLI")
 	rootCmd.PersistentFlags().StringVarP(&logFile, "logfile", "", "", "Log file for the CLI")
-	rootCmd.PersistentFlags().StringVarP(&resources, "resources", "", "cloudformationtemplate,dynamodb,ecrrepository,elasticache,s3bucket,snssubscription,snstopic,sqsqueue", "Comma delimited list of CRDs to deploy")
+	rootCmd.PersistentFlags().StringVarP(&resources, "resources", "", "cloudformationtemplate,dynamodb,ecrrepository,elasticache,s3bucket,snssubscription,snstopic,sqsqueue,eksnodegroup", "Comma delimited list of CRDs to deploy")
 	rootCmd.PersistentFlags().StringVarP(&clusterName, "cluster-name", "i", "aws-operator", "Cluster name for the Application to run as, used to label the Cloudformation templated to avoid conflict")
 	rootCmd.PersistentFlags().StringVarP(&bucket, "bucket", "b", "aws-operator", "To configure the operator you need a base bucket to contain the resources")
 	rootCmd.PersistentFlags().StringVarP(&accountID, "account-id", "a", "", "AWS Account ID, this is used to configure outputs and operate on the proper account.")

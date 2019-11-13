@@ -27,6 +27,8 @@ type Interface interface {
 	DynamoDBs() DynamoDBInformer
 	// ECRRepositories returns a ECRRepositoryInformer.
 	ECRRepositories() ECRRepositoryInformer
+	// EKSNodeGroups returns a EKSNodeGroupInformer.
+	EKSNodeGroups() EKSNodeGroupInformer
 	// ElastiCaches returns a ElastiCacheInformer.
 	ElastiCaches() ElastiCacheInformer
 	// S3Buckets returns a S3BucketInformer.
@@ -63,6 +65,11 @@ func (v *version) DynamoDBs() DynamoDBInformer {
 // ECRRepositories returns a ECRRepositoryInformer.
 func (v *version) ECRRepositories() ECRRepositoryInformer {
 	return &eCRRepositoryInformer{factory: v.factory, namespace: v.namespace, tweakListOptions: v.tweakListOptions}
+}
+
+// EKSNodeGroups returns a EKSNodeGroupInformer.
+func (v *version) EKSNodeGroups() EKSNodeGroupInformer {
+	return &eKSNodeGroupInformer{factory: v.factory, namespace: v.namespace, tweakListOptions: v.tweakListOptions}
 }
 
 // ElastiCaches returns a ElastiCacheInformer.

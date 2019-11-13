@@ -18,6 +18,7 @@ func New() Helpers {
 		GetCloudFormationTemplateByName: GetCloudFormationTemplateByName,
 		GetDynamoDBByName:               GetDynamoDBByName,
 		GetECRRepositoryByName:          GetECRRepositoryByName,
+		GetEKSNodeGroupByName:           GetEKSNodeGroupByName,
 		GetElastiCacheByName:            GetElastiCacheByName,
 		GetS3BucketByName:               GetS3BucketByName,
 		GetSNSSubscriptionByName:        GetSNSSubscriptionByName,
@@ -32,6 +33,7 @@ type Helpers struct {
 	GetCloudFormationTemplateByName func(config.Config, string, string) (interface{}, error)
 	GetDynamoDBByName               func(config.Config, string, string) (interface{}, error)
 	GetECRRepositoryByName          func(config.Config, string, string) (interface{}, error)
+	GetEKSNodeGroupByName           func(config.Config, string, string) (interface{}, error)
 	GetElastiCacheByName            func(config.Config, string, string) (interface{}, error)
 	GetS3BucketByName               func(config.Config, string, string) (interface{}, error)
 	GetSNSSubscriptionByName        func(config.Config, string, string) (interface{}, error)
@@ -70,6 +72,19 @@ func GetECRRepositoryByName(config config.Config, name string, namespace string)
 	logger := config.Logger
 	clientSet, _ := awsclient.NewForConfig(config.RESTConfig)
 	resource, err := clientSet.ECRRepositories(namespace).Get(name, metav1.GetOptions{})
+	if err != nil {
+		logger.WithError(err).Error("error getting sns topic")
+		return "", err
+	}
+
+	return resource, nil
+}
+
+// GetEKSNodeGroupByName will find the resource by name
+func GetEKSNodeGroupByName(config config.Config, name string, namespace string) (interface{}, error) {
+	logger := config.Logger
+	clientSet, _ := awsclient.NewForConfig(config.RESTConfig)
+	resource, err := clientSet.EKSNodeGroups(namespace).Get(name, metav1.GetOptions{})
 	if err != nil {
 		logger.WithError(err).Error("error getting sns topic")
 		return "", err

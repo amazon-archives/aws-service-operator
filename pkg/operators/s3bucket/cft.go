@@ -74,6 +74,9 @@ func (s *Cloudformation) CreateStack() (output *cloudformation.CreateStackOutput
 		NotificationARNs: []*string{
 			aws.String(s.topicARN),
 		},
+		Capabilities: []*string{
+			aws.String("CAPABILITY_IAM"),
+		},
 	}
 
 	resourceName := helpers.CreateParam("ResourceName", s.S3Bucket.Name)
@@ -169,6 +172,9 @@ func (s *Cloudformation) UpdateStack(updated *awsV1alpha1.S3Bucket) (output *clo
 		TemplateURL: aws.String(cftemplate),
 		NotificationARNs: []*string{
 			aws.String(s.topicARN),
+		},
+		Capabilities: []*string{
+			aws.String("CAPABILITY_IAM"),
 		},
 	}
 
